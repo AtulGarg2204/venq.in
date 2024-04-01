@@ -1,0 +1,99 @@
+.subtext {
+  text-decoration: none;
+  color: #48a3fd;
+  font-weight: 800;
+}
+
+.imageLogo {
+  text-align: center;
+  padding: 6%;
+}
+.terms {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0px 30px;
+  width: 100%;
+}
+.form label {
+  font-size: 20px;
+  font-family: "Inter";
+  font-weight: 600;
+}
+.form input {
+  font-size: 18px;
+  font-family: "Inter";
+  font-weight: 500;
+  padding: 10px;
+  margin: 15px 0px 0px 0px;
+  outline: none;
+  width: 85%;
+  border-radius: 10px;
+  border: 1px solid grey;
+}
+.form input:focus-within {
+  border: 1px solid #0170dc;
+}
+.form button {
+  width: 88%;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: #0170dc;
+  color: white;
+  font-size: 22px;
+  font-family: "Inter";
+  margin: 20px 0px;
+  padding: 10px;
+}
+.email {
+  width: 100%;
+  margin: 10px 0;
+  display: block;
+}
+.password {
+  margin: 10px 0;
+  width: 100%;
+}
+
+/* .login-details {
+  width: 10%;
+} */
+
+/* Add these styles at the end of your existing CSS file */
+
+/* Responsive styling for small screens */
+@media only screen and (max-width: 600px) {
+  .container {
+    /* margin-top: 30%;  */
+  }
+
+  .form input {
+    padding: 10px;
+    margin: 15px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    width: 75%;
+  }
+
+  .imageLogo img {
+    width: 70%; /* Adjust as needed */
+  }
+
+  .form button {
+    width: 85%;
+    margin-bottom: 0px;
+  }
+
+  .form {
+    padding: 20px;
+  }
+  .terms {
+    margin-top: 0px;
+  }
+}

@@ -1,0 +1,120 @@
+.faq-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 100px 150px; /* Adjust padding for the heading */
+}
+
+.faq-heading {
+  flex: 1;
+  margin-right: 20px;
+  font-family: "Saira Condensed", sans-serif;
+  letter-spacing: 2px;
+  font-size: 50px;
+  margin-top: 150px;
+  margin-bottom: 0px;
+  margin-left: 3%; /* Decrease the margin between heading and paragraph */
+}
+
+.faq-paragraph {
+  flex: 1;
+  font-family: "Saira Condensed";
+  margin-left: 3%;
+}
+
+.right-section {
+  flex: 1;
+  margin-left: 50px; /* Increase the margin to create more gap */
+}
+
+.faq-item {
+  font-family: "Saira Condensed";
+  margin-bottom: 10px; /* Decrease the margin between each dropdown */
+  overflow: hidden;
+}
+
+.dropdown-button {
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #000; /* Change the color to black */
+  border: none;
+  width: calc(100% - 20px); /* Adjust the width of each dropdown */
+  text-align: left;
+  transition: background-color 0.3s ease;
+  font-size: 18px; /* Increase the font-size */
+  font-family: "Saira Condensed", sans-serif;
+  letter-spacing: 2px; /* Increase the letter spacing */
+  font-weight: 400; /* Increase the font weight */
+}
+
+.dropdown-button::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+}
+
+.dropdown-content {
+  padding: 6px;
+  background-color: #fff;
+  border: none; /* Remove the border */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.faq-item.open .dropdown-content {
+  max-height: 200px;
+}
+
+.dropdown-button:hover {
+  background-color: transparent;
+  color: #2980b9;
+}
+
+/* Add a horizontal line after each dropdown */
+.faq-item:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+@media (max-width: 600px) {
+  .faq-section {
+    flex-direction: column;
+    height: 650px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .right-section {
+    margin-left: 0;
+  }
+  .left-section{
+    /* height: 220px; */
+    margin-top: -200px;
+    margin-bottom: 50px;
+    /* background-color: red;  */
+  }
+
+  .faq-heading {
+    flex: 1;
+    margin-right: 20px;
+    font-family: "Saira Condensed", sans-serif;
+    letter-spacing: 2px;
+    font-size: 50px;
+    /* margin-top: 425px; */
+    margin-bottom: 0px; /* Decrease the margin between heading and paragraph */
+  }
+
+  /* Add any additional styles for small screens */
+}

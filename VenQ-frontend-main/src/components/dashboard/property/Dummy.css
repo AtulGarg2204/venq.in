@@ -1,0 +1,27 @@
+/* App.css */
+
+.editable {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .editable-content {
+    margin-bottom: 10px;
+  }
+  
+  .edit-mode {
+    border: 1px solid blue;
+  }
+  
+  .edit-btn,
+  .save-btn {
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  

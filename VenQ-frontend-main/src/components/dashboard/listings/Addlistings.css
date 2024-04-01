@@ -1,0 +1,8 @@
+.myform{
+   height: '1200px'
+}
+.footer{
+    margin-left: 270px;
+    flex-direction: row;
+    justify-content: space-between;
+}

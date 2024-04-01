@@ -1,0 +1,157 @@
+bhkInAspen {
+    position: relative;
+    line-height: 21px;
+  }
+  .depth10Frame0,
+  .depth9Frame0 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .depth9Frame0 {
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-5xs) var(--padding-base);
+    color: var(--color-gray);
+  }
+  .aspn1 {
+    align-self: stretch;
+    position: relative;
+    line-height: 21px;
+  }
+  depth10Frame01,
+  .depth9Frame1 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .depth9Frame1 {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-5xs) var(--padding-base);
+  }
+  .actionsDepthFrame {
+    align-self: stretch;
+    position: relative;
+    line-height: 21px;
+  }
+  .depth10Frame02,
+  .depth9Frame2 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .depth9Frame2 {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-5xs) var(--padding-base);
+  }
+  .propertyManagementList {
+    align-self: stretch;
+    position: relative;
+    line-height: 21px;
+    white-space: nowrap;
+  }
+  depth10Frame03,
+  .depth9Frame3 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .depth9Frame3 {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-5xs) var(--padding-base);
+  }
+  .active {
+    position: relative;
+    font-size: var(--font-size-sm);
+    line-height: 21px;
+    font-weight: 500;
+    font-family: var(--font-work-sans);
+    color: var(--color-gray);
+    text-align: left;
+  }
+  .depth11Frame0,
+  .depth12Frame0 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  depth11Frame0 {
+    background-color: var(--color-whitesmoke);
+    overflow: hidden;
+  }
+  .depth10Frame04,
+  .depth9Frame4 {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .depth10Frame04 {
+    cursor: pointer;
+    border: 0;
+    padding: 0 var(--padding-base);
+    background-color: var(--color-whitesmoke);
+    height: 32px;
+    border-radius: var(--br-xs);
+    overflow: hidden;
+    flex-shrink: 0;
+    flex-direction: row;
+  }
+  .depth9Frame4 {
+    width: 140.9px;
+    flex-direction: column;
+    padding: var(--padding-5xs) var(--padding-base);
+  }
+  .viewDetails {
+    align-self: stretch;
+    height: 42px;
+    position: relative;
+    letter-spacing: 0.21px;
+    line-height: 21px;
+    display: inline-block;
+  }
+  .depth10Frame05 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .depth8Frame0,
+  .depth9Frame5 {
+    box-sizing: border-box;
+    display: flex;
+  }
+  .depth9Frame5 {
+    align-self: stretch;
+    width: 114.8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-5xs) var(--padding-base);
+  }
+  .depth8Frame0 {
+    width: 887px;
+    flex: 1;
+    border-top: 1px solid var(--color-gainsboro-100);
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align:left
+  }            

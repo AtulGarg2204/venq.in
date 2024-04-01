@@ -1,0 +1,286 @@
+.income-main {
+  padding-inline-start: 36px;
+  padding-inline-end: 40px;
+  height: 135vh;
+  width: 100%;
+  background-color: #f6f7f9;
+  font-family: "Inter";
+}
+
+.income-section {
+  padding-inline-start: 36px;
+  padding-inline-end: 48px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: "Inter";
+
+}
+
+.income-up-div {
+  margin-bottom: 20px;
+  font-family: sans-serif;
+  font-family: "Inter";
+
+}
+
+.income-up-div h2 {
+  /* margin-top: 20px; */
+  height: 35px;
+  font-size: 60px;
+  color: #333;
+  font-family: "Bebas Neue";
+  font-weight: 100;
+}
+
+.income-up-div p {
+  text-align: start;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Saira Condensed";
+
+}
+
+.income-bottom-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  /* padding: 20px; */
+  font-family: "Inter";
+
+}
+
+.income-small-card,
+.income-big-card {
+  border-radius: 5px;
+  font-family: "Inter";
+
+}
+.income-small-card1,
+.income-big-card {
+  border-radius: 5px;
+  font-family: "Inter";
+
+}
+.income-small-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 300px;
+  /* margin-right: 80px; */
+  height: 250px;
+  box-shadow: 0px 10px 20px 2px rgba(198, 198, 198, 1.5);
+  border: 1px rgba(198, 198, 198, 0.3);
+  margin: 10% 20px;
+  border-radius: 10px;
+  text-align: left;
+  font-family: "Inter";
+
+}
+.income-small-card1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 275px;
+  /* margin-right: 80px; */
+  height: 250px;
+  box-shadow: 0px 10px 20px 2px rgba(198, 198, 198, 1.5);
+  border: 1px rgba(198, 198, 198, 0.3);
+  margin:20px;
+  border-radius: 10px;
+  text-align: left;
+  font-family: "Inter";
+
+}
+
+.income-small-card img {
+  height: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 20px;
+  font-family: "Inter";
+
+}
+.income-small-card1 img {
+  height: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 20px;
+  font-family: "Inter";
+
+}
+
+.income-small-card h1 {
+  font-size: 25px;
+  margin: 10px 0 5px 15px;
+  width: 80%;
+  font-family: sans-serif;
+  font-family: "Inter";
+
+}
+.income-small-card1 h1 {
+  font-size: 25px;
+  margin: 10px 0 5px 15px;
+  width: 80%;
+  font-family: sans-serif;
+  font-family: "Inter";
+
+}
+
+.income-small-card p {
+  font-size: 14px;
+  margin: 10px 15px 10px;
+  font-family: "Inter";
+
+}
+.income-small-card1 p {
+  font-size: 14px;
+  margin: 10px 15px 10px;
+  font-family: "Inter";
+
+}
+.income-big-card {
+  width: 420px;
+  height: 540px;
+  margin: 0px 0px 0px 20px;
+  border-radius: 10px;
+  font-family: "Inter";
+
+}
+
+.RentedBox {
+  position: absolute;
+  background-color: #7caccaf5;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  width: 100px;
+  font-size: 20px;
+  left: 34.5%;
+  z-index: 3;
+  border: 2px solid #4393c6;
+  height: 30px;
+  padding-bottom: 10px;
+  font-family: "Inter";
+
+}
+
+.RentedBox p {
+  margin-left: 25px;
+  margin-top: 35px;
+  font-weight: 800;
+  font-size: 25px;
+  font-family: "Inter";
+  
+}
+.midbox{
+  margin-left: 48px;
+}
+.bigImg {
+  object-fit: contain;
+  width: 420px;
+  height: 540px;
+  box-shadow: 0px 10px 20px 2px rgba(198, 198, 198, 0.3);
+  border-radius: 10px;
+  position: relative;
+  font-family: "Inter";
+
+}
+
+.image-svg-1 {
+  font-family: "Inter";
+
+  height: 50px;
+  width: 50px;
+}
+
+.image-svg-2 {
+  font-family: "Inter";
+
+  height: 70px;
+  width: 70px;
+}
+
+@media (max-width: 600px) {
+  .income-section {
+  font-family: "Inter";
+
+    padding: 15px;
+    /* height: 100px; */
+  }
+  .swiper-wrapper{
+    gap: 12px;
+  }
+  .income-up-div {
+  font-family: "Inter";
+
+    margin-bottom: 20px;
+    /* text-align: left; */
+  }
+
+  .income-bottom-div-small {
+  font-family: "Inter";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .income-big-card,
+  .income-small-card {
+  font-family: "Inter";
+
+    width: 100%;
+    margin: 3% 8%;
+  }
+  .income-big-card,
+  .income-small-card1 {
+  font-family: "Inter";
+
+    width: 100%;
+    margin: 3% 8%;
+  }
+
+  .second {
+  font-family: "Inter";
+
+
+
+
+    margin-bottom: 7%;
+  }
+
+  .income-main {
+  font-family: "Inter";
+
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
+    height: auto;
+    /* width: 100%; */
+    background-color: #f6f7f9;
+  }
+
+  .income-bottom-div {
+  font-family: "Inter";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 90%;
+    /* padding: 20px; */
+  }
+
+  .income-up-div h2 {
+    font-size:2.5rem;
+    color: #333;
+    font-family: "Bebas Neue";
+    font-weight: 100;
+  }
+}

@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Saira:wght@300;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gilroy:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@font-face {
+  font-family: 'Gilroy-Bold';
+  src: local('Gilroy-Bold'), url(./fonts/Gilroy-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Medium';
+  src: local('Gilroy-Medium'), url(./fonts/Gilroy-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy-Light';
+  src: local('Gilroy-Light'), url(./fonts/Gilroy-Light.ttf) format('truetype');
+}
+
+
+
+
+
+body {
+  margin: 0;
+  overflow-y: scroll;
+  scrollbar-width: 0;
+  scrollbar-color: transparent transparent; /* Hide scrollbar on Firefox */
+  background-color: transparent;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+body::-webkit-scrollbar {
+  width: 0px; /* Adjust the width of the scrollbar */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Hide scrollbar thumb */
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent; /* Hide scrollbar track */
+}
+:root {
+  /* fonts */
+  --font-bebas-neue: "Bebas Neue";
+  --font-saira-condensed: "Saira Condensed";
+  --font-gilroy: Gilroy;
+  --font-inter: Inter;
+  --font-saira: Saira;
+
+  /* font sizes */
+  --font-size-61xl: 80px;
+  --font-size-41xl: 60px;
+  --font-size-45xl: 64px;
+  --font-size-3xl: 22px;
+  --font-size-21xl: 40px;
+  --font-size-xl: 20px;
+  --font-size-13xl: 32px;
+  --font-size-4xl: 23px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-whitesmoke-100: #f0eded;
+  --color-gainsboro: #d9d9d9;
+  --color-gray-100: rgba(255, 255, 255, 0.38);
+  --color-darkslategray: #30475e;
+  --color-darkslategray-100: #353535;
+  --color-steelblue-100: #4393c6;
+  --color-steelblue-200: #164d74;
+
+  /* Border radiuses */
+  --br-3xs: 10px;
+  --br-5xs: 8px;
+}

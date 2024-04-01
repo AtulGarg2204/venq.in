@@ -1,0 +1,183 @@
+/* Services.css */
+
+.custom-services-section {
+  display: flex;
+  background-color: #f6f7f9;
+  position: relative; /* Add position relative to establish stacking context */
+  z-index: 1; /* Set a z-index value for the custom-services-section */
+}
+
+.custom-services-left-div {
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px; /* Increase the gap between cards */
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+.custom-services-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin-left: 16px;
+  margin-right: 16px;
+  padding: 20px;
+  text-align: center;
+  width: 250px; /* Adjust the width of each card */
+  height: 225px; /* Adjust the height of each card */
+  border-radius: 5px; /* Adjust the border-radius */
+  margin-bottom: 20px; /* Add margin between cards */
+  background-color: white;
+}
+
+/* Adjust the position of Card 1 and Card 3 */
+.card1,
+.card3 {
+  margin-top: 50px;
+  margin-left: 20px; /* Adjust the margin-left for Card 3 */
+}
+.card-image {
+  width: 60px; /* Increase the width of the image */
+  margin-right: 20px; /* Adjust the margin to separate the image from text */
+  align-self: flex-start; /* Align the image to the left within the flex container */
+}
+
+.card-details {
+  flex-grow: 1; 
+  height: 100%;/* Allow the text to grow and take remaining space */
+  text-align: left; /* Align text to the left */
+}
+
+.card-title {
+  font-family: "Bebas Neue"; /* Set the font-family */
+  letter-spacing: 1px;
+}
+
+.outlined-icon {
+  width: 100px; /* Adjust the width of the outlined icon */
+  height: 100px; /* Adjust the height of the outlined icon */
+  border: 2px solid #000; /* Set the color of the outline */
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.custom-services-right-div {
+  width: 50%; /* Adjust the width as needed */
+  /* margin-left: 20px; Adjust margin as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+/* Additional styling for title and paragraph if required */
+.custom-services-title {
+  font-size: 60px;
+  color: #333;
+  font-family: "Bebas Neue";
+  margin-bottom: 10px;
+  width: 50px; /* Make the title occupy the whole width */
+  padding-left: 100px;
+  overflow-x:hidden;
+  /* font-family: "Bebas Neue"; */
+  /* letter-spacing: 2px; Adjust letter spacing */
+  line-height: 1.2; /* Adjust line height */
+  font-weight: 100;
+}
+
+.custom-services-paragraph {
+  font-size: 18px;
+  line-height: 1.8; /* Adjust line height */
+  width: 100%; /* Make the paragraph occupy the whole width */
+  text-align: left;
+  font-family: 'Saira Condensed';
+  letter-spacing: 1px; /* Adjust letter spacing */
+}
+.largescreenpara{
+  font-size: 20px;
+  font-weight: 500;
+  width: 70%; /* Make the paragraph occupy the whole width */
+  text-align: left;
+  font-family: 'Saira Condensed';
+}
+
+
+.rotated {
+  height: 200px;
+  background-color: #f6f7f9;
+  transform: rotate(-5deg);
+  position: relative; /* Set position to relative */
+  top: -50px; /* Adjust the top position as needed */
+  margin-top: -50px; /* Adjust the negative margin-top to reveal a part of the rotated div */
+  z-index: 0; /* Set a lower z-index value for the rotated div */
+}
+
+/* Services.css */
+/* ... (existing styles) */
+
+@media screen and (max-width: 600px) {
+  .rotated {
+    transform: none;
+  }
+  /* ... (existing styles) */
+
+  .custom-services-section.small-screen {
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    height: 45vh;
+  }
+  
+
+  .custom-services-left-div {
+    width: 100%;
+    margin: 10px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    background-color: #f6f7f9;
+  }
+
+  .custom-services-right-div {
+    width: 100%;
+    align-items: center;
+  }
+
+  .custom-services-title.small-screen-title {
+    font-size: 60px;
+  color: #333;
+  font-family: "Bebas Neue";
+  font-weight: 100;
+    text-align: center;
+  }
+
+  .custom-services-paragraph.small-screen-paragraph {
+    font-size: 20px; /* Adjust font size for mobile view */
+    text-align: center;
+    font-family: 'Saira Condensed';
+  }
+  .smallscreenpara{
+    font-size: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 500;/* Adjust font size for mobile view */
+    text-align: center;
+    font-family: 'Saira Condensed';
+  }
+
+  .custom-services-card.small-screen-card {
+    width: 90%;
+    margin-left: -5px;
+    height: 250px;
+  }
+
+  .card1,
+  .card3 {
+    margin-top: 0px;
+    margin-left: 20px;
+  }
+
+  /* ... (additional styles for small screens) */
+}

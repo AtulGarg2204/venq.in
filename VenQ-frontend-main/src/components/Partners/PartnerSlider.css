@@ -1,0 +1,140 @@
+/* Add your styles as needed */
+
+.partnerMain {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -40px;
+}
+.partnerbox{
+  display: flex;
+  flex-direction: column;
+  background-color: greenyellow;
+}
+
+.partners-container {
+  display: flex;
+  flex-direction: column; /* Align items from the top */
+  /* margin-left: 4.5rem; */
+  width: 100%;
+}
+
+.partners-text {
+  flex: 0 0 25%;
+  padding: 10px 10px 0;
+  align-self:center;
+  text-align: center;
+  margin-top: 0;
+}
+
+.partners-heading {
+  font-size: 60px;
+  color: #333;
+  font-family: "Bebas Neue";
+  font-weight: 100;
+}
+
+.slider-container {
+  flex: 1;
+  overflow: hidden;
+  padding-left: 10%;
+  padding-right: 10%;
+ 
+}
+
+.partner {
+  max-width: 150px;
+  padding: 15px 30px;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin: 10px;
+  text-align: center;
+  background-color: #f0edede0;
+}
+.partner:hover {
+  translate: scale(2);
+  background-color: #f0eded79;
+}
+
+/* Default styling */
+.slick-slider {
+  margin-bottom: 10%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 2%;
+}
+.slick-track{
+  height:60px;
+}
+
+.slick-slide {
+  margin: 0 2px;
+}
+
+.slick-dots {
+  margin-bottom: 8%; /* Adjust the value as needed */
+}
+
+.slick-slide > div {
+  margin: 0 10px;
+  height: auto;
+  width: 200px;
+  align-items: center;
+}
+
+.partner-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  .partnerMain {
+    margin-bottom: -30px;
+  }
+
+  .partners-text {
+    flex: 0 0 20%;
+    padding: 0 10px 0;
+    text-align: left;
+  }
+
+  .partners-heading {
+    font-size: 2.5rem;
+    font-weight: 70;
+    margin-top: 20%;
+  }
+
+  .partner {
+    max-width: 100px;
+    padding: 0 10px;
+
+    margin: 0;
+  }
+  .slick-track{
+    height: 30px;
+  }
+  .slider-container {
+    margin-right: 10px;
+  }
+  .slick-slider {
+    margin-bottom: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 2%;
+  }
+
+  .slick-slide {
+    margin: 0 5px;
+  }
+
+  .slick-dots {
+    margin-bottom: 19%; /* Adjust the value as needed */
+  }
+
+  .slick-slide > div {
+    margin: 0 5px;
+    height: auto;
+    width: 100px;
+    align-items: center;
+  }
+}
