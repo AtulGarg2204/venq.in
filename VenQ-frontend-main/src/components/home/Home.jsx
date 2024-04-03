@@ -352,7 +352,6 @@ const Home = () => {
 
             <img
               style={{
-                position: "absolute",
                 bottom: "20px",
               }}
               height={300}

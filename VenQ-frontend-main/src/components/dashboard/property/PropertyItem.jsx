@@ -17,19 +17,19 @@ import {
   CardContent,
   CardMedia,
   useMediaQuery,
-  TextField
+  TextField,
 } from "@mui/material";
-import PropTypes from 'prop-types';
-import {  alpha} from '@mui/system';
-import { Slider as BaseSlider, sliderClasses } from '@mui/base/Slider';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import PropTypes from "prop-types";
+import { alpha } from "@mui/system";
+import { Slider as BaseSlider, sliderClasses } from "@mui/base/Slider";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 import { ToastContainer, toast } from "react-toastify";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import Popup from 'reactjs-popup';
+import Popup from "reactjs-popup";
 import jwtDecode from "jwt-decode";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -49,27 +49,28 @@ import { useNavigate } from "react-router-dom";
 import config from "../../../config";
 // import Slider from "react-slick";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
-import ShowInterest from './ShowInterest'
+import ShowInterest from "./ShowInterest";
 // import { toast } from "react-toastify";
-
+import clock from "./clock.png";
+import ProgressBar from "@ramonak/react-progress-bar";
 const Options = styled(Link)`
-padding: 10px;
-display: flex;
-align-items: center;
-font-size: 16px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
   border-radius: 10px;
   margin-bottom: 10px;
   text-decoration: none;
   background-color: ${({ selected }) =>
-  selected ? "#cbe5ffb9" : "transparent"};
+    selected ? "#cbe5ffb9" : "transparent"};
   color: ${({ selected }) => (selected ? "black" : "rgb(112,111,111)")};
   &:hover {
     background-color: ${({ selected }) =>
-    selected ? "#cbe5ffb9" : "#cbe5ffb9"};
+      selected ? "#cbe5ffb9" : "#cbe5ffb9"};
     color: black;
   }
-  `;
-  const StyledPopup = styled(Popup)`
+`;
+const StyledPopup = styled(Popup)`
   &-overlay {
     height: 50%;
     width: 30%;
@@ -91,7 +92,7 @@ font-size: 16px;
     color: white;
   }
 `;
-  const StyledPopupinv = styled(Popup)`
+const StyledPopupinv = styled(Popup)`
   &-overlay {
     height: 435px;
     width: 30%;
@@ -114,101 +115,101 @@ font-size: 16px;
   }
 `;
 const StyledPopupinvSmall = styled(Popup)`
-&-overlay {
-  height: 460px;
-  width: 30%;
-  margin-left: 33%;
-  margin-top: 5%;
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(5px);
-  border: 1px solid #e9e9eb;
-  border-radius: 10px;
+  &-overlay {
+    height: 460px;
+    width: 30%;
+    margin-left: 33%;
+    margin-top: 5%;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    border: 1px solid #e9e9eb;
+    border-radius: 10px;
 
-  @media (max-width: 600px) {
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 25%;
+    @media (max-width: 600px) {
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 25%;
+    }
   }
-}
 
-&-content {
-  color: white;
-}
+  &-content {
+    color: white;
+  }
 `;
 const Label = styled(Box)`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px 0px;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0px;
+`;
 const LabelName = styled(Typography)`
-font-family: 'Inter';
-font-size: 18px;
-color: black;
-`
+  font-family: "Inter";
+  font-size: 18px;
+  color: black;
+`;
 const LabelAmount = styled(Typography)`
-text-align:'center';
-font-family: 'Inter';
-align-items: center;
-font-size: 32px;
-font-weight: 600;
-color:black;
-`
-const LabelSlider = styled('input')`
-width: 100%;
-cursor: pointer;
-background-color: #0170dc;
-border-radius: 10px;
-height: 10px;
-`
+  text-align: "center";
+  font-family: "Inter";
+  align-items: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: black;
+`;
+const LabelSlider = styled("input")`
+  width: 100%;
+  cursor: pointer;
+  background-color: #0170dc;
+  border-radius: 10px;
+  height: 10px;
+`;
 
 const HelpIcon = styled(ChatBubbleOutlineRoundedIcon)`
-font-size: 25px;
-margin-right: 10px;
-color: ${({ selected }) => (selected ? "#0170dc" : "")};
+  font-size: 25px;
+  margin-right: 10px;
+  color: ${({ selected }) => (selected ? "#0170dc" : "")};
 `;
 
 const Heading = styled(Typography)`
-text-decoration: none;
-font-family: Inter;
-font-size: 18px;
+  text-decoration: none;
+  font-family: Inter;
+  font-size: 18px;
 `;
 const arrow = ">";
 const PropertyLink = styled(Link)`
-text-decoration: none;
-color: black;
-margin-right: 10px;
-font-weight: 600;
-&:hover {
-  text-decoration: underline;
-}
+  text-decoration: none;
+  color: black;
+  margin-right: 10px;
+  font-weight: 600;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 const Bookmark = styled(Button)`
-text-transform: none;
-color: black;
-border: 2px solid black;
-background-color: white;
-padding: 10px 20px;
-border-radius: 10px;
-&:hover {
-  color: white;
-  background-color: #0170dc;
-  border: 2px solid #0170dc;
-}
-&:hover path {
-  color: white;
-}
+  text-transform: none;
+  color: black;
+  border: 2px solid black;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  &:hover {
+    color: white;
+    background-color: #0170dc;
+    border: 2px solid #0170dc;
+  }
+  &:hover path {
+    color: white;
+  }
 `;
 const Extra = styled(Typography)`
-font-family: "Inter";
-font-size: 16px;
+  font-family: "Inter";
+  font-size: 16px;
 `;
 const PhotoLink = styled(Link)`
-color: black;
-text-decoration: none;
-&:hover {
-  color: rgb(112, 111, 111);
-}
+  color: black;
+  text-decoration: none;
+  &:hover {
+    color: rgb(112, 111, 111);
+  }
 `;
 const SmallBoxes = styled(Box)`
   display: flex;
@@ -218,17 +219,17 @@ const SmallBoxes = styled(Box)`
   &:hover {
     opacity: 0.7;
   }
-  `;
-  const Details = styled(Box)`
+`;
+const Details = styled(Box)`
   background-color: white;
   border-radius: 20px;
   padding: 20px;
-  `;
-  const Pricing = styled(Box)`
+`;
+const Pricing = styled(Box)`
   position: sticky;
   top: 20px;
-  `;
-  const CartButton = styled(Button)`
+`;
+const CartButton = styled(Button)`
   background-color: #0170dc;
   color: white;
   font-family: "Inter";
@@ -240,8 +241,8 @@ const SmallBoxes = styled(Box)`
     background-color: #0170dc;
     color: white;
   }
-  `;
-  const PriceAddButton = styled(Button)`
+`;
+const PriceAddButton = styled(Button)`
   background-color: #cbe5ffb9;
   color: black;
   font-size: 11px;
@@ -253,18 +254,18 @@ const SmallBoxes = styled(Box)`
     background-color: #0170dc;
     color: white;
   }
-  `;
-  const theme = createTheme({
-    components: {
-      MuiTooltip: {
-        styleOverrides: {
-          tooltip: {
-            fontSize: "14px",
-            fontFamily: "Inter",
-            backgroundColor: "#121c30",
-            textAlign: "center",
-          },
+`;
+const theme = createTheme({
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: "14px",
+          fontFamily: "Inter",
+          backgroundColor: "#121c30",
+          textAlign: "center",
         },
+      },
     },
   },
 });
@@ -295,50 +296,50 @@ const Logo = styled(Box)`
   height: 50px;
   padding: 4px 10px;
   margin-right: 10px;
-  `;
-  const SubTitle = styled(Typography)`
+`;
+const SubTitle = styled(Typography)`
   color: black;
   font-size: 15px;
   font-family: "Inter";
   padding: 5px;
-  `;
-  const PropertyDetails = styled(Box)`
+`;
+const PropertyDetails = styled(Box)`
   display: flex;
   padding: 15px 0;
   align-items: center;
-  `;
-  const PropertyHeading = styled(Typography)`
+`;
+const PropertyHeading = styled(Typography)`
   font-family: "Inter";
   font-weight: 600;
   font-size: 18px;
-  `;
-  const PropertyHeadingSmall = styled(Typography)`
+`;
+const PropertyHeadingSmall = styled(Typography)`
   font-family: "Inter";
   font-weight: 600;
   font-size: 16px;
-  width:80%;
+  width: 80%;
   word-wrap: break-word;
-  `;
-  const PropertySubHeading = styled(Typography)`
+`;
+const PropertySubHeading = styled(Typography)`
   font-family: "Inter";
   font-size: 16px;
   color: grey;
-  `;
-  const GraphInfo = styled(Box)`
+`;
+const GraphInfo = styled(Box)`
   display: flex;
   align-items: flex-start;
-  `;
-  const GraphHeading = styled(Typography)`
+`;
+const GraphHeading = styled(Typography)`
   font-size: 15px;
   color: grey;
   font-family: "Inter";
-  `;
-  const GraphSubHeading = styled(Typography)`
+`;
+const GraphSubHeading = styled(Typography)`
   font-size: 15px;
   font-weight: 600;
   font-family: "Inter";
-  `;
-  const MoreButton = styled(Typography)`
+`;
+const MoreButton = styled(Typography)`
   font-family: "Inter";
   color: #0170dc;
   font-size: 16px;
@@ -350,23 +351,23 @@ const Logo = styled(Box)`
     text-decoration: underline;
     background-color: white;
   }
-  `;
-  const FinanceHeading = styled(Typography)`
+`;
+const FinanceHeading = styled(Typography)`
   font-family: "Inter";
   font-size: 17px;
   font-weight: 600;
-  `;
-  const FinanceSubHeading = styled(Typography)`
+`;
+const FinanceSubHeading = styled(Typography)`
   color: grey;
   font-family: "Inter";
   font-size: 16px;
-  `;
-  const FinanceAmount = styled(Typography)`
+`;
+const FinanceAmount = styled(Typography)`
   font-family: "Inter";
   font-size: 16px;
   font-weight: 600;
-  `;
-  const LocationName = styled(Typography)`
+`;
+const LocationName = styled(Typography)`
   font-family: "Inter";
   font-size: 18px;
   font-weight: 600;
@@ -388,13 +389,13 @@ const DownloadBox = styled(Box)`
   &:hover {
     background-color: #d3d3d3;
   }
-  `;
-  const IconBox = styled(Box)`
+`;
+const IconBox = styled(Box)`
   width: 30px;
   height: 30px;
   padding: 3px;
-  `;
-  const TitleBox = styled(Box)`
+`;
+const TitleBox = styled(Box)`
   display: flex;
   padding: 15px;
   align-items: center;
@@ -403,11 +404,11 @@ const DownloadBox = styled(Box)`
     font-size: 15px;
     padding-left: 10px;
   }
-  `;
-  const DownloadIcon = styled(Box)`
+`;
+const DownloadIcon = styled(Box)`
   padding: 15px;
-  `;
-  const MessageButton = styled(Box)`
+`;
+const MessageButton = styled(Box)`
   border: 1px solid black;
   display: flex;
   width: max-content;
@@ -419,15 +420,15 @@ const DownloadBox = styled(Box)`
     background-color: #121c30;
     color: white;
   }
-  `;
-  const Property = styled(Card)`
+`;
+const Property = styled(Card)`
   background-color: white;
   border-radius: 10px;
   &:hover {
     transform: translateY(-10px);
   }
-  `;
-  const Subheader = styled(Box)`
+`;
+const Subheader = styled(Box)`
   display: flex;
   & div {
     border: 1px solid lightgray;
@@ -435,14 +436,14 @@ const DownloadBox = styled(Box)`
     margin-right: 10px;
     border-radius: 6px;
   }
-  `;
-  const PriceBox = styled(Box)`
+`;
+const PriceBox = styled(Box)`
   display: flex;
   justify-content: space-between;
   margin: 15px 0 10px 0;
   align-items: center;
-  `;
-  const ReturnsBox = styled(Box)`
+`;
+const ReturnsBox = styled(Box)`
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -456,8 +457,8 @@ const DownloadBox = styled(Box)`
     padding: 5px;
     font-size: 15px;
   }
-  `;
-  const Category = styled(Typography)`
+`;
+const Category = styled(Typography)`
   position: absolute;
   width: 100%;
   text-align: center;
@@ -466,54 +467,53 @@ const DownloadBox = styled(Box)`
   z-index: 2;
   padding: 5px;
   font-family: "Inter";
-  `;
-  const Header = styled(Typography)`
+`;
+const Header = styled(Typography)`
   font-size: 20px;
   font-weight: 600;
   font-family: "Inter";
   margin: 10px 0;
-  `;
+`;
 
+function SliderValueLabel({ children }) {
+  return <span className="valueLabel">{children}</span>;
+}
 
-  function SliderValueLabel({ children }) {
-    return <span className="valueLabel">{children}</span>;
-  }
-  
-  SliderValueLabel.propTypes = {
-    children: PropTypes.element.isRequired,
-  };
-  
-  function valuetext(value) {
-    return `${value}°C`;
-  }
-  
-  const blue = {
-    100: '#DAECFF',
-    200: '#99CCF3',
-    400: '#3399FF',
-    300: '#66B2FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    700: '#0059B3',
-    900: '#003A75',
-  };
-  
-  const grey = {
-    50: '#F3F6F9',
-    100: '#E5EAF2',
-    200: '#DAE2ED',
-    300: '#C7D0DD',
-    400: '#B0B8C4',
-    500: '#9DA8B7',
-    600: '#6B7A90',
-    700: '#434D5B',
-    800: '#303740',
-    900: '#1C2025',
-  };
-  
-  const Slider = styled(BaseSlider)(
-    ({ theme }) => `
-    color: ${theme.palette.mode === 'light' ? grey[500] : grey[400]};
+SliderValueLabel.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+function valuetext(value) {
+  return `${value}°C`;
+}
+
+const blue = {
+  100: "#DAECFF",
+  200: "#99CCF3",
+  400: "#3399FF",
+  300: "#66B2FF",
+  500: "#007FFF",
+  600: "#0072E5",
+  700: "#0059B3",
+  900: "#003A75",
+};
+
+const grey = {
+  50: "#F3F6F9",
+  100: "#E5EAF2",
+  200: "#DAE2ED",
+  300: "#C7D0DD",
+  400: "#B0B8C4",
+  500: "#9DA8B7",
+  600: "#6B7A90",
+  700: "#434D5B",
+  800: "#303740",
+  900: "#1C2025",
+};
+
+const Slider = styled(BaseSlider)(
+  ({ theme }) => `
+    color: ${theme.palette.mode === "light" ? grey[500] : grey[400]};
     height: 6px;
     width: 100%;
     padding: 16px 0;
@@ -527,7 +527,7 @@ const DownloadBox = styled(Box)`
     &.${sliderClasses.disabled} {
       pointer-events: none;
       cursor: default;
-      color: ${theme.palette.mode === 'light' ? grey[300] : grey[600]};
+      color: ${theme.palette.mode === "light" ? grey[300] : grey[600]};
       opacity: 0.4;
     }
   
@@ -560,7 +560,9 @@ const DownloadBox = styled(Box)`
       box-sizing: border-box;
       border-radius: 50%;
       outline: 0;
-      background-color: ${theme.palette.mode === 'light' ? blue[500] : blue[400]};
+      background-color: ${
+        theme.palette.mode === "light" ? blue[500] : blue[400]
+      };
       transition-property: box-shadow, transform;
       transition-timing-function: ease;
       transition-duration: 120ms;
@@ -568,23 +570,23 @@ const DownloadBox = styled(Box)`
   
       &:hover {
         box-shadow: 0 0 0 6px ${alpha(
-          theme.palette.mode === 'light' ? blue[200] : blue[300],
-          0.3,
+          theme.palette.mode === "light" ? blue[200] : blue[300],
+          0.3
         )};
       }
   
       &.${sliderClasses.focusVisible} {
         box-shadow: 0 0 0 8px ${alpha(
-          theme.palette.mode === 'light' ? blue[200] : blue[400],
-          0.5,
+          theme.palette.mode === "light" ? blue[200] : blue[400],
+          0.5
         )};
         outline: none;
       }
   
       &.${sliderClasses.active} {
         box-shadow: 0 0 0 8px ${alpha(
-          theme.palette.mode === 'light' ? blue[200] : blue[400],
-          0.5,
+          theme.palette.mode === "light" ? blue[200] : blue[400],
+          0.5
         )};
         outline: none;
         transform: scale(1.2);
@@ -596,12 +598,16 @@ const DownloadBox = styled(Box)`
       width: 10px;
       height: 10px;
       border-radius: 99%;
-      background-color: ${theme.palette.mode === 'light' ? blue[200] : blue[900]};
+      background-color: ${
+        theme.palette.mode === "light" ? blue[200] : blue[900]
+      };
       transform: translateX(-50%);
     }
   
     & .${sliderClasses.markActive} {
-      background-color: ${theme.palette.mode === 'light' ? blue[500] : blue[400]};
+      background-color: ${
+        theme.palette.mode === "light" ? blue[500] : blue[400]
+      };
     }
   
     & .${sliderClasses.markLabel} {
@@ -613,105 +619,102 @@ const DownloadBox = styled(Box)`
       transform: translateX(-50%);
       margin-top: 8px;
     }
-  `,
-  );
-  
-  const contentStyle = { background: '#000' };
-  const overlayStyle = { background: 'rgba(0,0,0,0.5)' };
+  `
+);
 
+const contentStyle = { background: "#000" };
+const overlayStyle = { background: "rgba(0,0,0,0.5)" };
 
-  const marks = [
-    {
-      value: 5000,
-      label: '5000',
-    },
-    {
-      value: 35000,
-      label: '',
-    },
-    {
-      value: 65000,
-      label: '',
-    },
-    {
-      value: 95000,
-      label: '',
-    },
-    {
-      value: 125000,
-      label: '',
-    },
-    {
-      value: 155000,
-      label: '',
-    },
-    {
-      value: 185000,
-      label: '',
-    },
-    {
-      value: 215000,
-      label: '',
-    },
-    {
-      value: 245000,
-      label: '',
-    },
-    {
-      value: 275000,
-      label: '',
-    },
-    
-    {
-      value: 305000,
-      label: '3L+',
-    },
-    
-  ];
+const marks = [
+  {
+    value: 5000,
+    label: "5000",
+  },
+  {
+    value: 35000,
+    label: "",
+  },
+  {
+    value: 65000,
+    label: "",
+  },
+  {
+    value: 95000,
+    label: "",
+  },
+  {
+    value: 125000,
+    label: "",
+  },
+  {
+    value: 155000,
+    label: "",
+  },
+  {
+    value: 185000,
+    label: "",
+  },
+  {
+    value: 215000,
+    label: "",
+  },
+  {
+    value: 245000,
+    label: "",
+  },
+  {
+    value: 275000,
+    label: "",
+  },
 
-  const arrowStyle = { color: '#000' }; // style for an svg element
-  
-  const documents = ["hello", "bye", "noob", "player"];
-  
-  const PropertyItem = ({ handleCart, clicked, setClicked }) => {
+  {
+    value: 305000,
+    label: "3L+",
+  },
+];
 
-    const [selectedValue, setSelectedValue] = useState('');
-    const handleChange = (event) => {
-      setSelectedValue(event.target.value);
-    };
-    
-    const controlProps = (item) => ({
-      checked: selectedValue === item,
-      onChange: handleChange,
-      value: item,
-      name: 'size-radio-button-demo',
-      inputProps: { 'aria-label': item },
-    });
+const arrowStyle = { color: "#000" }; // style for an svg element
 
-    const URL = config.URL;
-    const [invtype,setinvtype]=useState(1);
-    const location=useLocation();
-    // console.log("hello");
-    const [totalamount,settotalamount]=useState(0);
-    const [count,setcount]=useState(0);
-    
-    const [quantity, setQuantity] = useState(2000);
-    const [investment, setInvestment] = useState(50000);
-    const [propertyValueGrowth, setPropertyValueGrowth] = useState(30);
-    const [interestamount,setIntetestAmount]=useState(50000);
-    const [rentalYield, setRentalYield] = useState(3);
-    const [userinvest,setUserInvest]=useState(5000);
-    const [userinvestone,setUserInvestOne]=useState(10000);
-    const [showFullContent, setShowFullContent] = useState(false);
-    
-    const { id } = useParams(); // Access the ID from the URL params
-    const [listing, setListing] = useState({});
-    const token = JSON.parse(localStorage.getItem("userinfo"));
-    const [content,setContent]=useState("");
-    const[truncatedContent,settruncatedcontent]=useState("");
-    const [shouldTruncate,setShouldtruncate]=useState(false);
-    const maxWords = 50;
-    console.log(location);
+const documents = ["hello", "bye", "noob", "player"];
+
+const PropertyItem = ({ handleCart, clicked, setClicked }) => {
+  const [selectedValue, setSelectedValue] = useState("");
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item,
+    onChange: handleChange,
+    value: item,
+    name: "size-radio-button-demo",
+    inputProps: { "aria-label": item },
+  });
+
+  const URL = config.URL;
+  const [invtype, setinvtype] = useState(1);
+  const location = useLocation();
+  // console.log("hello");
+  const [totalamount, settotalamount] = useState(0);
+  const [count, setcount] = useState(0);
+
+  const [quantity, setQuantity] = useState(2000);
+  const [investment, setInvestment] = useState(50000);
+  const [propertyValueGrowth, setPropertyValueGrowth] = useState(30);
+  const [interestamount, setIntetestAmount] = useState(50000);
+  const [rentalYield, setRentalYield] = useState(3);
+  const [userinvest, setUserInvest] = useState(5000);
+  const [userinvestone, setUserInvestOne] = useState(10000);
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  const { id } = useParams(); // Access the ID from the URL params
+  const [listing, setListing] = useState({});
+  const token = JSON.parse(localStorage.getItem("userinfo"));
+  const [content, setContent] = useState("");
+  const [truncatedContent, settruncatedcontent] = useState("");
+  const [shouldTruncate, setShouldtruncate] = useState(false);
+  const maxWords = 50;
+  console.log(location);
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -719,7 +722,7 @@ const DownloadBox = styled(Box)`
         console.log(response.data);
         setListing(response.data);
         setContent(listing.propertyoverview);
-        settruncatedcontent( content.split(" ").slice(0, maxWords).join(" "));
+        settruncatedcontent(content.split(" ").slice(0, maxWords).join(" "));
         setShouldtruncate(content.split(" ").length > maxWords);
         // listing.push(response.data);
         // console.log(listing.images.length);
@@ -736,21 +739,21 @@ const DownloadBox = styled(Box)`
   };
   // console.log('before contedn');
   // console.log(listing);
- 
-  const mapstylebig={
+
+  const mapstylebig = {
     border: 0,
     width: "100%",
-    height:'450px',
+    height: "450px",
     borderRadius: "20px",
     backgroundColor: "black",
-  }
-  const mapstylesmall={
+  };
+  const mapstylesmall = {
     border: 0,
     width: "100%",
     height: `"300px"`,
     borderRadius: "20px",
     backgroundColor: "black",
-  }
+  };
   const handleInvestmentChange = (event) => {
     setInvestment(Number(event.target.value));
   };
@@ -760,9 +763,9 @@ const DownloadBox = styled(Box)`
   const handleUserInvestChangeOne = (event) => {
     setUserInvestOne(Number(event.target.value));
   };
-  const handleInterestChange=(event)=>{
+  const handleInterestChange = (event) => {
     setIntetestAmount(Number(event.target.value));
-  }
+  };
   const handlePropertyValueGrowthChange = (event) => {
     setPropertyValueGrowth(Number(event.target.value));
   };
@@ -772,54 +775,55 @@ const DownloadBox = styled(Box)`
   const handleTwo = () => {
     setQuantity(quantity + 2000);
   };
-  const cols=[5,2.5,2.5,5];
-  const rows=[1,]
-  const handleInterest=(e)=>{
+  const cols = [5, 2.5, 2.5, 5];
+  const rows = [1];
+  const handleInterest = (e) => {
     e.preventDefault();
-    let interestusers = JSON.parse(localStorage.getItem("interestusers1") || "[]");
-   interestusers.push({
-    name:token.name,
-    email:token.email,
-    amount:interestamount,
-    contactnumber:token.phone,
-    property:id
-   });
-   localStorage.setItem("interestusers1", JSON.stringify(interestusers));
-   console.log(localStorage.getItem("interestusers1"));
-   toast.success("Response recorded sucessfully");
-   setOpen(false);
-   }
+    let interestusers = JSON.parse(
+      localStorage.getItem("interestusers1") || "[]"
+    );
+    interestusers.push({
+      name: token.name,
+      email: token.email,
+      amount: interestamount,
+      contactnumber: token.phone,
+      property: id,
+    });
+    localStorage.setItem("interestusers1", JSON.stringify(interestusers));
+    console.log(localStorage.getItem("interestusers1"));
+    toast.success("Response recorded sucessfully");
+    setOpen(false);
+  };
 
-   const handleRequest=async (tp)=>{
+  const handleRequest = async (tp) => {
     try {
-      const data={
-        type:{selectedValue}=="allotment"?0:1,
-        name:token.name,
-        email:token.email,
-        phone:token.phone,
-        property:listing.properyheading,
-        image:listing.images[0],
-        amount:userinvestone
-      }
-      const ans=await axios.post(`${URL}/investment/add`,data);
-      if(ans){
+      const data = {
+        type: { selectedValue } == "allotment" ? 0 : 1,
+        name: token.name,
+        email: token.email,
+        phone: token.phone,
+        property: listing.properyheading,
+        image: listing.images[0],
+        amount: userinvestone,
+      };
+      const ans = await axios.post(`${URL}/investment/add`, data);
+      if (ans) {
         console.log(ans);
-        if(tp==1){
-          navigate('/cart');
+        if (tp == 1) {
+          navigate("/cart");
         }
         toast.success("Response recorded sucessfully");
         setTimeout(() => {
-          navigate('/dashboard/cart')
+          navigate("/dashboard/cart");
         }, 2000);
         setOpenInv(false);
-      }
-      else{
+      } else {
         toast.warning("failed response");
       }
     } catch (error) {
       console.log(error);
     }
-   }
+  };
 
   const handleFive = () => {
     setQuantity(quantity + 5000);
@@ -841,20 +845,19 @@ const DownloadBox = styled(Box)`
   };
 
   const [isAdmin, setAdmin] = useState(false);
-  
+
   useEffect(() => {
     setAdmin(token.isAdmin);
   }, []);
 
   const [isEditMode, setIsEditMode] = useState(false);
   const navigate = useNavigate();
-  const rowarr=[5,4,4,2.5];
-  const colarr=[5,3,2,5];
+  const rowarr = [5, 4, 4, 2.5];
+  const colarr = [5, 3, 2, 5];
   const handleEditClick = () => {
     setIsEditMode(true);
     navigate(`/${listing._id}/edit`);
   };
-
 
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   // const isLargeScreen = useMediaQuery("(max-width:1300px)");
@@ -868,16 +871,20 @@ const DownloadBox = styled(Box)`
   };
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
-  const [openinv, setOpenInv] = useState((location?.state?.clicked?true:false));
+  const [openinv, setOpenInv] = useState(
+    location?.state?.clicked ? true : false
+  );
   const closeModalinv = () => setOpenInv(false);
-  const [phone,setPhone]=useState("");
-  const ps=`/dashboard/properties/view/photos/${id}`;
+  const [phone, setPhone] = useState("");
+  const ps = `/dashboard/properties/view/photos/${id}`;
 
   return (
-    <div style={{
-      opacity:openinv?'0.25':'1.0',
-      // backgroundColor:'black'
-    }}>
+    <div
+      style={{
+        opacity: openinv ? "0.25" : "1.0",
+        // backgroundColor:'black'
+      }}
+    >
       <Box style={{ padding: "20px" }}>
         <Box
           style={{
@@ -913,35 +920,36 @@ const DownloadBox = styled(Box)`
           </Box>
 
           <Box>
-            {!isSmallScreen && <Bookmark onClick={() => setClicked(!clicked)}>
-              {clicked === true ? (
-                <BookmarkIcon style={{ color: "#0170dc" }} />
-              ) : (
-                <BookmarkBorderIcon />
-              )}
-              <Typography
-                style={{
-                  paddingLeft: "10px",
-                  fontFamily: "Inter",
-                  fontSize: "18px",
-                }}
-              >
-                Bookmark
-              </Typography>
-            </Bookmark>}
-            
+            {!isSmallScreen && (
+              <Bookmark onClick={() => setClicked(!clicked)}>
+                {clicked === true ? (
+                  <BookmarkIcon style={{ color: "#0170dc" }} />
+                ) : (
+                  <BookmarkBorderIcon />
+                )}
+                <Typography
+                  style={{
+                    paddingLeft: "10px",
+                    fontFamily: "Inter",
+                    fontSize: "18px",
+                  }}
+                >
+                  Bookmark
+                </Typography>
+              </Bookmark>
+            )}
           </Box>
         </Box>
 
         <Box
           style={{
             display: "flex",
-            alignItems:"center",
-            justifyContent:"center",
-            alignContent:"center",
+            alignItems: "center",
+            justifyContent: "center",
+            alignContent: "center",
             flexDirection: "column",
             position: "relative",
-            marginTop:'20px'
+            marginTop: "20px",
           }}
         >
           {isSmallScreen ? (
@@ -950,10 +958,13 @@ const DownloadBox = styled(Box)`
                 <CardActionArea>
                   <CardMedia>
                     <Carousel showIndicators={false} showThumbs={false}>
-                    {listing.images && listing.images.slice(0,4).map((item,index) => (
-    <img src={item} alt="image" height={240} />
-  ))}
-                      
+                      {listing.images &&
+                        listing.images
+                          .slice(0, 4)
+                          .map((item, index) => (
+                            <img src={item} alt="image" height={240} />
+                          ))}
+
                       {/* <div>
                         <img src="/images/signup_page.jpg" alt="second" />
                       </div>
@@ -966,22 +977,26 @@ const DownloadBox = styled(Box)`
               </Property>
             </Grid>
           ) : (
-            
             <ImageList
-              sx={{ width:  '100%', height: 500 }}
+              sx={{ width: "100%", height: 500 }}
               variant="quilted"
               cols={10}
             >
-              {listing.images && listing.images.slice(0,4).map((item,index) => (
-    <ImageListItem key={index} cols={colarr[index]} rows={rowarr[index]}>
-   <img
-        // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-        src={`${item}?w=164&h=164&fit=crop&auto=format`}
-        alt={"my image"}
-        loading="lazy"
-      />
-    </ImageListItem>
-  ))}
+              {listing.images &&
+                listing.images.slice(0, 4).map((item, index) => (
+                  <ImageListItem
+                    key={index}
+                    cols={colarr[index]}
+                    rows={rowarr[index]}
+                  >
+                    <img
+                      // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                      src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                      alt={"my image"}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
             </ImageList>
           )}
 
@@ -1019,7 +1034,10 @@ const DownloadBox = styled(Box)`
                   </svg>
                 </Box>
 
-                <Extra>{(listing.images!=undefined)?listing.images.length:8} photos</Extra>
+                <Extra>
+                  {listing.images != undefined ? listing.images.length : 8}{" "}
+                  photos
+                </Extra>
               </SmallBoxes>
             </PhotoLink>
 
@@ -1051,21 +1069,29 @@ const DownloadBox = styled(Box)`
                 </svg>
               </Box>
 
-              <Extra onClick={()=>{
-                window.location.href=listing.tourlink
-              }}>Virtual tour</Extra>
+              <Extra
+                onClick={() => {
+                  window.location.href = listing.tourlink;
+                }}
+              >
+                Virtual tour
+              </Extra>
             </SmallBoxes>
           </Box>
         </Box>
 
         {isSmallScreen && (
-          <Grid item xs={12} style={{ position: "relative",marginTop:'20px' }}>
+          <Grid
+            item
+            xs={12}
+            style={{ position: "relative", marginTop: "20px" }}
+          >
             <Pricing>
               <Box
                 style={{
                   backgroundColor: "white",
                   borderRadius: "20px",
-                  marginTop:'10px',
+                  marginTop: "10px",
                   padding: "8px",
                 }}
               >
@@ -1132,13 +1158,13 @@ const DownloadBox = styled(Box)`
                     paddingBottom: "10px",
                   }}
                 > */}
-                  {/* <Typography
+                {/* <Typography
                     style={{ color: "rgb(112,111,111)", fontFamily: "Inter" }}
                   >
                     <b style={{ paddingRight: "5px", color: "#0170dc" }}>493</b>
                     investors
                   </Typography> */}
-                  {/* <Typography
+                {/* <Typography
                     style={{
                       alignItems: "center",
                       display: "flex",
@@ -1158,58 +1184,61 @@ const DownloadBox = styled(Box)`
                     borderRadius: "20px",
                   }}
                 >
-                  
-                   <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "10px 0",
-                          paddingTop: "5px",
-                          paddingBottom:"5px"
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography>
-                      </Box>
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      margin: "10px 0",
+                      paddingTop: "5px",
+                      paddingBottom: "5px",
+                    }}
+                  >
+                    <Typography
+                      style={{ fontSize: "14px", fontFamily: "Inter" }}
+                    >
+                      Funding Date
+                    </Typography>
+                    <Typography
+                      style={{
+                        fontWeight: 600,
+                        fontFamily: "Inter",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {listing.fundingdate}
+                    </Typography>
+                  </Box>
 
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "10px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px",padding:'3px', fontFamily: "Inter" }}
-                        >
-                          Min. Investment
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.mininvestment}
-                        </Typography>
-                      </Box>
+                  <Box
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      margin: "10px 0",
+                    }}
+                  >
+                    <Typography
+                      style={{
+                        fontSize: "14px",
+                        padding: "3px",
+                        fontFamily: "Inter",
+                      }}
+                    >
+                      Min. Investment
+                    </Typography>
+                    <Typography
+                      style={{
+                        fontWeight: 600,
+                        fontFamily: "Inter",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {listing.mininvestment}
+                    </Typography>
+                  </Box>
 
-                      {/* <Box
+                  {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -1257,7 +1286,7 @@ const DownloadBox = styled(Box)`
                           {listing.netyield}
                         </Typography>
                       </Box> */}
-                       {/* <div style={{
+                  {/* <div style={{
         marginTop:'0px',
         display:'flex',
         justifyContent:'center'
@@ -1272,8 +1301,8 @@ const DownloadBox = styled(Box)`
                       }}>
                         Schedule an E-meet </button> 
       </div> */}
-                    </Box>
-                  {/* <Box
+                </Box>
+                {/* <Box
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -1321,7 +1350,7 @@ const DownloadBox = styled(Box)`
                       {listing.annualappreciation}
                     </Typography>
                   </Box> */}
-{/* 
+                {/* 
                   <Box
                     style={{
                       display: "flex",
@@ -1346,7 +1375,7 @@ const DownloadBox = styled(Box)`
                     </Typography>
                   </Box> */}
 
-                  {/* <Box
+                {/* <Box
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -1370,7 +1399,6 @@ const DownloadBox = styled(Box)`
                       {listing.netyield}
                     </Typography>
                   </Box> */}
-                  
               </Box>
             </Pricing>
           </Grid>
@@ -1386,7 +1414,7 @@ const DownloadBox = styled(Box)`
                       style={{
                         fontFamily: "Inter",
                         fontWeight: 800,
-                        width:'100%',
+                        width: "100%",
                         paddingBottom: "10px",
                       }}
                       variant="h4"
@@ -1394,7 +1422,7 @@ const DownloadBox = styled(Box)`
                       {listing.properyheading}
                     </Typography>
 
-                    <Box style={{ display: "flex", paddingBottom: "30px" }}>    
+                    <Box style={{ display: "flex", paddingBottom: "30px" }}>
                       <SubTitle>{listing.propertydescription}</SubTitle>
 
                       {/* <Divider
@@ -1495,7 +1523,10 @@ const DownloadBox = styled(Box)`
                               color: "black",
                             }}
                           >
-                            RUP {investment+((investment*propertyValueGrowth))/100 + (rentalYield*(3*investment))/100}
+                            RUP{" "}
+                            {investment +
+                              (investment * propertyValueGrowth) / 100 +
+                              (rentalYield * (3 * investment)) / 100}
                           </b>{" "}
                           in{" "}
                           <b
@@ -1538,7 +1569,6 @@ const DownloadBox = styled(Box)`
                         }}
                       >
                         <GraphInfo>
-                     
                           <Box
                             style={{
                               backgroundColor: "rgb(18, 28, 48)",
@@ -1567,7 +1597,7 @@ const DownloadBox = styled(Box)`
                           <Box style={{ textAlign: "left", padding: "0 10px" }}>
                             <GraphHeading>Total rental income</GraphHeading>
                             <GraphSubHeading>
-                              RUP {(rentalYield*(3*investment))/100}
+                              RUP {(rentalYield * (3 * investment)) / 100}
                             </GraphSubHeading>
                           </Box>
                         </GraphInfo>
@@ -1584,7 +1614,9 @@ const DownloadBox = styled(Box)`
                           ></Box>
                           <Box style={{ textAlign: "left", padding: "0 10px" }}>
                             <GraphHeading>Value appreciation</GraphHeading>
-                            <GraphSubHeading>RUP {((investment*propertyValueGrowth))/100}</GraphSubHeading>
+                            <GraphSubHeading>
+                              RUP {(investment * propertyValueGrowth) / 100}
+                            </GraphSubHeading>
                           </Box>
                         </GraphInfo>
                       </Box>
@@ -1655,20 +1687,30 @@ const DownloadBox = styled(Box)`
                       Property Overview
                     </Typography>
 
-                   
                     <Typography
                       style={{ fontFamily: "Inter", fontSize: "16px" }}
                     >
-                      {listing && listing.propertyoverview && listing.propertyoverview.length>maxWords && <div>
-                        {listing.propertyoverview.split(" ").slice(0, maxWords).join(" ")}
-                        < div hidden={!showFullContent}>
-                          {listing.propertyoverview.split(" ").slice(51, listing.propertyoverview.length).join(" ")}
-                        </div>
-                        
-                      </div>}
-                        <MoreButton onClick={()=>{
-                          setShowFullContent(!showFullContent)
-                        }}>
+                      {listing &&
+                        listing.propertyoverview &&
+                        listing.propertyoverview.length > maxWords && (
+                          <div>
+                            {listing.propertyoverview
+                              .split(" ")
+                              .slice(0, maxWords)
+                              .join(" ")}
+                            <div hidden={!showFullContent}>
+                              {listing.propertyoverview
+                                .split(" ")
+                                .slice(51, listing.propertyoverview.length)
+                                .join(" ")}
+                            </div>
+                          </div>
+                        )}
+                      <MoreButton
+                        onClick={() => {
+                          setShowFullContent(!showFullContent);
+                        }}
+                      >
                         {showFullContent ? "Show less" : "Show more"}
                       </MoreButton>
                       {/* {showFullContent
@@ -1683,8 +1725,6 @@ const DownloadBox = styled(Box)`
                         {showFullContent ? "Show less" : "Show more"}
                       </MoreButton>
                     )} */}
-
-                   
                   </Box>
 
                   {isSmallScreen ? (
@@ -1746,10 +1786,10 @@ const DownloadBox = styled(Box)`
                                   padding: "10px 0",
                                 }}
                               >
-                                <FinanceSubHeading>Govt. Fees</FinanceSubHeading>
-                                <FinanceAmount>
-                                  {listing.venqfee}
-                                </FinanceAmount>
+                                <FinanceSubHeading>
+                                  Govt. Fees
+                                </FinanceSubHeading>
+                                <FinanceAmount>{listing.venqfee}</FinanceAmount>
                               </Box>
                             </Box>
 
@@ -1952,10 +1992,10 @@ const DownloadBox = styled(Box)`
                                   padding: "10px 0",
                                 }}
                               >
-                                <FinanceSubHeading>Govt. Fees</FinanceSubHeading>
-                                <FinanceAmount>
-                                  {listing.venqfee}
-                                </FinanceAmount>
+                                <FinanceSubHeading>
+                                  Govt. Fees
+                                </FinanceSubHeading>
+                                <FinanceAmount>{listing.venqfee}</FinanceAmount>
                               </Box>
                             </Box>
 
@@ -2100,40 +2140,38 @@ const DownloadBox = styled(Box)`
                       </Grid>
                     </Box>
                   )}
-                  {listing.fundtimeline && 
+                  {listing.fundtimeline && (
                     <Box style={{ paddingBottom: "20px" }}>
-                    <Typography
-                      style={{
-                        fontSize: "24px",
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        padding: "20px 0",
-                      }}
-                    >
-                      Funding timeline
-                    </Typography>
-
-                    <Box
-                      style={{
-                        backgroundColor: "#f6f7f9",
-                        padding: "10px 20px",
-                        borderRadius: "10px",
-                        width: "fit-content",
-                      }}
-                    >
                       <Typography
-                        style={{ fontSize: "12px", fontFamily: "Inter" }}
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: 600,
+                          fontFamily: "Inter",
+                          padding: "20px 0",
+                        }}
                       >
-                        Each step may occur earlier than the dates below
+                        Funding timeline
                       </Typography>
+
+                      <Box
+                        style={{
+                          backgroundColor: "#f6f7f9",
+                          padding: "10px 20px",
+                          borderRadius: "10px",
+                          width: "fit-content",
+                        }}
+                      >
+                        <Typography
+                          style={{ fontSize: "12px", fontFamily: "Inter" }}
+                        >
+                          Each step may occur earlier than the dates below
+                        </Typography>
+                      </Box>
+                      {listing.fundtimeline && (
+                        <Period fundt={listing.fundtimeline} />
+                      )}
                     </Box>
-                    {
-                      listing.fundtimeline && <Period fundt ={listing.fundtimeline}/>
-                    }
-                    
-                  </Box>
-                  }
-                  
+                  )}
 
                   <Box style={{ paddingBottom: "20px" }}>
                     <Typography
@@ -2169,21 +2207,24 @@ const DownloadBox = styled(Box)`
                     </Box>
 
                     <Box>
-                      {isSmallScreen && <iframe
-                        src={listing.locationlink}
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        style={mapstylesmall}
-                      ></iframe>}
-                      {!isSmallScreen &&  <iframe
-                        src={listing.locationlink}
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        style={mapstylebig}
-                      ></iframe>}
-                     
+                      {isSmallScreen && (
+                        <iframe
+                          src={listing.locationlink}
+                          allowfullscreen=""
+                          loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"
+                          style={mapstylesmall}
+                        ></iframe>
+                      )}
+                      {!isSmallScreen && (
+                        <iframe
+                          src={listing.locationlink}
+                          allowfullscreen=""
+                          loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"
+                          style={mapstylebig}
+                        ></iframe>
+                      )}
                     </Box>
 
                     <Typography
@@ -2193,7 +2234,7 @@ const DownloadBox = styled(Box)`
                         padding: "20px 0",
                       }}
                     >
-                     {listing.locationdescription}
+                      {listing.locationdescription}
                     </Typography>
                   </Box>
 
@@ -2220,7 +2261,7 @@ const DownloadBox = styled(Box)`
                         listing.amenities.map((amenity) => (
                           <Box
                             style={{
-                             width:'100%'
+                              width: "100%",
                             }}
                           >
                             {/* <Box>
@@ -2230,7 +2271,7 @@ const DownloadBox = styled(Box)`
                             </Box> */}
                             <Typography
                               style={{
-                                textAlign:'center',
+                                textAlign: "center",
                                 fontFamily: "Inter",
                                 fontSize: "18px",
                                 paddingLeft: "5px",
@@ -2314,8 +2355,6 @@ const DownloadBox = styled(Box)`
                     </Typography>
 
                     <Box style={{ display: "flex", height: "15vh" }}>
-                      
-
                       <Box
                         style={{
                           display: "flex",
@@ -2444,7 +2483,7 @@ const DownloadBox = styled(Box)`
                         paddingBottom: "10px",
                       }}
                     > */}
-                      {/* <Typography
+                    {/* <Typography
                         style={{
                           color: "rgb(112,111,111)",
                           fontFamily: "Inter",
@@ -2455,7 +2494,7 @@ const DownloadBox = styled(Box)`
                         </b>
                         investors
                       </Typography> */}
-                      {/* <Typography
+                    {/* <Typography
                         style={{
                           alignItems: "center",
                           display: "flex",
@@ -2467,11 +2506,55 @@ const DownloadBox = styled(Box)`
                         days left
                       </Typography> */}
                     {/* </Box> */}
+                    <div>
+                      <ProgressBar
+                        completed={100}
+                        customLabel=""
+                        className="wrapper"
+                        bgColor="#50B487"
+                        labelColor="#50B487"
+                        height="0.6rem"
+                        // labelClassName="label"
+                      />
+                      <Typography
+                        style={{
+                          fontSize: "14px",
+                          color: "black",
+                          fontFamily: "Inter",
+                          marginLeft: "5px",
+                        }}
+                      >
+                        100% funded
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        margin: "1.5rem 0",
+                      }}
+                    >
+                      <div>
+                        <span style={{ color: "#50B487", fontWeight: "800" }}>
+                          380{" "}
+                        </span>
+                        <span>investors</span>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <img src={clock} style={{ marginRight: "1rem" }}></img>
+                        <span style={{ color: "red" }}>
+                          {" "}
+                          Closed on Mar 31,2024
+                        </span>
+                      </div>
+                    </div>
+
                     <Box
                       style={{
                         backgroundColor: "#f6f7f9",
                         padding: "1px",
-                        borderRadius:'15px'
+                        borderRadius: "15px",
                       }}
                     >
                       <Box
@@ -2479,10 +2562,10 @@ const DownloadBox = styled(Box)`
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
-                          margin: "20px 0",
+                          margin: "1rem 2rem",
                         }}
                       >
-                        <Typography
+                        {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -2497,7 +2580,9 @@ const DownloadBox = styled(Box)`
                           }}
                         >
                           {listing.fundingdate}
-                        </Typography>
+                        </Typography> */}
+                        <span>Yearly investment return</span>
+                        <span style={{ fontWeight: 800 }}>9.8%</span>
                       </Box>
 
                       <Box
@@ -2505,14 +2590,14 @@ const DownloadBox = styled(Box)`
                           display: "flex",
                           justifyContent: "space-between",
                           alignItems: "center",
-                          margin: "25px 0",
+                          margin: "1rem 2rem",
                         }}
                       >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",marginLeft:'5px' }}
-                          
+                        {/* <Typography
+                          style={{ fontSize: "14px", fontFamily: "Inter",
+                        marginLeft:'5px' }}
                         >
-                          Min. Investment
+                          Funding Date
                         </Typography>
                         <Typography
                           style={{
@@ -2522,10 +2607,39 @@ const DownloadBox = styled(Box)`
                             marginRight:'5px'
                           }}
                         >
-                          {listing.mininvestment}
-                        </Typography>
+                          {listing.fundingdate}
+                        </Typography> */}
+                        <span>Funded date</span>
+                        <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
                       </Box>
-                      
+
+                      <Box
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          margin: "1rem 2rem",
+                        }}
+                      >
+                        {/* <Typography
+                          style={{ fontSize: "14px", fontFamily: "Inter",
+                        marginLeft:'5px' }}
+                        >
+                          Funding Date
+                        </Typography>
+                        <Typography
+                          style={{
+                            fontWeight: 600,
+                            fontFamily: "Inter",
+                            fontSize: "14px",
+                            marginRight:'5px'
+                          }}
+                        >
+                          {listing.fundingdate}
+                        </Typography> */}
+                        <span>Current valuation</span>
+                        <span style={{ fontWeight: 800 }}>RUP 1,100,000</span>
+                      </Box>
 
                       {/* <Box
                         style={{
@@ -2681,169 +2795,224 @@ const DownloadBox = styled(Box)`
                         </Typography>
                       </Box>
                     </Box> */}
-                    
 
                     <Box
                       style={{
-                        display:'flex',
+                        display: "flex",
                         alignItems: "center",
-                        justifyContent:'space-around',
-                        marginTop:'20px',
+                        justifyContent: "space-around",
+                        marginTop: "20px",
                         // backgroundColor:'red',
-                        padding:'1px',
-                        
+                        padding: "1px",
                       }}
                     >
-                      <button  onClick={() => {
-                          window.location.href='https://calendly.com/venqtech/15min';
-                      }} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        color:'#50B487',
-                        backgroundColor:'#EBF9F5',
-                        borderRadius:'5px'
-                      }}>Schedule an E-meet</button>
-                      {listing.islive==2 && 
-                      
-                      <button  onClick={() => setOpen(o => !o)} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        backgroundColor:'#00b386',
-                        borderRadius:'5px',
-                        padding:'10px'
-                      }}>I'm Interested</button>
-                      }
-                      
-                      {listing.islive==1 && 
-                        <button  onClick={() => setOpenInv(o => !o)} style={{
-                          alignContent:'center',
-                          alignItems:'center',
-                          backgroundColor:'#00b386',
-                          borderRadius:'5px',
-                          paddingTop:'8px',
-                          paddingBottom:'8px',
-                          paddingLeft:'11%',
-                          paddingRight:'11%'
-                        }}>
-                          Invest </button>
-                      }
-                       
-                       
-                      <StyledPopup open={open} closeOnDocumentClick onClose={closeModal} >
-        <div className="modal">
-          <a className="close" onClick={closeModal} style={{
-            cursor:'pointer'
-          }}>
-            &times;
-          </a>
+                      <button
+                        onClick={() => {
+                          window.location.href =
+                            "https://calendly.com/venqtech/15min";
+                        }}
+                        style={{
+                          alignContent: "center",
+                          alignItems: "center",
+                          color: "#50B487",
+                          backgroundColor: "#EBF9F5",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        Schedule an E-meet
+                      </button>
+                      {listing.islive == 2 && (
+                        <button
+                          onClick={() => setOpen((o) => !o)}
+                          style={{
+                            alignContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "#00b386",
+                            borderRadius: "5px",
+                            padding: "10px",
+                          }}
+                        >
+                          I'm Interested
+                        </button>
+                      )}
 
-          <form  onSubmit={handleInterest}>
-          <Box>
-          <Label>
-            <LabelName>Select Amount to invest:</LabelName>
-            
-          </Label>
+                      {listing.islive == 1 && (
+                        <button
+                          onClick={() => setOpenInv((o) => !o)}
+                          style={{
+                            alignContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "#00b386",
+                            borderRadius: "5px",
+                            paddingTop: "8px",
+                            paddingBottom: "8px",
+                            paddingLeft: "11%",
+                            paddingRight: "11%",
+                          }}
+                        >
+                          Invest{" "}
+                        </button>
+                      )}
 
-          <Label>
-          <LabelAmount>RUP {interestamount}</LabelAmount>
-          </Label>
+                      <StyledPopup
+                        open={open}
+                        closeOnDocumentClick
+                        onClose={closeModal}
+                      >
+                        <div className="modal">
+                          <a
+                            className="close"
+                            onClick={closeModal}
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            &times;
+                          </a>
 
-          <LabelSlider
-            type="range"
-            min="50000"
-            max="300000"
-            step="500"
-            value={interestamount}
-            onChange={handleInterestChange}
-          />
-        </Box>
-        <Button
-              type="submit"
-              variant="contained"
-              style={{ margin: "8px 0" }}
-              color="primary"
-              fullWidth
-              onClick={handleInterest}
-            >
-              Show Interest
-            </Button>
-          </form>
-        </div>
-      </StyledPopup>
-          {/* bada version  */}
+                          <form onSubmit={handleInterest}>
+                            <Box>
+                              <Label>
+                                <LabelName>Select Amount to invest:</LabelName>
+                              </Label>
 
-      <StyledPopupinv open={openinv} closeOnDocumentClick onClose={closeModalinv} >
-        <div className="modal" style={{
-          height:'100%',
-          // backgroundColor:'red',
-          margin:'0px',
-          marginTop:'-10px',
-          paddingLeft:'18px',
-          paddingRight:'18px'
-        }}>
-          <a className="close" onClick={closeModalinv} style={{
-            cursor:'pointer'
-          }}>
-            &times;
-          </a>
+                              <Label>
+                                <LabelAmount>RUP {interestamount}</LabelAmount>
+                              </Label>
 
-          <form style={{
-            height:'450px'
-          }} onSubmit={handleInterest}>
-          <Box>
-      <div style={{
-        display:'flex',
-        justifyContent:'space-evenly'
-      }}>
-        {/* <div style={{
+                              <LabelSlider
+                                type="range"
+                                min="50000"
+                                max="300000"
+                                step="500"
+                                value={interestamount}
+                                onChange={handleInterestChange}
+                              />
+                            </Box>
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              style={{ margin: "8px 0" }}
+                              color="primary"
+                              fullWidth
+                              onClick={handleInterest}
+                            >
+                              Show Interest
+                            </Button>
+                          </form>
+                        </div>
+                      </StyledPopup>
+                      {/* bada version  */}
+
+                      <StyledPopupinv
+                        open={openinv}
+                        closeOnDocumentClick
+                        onClose={closeModalinv}
+                      >
+                        <div
+                          className="modal"
+                          style={{
+                            height: "100%",
+                            // backgroundColor:'red',
+                            margin: "0px",
+                            marginTop: "-10px",
+                            paddingLeft: "18px",
+                            paddingRight: "18px",
+                          }}
+                        >
+                          <a
+                            className="close"
+                            onClick={closeModalinv}
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            &times;
+                          </a>
+
+                          <form
+                            style={{
+                              height: "450px",
+                            }}
+                            onSubmit={handleInterest}
+                          >
+                            <Box>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-evenly",
+                                }}
+                              >
+                                {/* <div style={{
           display:'flex',
           justifyContent:'space-evenly'
         }}> */}
-           <nav style={{
-            width:'100%'
-           }}>
-            <ul style={{
-              display:'flex',
-              listStyle:'none',
-              paddingInlineStart:'0px',
-              borderBottom:'1px solid #e9e9eb',
-              gap:'20px'
-            }}>
-              <li style={{
-                fontWeight:'bold',
-                borderBottom:invtype==0?'2px solid #00b386':'none',
-                marginRight:'12px',
-                color:invtype==0?'#00b386':'gray',
-                cursor:'pointer',
-                fontSize:'16px',
-                fontFamily:'Inter'
-
-              }} onClick={()=>{
-                {!listing.properyheading.includes("Dholera") &&
-                setinvtype(0);
-              }
-              }} >Allotment</li>
-              <li style={{
-                fontWeight:'bold',
-                borderBottom:invtype==1?'2px solid #00b386':'none',
-                color:invtype==1?'#00b386':'gray',
-                marginRight:'12px',
-                cursor:'pointer',
-                fontSize:'16px',
-                fontFamily:'Inter'
-
-              }} onClick={()=>{
-                setinvtype(1);
-              }} >Invest</li>
-
-            </ul>
-          </nav>
-        {/* <Label>
+                                <nav
+                                  style={{
+                                    width: "100%",
+                                  }}
+                                >
+                                  <ul
+                                    style={{
+                                      display: "flex",
+                                      listStyle: "none",
+                                      paddingInlineStart: "0px",
+                                      borderBottom: "1px solid #e9e9eb",
+                                      gap: "20px",
+                                    }}
+                                  >
+                                    <li
+                                      style={{
+                                        fontWeight: "bold",
+                                        borderBottom:
+                                          invtype == 0
+                                            ? "2px solid #00b386"
+                                            : "none",
+                                        marginRight: "12px",
+                                        color:
+                                          invtype == 0 ? "#00b386" : "gray",
+                                        cursor: "pointer",
+                                        fontSize: "16px",
+                                        fontFamily: "Inter",
+                                      }}
+                                      onClick={() => {
+                                        {
+                                          !listing.properyheading.includes(
+                                            "Dholera"
+                                          ) && setinvtype(0);
+                                        }
+                                      }}
+                                    >
+                                      Allotment
+                                    </li>
+                                    <li
+                                      style={{
+                                        fontWeight: "bold",
+                                        borderBottom:
+                                          invtype == 1
+                                            ? "2px solid #00b386"
+                                            : "none",
+                                        color:
+                                          invtype == 1 ? "#00b386" : "gray",
+                                        marginRight: "12px",
+                                        cursor: "pointer",
+                                        fontSize: "16px",
+                                        fontFamily: "Inter",
+                                      }}
+                                      onClick={() => {
+                                        setinvtype(1);
+                                      }}
+                                    >
+                                      Invest
+                                    </li>
+                                  </ul>
+                                </nav>
+                                {/* <Label>
           <LabelName>Allotment:</LabelName>
         </Label>
       <Radio {...controlProps('allotment')} /> */}
-        </div>
-        {/* <div style={{
+                              </div>
+                              {/* <div style={{
           display:'flex',
           justifyContent:'space-evenly'
         }}>
@@ -2853,93 +3022,119 @@ const DownloadBox = styled(Box)`
       <Radio {...controlProps('investment')} />
         </div>
       </div> */}
-      <div style={{
-        display:'flex',
-        justifyContent:'space-between'
-      }}>
-          <Label>
-          
-            <LabelName sx={{
-              fontSize:'14px',
-              marginTop:'14px'
-            }}>Investment Amount:</LabelName>
-            
-          </Label>
-          {invtype==0 && 
-          <input type="text" value={userinvest}
-          onChange={(event)=>{
-           setUserInvest(event.target.value);
-          }}  style={{
-            width:'40%',
-            fontSize:'14px',
-            backgroundColor:'#EBF9F5',
-            color:'#50B487'
-          }} />
-          //   <TextField
-          //   required
-          //   name="userinvestmentamount"
-          //   value={userinvest}
-          //   onChange={(event)=>{
-          //    setUserInvest(event.target.value);
-          //   }}
-          //  //  label="Enter your email"
-          //  sx={{
-          //    width:'40%',
-          //    fontSize:'14px',
-          //    backgroundColor:'#EBF9F5',
-          //    color:'#50B487'
-          //  }}
-          //   type="text"
-          // />
-          }
-          {invtype==1 && 
-             <input type="text" value={userinvestone}
-             onChange={(event)=>{
-              setUserInvest(event.target.value);
-             }}  style={{
-               width:'40%',
-               fontSize:'14px',
-               backgroundColor:'#EBF9F5',
-               color:'#50B487'
-             }} />
-          }
-          
-      </div>
-          {invtype==0 && 
-          <>
-          <Box sx={{ width:'90%',alignItems:'center',justifyContent:'center',marginLeft:'16px' }}>
-      <Slider
-        aria-label="Temperature"
-        defaultValue={5000}
-        getAriaValueText={valuetext}
-        min={5000}
-        max={305000}
-        step={30000}
-        marks={marks}
-        onChange={handleUserInvestChange}
-      />
-    </Box>
-            
-          </>
-          }
-          {invtype==1 && <>
-           
-            <Box sx={{ width:'90%',alignItems:'center',justifyContent:'center',marginLeft:'16px' }}>
-      <Slider
-        aria-label="Temperature"
-        defaultValue={5000}
-        getAriaValueText={valuetext}
-        min={5000}
-        max={310000}
-        step={50000}
-        marks={marks}
-        onChange={handleUserInvestChangeOne}
-      />
-    </Box>
-          </>}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                }}
+                              >
+                                <Label>
+                                  <LabelName
+                                    sx={{
+                                      fontSize: "14px",
+                                      marginTop: "14px",
+                                    }}
+                                  >
+                                    Investment Amount:
+                                  </LabelName>
+                                </Label>
+                                {
+                                  invtype == 0 && (
+                                    <input
+                                      type="text"
+                                      value={userinvest}
+                                      onChange={(event) => {
+                                        setUserInvest(event.target.value);
+                                      }}
+                                      style={{
+                                        width: "40%",
+                                        fontSize: "14px",
+                                        backgroundColor: "#EBF9F5",
+                                        color: "#50B487",
+                                      }}
+                                    />
+                                  )
+                                  //   <TextField
+                                  //   required
+                                  //   name="userinvestmentamount"
+                                  //   value={userinvest}
+                                  //   onChange={(event)=>{
+                                  //    setUserInvest(event.target.value);
+                                  //   }}
+                                  //  //  label="Enter your email"
+                                  //  sx={{
+                                  //    width:'40%',
+                                  //    fontSize:'14px',
+                                  //    backgroundColor:'#EBF9F5',
+                                  //    color:'#50B487'
+                                  //  }}
+                                  //   type="text"
+                                  // />
+                                }
+                                {invtype == 1 && (
+                                  <input
+                                    type="text"
+                                    value={userinvestone}
+                                    onChange={(event) => {
+                                      setUserInvest(event.target.value);
+                                    }}
+                                    style={{
+                                      width: "40%",
+                                      fontSize: "14px",
+                                      backgroundColor: "#EBF9F5",
+                                      color: "#50B487",
+                                    }}
+                                  />
+                                )}
+                              </div>
+                              {invtype == 0 && (
+                                <>
+                                  <Box
+                                    sx={{
+                                      width: "90%",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      marginLeft: "16px",
+                                    }}
+                                  >
+                                    <Slider
+                                      aria-label="Temperature"
+                                      defaultValue={5000}
+                                      getAriaValueText={valuetext}
+                                      min={5000}
+                                      max={305000}
+                                      step={30000}
+                                      marks={marks}
+                                      onChange={handleUserInvestChange}
+                                    />
+                                  </Box>
+                                </>
+                              )}
+                              {invtype == 1 && (
+                                <>
+                                  <Box
+                                    sx={{
+                                      width: "90%",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      marginLeft: "16px",
+                                    }}
+                                  >
+                                    <Slider
+                                      aria-label="Temperature"
+                                      defaultValue={5000}
+                                      getAriaValueText={valuetext}
+                                      min={5000}
+                                      max={310000}
+                                      step={50000}
+                                      marks={marks}
+                                      onChange={handleUserInvestChangeOne}
+                                    />
+                                  </Box>
+                                </>
+                              )}
 
-          
-          {/* <LabelSlider
+                              {/* <LabelSlider
             type="range"
             min="50000"
             max="300000"
@@ -2947,29 +3142,35 @@ const DownloadBox = styled(Box)`
             value={interestamount}
             onChange={handleInterestChange}
           /> */}
-        </Box>
-        {
-          invtype==0 && 
-          <div style={{
-            display:'flex',
-            justifyContent:'space-between'
-          }}>
-              <Label>
-              
-                <LabelName sx={{
-                   marginTop:'14px',
-              fontSize:'14px'
-            }}>Allotment Fees:</LabelName>
-                
-              </Label>
-              <input type="text" value={`₹ `+userinvest*0.05}
-               style={{
-               width:'40%',
-               fontSize:'14px',
-               backgroundColor:'#EBF9F5',
-               color:'#50B487'
-             }} />
-              {/* <TextField
+                            </Box>
+                            {invtype == 0 && (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                }}
+                              >
+                                <Label>
+                                  <LabelName
+                                    sx={{
+                                      marginTop: "14px",
+                                      fontSize: "14px",
+                                    }}
+                                  >
+                                    Allotment Fees:
+                                  </LabelName>
+                                </Label>
+                                <input
+                                  type="text"
+                                  value={`₹ ` + userinvest * 0.05}
+                                  style={{
+                                    width: "40%",
+                                    fontSize: "14px",
+                                    backgroundColor: "#EBF9F5",
+                                    color: "#50B487",
+                                  }}
+                                />
+                                {/* <TextField
                        required
                        fullWidth
                        name="name"
@@ -2981,123 +3182,149 @@ const DownloadBox = styled(Box)`
                         width:'40%'
                        }}
                      /> */}
-             
-              
-          </div>
-        }
-        
-        <div style={{
-        display:'flex',
-        justifyContent:'space-between'
-      }}>
-          {invtype==0 && <>
-          
-          
+                              </div>
+                            )}
 
-            <Label>
-            <LabelName sx={{
-               marginTop:'14px',
-              fontSize:'14px'
-            }}>Allotment date:</LabelName>
-            
-          </Label>
-          <input type="text" value={`1 Mar`}
-               style={{
-               width:'40%',
-               fontSize:'14px',
-               backgroundColor:'#EBF9F5',
-               color:'#50B487'
-             }} />
-
-          </>
-          
-          }
-          
-          
-      </div>
-      {invtype==0 && <Label style={{
-        textAlign:'center'
-      }} sx={{
-        textAlign:'center',
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:'50px'
-      }}>
-          
-          <LabelName sx={{
-            textAlign:'center',
-            fontSize:'8px',
-            color:'#7c7e8c'
-          }}>This 5% application fees is a reservation only. You will have to pay the whole amount on the date of allotment to know more checkout <a href="https://www.venq.in/investing">venq.in/investing</a> 
-          </LabelName>
-          
-        </Label>
-      }
-        <div style={{
-          display:'flex',
-          justifyContent:'space-between',
-          gap:'30px',
-          marginTop:invtype==1?'205px':'0px',
-        }}>
-          <Button
-              type="submit"
-              variant="contained"
-              style={{ margin: "8px 0" , width:'50%',paddingTop:'10px',paddingBottom:'10px',backgroundColor:'#EBF9F5',borderRadius:'8px',color:'#50B487'}}
-              color="primary"
-              fullWidth
-              onClick={()=>{
-                handleRequest(0);
-              }}
-              // disabled={selectedValue==""}
-            >
-              ADD TO CART
-            </Button>
-            {invtype==0 &&
-            <Button
-            type="submit"
-            variant="contained"
-            style={{ margin: "8px 0",width:'50%',backgroundColor:'#00b386',borderRadius:'8px'}}
-            color="primary"
-            fullWidth
-            onClick={()=>{
-              handleRequest(1);
-            }}
-            // disabled={selectedValue==""}
-          >
-            APPLY
-          </Button>
-            }
-            {invtype==1 && 
-              <Button
-              type="submit"
-              variant="contained"
-              style={{ margin: "8px 0",width:'50%',backgroundColor:'#00b386',borderRadius:'8px'}}
-              color="primary"
-              fullWidth
-              onClick={handleRequest}
-              // disabled={selectedValue==""}
-            >
-              INVEST
-            </Button>
-            }
-        
-
-        </div>
-        
-       
-          </form>
-        </div>
-      </StyledPopupinv>
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              {invtype == 0 && (
+                                <>
+                                  <Label>
+                                    <LabelName
+                                      sx={{
+                                        marginTop: "14px",
+                                        fontSize: "14px",
+                                      }}
+                                    >
+                                      Allotment date:
+                                    </LabelName>
+                                  </Label>
+                                  <input
+                                    type="text"
+                                    value={`1 Mar`}
+                                    style={{
+                                      width: "40%",
+                                      fontSize: "14px",
+                                      backgroundColor: "#EBF9F5",
+                                      color: "#50B487",
+                                    }}
+                                  />
+                                </>
+                              )}
+                            </div>
+                            {invtype == 0 && (
+                              <Label
+                                style={{
+                                  textAlign: "center",
+                                }}
+                                sx={{
+                                  textAlign: "center",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  marginTop: "50px",
+                                }}
+                              >
+                                <LabelName
+                                  sx={{
+                                    textAlign: "center",
+                                    fontSize: "8px",
+                                    color: "#7c7e8c",
+                                  }}
+                                >
+                                  This 5% application fees is a reservation
+                                  only. You will have to pay the whole amount on
+                                  the date of allotment to know more checkout{" "}
+                                  <a href="https://www.venq.in/investing">
+                                    venq.in/investing
+                                  </a>
+                                </LabelName>
+                              </Label>
+                            )}
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                gap: "30px",
+                                marginTop: invtype == 1 ? "205px" : "0px",
+                              }}
+                            >
+                              <Button
+                                type="submit"
+                                variant="contained"
+                                style={{
+                                  margin: "8px 0",
+                                  width: "50%",
+                                  paddingTop: "10px",
+                                  paddingBottom: "10px",
+                                  backgroundColor: "#EBF9F5",
+                                  borderRadius: "8px",
+                                  color: "#50B487",
+                                }}
+                                color="primary"
+                                fullWidth
+                                onClick={() => {
+                                  handleRequest(0);
+                                }}
+                                // disabled={selectedValue==""}
+                              >
+                                ADD TO CART
+                              </Button>
+                              {invtype == 0 && (
+                                <Button
+                                  type="submit"
+                                  variant="contained"
+                                  style={{
+                                    margin: "8px 0",
+                                    width: "50%",
+                                    backgroundColor: "#00b386",
+                                    borderRadius: "8px",
+                                  }}
+                                  color="primary"
+                                  fullWidth
+                                  onClick={() => {
+                                    handleRequest(1);
+                                  }}
+                                  // disabled={selectedValue==""}
+                                >
+                                  APPLY
+                                </Button>
+                              )}
+                              {invtype == 1 && (
+                                <Button
+                                  type="submit"
+                                  variant="contained"
+                                  style={{
+                                    margin: "8px 0",
+                                    width: "50%",
+                                    backgroundColor: "#00b386",
+                                    borderRadius: "8px",
+                                  }}
+                                  color="primary"
+                                  fullWidth
+                                  onClick={handleRequest}
+                                  // disabled={selectedValue==""}
+                                >
+                                  INVEST
+                                </Button>
+                              )}
+                            </div>
+                          </form>
+                        </div>
+                      </StyledPopupinv>
                     </Box>
-                    <div style={{
-
-     }}>
-      <div style={{
-        marginTop:'20px',
-        display:'flex',
-        justifyContent:'center'
-      }}>
-      {/* <button  onClick={()=>{
+                    <div style={{}}>
+                      <div
+                        style={{
+                          marginTop: "20px",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {/* <button  onClick={()=>{
                        window.location.href='https://calendly.com/venqtech/15min';
                        }} style={{
                         alignContent:'center',
@@ -3106,9 +3333,8 @@ const DownloadBox = styled(Box)`
                         borderRadius:'5px'
                       }}>
                         Schedule an E-meet  11</button>  */}
-      </div>
-         
-     </div>
+                      </div>
+                    </div>
                     <ToastContainer />
                     {/* <Box
                       style={{
@@ -3134,7 +3360,7 @@ const DownloadBox = styled(Box)`
                         fontFamily: "Inter",
                         textAlign: "center",
                         fontSize: "14px",
-                        marginTop:'16px'
+                        marginTop: "16px",
                       }}
                     >
                       You won't be charged yet
@@ -3209,170 +3435,214 @@ const DownloadBox = styled(Box)`
               left: 0,
               right: 0,
               width: "100%",
-              paddingTop:'10px',
-              paddingBottom:'10px',
+              paddingTop: "10px",
+              paddingBottom: "10px",
               backgroundColor: "white", // Customize the background color
               borderTop: "1px solid grey",
               display: "flex",
-              flexDirection:'column',
+              flexDirection: "column",
               justifyContent: "space-around",
               alignItems: "center",
             }}
           >
             <Box
-                      style={{
-                        width:'100%',
-                        display:'flex',
-                        justifyContent:'space-evenly',
-                        alignItems: "center",
-                      }}
-                    >
-                        <button  onClick={() => {
-                          window.location.href='https://calendly.com/venqtech/15min';
-                      }} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        color:'#50B487',
-                        backgroundColor:'#EBF9F5',
-                        borderRadius:'5px'
-                      }}>Schedule an E-meet</button>
-                      {listing.islive==2 && 
-                      
-                      <button  onClick={() => setOpen(o => !o)} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        backgroundColor:'#00b386',
-                        borderRadius:'5px',
-                        padding:'10px'
-                      }}>I'm Interested</button>
-                      }
-                      
-                      {listing.islive==1 && 
-                        <button  onClick={() => setOpenInv(o => !o)} style={{
-                          alignContent:'center',
-                          alignItems:'center',
-                          backgroundColor:'#00b386',
-                          borderRadius:'5px',
-                          paddingTop:'8px',
-                          paddingBottom:'8px',
-                          paddingLeft:'11%',
-                          paddingRight:'11%'
-                        }}>
-                          Invest </button>
-                      }
-                      <StyledPopup open={open} closeOnDocumentClick onClose={closeModal} >
-        <div className="modal">
-        <div>
-        <a className="close" onClick={closeModal} >
-            &times;
-          </a>
-        </div>
-          
-
-          <form onSubmit={handleInterest}>
-          <Box>
-          <Label>
-            <LabelName>Select Amount to invest:</LabelName>
-           
-          </Label>
-          <Label>
-          <LabelAmount>RUP {interestamount}</LabelAmount>
-          </Label>
-
-          <LabelSlider
-            type="range"
-            min="50000"
-            max="300000"
-            step="500"
-            value={interestamount}
-            onChange={handleInterestChange}
-          />
-        </Box>
-        <Button
-              type="submit"
-              variant="contained"
-              style={{ margin: "8px 0" }}
-              color="primary"
-              fullWidth
-              onClick={handleInterest}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+              }}
             >
-              Show Interest 
-            </Button>
-          </form>
-        </div>
-      </StyledPopup>
+              <button
+                onClick={() => {
+                  window.location.href = "https://calendly.com/venqtech/15min";
+                }}
+                style={{
+                  alignContent: "center",
+                  alignItems: "center",
+                  color: "#50B487",
+                  backgroundColor: "#EBF9F5",
+                  borderRadius: "5px",
+                }}
+              >
+                Schedule an E-meet
+              </button>
+              {listing.islive == 2 && (
+                <button
+                  onClick={() => setOpen((o) => !o)}
+                  style={{
+                    alignContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#00b386",
+                    borderRadius: "5px",
+                    padding: "10px",
+                  }}
+                >
+                  I'm Interested
+                </button>
+              )}
 
-      {/* chota version */}
-      <StyledPopupinvSmall open={openinv} closeOnDocumentClick onClose={closeModalinv} >
-        <div className="modal" style={{
-          height:'100%',
-          // backgroundColor:'red',
-          margin:'0px',
-          marginTop:'-10px',
-          paddingLeft:'18px',
-          paddingRight:'18px'
-        }}>
-          <a className="close" onClick={closeModalinv} style={{
-            cursor:'pointer'
-          }}>
-            &times;
-          </a>
+              {listing.islive == 1 && (
+                <button
+                  onClick={() => setOpenInv((o) => !o)}
+                  style={{
+                    alignContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#00b386",
+                    borderRadius: "5px",
+                    paddingTop: "8px",
+                    paddingBottom: "8px",
+                    paddingLeft: "11%",
+                    paddingRight: "11%",
+                  }}
+                >
+                  Invest{" "}
+                </button>
+              )}
+              <StyledPopup
+                open={open}
+                closeOnDocumentClick
+                onClose={closeModal}
+              >
+                <div className="modal">
+                  <div>
+                    <a className="close" onClick={closeModal}>
+                      &times;
+                    </a>
+                  </div>
 
-          <form style={{
-            height:'450px'
-          }} onSubmit={handleInterest}>
-          <Box>
-      <div style={{
-        display:'flex',
-        justifyContent:'space-evenly'
-      }}>
-        {/* <div style={{
+                  <form onSubmit={handleInterest}>
+                    <Box>
+                      <Label>
+                        <LabelName>Select Amount to invest:</LabelName>
+                      </Label>
+                      <Label>
+                        <LabelAmount>RUP {interestamount}</LabelAmount>
+                      </Label>
+
+                      <LabelSlider
+                        type="range"
+                        min="50000"
+                        max="300000"
+                        step="500"
+                        value={interestamount}
+                        onChange={handleInterestChange}
+                      />
+                    </Box>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      style={{ margin: "8px 0" }}
+                      color="primary"
+                      fullWidth
+                      onClick={handleInterest}
+                    >
+                      Show Interest
+                    </Button>
+                  </form>
+                </div>
+              </StyledPopup>
+
+              {/* chota version */}
+              <StyledPopupinvSmall
+                open={openinv}
+                closeOnDocumentClick
+                onClose={closeModalinv}
+              >
+                <div
+                  className="modal"
+                  style={{
+                    height: "100%",
+                    // backgroundColor:'red',
+                    margin: "0px",
+                    marginTop: "-10px",
+                    paddingLeft: "18px",
+                    paddingRight: "18px",
+                  }}
+                >
+                  <a
+                    className="close"
+                    onClick={closeModalinv}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    &times;
+                  </a>
+
+                  <form
+                    style={{
+                      height: "450px",
+                    }}
+                    onSubmit={handleInterest}
+                  >
+                    <Box>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                        }}
+                      >
+                        {/* <div style={{
           display:'flex',
           justifyContent:'space-evenly'
         }}> */}
-           <nav style={{
-            width:'100%'
-           }}>
-            <ul style={{
-              display:'flex',
-              listStyle:'none',
-              paddingInlineStart:'0px',
-              borderBottom:'1px solid #e9e9eb',
-              gap:'20px'
-            }}>
-              <li style={{
-                fontWeight:'bold',
-                borderBottom:invtype==0?'2px solid #00b386':'none',
-                marginRight:'12px',
-                color:invtype==0?'#00b386':'gray',
-                cursor:'pointer',
-                fontSize:'16px',
-                fontFamily:'Inter'
-
-              }} onClick={()=>{
-                setinvtype(0);
-              }} >Allotment</li>
-              <li style={{
-                fontWeight:'bold',
-                borderBottom:invtype==1?'2px solid #00b386':'none',
-                color:invtype==1?'#00b386':'gray',
-                marginRight:'12px',
-                cursor:'pointer',
-                fontSize:'16px',
-                fontFamily:'Inter'
-
-              }} onClick={()=>{
-                setinvtype(1);
-              }} >Invest</li>
-
-            </ul>
-          </nav>
-        {/* <Label>
+                        <nav
+                          style={{
+                            width: "100%",
+                          }}
+                        >
+                          <ul
+                            style={{
+                              display: "flex",
+                              listStyle: "none",
+                              paddingInlineStart: "0px",
+                              borderBottom: "1px solid #e9e9eb",
+                              gap: "20px",
+                            }}
+                          >
+                            <li
+                              style={{
+                                fontWeight: "bold",
+                                borderBottom:
+                                  invtype == 0 ? "2px solid #00b386" : "none",
+                                marginRight: "12px",
+                                color: invtype == 0 ? "#00b386" : "gray",
+                                cursor: "pointer",
+                                fontSize: "16px",
+                                fontFamily: "Inter",
+                              }}
+                              onClick={() => {
+                                setinvtype(0);
+                              }}
+                            >
+                              Allotment
+                            </li>
+                            <li
+                              style={{
+                                fontWeight: "bold",
+                                borderBottom:
+                                  invtype == 1 ? "2px solid #00b386" : "none",
+                                color: invtype == 1 ? "#00b386" : "gray",
+                                marginRight: "12px",
+                                cursor: "pointer",
+                                fontSize: "16px",
+                                fontFamily: "Inter",
+                              }}
+                              onClick={() => {
+                                setinvtype(1);
+                              }}
+                            >
+                              Invest
+                            </li>
+                          </ul>
+                        </nav>
+                        {/* <Label>
           <LabelName>Allotment:</LabelName>
         </Label>
       <Radio {...controlProps('allotment')} /> */}
-        </div>
-        {/* <div style={{
+                      </div>
+                      {/* <div style={{
           display:'flex',
           justifyContent:'space-evenly'
         }}>
@@ -3382,93 +3652,119 @@ const DownloadBox = styled(Box)`
       <Radio {...controlProps('investment')} />
         </div>
       </div> */}
-      <div style={{
-        display:'flex',
-        justifyContent:'space-between'
-      }}>
-          <Label>
-          
-            <LabelName sx={{
-              fontSize:'14px',
-              marginTop:'14px'
-            }}>Investment Amount:</LabelName>
-            
-          </Label>
-          {invtype==0 && 
-          <input type="text" value={userinvest}
-          onChange={(event)=>{
-           setUserInvest(event.target.value);
-          }}  style={{
-            width:'40%',
-            fontSize:'14px',
-            backgroundColor:'#EBF9F5',
-            color:'#50B487'
-          }} />
-          //   <TextField
-          //   required
-          //   name="userinvestmentamount"
-          //   value={userinvest}
-          //   onChange={(event)=>{
-          //    setUserInvest(event.target.value);
-          //   }}
-          //  //  label="Enter your email"
-          //  sx={{
-          //    width:'40%',
-          //    fontSize:'14px',
-          //    backgroundColor:'#EBF9F5',
-          //    color:'#50B487'
-          //  }}
-          //   type="text"
-          // />
-          }
-          {invtype==1 && 
-             <input type="text" value={userinvestone}
-             onChange={(event)=>{
-              setUserInvest(event.target.value);
-             }}  style={{
-               width:'40%',
-               fontSize:'14px',
-               backgroundColor:'#EBF9F5',
-               color:'#50B487'
-             }} />
-          }
-          
-      </div>
-          {invtype==0 && 
-          <>
-          <Box sx={{ width:'90%',alignItems:'center',justifyContent:'center',marginLeft:'16px' }}>
-      <Slider
-        aria-label="Temperature"
-        defaultValue={5000}
-        getAriaValueText={valuetext}
-        min={5000}
-        max={305000}
-        step={30000}
-        marks={marks}
-        onChange={handleUserInvestChange}
-      />
-    </Box>
-            
-          </>
-          }
-          {invtype==1 && <>
-           
-            <Box sx={{ width:'90%',alignItems:'center',justifyContent:'center',marginLeft:'16px' }}>
-      <Slider
-        aria-label="Temperature"
-        defaultValue={5000}
-        getAriaValueText={valuetext}
-        min={5000}
-        max={310000}
-        step={50000}
-        marks={marks}
-        onChange={handleUserInvestChangeOne}
-      />
-    </Box>
-          </>}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Label>
+                          <LabelName
+                            sx={{
+                              fontSize: "14px",
+                              marginTop: "14px",
+                            }}
+                          >
+                            Investment Amount:
+                          </LabelName>
+                        </Label>
+                        {
+                          invtype == 0 && (
+                            <input
+                              type="text"
+                              value={userinvest}
+                              onChange={(event) => {
+                                setUserInvest(event.target.value);
+                              }}
+                              style={{
+                                width: "40%",
+                                fontSize: "14px",
+                                backgroundColor: "#EBF9F5",
+                                color: "#50B487",
+                              }}
+                            />
+                          )
+                          //   <TextField
+                          //   required
+                          //   name="userinvestmentamount"
+                          //   value={userinvest}
+                          //   onChange={(event)=>{
+                          //    setUserInvest(event.target.value);
+                          //   }}
+                          //  //  label="Enter your email"
+                          //  sx={{
+                          //    width:'40%',
+                          //    fontSize:'14px',
+                          //    backgroundColor:'#EBF9F5',
+                          //    color:'#50B487'
+                          //  }}
+                          //   type="text"
+                          // />
+                        }
+                        {invtype == 1 && (
+                          <input
+                            type="text"
+                            value={userinvestone}
+                            onChange={(event) => {
+                              setUserInvest(event.target.value);
+                            }}
+                            style={{
+                              width: "40%",
+                              fontSize: "14px",
+                              backgroundColor: "#EBF9F5",
+                              color: "#50B487",
+                            }}
+                          />
+                        )}
+                      </div>
+                      {invtype == 0 && (
+                        <>
+                          <Box
+                            sx={{
+                              width: "90%",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              marginLeft: "16px",
+                            }}
+                          >
+                            <Slider
+                              aria-label="Temperature"
+                              defaultValue={5000}
+                              getAriaValueText={valuetext}
+                              min={5000}
+                              max={305000}
+                              step={30000}
+                              marks={marks}
+                              onChange={handleUserInvestChange}
+                            />
+                          </Box>
+                        </>
+                      )}
+                      {invtype == 1 && (
+                        <>
+                          <Box
+                            sx={{
+                              width: "90%",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              marginLeft: "16px",
+                            }}
+                          >
+                            <Slider
+                              aria-label="Temperature"
+                              defaultValue={5000}
+                              getAriaValueText={valuetext}
+                              min={5000}
+                              max={310000}
+                              step={50000}
+                              marks={marks}
+                              onChange={handleUserInvestChangeOne}
+                            />
+                          </Box>
+                        </>
+                      )}
 
-          
-          {/* <LabelSlider
+                      {/* <LabelSlider
             type="range"
             min="50000"
             max="300000"
@@ -3476,29 +3772,35 @@ const DownloadBox = styled(Box)`
             value={interestamount}
             onChange={handleInterestChange}
           /> */}
-        </Box>
-        {
-          invtype==0 && 
-          <div style={{
-            display:'flex',
-            justifyContent:'space-between'
-          }}>
-              <Label>
-              
-                <LabelName sx={{
-                   marginTop:'14px',
-              fontSize:'14px'
-            }}>Allotment Fees:</LabelName>
-                
-              </Label>
-              <input type="text" value={`₹ `+userinvest*0.05}
-               style={{
-               width:'40%',
-               fontSize:'14px',
-               backgroundColor:'#EBF9F5',
-               color:'#50B487'
-             }} />
-              {/* <TextField
+                    </Box>
+                    {invtype == 0 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Label>
+                          <LabelName
+                            sx={{
+                              marginTop: "14px",
+                              fontSize: "14px",
+                            }}
+                          >
+                            Allotment Fees:
+                          </LabelName>
+                        </Label>
+                        <input
+                          type="text"
+                          value={`₹ ` + userinvest * 0.05}
+                          style={{
+                            width: "40%",
+                            fontSize: "14px",
+                            backgroundColor: "#EBF9F5",
+                            color: "#50B487",
+                          }}
+                        />
+                        {/* <TextField
                        required
                        fullWidth
                        name="name"
@@ -3510,118 +3812,140 @@ const DownloadBox = styled(Box)`
                         width:'40%'
                        }}
                      /> */}
-             
-              
-          </div>
-        }
-        
-        <div style={{
-        display:'flex',
-        justifyContent:'space-between'
-      }}>
-          {invtype==0 && <>
-          
-          
+                      </div>
+                    )}
 
-            <Label>
-            <LabelName sx={{
-               marginTop:'14px',
-              fontSize:'14px'
-            }}>Allotment date:</LabelName>
-            
-          </Label>
-          <input type="text" value={`1 Mar`}
-               style={{
-               width:'40%',
-               fontSize:'14px',
-               backgroundColor:'#EBF9F5',
-               color:'#50B487'
-             }} />
-
-          </>
-          
-          }
-          
-          
-      </div>
-      {invtype==0 && <Label style={{
-        textAlign:'center'
-      }} sx={{
-        textAlign:'center',
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:'50px'
-      }}>
-          
-          <LabelName sx={{
-            textAlign:'center',
-            fontSize:'8px',
-            color:'#7c7e8c'
-          }}>This 5% application fees is a reservation only. You will have to pay the whole amount on the date of allotment to know more checkout <a href="https://www.venq.in/investing">venq.in/investing</a> 
-          </LabelName>
-          
-        </Label>
-      }
-        <div style={{
-          display:'flex',
-          justifyContent:'space-between',
-          gap:'10px',
-          marginTop:invtype==1?'205px':'0px',
-        }}>
-          <Button
-              type="submit"
-              variant="contained"
-              style={{ marginBottom: "18px" , width:'130px',backgroundColor:'#EBF9F5',borderRadius:'8px',color:'#50B487'}}
-              color="primary"
-              fullWidth
-              onClick={()=>{
-                handleRequest(0)
-              }}
-              // disabled={selectedValue==""}
-            >
-              ADD TO CART
-            </Button>
-            {invtype==0 &&
-            <Button
-            type="submit"
-            variant="contained"
-            style={{ marginBottom: "18px",width:'130px',backgroundColor:'#00b386',borderRadius:'8px'}}
-            color="primary"
-            fullWidth
-            onClick={()=>{
-              handleRequest(1);
-            }}
-            // disabled={selectedValue==""}
-          >
-            APPLY
-          </Button>
-            }
-            {invtype==1 && 
-              <Button
-              type="submit"
-              variant="contained"
-              style={{ marginBottom: "18px",width:'130px',backgroundColor:'#00b386',borderRadius:'8px'}}
-              color="primary"
-              fullWidth
-              onClick={handleRequest}
-              // disabled={selectedValue==""}
-            >
-              INVEST
-            </Button>
-            }
-        
-
-        </div>
-        
-       
-          </form>
-        </div>
-      </StyledPopupinvSmall>
-                    </Box>
-
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {invtype == 0 && (
+                        <>
+                          <Label>
+                            <LabelName
+                              sx={{
+                                marginTop: "14px",
+                                fontSize: "14px",
+                              }}
+                            >
+                              Allotment date:
+                            </LabelName>
+                          </Label>
+                          <input
+                            type="text"
+                            value={`1 Mar`}
+                            style={{
+                              width: "40%",
+                              fontSize: "14px",
+                              backgroundColor: "#EBF9F5",
+                              color: "#50B487",
+                            }}
+                          />
+                        </>
+                      )}
+                    </div>
+                    {invtype == 0 && (
+                      <Label
+                        style={{
+                          textAlign: "center",
+                        }}
+                        sx={{
+                          textAlign: "center",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: "50px",
+                        }}
+                      >
+                        <LabelName
+                          sx={{
+                            textAlign: "center",
+                            fontSize: "8px",
+                            color: "#7c7e8c",
+                          }}
+                        >
+                          This 5% application fees is a reservation only. You
+                          will have to pay the whole amount on the date of
+                          allotment to know more checkout{" "}
+                          <a href="https://www.venq.in/investing">
+                            venq.in/investing
+                          </a>
+                        </LabelName>
+                      </Label>
+                    )}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        marginTop: invtype == 1 ? "205px" : "0px",
+                      }}
+                    >
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        style={{
+                          marginBottom: "18px",
+                          width: "130px",
+                          backgroundColor: "#EBF9F5",
+                          borderRadius: "8px",
+                          color: "#50B487",
+                        }}
+                        color="primary"
+                        fullWidth
+                        onClick={() => {
+                          handleRequest(0);
+                        }}
+                        // disabled={selectedValue==""}
+                      >
+                        ADD TO CART
+                      </Button>
+                      {invtype == 0 && (
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          style={{
+                            marginBottom: "18px",
+                            width: "130px",
+                            backgroundColor: "#00b386",
+                            borderRadius: "8px",
+                          }}
+                          color="primary"
+                          fullWidth
+                          onClick={() => {
+                            handleRequest(1);
+                          }}
+                          // disabled={selectedValue==""}
+                        >
+                          APPLY
+                        </Button>
+                      )}
+                      {invtype == 1 && (
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          style={{
+                            marginBottom: "18px",
+                            width: "130px",
+                            backgroundColor: "#00b386",
+                            borderRadius: "8px",
+                          }}
+                          color="primary"
+                          fullWidth
+                          onClick={handleRequest}
+                          // disabled={selectedValue==""}
+                        >
+                          INVEST
+                        </Button>
+                      )}
+                    </div>
+                  </form>
+                </div>
+              </StyledPopupinvSmall>
+            </Box>
           </div>
         )}
-
       </Box>
     </div>
   );

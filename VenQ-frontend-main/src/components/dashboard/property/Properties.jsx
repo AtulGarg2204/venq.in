@@ -1,5 +1,4 @@
 import {
-  
   Button,
   Card,
   CardActionArea,
@@ -16,8 +15,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import EventIcon from "@mui/icons-material/Event";
 import { Link, useNavigate } from "react-router-dom";
 import PropertyItem from "./PropertyItem";
-import { useHistory } from 'react-router-dom';
-import star from './star.png'
+import { useHistory } from "react-router-dom";
+import star from "./star.png";
 import axios from "axios";
 import config from "../../../config";
 
@@ -30,22 +29,22 @@ const Property = styled(Card)`
 `;
 const Subheader = styled(Box)`
   display: flex;
-  gap:5px;
+  gap: 5px;
   & div {
     // height:20px;
     border: 1px solid lightgray;
     padding: 4px 5px;
-    font-size:12px;
+    font-size: 12px;
     border-radius: 6px;
   }
 `;
 const SubheaderFixed = styled(Box)`
   display: flex;
-  position:fixed;
-  top:5px;
-  left:5px;
-  font-size:12px;
-  gap:10px;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  font-size: 12px;
+  gap: 10px;
 `;
 const PriceBox = styled(Box)`
   display: flex;
@@ -72,7 +71,7 @@ const Options = styled(Box)`
   margin: 20px 10px 40px 0px;
   background-color: white;
   padding: 0 5x;
-  width:100%;
+  width: 100%;
   border-radius: 10px;
   display: flex;
 `;
@@ -108,23 +107,22 @@ const Category = styled(Typography)`
 const Header = styled(Typography)`
   font-size: 16px;
   font-weight: 600;
-  height:30px;
-  display:flex;
-  align-items:center;
+  height: 30px;
+  display: flex;
+  align-items: center;
   font-family: "Gilroy-Bold";
   margin: 10px 0;
 `;
 const FixedBox = styled(Box)`
-  background-color:white;
-  color:black;
-  position:fixed;
-  bottom:5px;
-  right:5px;
-  font-family:"Inter";
-  font-size:12px;
-  padding:5px;
-  border-radius:5px;
-
+  background-color: white;
+  color: black;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  font-family: "Inter";
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 5px;
 `;
 
 const CartButton = styled(Button)`
@@ -148,8 +146,8 @@ const Properties = () => {
   };
 
   const [listings, setListings] = useState([]);
-  const [isAdmin,setAdmin] = useState(false);
-  const token=JSON.parse(localStorage.getItem("userinfo"));
+  const [isAdmin, setAdmin] = useState(false);
+  const token = JSON.parse(localStorage.getItem("userinfo"));
   const URL = config.URL;
 
   useEffect(() => {
@@ -164,7 +162,7 @@ const Properties = () => {
         console.error(error);
       });
 
-     setAdmin(token.isAdmin);
+    setAdmin(token.isAdmin);
   }, []);
 
   // const luxuryListings = listings.filter(
@@ -172,17 +170,15 @@ const Properties = () => {
   // );
   // console.log(luxuryListings);
 
-
   //handl
 
   const navigate = useNavigate();
 
   const handleAddListingClick = () => {
     // Navigate to the "Form" page
-    navigate('/form');
+    navigate("/form");
   };
   return (
-
     <div>
       {/* <p>fkdsjkflj</p> */}
       <Box style={{ padding: "30px" }}>
@@ -194,7 +190,7 @@ const Properties = () => {
             fontWeight: 600,
             justifyContent: "space-between",
             display: "flex",
-            alignItems:"center",
+            alignItems: "center",
           }}
         >
           Properties
@@ -204,10 +200,8 @@ const Properties = () => {
           }}>Add Listing</CartButton> 
       } */}
         </Typography>
-        
 
         <Options>
-     
           <OptionName
             onClick={() => handleButtonClick("available")}
             active={activeButton === "available"}
@@ -231,61 +225,76 @@ const Properties = () => {
         </Options>
 
         {activeButton === "available" && (
-          <Box sx={{ flexGrow: 1 ,
-            height:'20px'
-        }}>
+          <Box sx={{ flexGrow: 1, height: "20px" }}>
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 1, sm: 4, md: 12 }}
             >
+              {/* .filter((listing) => listing.main_heading === "New Listing") */}
 
-{/* .filter((listing) => listing.main_heading === "New Listing") */}
-
-              {listings.map((listing) => (
-                  <Grid key={listing._id} item xs={2} sm={4} md={4} >
+              {listings
+                .filter((listing) => listing.islive != 1)
+                .map((listing) => (
+                  <Grid key={listing._id} item xs={2} sm={4} md={4}>
                     <Link
                       to={`/dashboard/properties/view/${listing._id}`}
-                      style={{textDecoration: "none"}}
+                      style={{ textDecoration: "none" }}
                     >
-                      
                       <Property sx={{ maxWidth: 365 }}>
                         <CardActionArea>
-                        {/* {listing.islive!=1 &&  <Category>Luxury Property</Category> } */}
-                           
-                          <CardMedia>
+                          {/* {listing.islive!=1 &&  <Category>Luxury Property</Category> } */}
 
-                            <Carousel showThumbs={false} statusFormatter={()=>{
-                              return "";
-                            }}>
+                          <CardMedia>
+                            <Carousel
+                              showThumbs={false}
+                              statusFormatter={() => {
+                                return "";
+                              }}
+                            >
                               {listing.images.map((image, index) => (
-                                <div style={{
-                                  // marginTop:listing.islive==1?'0px':'32px',
-                                  height:'180px'
-                                }} key={index}>
-                                  <img style={{
-                                    width:'100%',
-                                    height:'100%',
-                                    objectFit: 'cover'
-                                  }} src={image}  alt={`image-${index}`} />
-                                  {listing.islive==1 &&  <SubheaderFixed>
-                              <Box sx={{
-                                backgroundColor:'#56C29C',
-                                color:'white',
-                                borderRadius:'5px',
-                                padding:'5px 10px',
-                              }}>Live</Box>
-                              <Box sx={{
-                                backgroundColor:'white',
-                                fontFamily:'Inter',
-                                color:'black',
-                                borderRadius:'5px',
-                                padding:'5px'
-                              }}>Reduced Pricing</Box>
-                            </SubheaderFixed>
-                            
-                            }
-                            {/* {listing.islive==1 &&  
+                                <div
+                                  style={{
+                                    // marginTop:listing.islive==1?'0px':'32px',
+                                    height: "180px",
+                                  }}
+                                  key={index}
+                                >
+                                  <img
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      objectFit: "cover",
+                                    }}
+                                    src={image}
+                                    alt={`image-${index}`}
+                                  />
+                                  {listing.islive == 1 && (
+                                    <SubheaderFixed>
+                                      <Box
+                                        sx={{
+                                          backgroundColor: "#56C29C",
+                                          color: "white",
+                                          borderRadius: "5px",
+                                          padding: "5px 10px",
+                                        }}
+                                      >
+                                        Live
+                                      </Box>
+                                      <Box
+                                        sx={{
+                                          backgroundColor: "white",
+                                          fontFamily: "Inter",
+                                          color: "black",
+                                          borderRadius: "5px",
+                                          padding: "5px",
+                                        }}
+                                      >
+                                        Reduced Pricing
+                                      </Box>
+                                    </SubheaderFixed>
+                                  )}
+                                  {/* {listing.islive==1 &&  
                               <div style={{
                                 position:'fixed',
                                 top:'5px',
@@ -294,30 +303,32 @@ const Properties = () => {
                                 <img src={star} alt="this is me" height={25} width={25}  />
                               </div>
                             } */}
-                            
-                            <FixedBox>{listing.properyheading.includes('Plot')?'Plot':'Luxury Property'}</FixedBox>
+
+                                  <FixedBox>
+                                    {listing.properyheading.includes("Plot")
+                                      ? "Plot"
+                                      : "Luxury Property"}
+                                  </FixedBox>
                                 </div>
                               ))}
                             </Carousel>
-                          
                           </CardMedia>
 
                           <CardContent>
                             <Subheader>
                               <Box>
-                                {listing.propertydescription.split(' | ')[0]}
+                                {listing.propertydescription.split(" | ")[0]}
                               </Box>
                               <Box>
-                                {listing.propertydescription.split(' | ')[1]}
+                                {listing.propertydescription.split(" | ")[1]}
                               </Box>
                               <Box>
-                                {listing.propertydescription.split(' | ')[2]}
-                              </Box>  
+                                {listing.propertydescription.split(" | ")[2]}
+                              </Box>
                             </Subheader>
 
                             <Header gutterBottom variant="p" component="div">
                               {listing.properyheading}
-                              
                             </Header>
                             <PriceBox>
                               <Box
@@ -330,9 +341,7 @@ const Properties = () => {
                               >
                                 RUP {listing.propertyprice}
                               </Box>
-                              <Box>
-
-                              </Box>
+                              <Box></Box>
                             </PriceBox>
                             {/* <progress
                               style={{
@@ -350,14 +359,18 @@ const Properties = () => {
                                 {/* {`${listing.annualizedreturn}`} */}
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
-                                >{listing.fundingdate}</Box>
+                                >
+                                  {listing.fundingdate}
+                                </Box>
                               </Box>
                               <Box>
                                 <Box>Min. Investment</Box>
                                 {/* {`${listing.annualizedreturn}`} */}
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
-                                >{listing.mininvestment}</Box>
+                                >
+                                  {listing.mininvestment}
+                                </Box>
                               </Box>
 
                               {/* <Box>
@@ -380,38 +393,258 @@ const Properties = () => {
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{`${listing.netyield}`}</Box>
                               </Box> */}
-                              
                             </ReturnsBox>
                           </CardContent>
                         </CardActionArea>
-                        <div style={{
-                          display:'flex',
-                          justifyContent:'center',
-                          alignItems:'flex-start',
-                          marginBottom:'15px'
-                        }}>
-                          
-                          {listing.islive==1 &&  <Button sx={{
-                            paddingLeft:'65px',
-                            paddingRight:'65px',
-                          backgroundColor:'#0170dc',
-                          color:'white'
-                        }} onClick={()=>{
-                          navigate(`/dashboard/properties/view/${listing._id}`,{state:1})
-                        }}>Invest</Button> 
-                        }
-                          {listing.islive==2 &&  <Button sx={{
-                             paddingLeft:'65px',
-                             paddingRight:'65px',
-                          backgroundColor:'#0170dc',
-                          color:'white'
-                        }} onClick={()=>{
-                          navigate(`/dashboard/properties/view/${listing._id}`,{state:{
-                            id:1
-                          }})
-                        }}>I'm Interested</Button> 
-                        }
-                       
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                            marginBottom: "15px",
+                          }}
+                        >
+                          {listing.islive == 1 && (
+                            <Button
+                              sx={{
+                                paddingLeft: "65px",
+                                paddingRight: "65px",
+                                backgroundColor: "#0170dc",
+                                color: "white",
+                              }}
+                              onClick={() => {
+                                navigate(
+                                  `/dashboard/properties/view/${listing._id}`,
+                                  { state: 1 }
+                                );
+                              }}
+                            >
+                              Invest
+                            </Button>
+                          )}
+                          {listing.islive == 2 && (
+                            <Button
+                              sx={{
+                                paddingLeft: "65px",
+                                paddingRight: "65px",
+                                backgroundColor: "#0170dc",
+                                color: "white",
+                              }}
+                              onClick={() => {
+                                navigate(
+                                  `/dashboard/properties/view/${listing._id}`,
+                                  {
+                                    state: {
+                                      id: 1,
+                                    },
+                                  }
+                                );
+                              }}
+                            >
+                              I'm Interested
+                            </Button>
+                          )}
+                        </div>
+                      </Property>
+                    </Link>
+                  </Grid>
+                ))}
+            </Grid>
+          </Box>
+        )}
+
+        {activeButton === "funded" && (
+          <Box sx={{ flexGrow: 1, height: "20px" }}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 1, sm: 4, md: 12 }}
+            >
+              {/* .filter((listing) => listing.main_heading === "New Listing") */}
+              {console.log(listings)}
+              {listings
+                .filter((listing) => listing.islive === 1)
+                .map((filteredListing) => (
+                  <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
+                    <Link
+                      to={`/dashboard/properties/view/${filteredListing._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Property sx={{ maxWidth: 365 }}>
+                        <CardActionArea>
+                          <CardMedia>
+                            <Carousel
+                              showThumbs={false}
+                              statusFormatter={() => ""}
+                            >
+                              {filteredListing.images.map((image, index) => (
+                                <div
+                                  style={{
+                                    height: "180px",
+                                  }}
+                                  key={index}
+                                >
+                                  <img
+                                    style={{
+                                      width: "100%",
+                                      height: "100%",
+                                      objectFit: "cover",
+                                    }}
+                                    src={image}
+                                    alt={`image-${index}`}
+                                  />
+                                  {filteredListing.islive === 1 && (
+                                    <SubheaderFixed>
+                                      <Box
+                                        sx={{
+                                          backgroundColor: "#56C29C",
+                                          color: "white",
+                                          borderRadius: "5px",
+                                          padding: "5px 10px",
+                                        }}
+                                      >
+                                        Live
+                                      </Box>
+                                      <Box
+                                        sx={{
+                                          backgroundColor: "white",
+                                          fontFamily: "Inter",
+                                          color: "black",
+                                          borderRadius: "5px",
+                                          padding: "5px",
+                                        }}
+                                      >
+                                        Reduced Pricing
+                                      </Box>
+                                    </SubheaderFixed>
+                                  )}
+
+                                  <FixedBox>
+                                    {filteredListing.properyheading.includes(
+                                      "Plot"
+                                    )
+                                      ? "Plot"
+                                      : "Luxury Property"}
+                                  </FixedBox>
+                                </div>
+                              ))}
+                            </Carousel>
+                          </CardMedia>
+
+                          <CardContent>
+                            <Subheader>
+                              <Box>
+                                {
+                                  filteredListing.propertydescription.split(
+                                    " | "
+                                  )[0]
+                                }
+                              </Box>
+                              <Box>
+                                {
+                                  filteredListing.propertydescription.split(
+                                    " | "
+                                  )[1]
+                                }
+                              </Box>
+                              <Box>
+                                {
+                                  filteredListing.propertydescription.split(
+                                    " | "
+                                  )[2]
+                                }
+                              </Box>
+                            </Subheader>
+
+                            <Header gutterBottom variant="p" component="div">
+                              {filteredListing.properyheading}
+                            </Header>
+                            <PriceBox>
+                              <Box
+                                style={{
+                                  color: "#0170dc",
+                                  fontSize: "18px",
+                                  fontWeight: 600,
+                                  fontFamily: "Inter",
+                                }}
+                              >
+                                RUP {filteredListing.propertyprice}
+                              </Box>
+                              <Box></Box>
+                            </PriceBox>
+
+                            <ReturnsBox>
+                              <Box>
+                                <Box>Investment closed</Box>
+                                <Box
+                                  style={{ color: "black", fontWeight: "bold" }}
+                                >
+                                  {filteredListing.fundingdate}
+                                </Box>
+                              </Box>
+                              <Box>
+                                {/* <Box>Min. Investment</Box> */}
+                                {/* <Box
+                                  style={{ color: "black", fontWeight: "bold" }}
+                                >
+                                  {filteredListing.mininvestment}
+                                </Box> */}
+                              </Box>
+                            </ReturnsBox>
+                          </CardContent>
+                        </CardActionArea>
+
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-start",
+                            marginBottom: "15px",
+                          }}
+                        >
+                          {filteredListing.islive === 1 && (
+                            <Button
+                              sx={{
+                                paddingLeft: "65px",
+                                paddingRight: "65px",
+                                width:"80%",
+                                backgroundColor: "rgb(222, 154, 154)",
+                                color: "red",
+                              }}
+                              onClick={() => {
+                                navigate(
+                                  `/dashboard/properties/view/${filteredListing._id}`,
+                                  {
+                                    state: 1,
+                                  }
+                                );
+                              }}
+                            >
+                              Closed
+                            </Button>
+                          )}
+                          {filteredListing.islive === 2 && (
+                            <Button
+                              sx={{
+                                paddingLeft: "65px",
+                                paddingRight: "65px",
+                                backgroundColor: "#0170dc",
+                                color: "white",
+                              }}
+                              onClick={() => {
+                                navigate(
+                                  `/dashboard/properties/view/${filteredListing._id}`,
+                                  {
+                                    state: {
+                                      id: 1,
+                                    },
+                                  }
+                                );
+                              }}
+                            >
+                              I'm Interested
+                            </Button>
+                          )}
                         </div>
                       </Property>
                     </Link>
@@ -475,7 +708,7 @@ const Properties = () => {
 
                               </Box>
                             </PriceBox> */}
-                            {/* <progress
+        {/* <progress
                               style={{
                                 width: "100%",
                                 margin: "5px 0 10px 0",
@@ -485,23 +718,23 @@ const Properties = () => {
                               value={1239000}
                             /> */}
 
-                            {/* <ReturnsBox>
+        {/* <ReturnsBox>
                               <Box>
                                 <Box>Fuding Date</Box> */}
-                                {/* {`${listing.annualizedreturn}`} */}
-                                {/* <Box
+        {/* {`${listing.annualizedreturn}`} */}
+        {/* <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{listing.fundingdate}</Box>
                               </Box>
                               <Box>
                                 <Box>Min. Investment</Box> */}
-                                {/* {`${listing.annualizedreturn}`} */}
-                                {/* <Box
+        {/* {`${listing.annualizedreturn}`} */}
+        {/* <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{listing.mininvestment}</Box>
                               </Box> */}
 
-                              {/* <Box>
+        {/* <Box>
                                 <Box>Annual Appreciation</Box>
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
@@ -521,7 +754,7 @@ const Properties = () => {
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{`${listing.netyield}`}</Box>
                               </Box> */}
-                            {/* </ReturnsBox>
+        {/* </ReturnsBox>
                           </CardContent>
                         </CardActionArea>
                       </Property>
@@ -540,7 +773,7 @@ const Properties = () => {
                columns={{ xs: 1, sm: 4, md: 12 }}
               //  .filter((listing) => listing.main_heading === "Sold")
             > */}
-              {/* {listings.map((listing) => (
+        {/* {listings.map((listing) => (
                   <Grid key={listing._id} item xs={2} sm={4} md={4}>
                     <Link
                       to={`/dashboard/properties/view/${listing._id}`}
@@ -572,7 +805,7 @@ const Properties = () => {
                               
                             </Header>
                             <PriceBox> */}
-                              {/* <Box
+        {/* <Box
                                 style={{
                                   color: "#0170dc",
                                   fontSize: "18px",
@@ -584,9 +817,9 @@ const Properties = () => {
                               </Box>
                               <Box> */}
 
-                              {/* </Box>
+        {/* </Box>
                             </PriceBox> */}
-                            {/* <progress
+        {/* <progress
                               style={{
                                 width: "100%",
                                 margin: "5px 0 10px 0",
@@ -596,23 +829,23 @@ const Properties = () => {
                               value={1239000}
                             /> */}
 
-                            {/* <ReturnsBox>
+        {/* <ReturnsBox>
                               <Box>
                                 <Box>Fuding Date</Box> */}
-                                {/* {`${listing.annualizedreturn}`} */}
-                                {/* <Box
+        {/* {`${listing.annualizedreturn}`} */}
+        {/* <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{listing.fundingdate}</Box>
                               </Box>
                               <Box>
                                 <Box>Min. Investment</Box> */}
-                                {/* {`${listing.annualizedreturn}`} */}
-                                {/* <Box
+        {/* {`${listing.annualizedreturn}`} */}
+        {/* <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{listing.mininvestment}</Box>
                               </Box> */}
 
-                              {/* <Box>
+        {/* <Box>
                                 <Box>Annual Appreciation</Box>
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
@@ -632,12 +865,12 @@ const Properties = () => {
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{`${listing.netyield}`}</Box>
                               </Box> */}
-                            {/* </ReturnsBox>
+        {/* </ReturnsBox>
                           </CardContent>
                         </CardActionArea>
                       </Property>
                     </Link> */}
-                  {/* </Grid>
+        {/* </Grid>
                 ))}
             </Grid>
           </Box>
@@ -648,4 +881,3 @@ const Properties = () => {
 };
 
 export default Properties;
-

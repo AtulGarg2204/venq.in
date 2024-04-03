@@ -37,6 +37,7 @@ body {
   height: 90vh;
   overflow: hidden;
   display: flex;
+  color: rgb(242, 154, 154);
   /* z-index: -1; */
   justify-content: center;
  /* Add z-index to ensure proper stacking */

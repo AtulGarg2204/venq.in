@@ -1,0 +1,11 @@
+.container {
+  background-color: yellow;
+}
+.label {
+  font-size: 10px;
+  color: white;
+}
+.wrapper {
+  width: 95%;
+  height: 2px;
+}
