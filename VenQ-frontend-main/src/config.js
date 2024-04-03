@@ -3,11 +3,11 @@ const config = {
   URL: "https://venq-wo88.onrender.com",
   //main
   // URL :"https://venq-server.onrender.com",
-<<<<<<< HEAD
-  URL :"https://venq-wo88.onrender.com",
-=======
-  // URL :"https://venq-main-server.onrender.com",
->>>>>>> 1417464 (new)
+
+  //   URL :"https://venq-wo88.onrender.com",
+
+  //   // URL :"https://venq-main-server.onrender.com",
+  // >>>>>>> 1417464 (new)
   // URL:"https://venqserver.onrender.com"
 };
 
