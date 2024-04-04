@@ -1,13 +1,13 @@
-.supremecontainer{
+.supremecontainer {
   background-color: black;
   height: 1680px;
 }
-.stickypart{
+.stickypart {
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
 }
-.stickyimage{
+.stickyimage {
   width: fit-content;
   height: fit-content;
   justify-content: center;
@@ -16,12 +16,12 @@
   left: 500px;
   top: 0;
 }
-.mycards{
+.mycards {
   background-color: black;
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 1400px
+  height: 1400px;
 }
 .text {
   color: white;
@@ -29,8 +29,8 @@
   /* margin-bottom: 20%; */
 }
 .main-container {
- position: relative;
- height: 1100px;
+  position: relative;
+  height: 1100px;
 }
 .left-side {
   flex: 6;
@@ -47,45 +47,49 @@
   width: 100%;
   height: 100%;
 }
-.card-title1,.card-title2,.card-title3,.card-title4{
+.card-title1,
+.card-title2,
+.card-title3,
+.card-title4 {
   color: white;
   font-size: 80px;
-  font-family: 'Gilroy-Bold', sans-serif;
+  font-family: "Gilroy-Bold", sans-serif;
   margin-bottom: -10px;
-
 }
-.card-para1,.card-para2,.card-para3,.card-para4{
+.card-para1,
+.card-para2,
+.card-para3,
+.card-para4 {
   color: white;
   font-size: 24px;
-  font-family: 'Gilroy-Bold', sans-serif;
+  font-family: "Gilroy-Bold", sans-serif;
 }
-.oddnumbercard1{
+.oddnumbercard1 {
   position: absolute;
   height: fit-content;
   right: 0;
   padding-right: 240px;
   width: 300px;
-  
 }
-.oddnumbercard3{
+.oddnumbercard3 {
   position: absolute;
-  margin-top: 50%;
+  margin-top: 45%;
   right: 0;
   padding-right: 240px;
   height: fit-content;
   width: 300px;
 }
-.evennumbercard2{
+.evennumbercard2 {
   position: absolute;
-  margin-top: 25%;
+  margin-top: 18%;
   right: 0;
   padding-right: 240px;
   height: fit-content;
   width: 300px;
 }
-.evennumbercard4{
+.evennumbercard4 {
   position: absolute;
-  margin-top: 70%;
+  margin-top: 65%;
   right: 0;
   padding-right: 240px;
   height: fit-content;
@@ -146,11 +150,11 @@
 .swiper-wrapper {
   top: -27%;
 }
-#imgbanner{
- background-color: #15242f;
- width: 100%;
- height: 60%;
- margin-top: 70%;
+#imgbanner {
+  background-color: #15242f;
+  width: 100%;
+  height: 60%;
+  margin-top: 70%;
 }
 
 .imagecontainer {
@@ -197,11 +201,11 @@
 /* Add this to your CSS to handle small screens */
 
 @media (max-width: 600px) {
-  .supremecontainer{
-    background-color:black;
-    height:1375px;
+  .supremecontainer {
+    background-color: black;
+    height: 1375px;
   }
-  .imgcntnr{
+  .imgcntnr {
     background-color: black;
     position: -webkit-sticky; /* Safari */
     position: sticky;

@@ -11,7 +11,7 @@
   width: 50%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0px; /* Increase the gap between cards */
+  /* gap: 0px; Increase the gap between cards */
   margin-top: 50px;
   margin-left: 100px;
 }
@@ -46,8 +46,8 @@
 }
 
 .card-details {
-  flex-grow: 1; 
-  height: 100%;/* Allow the text to grow and take remaining space */
+  flex-grow: 1;
+  height: 100%; /* Allow the text to grow and take remaining space */
   text-align: left; /* Align text to the left */
 }
 
@@ -81,7 +81,7 @@
   margin-bottom: 10px;
   width: 50px; /* Make the title occupy the whole width */
   padding-left: 100px;
-  overflow-x:hidden;
+  overflow-x: hidden;
   /* font-family: "Bebas Neue"; */
   /* letter-spacing: 2px; Adjust letter spacing */
   line-height: 1.2; /* Adjust line height */
@@ -93,20 +93,19 @@
   line-height: 1.8; /* Adjust line height */
   width: 100%; /* Make the paragraph occupy the whole width */
   text-align: left;
-  font-family: 'Saira Condensed';
+  font-family: "Saira Condensed";
   letter-spacing: 1px; /* Adjust letter spacing */
 }
-.largescreenpara{
+.largescreenpara {
   font-size: 20px;
   font-weight: 500;
   width: 70%; /* Make the paragraph occupy the whole width */
   text-align: left;
-  font-family: 'Saira Condensed';
+  font-family: "Saira Condensed";
 }
 
-
 .rotated {
-  height: 200px;
+  height: 300px;
   background-color: #f6f7f9;
   transform: rotate(-5deg);
   position: relative; /* Set position to relative */
@@ -130,13 +129,12 @@
     padding: 30px;
     height: 45vh;
   }
-  
 
   .custom-services-left-div {
     width: 100%;
-    margin: 10px;
+    margin: 0px 10px;
     grid-template-columns: 1fr;
-    gap: 10px;
+    /* gap: 10px; */
     background-color: #f6f7f9;
   }
 
@@ -147,30 +145,30 @@
 
   .custom-services-title.small-screen-title {
     font-size: 60px;
-  color: #333;
-  font-family: "Bebas Neue";
-  font-weight: 100;
+    color: #333;
+    font-family: "Bebas Neue";
+    font-weight: 100;
     text-align: center;
   }
 
   .custom-services-paragraph.small-screen-paragraph {
     font-size: 20px; /* Adjust font size for mobile view */
     text-align: center;
-    font-family: 'Saira Condensed';
+    font-family: "Saira Condensed";
   }
-  .smallscreenpara{
+  .smallscreenpara {
     font-size: 16px;
     padding-left: 20px;
     padding-right: 20px;
-    font-weight: 500;/* Adjust font size for mobile view */
+    font-weight: 500; /* Adjust font size for mobile view */
     text-align: center;
-    font-family: 'Saira Condensed';
+    font-family: "Saira Condensed";
   }
 
   .custom-services-card.small-screen-card {
     width: 90%;
     margin-left: -5px;
-    height: 250px;
+    height: 60%;
   }
 
   .card1,

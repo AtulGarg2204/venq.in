@@ -10,5 +10,4 @@ const config = {
   // >>>>>>> 1417464 (new)
   // URL:"https://venqserver.onrender.com"
 };
-
 export default config;

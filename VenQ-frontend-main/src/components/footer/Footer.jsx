@@ -15,9 +15,10 @@ const MainContainer = styled(Box)`
   z-index: 0;
   margin-top: 20px;
   @media (max-width: 768px) {
-    margin-left:20px;
+    marginleft: 20px;
     align-items: flex-start;
     flex-direction: column;
+    paddingleft: 20px;
   }
 `;
 
@@ -88,7 +89,7 @@ const Startup = styled(Box)`
 const Company = styled(Box)`
   color: black;
   text-align: center; /* Center text for smaller screens */
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     text-align: left;
   }
 `;
@@ -128,8 +129,8 @@ const Heading = styled(Typography)`
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 20px;
-   display: flex;
-   justify-content: left;
+    display: flex;
+    justify-content: left;
     text-align: start;
   }
 `;
@@ -168,7 +169,7 @@ const Extra = styled(Typography)`
     font-size: 17px;
     line-height: 17px;
     display: flex;
-     justify-content: left;
+    justify-content: left;
     text-align: left;
     margin-top: 5px;
     letter-spacing: 0.005em;
@@ -202,7 +203,7 @@ const Footer = (addTopMargin) => {
             <EmailIcon className="socialIcon" />
           </div>
 
-          <Rights>Copyright &copy;  {year}</Rights>
+          <Rights>Copyright &copy; {year}</Rights>
           <Rights>All Rights Reserved.</Rights>
         </LeftContainer>
 

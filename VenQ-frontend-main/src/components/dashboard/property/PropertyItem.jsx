@@ -2537,7 +2537,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <div>
                         <span style={{ color: "#50B487", fontWeight: "800" }}>
-                          380{" "}
+                          67{" "}
                         </span>
                         <span>investors</span>
                       </div>

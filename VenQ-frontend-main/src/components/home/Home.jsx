@@ -340,6 +340,7 @@ const Home = () => {
                 cursor: "pointer",
                 paddingRight: "20px",
                 paddingLeft: "20px",
+                marginTop: "20px",
               }}
               onClick={() => {
                 navigate("/login");
@@ -352,7 +353,9 @@ const Home = () => {
 
             <img
               style={{
+                width:"100%",
                 bottom: "20px",
+                marginLeft: "-18px",
               }}
               height={300}
               src="images/homebg.png"

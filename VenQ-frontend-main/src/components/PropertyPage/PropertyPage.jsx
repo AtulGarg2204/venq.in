@@ -306,81 +306,83 @@ const PropertyPage = () => {
               >
                 {/* .filter((listing) => listing.main_heading === "New Listing") */}
 
-                {listings.map((listing) => (
-                  <Grid
-                    key={listing._id}
-                    item
-                    xs={2}
-                    sm={4}
-                    md={4}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Link
-                      to={
-                        isLoggedIn
-                          ? `/dashboard/properties/view/${listing._id}`
-                          : ``
-                      }
-                      style={{ textDecoration: "none" }}
+                {listings
+                  .filter((listing) => listing.islive !== 1)
+                  .map((listing) => (
+                    <Grid
+                      key={listing._id}
+                      item
+                      xs={2}
+                      sm={4}
+                      md={4}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
-                      <Property sx={{ maxWidth: 365 }}>
-                        <CardActionArea>
-                          <CardMedia>
-                            {/* <Category>Luxury Property</Category> */}
+                      <Link
+                        to={
+                          isLoggedIn
+                            ? `/dashboard/properties/view/${listing._id}`
+                            : ``
+                        }
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Property sx={{ maxWidth: 365 }}>
+                          <CardActionArea>
+                            <CardMedia>
+                              {/* <Category>Luxury Property</Category> */}
 
-                            <Carousel
-                              showThumbs={false}
-                              statusFormatter={() => {
-                                return "";
-                              }}
-                            >
-                              {listing.images.map((image, index) => (
-                                <div
-                                  key={index}
-                                  style={{
-                                    height: "180px",
-                                  }}
-                                >
-                                  <img
+                              <Carousel
+                                showThumbs={false}
+                                statusFormatter={() => {
+                                  return "";
+                                }}
+                              >
+                                {listing.images.map((image, index) => (
+                                  <div
+                                    key={index}
                                     style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      objectFit: "cover",
+                                      height: "180px",
                                     }}
-                                    src={image}
-                                    alt={`image-${index}`}
-                                  />
+                                  >
+                                    <img
+                                      style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "cover",
+                                      }}
+                                      src={image}
+                                      alt={`image-${index}`}
+                                    />
 
-                                  {listing.islive == 1 && (
-                                    <SubheaderFixed>
-                                      <Box
-                                        sx={{
-                                          backgroundColor: "#56C29C",
-                                          color: "white",
-                                          borderRadius: "5px",
-                                          padding: "5px 10px",
-                                        }}
-                                      >
-                                        Live
-                                      </Box>
-                                      <Box
-                                        sx={{
-                                          backgroundColor: "white",
-                                          fontFamily: "Inter",
-                                          color: "black",
-                                          borderRadius: "5px",
-                                          padding: "5px",
-                                        }}
-                                      >
-                                        Reduced Pricing
-                                      </Box>
-                                    </SubheaderFixed>
-                                  )}
-                                  {/* {listing.islive==1 &&  
+                                    {listing.islive == 1 && (
+                                      <SubheaderFixed>
+                                        <Box
+                                          sx={{
+                                            backgroundColor: "#56C29C",
+                                            color: "white",
+                                            borderRadius: "5px",
+                                            padding: "5px 10px",
+                                          }}
+                                        >
+                                          Live
+                                        </Box>
+                                        <Box
+                                          sx={{
+                                            backgroundColor: "white",
+                                            fontFamily: "Inter",
+                                            color: "black",
+                                            borderRadius: "5px",
+                                            padding: "5px",
+                                          }}
+                                        >
+                                          Reduced Pricing
+                                        </Box>
+                                      </SubheaderFixed>
+                                    )}
+                                    {/* {listing.islive==1 &&  
                               <div style={{
                                 position:'fixed',
                                 top:'5px',
@@ -390,50 +392,50 @@ const PropertyPage = () => {
                               </div>
                             } */}
 
-                                  <FixedBox>
-                                    {listing.properyheading.includes("Plot")
-                                      ? "Plot"
-                                      : "Luxury Property"}
-                                  </FixedBox>
-                                </div>
-                              ))}
-                            </Carousel>
-                          </CardMedia>
-                          <Subheader>
-                            <Box>
-                              {listing.propertydescription.split(" | ")[0]}
-                            </Box>
-                            <Box>
-                              {listing.propertydescription.split(" | ")[1]}
-                            </Box>
-                            <Box>
-                              {listing.propertydescription.split(" | ")[2]}
-                            </Box>
-                          </Subheader>
+                                    <FixedBox>
+                                      {listing.properyheading.includes("Plot")
+                                        ? "Plot"
+                                        : "Luxury Property"}
+                                    </FixedBox>
+                                  </div>
+                                ))}
+                              </Carousel>
+                            </CardMedia>
+                            <Subheader>
+                              <Box>
+                                {listing.propertydescription.split(" | ")[0]}
+                              </Box>
+                              <Box>
+                                {listing.propertydescription.split(" | ")[1]}
+                              </Box>
+                              <Box>
+                                {listing.propertydescription.split(" | ")[2]}
+                              </Box>
+                            </Subheader>
 
-                          <Header gutterBottom variant="p" component="div">
-                            {listing.properyheading}
-                          </Header>
-                          {isLoggedIn && (
-                            <CardContent
-                              sx={{
-                                marginTop: "0px",
-                                paddingTop: "2px",
-                              }}
-                            >
-                              <PriceBox>
-                                <Box
-                                  style={{
-                                    color: "#0170dc",
-                                    fontSize: "18px",
-                                    fontWeight: 600,
-                                    fontFamily: "Inter",
-                                  }}
-                                >
-                                  RUP {listing.propertyprice}
-                                </Box>
-                              </PriceBox>
-                              {/* <progress
+                            <Header gutterBottom variant="p" component="div">
+                              {listing.properyheading}
+                            </Header>
+                            {isLoggedIn && (
+                              <CardContent
+                                sx={{
+                                  marginTop: "0px",
+                                  paddingTop: "2px",
+                                }}
+                              >
+                                <PriceBox>
+                                  <Box
+                                    style={{
+                                      color: "#0170dc",
+                                      fontSize: "18px",
+                                      fontWeight: 600,
+                                      fontFamily: "Inter",
+                                    }}
+                                  >
+                                    RUP {listing.propertyprice}
+                                  </Box>
+                                </PriceBox>
+                                {/* <progress
                               style={{
                                 width: "100%",
                                 margin: "5px 0 10px 0",
@@ -443,33 +445,33 @@ const PropertyPage = () => {
                               value={1239000}
                             /> */}
 
-                              <ReturnsBox>
-                                <Box>
-                                  <Box>Fuding Date</Box>
-                                  {/* {`${listing.annualizedreturn}`} */}
-                                  <Box
-                                    style={{
-                                      color: "black",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    {listing.fundingdate}
+                                <ReturnsBox>
+                                  <Box>
+                                    <Box>Fuding Date</Box>
+                                    {/* {`${listing.annualizedreturn}`} */}
+                                    <Box
+                                      style={{
+                                        color: "black",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {listing.fundingdate}
+                                    </Box>
                                   </Box>
-                                </Box>
-                                <Box>
-                                  <Box>Min. Investment</Box>
-                                  {/* {`${listing.annualizedreturn}`} */}
-                                  <Box
-                                    style={{
-                                      color: "black",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    {listing.mininvestment}
+                                  <Box>
+                                    <Box>Min. Investment</Box>
+                                    {/* {`${listing.annualizedreturn}`} */}
+                                    <Box
+                                      style={{
+                                        color: "black",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {listing.mininvestment}
+                                    </Box>
                                   </Box>
-                                </Box>
 
-                                {/* <Box>
+                                  {/* <Box>
                                 <Box>Annual Appreciation</Box>
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
@@ -489,134 +491,352 @@ const PropertyPage = () => {
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >{`${listing.netyield}`}</Box>
                               </Box> */}
-                              </ReturnsBox>
-                            </CardContent>
-                          )}
-                          {!isLoggedIn && (
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                              }}
-                            >
+                                </ReturnsBox>
+                              </CardContent>
+                            )}
+                            {!isLoggedIn && (
                               <div
                                 style={{
-                                  width: "90%",
-                                  backgroundColor: "#eee15",
                                   display: "flex",
-                                  flexDirection: "column",
-                                  height: "100px",
-                                  alignItems: "center",
+                                  justifyContent: "center",
                                 }}
                               >
-                                <Link
-                                  to="/login"
+                                <div
                                   style={{
-                                    textDecoration: "none",
+                                    width: "90%",
+                                    backgroundColor: "#eee15",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    height: "100px",
+                                    alignItems: "center",
                                   }}
                                 >
-                                  <div
+                                  <Link
+                                    to="/login"
                                     style={{
-                                      padding: "10px",
-                                      borderRadius: "10px",
-                                      display: "flex",
-                                      flexDirection: "column",
-                                      backgroundImage: "images/blurimg.png",
+                                      textDecoration: "none",
                                     }}
                                   >
                                     <div
                                       style={{
+                                        padding: "10px",
+                                        borderRadius: "10px",
                                         display: "flex",
-                                        justifyContent: "center",
-                                        marginTop: "5%",
+                                        flexDirection: "column",
+                                        backgroundImage: "images/blurimg.png",
                                       }}
                                     >
-                                      <img
-                                        src="images/lock.png"
-                                        alt="lock"
-                                        height={30}
-                                        width={30}
-                                      />
-                                    </div>
-
-                                    <div
-                                      style={{
-                                        marginTop: "10px",
-                                      }}
-                                    >
-                                      <Link
-                                        to="/login"
+                                      <div
                                         style={{
-                                          textDecoration: "none",
-                                          color: "#41CE8E",
-                                          fontWeight: "600",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          marginTop: "5%",
                                         }}
                                       >
-                                        Signup
-                                      </Link>{" "}
-                                      or{" "}
-                                      <Link
-                                        to="/login"
+                                        <img
+                                          src="images/lock.png"
+                                          alt="lock"
+                                          height={30}
+                                          width={30}
+                                        />
+                                      </div>
+
+                                      <div
                                         style={{
-                                          textDecoration: "none",
-                                          color: "#41CE8E",
-                                          fontWeight: "600",
+                                          marginTop: "10px",
                                         }}
                                       >
-                                        Login
-                                      </Link>{" "}
-                                      to view the property
+                                        <Link
+                                          to="/login"
+                                          style={{
+                                            textDecoration: "none",
+                                            color: "#41CE8E",
+                                            fontWeight: "600",
+                                          }}
+                                        >
+                                          Signup
+                                        </Link>{" "}
+                                        or{" "}
+                                        <Link
+                                          to="/login"
+                                          style={{
+                                            textDecoration: "none",
+                                            color: "#41CE8E",
+                                            fontWeight: "600",
+                                          }}
+                                        >
+                                          Login
+                                        </Link>{" "}
+                                        to view the property
+                                      </div>
                                     </div>
-                                  </div>
-                                </Link>
+                                  </Link>
 
-                                <div></div>
+                                  <div></div>
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </CardActionArea>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "flex-start",
-                            marginBottom: "15px",
-                          }}
-                        >
-                          {listing.islive == 1 && (
-                            <Button
-                              sx={{
-                                paddingLeft: "65px",
-                                paddingRight: "65px",
-                                backgroundColor: "#0170dc",
-                                color: "white",
-                              }}
-                            >
-                              Invest
-                            </Button>
-                          )}
-                          {listing.islive == 2 && (
-                            <Button
-                              sx={{
-                                paddingLeft: "65px",
-                                paddingRight: "65px",
-                                backgroundColor: "#0170dc",
-                                color: "white",
-                              }}
-                            >
-                              I'm Interested
-                            </Button>
-                          )}
-                        </div>
-                      </Property>
-                    </Link>
-                  </Grid>
-                ))}
+                            )}
+                          </CardActionArea>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "flex-start",
+                              marginBottom: "15px",
+                            }}
+                          >
+                            {listing.islive == 1 && (
+                              <Button
+                                sx={{
+                                  paddingLeft: "65px",
+                                  paddingRight: "65px",
+                                  backgroundColor: "#0170dc",
+                                  color: "white",
+                                }}
+                              >
+                                Invest
+                              </Button>
+                            )}
+                            {listing.islive == 2 && (
+                              <Button
+                                sx={{
+                                  paddingLeft: "65px",
+                                  paddingRight: "65px",
+                                  backgroundColor: "#0170dc",
+                                  color: "white",
+                                }}
+                              >
+                                I'm Interested
+                              </Button>
+                            )}
+                          </div>
+                        </Property>
+                      </Link>
+                    </Grid>
+                  ))}
               </Grid>
             </div>
           </Box>
         )}
+        {activeButton === "funded" && (
+          <Box
+            sx={{
+              flexGrow: 1,
+              height: "20px",
+              marginTop: "10px",
+              marginLeft: "30px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                alignContent: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Grid
+                container
+                spacing={{ xs: 2, md: 3 }}
+                columns={{ xs: 1, sm: 4, md: 12 }}
+              >
+                {/* .filter((listing) => listing.main_heading === "New Listing") */}
+                {console.log(listings)}
+                {listings
+                  .filter((listing) => listing.islive === 1)
+                  .map((filteredListing) => (
+                    <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
+                      <Link
+                        to={`/dashboard/properties/view/${filteredListing._id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <Property sx={{ maxWidth: 365 }}>
+                          <CardActionArea>
+                            <CardMedia>
+                              <Carousel
+                                showThumbs={false}
+                                statusFormatter={() => ""}
+                              >
+                                {filteredListing.images.map((image, index) => (
+                                  <div
+                                    style={{
+                                      height: "180px",
+                                    }}
+                                    key={index}
+                                  >
+                                    <img
+                                      style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "cover",
+                                      }}
+                                      src={image}
+                                      alt={`image-${index}`}
+                                    />
+                                    {filteredListing.islive === 1 && (
+                                      <SubheaderFixed>
+                                        <Box
+                                          sx={{
+                                            backgroundColor: "#56C29C",
+                                            color: "white",
+                                            borderRadius: "5px",
+                                            padding: "5px 10px",
+                                          }}
+                                        >
+                                          Live
+                                        </Box>
+                                        <Box
+                                          sx={{
+                                            backgroundColor: "white",
+                                            fontFamily: "Inter",
+                                            color: "black",
+                                            borderRadius: "5px",
+                                            padding: "5px",
+                                          }}
+                                        >
+                                          Reduced Pricing
+                                        </Box>
+                                      </SubheaderFixed>
+                                    )}
 
+                                    <FixedBox>
+                                      {filteredListing.properyheading.includes(
+                                        "Plot"
+                                      )
+                                        ? "Plot"
+                                        : "Luxury Property"}
+                                    </FixedBox>
+                                  </div>
+                                ))}
+                              </Carousel>
+                            </CardMedia>
+
+                            <CardContent>
+                              <Subheader>
+                                <Box>
+                                  {
+                                    filteredListing.propertydescription.split(
+                                      " | "
+                                    )[0]
+                                  }
+                                </Box>
+                                <Box>
+                                  {
+                                    filteredListing.propertydescription.split(
+                                      " | "
+                                    )[1]
+                                  }
+                                </Box>
+                                <Box>
+                                  {
+                                    filteredListing.propertydescription.split(
+                                      " | "
+                                    )[2]
+                                  }
+                                </Box>
+                              </Subheader>
+
+                              <Header gutterBottom variant="p" component="div">
+                                {filteredListing.properyheading}
+                              </Header>
+                              <PriceBox>
+                                <Box
+                                  style={{
+                                    color: "#0170dc",
+                                    fontSize: "18px",
+                                    fontWeight: 600,
+                                    fontFamily: "Inter",
+                                  }}
+                                >
+                                  RUP {filteredListing.propertyprice}
+                                </Box>
+                                <Box></Box>
+                              </PriceBox>
+
+                              <ReturnsBox>
+                                <Box>
+                                  <Box>Investment closed</Box>
+                                  <Box
+                                    style={{
+                                      color: "black",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    {filteredListing.fundingdate}
+                                  </Box>
+                                </Box>
+                                <Box>
+                                  {/* <Box>Min. Investment</Box> */}
+                                  {/* <Box
+                                  style={{ color: "black", fontWeight: "bold" }}
+                                >
+                                  {filteredListing.mininvestment}
+                                </Box> */}
+                                </Box>
+                              </ReturnsBox>
+                            </CardContent>
+                          </CardActionArea>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "flex-start",
+                              marginBottom: "15px",
+                            }}
+                          >
+                            {filteredListing.islive === 1 && (
+                              <Button
+                                sx={{
+                                  paddingLeft: "65px",
+                                  paddingRight: "65px",
+                                  width: "80%",
+                                  backgroundColor: "rgb(222, 154, 154)",
+                                  color: "red",
+                                }}
+                                onClick={() => {
+                                  navigate(
+                                    `/dashboard/properties/view/${filteredListing._id}`,
+                                    {
+                                      state: 1,
+                                    }
+                                  );
+                                }}
+                              >
+                                Closed
+                              </Button>
+                            )}
+                            {filteredListing.islive === 2 && (
+                              <Button
+                                sx={{
+                                  paddingLeft: "65px",
+                                  paddingRight: "65px",
+                                  backgroundColor: "#0170dc",
+                                  color: "white",
+                                }}
+                                onClick={() => {
+                                  navigate(
+                                    `/dashboard/properties/view/${filteredListing._id}`,
+                                    {
+                                      state: {
+                                        id: 1,
+                                      },
+                                    }
+                                  );
+                                }}
+                              >
+                                I'm Interested
+                              </Button>
+                            )}
+                          </div>
+                        </Property>
+                      </Link>
+                    </Grid>
+                  ))}
+              </Grid>
+            </div>
+          </Box>
+        )}
         {/* {activeButton === "funded" && (
           <Box sx={{ flexGrow: 1 }}>
             <Grid
