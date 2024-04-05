@@ -173,12 +173,10 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const { token } = req.body;
-  // console.log(token);
-
-  //login by email
-  if ("email" in req.body) {
-    const username = req.body.email.name;
-    const useremail = req.body.email.email;
+  console.log(req.body);
+  if (req.body.identities[0].identityType === "EMAIL") {
+    const username = req.body.identities[0].name;
+    const useremail = req.body.identities[0].identityValue;
     const duplicate = await customers
       .findOne({ email: useremail })
       .lean()
@@ -202,8 +200,8 @@ const login = async (req, res) => {
         userinfo: duplicate,
       });
     }
-  } else if ("mobile" in req.body) {
-    const number = req.body.mobile.number;
+  } else if (req.body.identities[0].identityType === "MOBILE") {
+    const number = req.body.identities[0].identityValue;
     const duplicate = await customers.findOne({ phone: number }).lean().exec();
     let reqd = [];
     if (!duplicate) {
@@ -226,23 +224,5 @@ const login = async (req, res) => {
       });
     }
   }
-  // const { name, email, password,phone } = req.body;
-
-  // Check for duplicates
-
-  // const duplicate = await customers.findOne({ email }).lean().exec();
-
-  // // console.log(duplicate);
-  // if (duplicate) {
-  //   return res.status(409).json({ message: 'Email Already Exists!!' });
-  // }
 };
-
-// const userDetail = await UserDetail.verifyToken(
-// 	token,
-// 	clientId,
-// 	clientSecret
-// );
-// console.log("User Details:", userDetail);
-
 module.exports = { login, signup, sendOTP, resendotp, verifyOtp };
