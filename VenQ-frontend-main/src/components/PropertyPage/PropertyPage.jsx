@@ -270,25 +270,6 @@ const PropertyPage = () => {
       )}
 
       <Box>
-        {/* <Typography
-          variant="h4"
-          style={{
-            fontFamily: "Inter",
-            padding: "0 10px 10px 0px",
-            fontWeight: 600,
-            justifyContent: "space-between",
-            display: "flex",
-            alignItems:"center",
-          }}
-        >
-          PropertyPage
-          {/* {
-        isAdmin&&<CartButton onClick={handleAddListingClick} style={{
-            marginTop:"15px",
-          }}>Add Listing</CartButton> 
-      } */}
-        {/* </Typography> */}
-
         {activeButton === "available" && (
           <Box sx={{ flexGrow: 1, height: "20px", marginTop: "10px" }}>
             <div
@@ -597,7 +578,7 @@ const PropertyPage = () => {
                                 Invest
                               </Button>
                             )}
-                            {listing.islive == 2 && (
+                            {isLoggedIn && listing.islive == 2 && (
                               <Button
                                 sx={{
                                   paddingLeft: "65px",
@@ -837,123 +818,6 @@ const PropertyPage = () => {
             </div>
           </Box>
         )}
-        {/* {activeButton === "funded" && (
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-               columns={{ xs: 1, sm: 4, md: 12 }} */}
-        {/* // .filter((listing) => listing.main_heading === "Luxury Property")
-            > */}
-        {/* {listings.map((listing) => (
-                  <Grid key={listing._id} item xs={2} sm={4} md={4}>
-                    <Link
-                      to={`/dashboard/PropertyPage/view/${listing._id}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <Property sx={{ maxWidth: 345 }}>
-                      <CardActionArea>
-                          <CardMedia> */}
-        {/* <Category>Luxury Property</Category>
-
-                            <Carousel showThumbs={false}>
-                              {listing.images.map((image, index) => (
-                                <div key={index}>
-                                  <img src={image}  alt={`image-${index}`} />
-                                </div>
-                              ))}
-                            </Carousel>
-                          
-                          </CardMedia> */}
-        {/* <Subheader>
-                              <Box>India</Box>
-                              <Box>Rented</Box>
-                            </Subheader>
-
-                            <Header gutterBottom variant="h5" component="div">
-                              {listing.properyheading}
-                              
-                            </Header>
-                          {isLoggedIn && <CardContent> */}
-
-        {/* <PriceBox>
-                              <Box
-                                style={{
-                                  color: "#0170dc",
-                                  fontSize: "18px",
-                                  fontWeight: 600,
-                                  fontFamily: "Inter",
-                                }}
-                              >
-                                RUP {listing.propertyprice}
-                              </Box>
-                              <Box></Box>
-                            </PriceBox> */}
-        {/* <progress
-                              style={{
-                                width: "100%",
-                                margin: "5px 0 10px 0",
-                                height: "20px",
-                              }}
-                              max={1500000}
-                              value={1239000}
-                            /> */}
-
-        {/* <ReturnsBox>
-                              <Box>
-                                <Box>Fuding Date</Box> */}
-        {/* {`${listing.annualizedreturn}`} */}
-        {/* <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{listing.fundingdate}</Box>
-                              </Box>
-                              <Box>
-                                <Box>Min. Investment</Box> */}
-        {/* {`${listing.annualizedreturn}`} */}
-        {/* <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{listing.mininvestment}</Box>
-                              </Box> */}
-
-        {/* <Box>
-                                <Box>Annual Appreciation</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.annualappreciation}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected gross yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.grossyield}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected net yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.netyield}`}</Box>
-                              </Box> */}
-        {/* </ReturnsBox>
-                          </CardContent>}
-                          {!isLoggedIn && <div>
-                          <Text onClick={()=>{
-                            navigate("/signup");
-                          }}>Signup</Text> or
-                          <Text onClick={()=>{
-                            navigate("/login");
-                          }}>Login</Text> to view the property */}
-        {/* </div>
-                          }
-                        </CardActionArea>
-                      </Property>
-                    </Link>
-                  </Grid>
-                ))}
-            </Grid>
-          </Box>
-        )} */}
 
         {/* {activeButton === "exited" && (
           <Box sx={{ flexGrow: 1 }}>
