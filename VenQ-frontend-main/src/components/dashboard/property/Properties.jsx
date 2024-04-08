@@ -234,11 +234,11 @@ const Properties = () => {
               {/* .filter((listing) => listing.main_heading === "New Listing") */}
 
               {listings
-                .filter((listing) => listing.islive != 1)
-                .map((listing) => (
-                  <Grid key={listing._id} item xs={2} sm={4} md={4}>
+                .filter((listing) => listing.islive === 2)
+                .map((filteredListing) => (
+                  <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
                     <Link
-                      to={`/dashboard/properties/view/${listing._id}`}
+                      to={`/dashboard/properties/view/${filteredListing._id}`}
                       style={{ textDecoration: "none" }}
                     >
                       <Property sx={{ maxWidth: 365 }}>
@@ -252,7 +252,7 @@ const Properties = () => {
                                 return "";
                               }}
                             >
-                              {listing.images.map((image, index) => (
+                              {filteredListing.images.map((image, index) => (
                                 <div
                                   style={{
                                     // marginTop:listing.islive==1?'0px':'32px',
@@ -269,7 +269,7 @@ const Properties = () => {
                                     src={image}
                                     alt={`image-${index}`}
                                   />
-                                  {listing.islive == 1 && (
+                                  {filteredListing.islive == 1 && (
                                     <SubheaderFixed>
                                       <Box
                                         sx={{
@@ -305,7 +305,9 @@ const Properties = () => {
                             } */}
 
                                   <FixedBox>
-                                    {listing.properyheading.includes("Plot")
+                                    {filteredListing.properyheading.includes(
+                                      "Plot"
+                                    )
                                       ? "Plot"
                                       : "Luxury Property"}
                                   </FixedBox>
@@ -317,18 +319,30 @@ const Properties = () => {
                           <CardContent>
                             <Subheader>
                               <Box>
-                                {listing.propertydescription.split(" | ")[0]}
+                                {
+                                  filteredListing.propertydescription.split(
+                                    " | "
+                                  )[0]
+                                }
                               </Box>
                               <Box>
-                                {listing.propertydescription.split(" | ")[1]}
+                                {
+                                  filteredListing.propertydescription.split(
+                                    " | "
+                                  )[1]
+                                }
                               </Box>
                               <Box>
-                                {listing.propertydescription.split(" | ")[2]}
+                                {
+                                  filteredListing.propertydescription.split(
+                                    " | "
+                                  )[2]
+                                }
                               </Box>
                             </Subheader>
 
                             <Header gutterBottom variant="p" component="div">
-                              {listing.properyheading}
+                              {filteredListing.properyheading}
                             </Header>
                             <PriceBox>
                               <Box
@@ -339,7 +353,7 @@ const Properties = () => {
                                   fontFamily: "Inter",
                                 }}
                               >
-                                RUP {listing.propertyprice}
+                                RUP {filteredListing.propertyprice}
                               </Box>
                               <Box></Box>
                             </PriceBox>
@@ -360,7 +374,7 @@ const Properties = () => {
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >
-                                  {listing.fundingdate}
+                                  {filteredListing.fundingdate}
                                 </Box>
                               </Box>
                               <Box>
@@ -369,7 +383,7 @@ const Properties = () => {
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >
-                                  {listing.mininvestment}
+                                  {filteredListing.mininvestment}
                                 </Box>
                               </Box>
 
@@ -404,7 +418,7 @@ const Properties = () => {
                             marginBottom: "15px",
                           }}
                         >
-                          {listing.islive == 1 && (
+                          {filteredListing.islive == 1 && (
                             <Button
                               sx={{
                                 paddingLeft: "65px",
@@ -414,7 +428,7 @@ const Properties = () => {
                               }}
                               onClick={() => {
                                 navigate(
-                                  `/dashboard/properties/view/${listing._id}`,
+                                  `/dashboard/properties/view/${filteredListing._id}`,
                                   { state: 1 }
                                 );
                               }}
@@ -422,7 +436,7 @@ const Properties = () => {
                               Invest
                             </Button>
                           )}
-                          {listing.islive == 2 && (
+                          {filteredListing.islive == 2 && (
                             <Button
                               sx={{
                                 paddingLeft: "65px",
@@ -432,7 +446,7 @@ const Properties = () => {
                               }}
                               onClick={() => {
                                 navigate(
-                                  `/dashboard/properties/view/${listing._id}`,
+                                  `/dashboard/properties/view/${filteredListing._id}`,
                                   {
                                     state: {
                                       id: 1,
@@ -575,7 +589,7 @@ const Properties = () => {
 
                             <ReturnsBox>
                               <Box>
-                                <Box>Investment closed</Box>
+                                <Box>Investment Ends</Box>
                                 <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >
@@ -583,8 +597,8 @@ const Properties = () => {
                                 </Box>
                               </Box>
                               <Box>
-                                {/* <Box>Min. Investment</Box> */}
-                                {/* <Box
+                                {/* <Box>Min. Investment</Box>
+                                <Box
                                   style={{ color: "black", fontWeight: "bold" }}
                                 >
                                   {filteredListing.mininvestment}
@@ -607,7 +621,7 @@ const Properties = () => {
                               sx={{
                                 paddingLeft: "65px",
                                 paddingRight: "65px",
-                                width:"80%",
+                                width: "80%",
                                 backgroundColor: "rgb(222, 154, 154)",
                                 color: "red",
                               }}
