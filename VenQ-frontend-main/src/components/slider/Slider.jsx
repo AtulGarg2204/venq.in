@@ -4,7 +4,7 @@ import LeftSide from "./LeftSide";
 import "./Slider.css";
 import { useScrollPercentage } from 'react-scroll-percentage'
 const Heading = styled(Typography)`
-  font-family: Bebas Neue;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-size: 3.5em;;
   font-weight: 400;
   line-height: 77px;
@@ -19,7 +19,7 @@ const Heading = styled(Typography)`
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.00938em;
-    font-family: Bebas Neue;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-size: 3rem;
     line-height: 77px;
     text-align: center;
@@ -35,7 +35,7 @@ const SubHeading = styled(Typography)`
 
   @media (max-width: 600px) {
     margin: 0;
-    font-family: "Saira Condensed";
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-weight: 500;
     line-height: 1.5;
     letter-spacing: 0.00938em;
@@ -57,7 +57,7 @@ const Slider = () => {
     color:'white',
     fontSize:'36px',
     fontWeight:'bold',
-    fontFamily:'Gilroy-Bold',
+    fontFamily:'Roboto","Helvetica","Arial",sans-serif',
     display:'flex',
     alignItems:'center',
     justifyContent:'center'
@@ -108,17 +108,19 @@ const Slider = () => {
   });
   const originalstyle={
     position:'absolute',
-    transition:'transform 0.5s ease',
-    transform:'translate(0px)',
+    transition:'transform 0.5s ease-in-out',
+    transform:'translate(0)',
     width:'fit-content',
     left: '20%',
+    willChange: 'transform'
   }
   const changedstyle={
     position:'absolute',
-    transition:'transform 0.5s ease',
-    transform:'translate(0px)',
+    transition:'transform 0.5s ease-in-out',
+    transform:'translate(0)',
     width:'fit-content',
-    left: '20%'
+    left: '20%',
+    willChange: 'transform'
   }
   const [ref, percentage] = useScrollPercentage({
     /* Optional options */

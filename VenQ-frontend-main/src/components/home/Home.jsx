@@ -17,10 +17,10 @@ import PartnerSlider from "../Partners/PartnerSlider";
 import sample from "../../hero-section/hero-section-video.mp4";
 import { useNavigate } from "react-router-dom";
 const Heading = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-style: normal;
   font-weight: 400;
-  font-size: 3.5em;
+  font-size: 3em;
   line-height: 70px;
   display: flex;
   align-items: flex-end;
@@ -30,10 +30,10 @@ const Heading = styled(Typography)`
   justify-content: center;
 `;
 const HeadingBig = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-style: normal;
   font-weight: 400;
-  font-size: 4.4em;
+  font-size: 2em;
   line-height: 70px;
   display: flex;
   align-items: flex-end;
@@ -43,10 +43,10 @@ const HeadingBig = styled(Typography)`
   margin-top: -10px;
 `;
 const HeadingSmallone = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-style: normal;
   font-weight: 400;
-  font-size: 2.8em;
+  font-size: 1.6em;
   margin-block-start: 0px;
   margin-block-end: 0px;
   display: flex;
@@ -57,10 +57,10 @@ const HeadingSmallone = styled(Typography)`
   margin-top: -10px;
 `;
 const HeadingSmall = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-style: normal;
   font-weight: 400;
-  font-size: 2.8em;
+  font-size: 2em;
   margin-block-start: 0px;
   margin-block-end: 0px;
   display: flex;
@@ -71,20 +71,21 @@ const HeadingSmall = styled(Typography)`
 `;
 
 const SubHeading = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-weight: 500;
   font-size: 18px;
   color: white;
   line-height: 26px;
   margin-bottom: 30px;
-  padding-right: 15%;
+  padding-right: 14%;
 `;
 const SubHeadingSmall = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-weight: 500;
   font-size: 18px;
   color: white;
   line-height: 26px;
+  margin-top: 2rem;
   margin-bottom: 30px;
   margin-block-end: 0px;
 `;
@@ -93,14 +94,15 @@ const MainButton = styled(Button)`
   border-radius: 8px;
   background-color: #1b527b;
   color: white;
-  font-size: 22spx;
+  font-size: 22px;
   font-weight: 700;
   line-height: 24px;
   text-transform: none;
+  margin-top: 2rem;
   margin-right: 100px;
   padding: 13px 25px;
   cursor: pointer;
-  font-family: "Inter";
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 
   :hover {
     background-color: #0170dc;
@@ -193,7 +195,7 @@ const SellButtonSmall = styled(Button)`
 `;
 
 const SubSection = styled(Typography)`
-  font-family: "Bebas Neue";
+  /* font-family: "Bebas Neue"; */
   font-style: normal;
   font-weight: 550;
   font-size: 30px;
@@ -255,7 +257,7 @@ const Home = () => {
           <div className="main-section">
             <div className="image-container">
               <div className="text-container">
-                <Heading>
+                <Heading style={{ fontSize: "40px" }}>
                   JOIN THE REVOLUTION OF SMART PROPERTY INVESTMENT.
                 </Heading>
                 <SubHeading>
@@ -340,7 +342,6 @@ const Home = () => {
                 cursor: "pointer",
                 paddingRight: "20px",
                 paddingLeft: "20px",
-                marginTop: "20px",
               }}
               onClick={() => {
                 navigate("/login");
@@ -353,9 +354,8 @@ const Home = () => {
 
             <img
               style={{
-                width:"100%",
+                position: "absolute",
                 bottom: "20px",
-                marginLeft: "-18px",
               }}
               height={300}
               src="images/homebg.png"
