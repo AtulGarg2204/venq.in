@@ -234,7 +234,9 @@ const Properties = () => {
               {/* .filter((listing) => listing.main_heading === "New Listing") */}
 
               {listings
-                .filter((listing) => listing.islive === 2)
+                .filter(
+                  (listing) => listing.islive === 1 || listing.islive === 2
+                )
                 .map((filteredListing) => (
                   <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
                     <Link
@@ -477,7 +479,7 @@ const Properties = () => {
               {/* .filter((listing) => listing.main_heading === "New Listing") */}
               {console.log(listings)}
               {listings
-                .filter((listing) => listing.islive === 1)
+                .filter((listing) => listing.islive === 3)
                 .map((filteredListing) => (
                   <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
                     <Link
@@ -616,7 +618,7 @@ const Properties = () => {
                             marginBottom: "15px",
                           }}
                         >
-                          {filteredListing.islive === 1 && (
+                          {filteredListing.islive === 3 && (
                             <Button
                               sx={{
                                 paddingLeft: "65px",
