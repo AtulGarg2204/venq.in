@@ -1,204 +1,96 @@
-// import React, { Component } from 'react';
-// import { Dialog } from '@mui/material';
-// import {AppBar} from '@mui/material';
-// import { ThemeProvider as MuiThemeProvider } from '@mui/system';
-// import {TextField} from '@mui/material';
-// import {Button} from '@mui/material';
-
-// export class FourthPage extends Component {
-//   continue = e => {
-//     e.preventDefault();
-//     this.props.nextStep();
-//   };
-
-//   back = e => {
-//     e.preventDefault();
-//     this.props.prevStep();
-//   };
-
-//   render() {
-//     const { values, handleChange } = this.props;
-//     return (
-//       <MuiThemeProvider>
-//         <>
-//           <Dialog
-//             open
-//             fullWidth
-//             maxWidth='sm'
-//           >
-//            <TextField
-//                 label="Property Overview"
-//                 placeholder="Enter overview of the property"
-//                 type="text"
-//                 value={values.formdata.propertyoverview}
-               
-//                 onChange={handleChange('propertyoverview')}
-//                 fullWidth
-//                 required
-//               />
-//                  <TextField
-//                 label="Property Price"
-//                 placeholder="Enter Property Price"
-//                 type="text"
-//                 value={values.formdata.propertyprice}
-               
-//                 onChange={handleChange('propertyprice')}
-//                 fullWidth
-//                 required
-//               />
-//                <TextField
-//                 label="Transaction Cost"
-//                 placeholder="Enter Transaction Cost"
-//                 type="text"
-//                 value={values.formdata.transactioncost}
-               
-//                 onChange={handleChange('transactioncost')}
-//                 fullWidth
-//                 required
-//               />
-//               <TextField
-//                 label="VENQ Fee"
-//                 placeholder="Venq fee"
-//                 type="text"
-//                 value={values.formdata.venqfee}
-//                 onChange={handleChange('venqfee')}
-//                 fullWidth
-//                 required
-//               />
-//                <TextField
-//                 label="Projected Gross Rent"
-//                 placeholder="Enter Projected Gross Rent"
-//                 type="text"
-//                 value={values.formdata.projectedgrossrent}
-               
-//                 onChange={handleChange('projectedgrossrent')}
-//                 fullWidth
-//                 required
-//               />
-//                <TextField
-//                 label="Maintainence fee"
-//                 placeholder="Enter Maintainence fee"
-//                 type="text"
-//                 value={values.formdata.maintainencefee}
-               
-//                 onChange={handleChange('maintainencefee')}
-//                 fullWidth
-//                 required
-//               />
-//                <TextField
-//                 label="Service Charges"
-//                 placeholder="Enter Service Charges"
-//                 type="text"
-//                 value={values.formdata.servicecharges}
-               
-//                 onChange={handleChange('servicecharges')}
-//                 fullWidth
-//                 required
-//               />
-//                <TextField
-//                 label="Annual Net Income"
-//                 placeholder="Enter Annual Net Income"
-//                 type="text"
-//                 value={values.formdata.annualnetincome}
-               
-//                 onChange={handleChange('annualnetincome')}
-//                 fullWidth
-//                 required
-//               />
-//             <br />
-
-//             <Button
-//               color="secondary"
-//               variant="contained"
-//               onClick={this.back}
-//             >Back</Button>
-
-//             <Button
-//               color="primary"
-//               variant="contained"
-//               onClick={this.continue}
-//             >Continue</Button>
-//           </Dialog>
-//         </>
-//       </MuiThemeProvider>
-//     );
-//   }
-// }
-
-// export default FourthPage;
-import React from "react";
-
+import React, { useState } from "react";
+import "./FourthPage.css";
+import axios from "axios";
 function FourthPage({ fd, sfd }) {
   return (
-    <div className="other-info-container">
+    <div style={{ paddingTop: "5px" }} className="other-info-container">
+      <h5>Property Price</h5>
       <input
         type="text"
-        placeholder="propertyoverview..."
-        value={fd.propertyoverview}
+        placeholder="Enter property price"
+        value={fd.financialInfoPropertyPrice}
         onChange={(e) => {
-          sfd({ ...fd, propertyoverview: e.target.value });
+          sfd({ ...fd, financialInfoPropertyPrice: e.target.value });
         }}
       />
       <input
+        style={{ marginTop: "10px" }}
         type="text"
-        placeholder="propertyprice..."
-        value={fd.propertypricen}
+        placeholder="Enter Transaction costs"
+        value={fd.financialInfoPropertyTransactionCost}
         onChange={(e) => {
-          sfd({ ...fd, propertypricen: e.target.value });
+          sfd({ ...fd, financialInfoPropertyTransactionCost: e.target.value });
         }}
       />
       <input
+        style={{ marginTop: "10px" }}
         type="text"
-        placeholder="transactioncost..."
-        value={fd.transactioncost}
+        placeholder="Enter Govt. Fees"
+        value={fd.financialInfoPropertyGovtFess}
         onChange={(e) => {
-          sfd({ ...fd, transactioncost: e.target.value });
+          sfd({ ...fd, financialInfoPropertyGovtFess: e.target.value });
         }}
       />
       <input
+        style={{ marginTop: "10px" }}
         type="text"
-        placeholder="venqfee..."
-        value={fd.venqfee}
+        placeholder="Enter total propetry cost"
+        value={fd.financialInfoPropertyTotalCost}
         onChange={(e) => {
-          sfd({ ...fd, venqfee: e.target.value });
+          sfd({ ...fd, financialInfoPropertyTotalCost: e.target.value });
+        }}
+      />
+      <br />
+
+      <br />
+      <h5>Yearly Rental Price</h5>
+      <input
+        type="text"
+        placeholder="Enter gross rent"
+        value={fd.financialInfoPropertyGrossRent}
+        onChange={(e) => {
+          sfd({ ...fd, financialInfoPropertyGrossRent: e.target.value });
         }}
       />
       <input
+        style={{ marginTop: "10px" }}
         type="text"
-        placeholder="projectedgrossrent..."
-        value={fd.projectedgrossrent}
+        placeholder="Enter service charges"
+        value={fd.financialInfoPropertyRentServiceCharges}
         onChange={(e) => {
-          sfd({ ...fd, projectedgrossrent: e.target.value });
+          sfd({
+            ...fd,
+            financialInfoPropertyRentServiceCharges: e.target.value,
+          });
         }}
       />
       <input
+        style={{ marginTop: "10px" }}
         type="text"
-        placeholder="maintainencefee..."
-        value={fd.maintainencefee}
+        placeholder="Enter maintenance cost"
+        value={fd.financialInfoPropertyRentMaintenanceCost}
         onChange={(e) => {
-          sfd({ ...fd, maintainencefee: e.target.value });
+          sfd({
+            ...fd,
+            financialInfoPropertyRentMaintenanceCost: e.target.value,
+          });
         }}
       />
       <input
+        style={{ marginTop: "10px" }}
         type="text"
-        placeholder="servicecharges..."
-        value={fd.servicecharges}
+        placeholder="Enter total annual income"
+        value={fd.financialInfoPropertyTotalAnnualIncome}
         onChange={(e) => {
-          sfd({ ...fd, servicecharges: e.target.value });
+          sfd({
+            ...fd,
+            financialInfoPropertyTotalAnnualIncome: e.target.value,
+          });
         }}
       />
-      <input
-        type="text"
-        placeholder="annualnetincome..."
-        value={fd.annualnetincome}
-        onChange={(e) => {
-          sfd({ ...fd, annualnetincome: e.target.value });
-        }}
-      />
+      <br />
     </div>
   );
 }
 
 export default FourthPage;
-
-

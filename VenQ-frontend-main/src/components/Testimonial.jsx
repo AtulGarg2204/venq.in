@@ -19,7 +19,7 @@ const useMediaQuery = (query) => {
 
   return matches;
 };
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
 const testimonials = [
   // Testimonial 1
   {

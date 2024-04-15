@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, Typography, styled } from "@mui/material";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
 const Heading = styled(Typography)`
   font-family: "Saira";
   font-style: normal;

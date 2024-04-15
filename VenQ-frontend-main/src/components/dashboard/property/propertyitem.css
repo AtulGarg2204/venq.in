@@ -1,0 +1,112 @@
+.input-button-container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.invest-main-container * {
+  margin: 0;
+  font-family: "Inter";
+}
+
+.invest-main-container .top-heading {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.unit-value * {
+  display: flex;
+  /* margin-top: 2px; */
+  align-items: center;
+  justify-content: center;
+}
+
+.input-button-container input {
+  width: auto;
+}
+
+.input-button-container * {
+  margin: 0;
+  text-align: center;
+}
+
+.input-button-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: rgb(0, 179, 134);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.input-button-container button:focus {
+  outline: none;
+  border: none;
+}
+
+.unit-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000;
+  text-wrap: nowrap;
+  font-family: "Inter";
+  border-bottom: 2px solid #e7e7e7;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.unit-value-in {
+  width: 100%;
+  text-align: right;
+}
+
+.popup-content {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.transaction-fee {
+  margin-bottom: 1rem;
+}
+
+.transaction-fee input {
+  text-align: right;
+}
+
+.price-input-container {
+  flex-grow: 1;
+}
+
+.gray {
+  color: #ccc;
+}
+
+.s-mb-10 {
+  margin-bottom: 10px;
+}
+
+.stk-quantity {
+  color: #000;
+  font-size: 1rem;
+}
+
+.total-fee {
+  margin-bottom: 1rem;
+  border: 1px solid rgb(0, 179, 134);
+  border-top-width: 5px;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.total-fee input {
+  color: rgb(0, 179, 134);
+}

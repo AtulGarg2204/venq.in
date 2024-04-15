@@ -10,13 +10,14 @@
 }
 
 .rotated-heading {
-  font-size: 50px;
+  font-size: 40px;
   margin-bottom: 10px;
   transform: rotate(-5deg);
   margin-top: 50px;
+
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   letter-spacing: 5px; /* Adjust the letter-spacing value as needed */
-  font-weight: 350; /* Adjust the font-weight value as needed */
+  font-weight: 400; /* Adjust the font-weight value as needed */
 }
 
 .rotated-buttons-container {

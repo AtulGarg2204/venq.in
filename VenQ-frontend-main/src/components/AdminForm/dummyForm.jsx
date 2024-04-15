@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
 const Form = ({ mode, listingId, onSubmitSuccess }) => {
 
   const URL = "https://venq-imfs.onrender.com";

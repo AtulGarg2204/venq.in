@@ -127,7 +127,7 @@
     flex-direction: column;
     align-items: center;
     padding: 30px;
-    height: 45vh;
+    height: 65vh;
   }
 
   .custom-services-left-div {
@@ -137,12 +137,10 @@
     /* gap: 10px; */
     background-color: #f6f7f9;
   }
-
   .custom-services-right-div {
     width: 100%;
     align-items: center;
   }
-
   .custom-services-title.small-screen-title {
     font-size: 60px;
     color: #333;

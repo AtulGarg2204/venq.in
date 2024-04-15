@@ -21,7 +21,13 @@ const Carousel = () => {
     { imgSrc: i3, topic: "COMMERCIAL PROPERTIES", des: "" },
     { imgSrc: i4, topic: "PLOTS", des: "" },
   ];
-
+  <script
+    type="text/javascript"
+    id="hs-script-loader"
+    async
+    defer
+    src="//js.hs-scripts.com/45720526.js"
+  ></script>;
   const handleNext = () => {
     // console.log('handling next');
     setCurrentIndex((currentIndex + 1) % 4);
@@ -45,7 +51,7 @@ const Carousel = () => {
 
   const showSlider = (type) => {
     const containerDom = document.querySelector(".container");
-    const SliderDom = containerDom.querySelector(".container .list");
+    const SliderDom = containerDom?.querySelector(".container .list");
     const thumbnailBorderDom = document.querySelector(".container .thumbnail");
 
     let SliderItemsDom = Array.from(

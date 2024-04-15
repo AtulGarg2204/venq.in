@@ -19,7 +19,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AddIcon from "@mui/icons-material/Add";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
 const Cash = styled(Box)`
   border: 1px solid lightgrey;
   background-color: white;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
 const AddAmenityPopup = ({ onAddAmenity, onClose }) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');

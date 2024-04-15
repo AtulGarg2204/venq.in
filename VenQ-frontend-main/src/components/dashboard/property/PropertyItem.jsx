@@ -20,7 +20,7 @@ import {
   TextField,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { alpha } from "@mui/system";
+import { alpha, width } from "@mui/system";
 import { Slider as BaseSlider, sliderClasses } from "@mui/base/Slider";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -53,6 +53,8 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import ShowInterest from "./ShowInterest";
 // import { toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
+import Terms from "../../common/terms";
+import "./propertyitem.css";
 const Options = styled(Link)`
   padding: 10px;
   display: flex;
@@ -92,10 +94,11 @@ const StyledPopup = styled(Popup)`
     color: white;
   }
 `;
+
 const StyledPopupinv = styled(Popup)`
   &-overlay {
-    height: 435px;
-    width: 30%;
+    height: 480px;
+    width: 35%;
     margin-left: 33%;
     margin-top: 5%;
     background-color: rgba(255, 255, 255, 0.85);
@@ -724,6 +727,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         setContent(listing.propertyoverview);
         settruncatedcontent(content.split(" ").slice(0, maxWords).join(" "));
         setShouldtruncate(content.split(" ").length > maxWords);
+        console.log("listingData", response.data);
+        localStorage.setItem("selectedId", id);
         // listing.push(response.data);
         // console.log(listing.images.length);
       } catch (error) {
@@ -733,6 +738,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
     fetchListing();
   }, [id]);
+
+  const tableData = { ...listing };
+  console.log(tableData, "my");
+  console.log(userinvest, "myinvest");
+  console.log(userinvestone, "myinvestnew");
 
   const toggleContent = () => {
     setShowFullContent(!showFullContent);
@@ -762,6 +772,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   };
   const handleUserInvestChangeOne = (event) => {
     setUserInvestOne(Number(event.target.value));
+    localStorage.setItem("investmentAmount", Number(event.target.value));
   };
   const handleInterestChange = (event) => {
     setIntetestAmount(Number(event.target.value));
@@ -777,7 +788,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   };
   const cols = [5, 2.5, 2.5, 5];
   const rows = [1];
-  const handleInterest = (e) => {
+  const handleInterest = async (e) => {
     e.preventDefault();
     let interestusers = JSON.parse(
       localStorage.getItem("interestusers1") || "[]"
@@ -793,8 +804,21 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     console.log(localStorage.getItem("interestusers1"));
     toast.success("Response recorded sucessfully");
     setOpen(false);
+    try {
+      const data = {
+        type: { selectedValue } == "allotment" ? 0 : 1,
+        name: token.name,
+        email: token.email,
+        phone: token.phone,
+        property: listing.properyheading,
+        image: listing.images[0],
+        amount: interestamount,
+      };
+      const ans = await axios.post(`${URL}/investment/add`, data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   const handleRequest = async (tp) => {
     try {
       const data = {
@@ -824,7 +848,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       console.log(error);
     }
   };
-
   const handleFive = () => {
     setQuantity(quantity + 5000);
   };
@@ -843,13 +866,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     link.click();
     document.body.removeChild(link);
   };
-
   const [isAdmin, setAdmin] = useState(false);
-
   useEffect(() => {
     setAdmin(token.isAdmin);
   }, []);
-
   const [isEditMode, setIsEditMode] = useState(false);
   const navigate = useNavigate();
   const rowarr = [5, 4, 4, 2.5];
@@ -858,10 +878,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     setIsEditMode(true);
     navigate(`/${listing._id}/edit`);
   };
-
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-  // const isLargeScreen = useMediaQuery("(max-width:1300px)");
-
   const settings = {
     dots: true,
     infinite: true,
@@ -869,6 +886,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  const [showInvestComponent, setShowInvestComponent] = useState(false);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [openinv, setOpenInv] = useState(
@@ -878,6 +896,63 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [phone, setPhone] = useState("");
   const ps = `/dashboard/properties/view/photos/${id}`;
 
+  const handlePopopRequest = () => {
+    setShowInvestComponent(true);
+  };
+
+  const closeInvestComponent = () => {
+    setShowInvestComponent(false);
+  };
+  const allState = {
+    stockQun: 1,
+    totalCurrency: "₹5,000.00",
+    totalAmt: "₹5,250.00",
+    transPer: "₹250.00",
+  };
+
+  const perItemCurrency = 5000;
+  const [totalStock, setTotalStock] = useState(allState);
+
+  const numberFormat = (value) =>
+    new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+    }).format(value);
+
+  const stockHandlerInc = (e) => {
+    const upStockQun = allState.stockQun + 1;
+    const upTotal = upStockQun * perItemCurrency;
+    const upTrans = (upStockQun * perItemCurrency * 5) / 100;
+    const upTotalCurrency = numberFormat(upTotal);
+    const upTransPer = numberFormat(upTrans);
+    const upTotalAmt = numberFormat(upTotal + upTrans);
+
+    setTotalStock({
+      stockQun: upStockQun,
+      totalCurrency: upTotalCurrency,
+      totalAmt: upTotalAmt,
+      transPer: upTransPer,
+    });
+    console.log(totalStock);
+  };
+
+  const stockHandlerDec = (e) => {
+    if (allState.stockQun > 1) {
+      const upStockQun = allState.stockQun - 1;
+      const upTotal = upStockQun * perItemCurrency;
+      const upTrans = (upStockQun * perItemCurrency * 5) / 100;
+      const upTotalCurrency = numberFormat(upTotal);
+      const upTransPer = numberFormat(upTrans);
+      const upTotalAmt = numberFormat(upTotal + upTrans);
+      setTotalStock({
+        stockQun: upStockQun,
+        totalCurrency: upTotalCurrency,
+        totalAmt: upTotalAmt,
+        transPer: upTransPer,
+      });
+    }
+    console.log(totalStock);
+  };
   return (
     <div
       style={{
@@ -1116,66 +1191,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <b style={{ fontSize: "32px" }}>{listing.propertyprice}</b>
                   </Typography>
                 </Box>
-                {/* <progress
-                  value={1634600}
-                  max={2059765}
-                  style={{ width: "100%" }}
-                /> */}
-                {/* <Box
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    paddingBottom: "20px",
-                  }}
-                >
-                  <Typography
-                    style={{
-                      fontSize: "14px",
-                      color: "rgb(112,111,111)",
-                      fontFamily: "Inter",
-                    }}
-                  >
-                    {" "}
-                    funded
-                  </Typography>
-                  <Typography
-                    style={{
-                      fontSize: "14px",
-                      color: "rgb(112,111,111)",
-                      fontFamily: "Inter",
-                    }}
-                  >
-                    RUP 4,25,165 available
-                  </Typography>
-                </Box> */}
-
-                {/* <Box
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    paddingBottom: "10px",
-                  }}
-                > */}
-                {/* <Typography
-                    style={{ color: "rgb(112,111,111)", fontFamily: "Inter" }}
-                  >
-                    <b style={{ paddingRight: "5px", color: "#0170dc" }}>493</b>
-                    investors
-                  </Typography> */}
-                {/* <Typography
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      color: "red",
-                      fontFamily: "Inter",
-                    }}
-                  >
-                    <AccessTimeIcon style={{ paddingRight: "5px" }} /> 56 days
-                    left
-                  </Typography> */}
-                {/* </Box> */}
 
                 <Box
                   style={{
@@ -2690,7 +2705,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </Typography>
                       </Box> */}
                     </Box>
-                    
 
                     {listing.islive == 2 && (
                       <Box
@@ -2968,7 +2982,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     marginTop: "14px",
                                   }}
                                 >
-                                  Investment Amount:
+                                  Investment Amount :
                                 </LabelName>
                               </Label>
                               {
@@ -3461,7 +3475,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         borderRadius: "15px",
                       }}
                     > */}
-                      {/* <Box
+                    {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -3469,7 +3483,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       > */}
-                        {/* <Typography
+                    {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -3485,11 +3499,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         >
                           {listing.fundingdate}
                         </Typography> */}
-                        {/* <span>Yearly investment return</span>
+                    {/* <span>Yearly investment return</span>
                         <span style={{ fontWeight: 800 }}>9.8%</span> */}
-                      {/* </Box> */}
+                    {/* </Box> */}
 
-                      {/* <Box
+                    {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -3497,7 +3511,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       > */}
-                        {/* <Typography
+                    {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -3513,19 +3527,19 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         >
                           {listing.fundingdate}
                         </Typography> */}
-                        {/* <span>Funded date</span>
+                    {/* <span>Funded date</span>
                         <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
                       </Box> */}
 
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "1rem 2rem",
-                        }}
-                      >
-                        {/* <Typography
+                    <Box
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        margin: "1rem 2rem",
+                      }}
+                    >
+                      {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -3541,11 +3555,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         >
                           {listing.fundingdate}
                         </Typography> */}
-                        {/* <span>Current valuation</span>
+                      {/* <span>Current valuation</span>
                         <span style={{ fontWeight: 800 }}>RUP 1,100,000</span> */}
-                      </Box>
+                    </Box>
 
-                      {/* <Box
+                    {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -3955,7 +3969,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       marginTop: "14px",
                                     }}
                                   >
-                                    Investment Amount:
+                                    Investment Amount :
                                   </LabelName>
                                 </Label>
                                 {
@@ -4447,7 +4461,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         borderRadius: "15px",
                       }}
                     > */}
-                      {/* <Box
+                    {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -4455,7 +4469,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       > */}
-                        {/* <Typography
+                    {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -4471,11 +4485,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         >
                           {listing.fundingdate}
                         </Typography> */}
-                        {/* <span>Yearly investment return</span>
+                    {/* <span>Yearly investment return</span>
                         <span style={{ fontWeight: 800 }}>9.8%</span> */}
-                      {/* </Box> */}
+                    {/* </Box> */}
 
-                      {/* <Box
+                    {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -4483,7 +4497,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       > */}
-                        {/* <Typography
+                    {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -4499,19 +4513,19 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         >
                           {listing.fundingdate}
                         </Typography> */}
-                        {/* <span>Funded date</span>
+                    {/* <span>Funded date</span>
                         <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
                       </Box> */}
 
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "1rem 2rem",
-                        }}
-                      >
-                        {/* <Typography
+                    <Box
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        margin: "1rem 2rem",
+                      }}
+                    >
+                      {/* <Typography
                           style={{ fontSize: "14px", fontFamily: "Inter",
                         marginLeft:'5px' }}
                         >
@@ -4527,11 +4541,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         >
                           {listing.fundingdate}
                         </Typography> */}
-                        {/* <span>Current valuation</span>
+                      {/* <span>Current valuation</span>
                         <span style={{ fontWeight: 800 }}>RUP 1,100,000</span> */}
-                      </Box>
+                    </Box>
 
-                      {/* <Box
+                    {/* <Box
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
@@ -4809,116 +4823,119 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </div>
                       </StyledPopup>
                       {/* bada version  */}
-
+                      {/* working on this  */}
                       <StyledPopupinv
                         open={openinv}
                         closeOnDocumentClick
                         onClose={closeModalinv}
                       >
-                        <div
-                          className="modal"
-                          style={{
-                            height: "100%",
-                            // backgroundColor:'red',
-                            margin: "0px",
-                            marginTop: "-10px",
-                            paddingLeft: "18px",
-                            paddingRight: "18px",
-                          }}
-                        >
-                          <a
-                            className="close"
-                            onClick={closeModalinv}
+                        {showInvestComponent ? (
+                          <Terms userinvestone={userinvestone} />
+                        ) : (
+                          <div
                             style={{
-                              cursor: "pointer",
-                            }}
-                          >
-                            &times;
-                          </a>
+                              height: "100%",
+                              width: "30vw",
 
-                          <form
-                            style={{
-                              height: "450px",
+                              margin: "0px",
+                              marginTop: "-10px",
+                              paddingLeft: "18px",
+                              paddingRight: "18px",
                             }}
-                            onSubmit={handleInterest}
                           >
-                            <Box>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-evenly",
-                                }}
-                              >
-                                {/* <div style={{
+                            <a
+                              className="close"
+                              onClick={closeModalinv}
+                              style={{
+                                cursor: "pointer",
+                              }}
+                            >
+                              &times;
+                            </a>
+
+                            <form
+                              style={{
+                                height: "450px",
+                              }}
+                              onSubmit={handleInterest}
+                            >
+                              <Box>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-evenly",
+                                  }}
+                                >
+                                  {/* <div style={{
           display:'flex',
           justifyContent:'space-evenly'
         }}> */}
-                                <nav
-                                  style={{
-                                    width: "100%",
-                                  }}
-                                >
-                                  <ul
+                                  <nav
                                     style={{
-                                      display: "flex",
-                                      listStyle: "none",
-                                      paddingInlineStart: "0px",
-                                      borderBottom: "1px solid #e9e9eb",
-                                      gap: "20px",
+                                      width: "100%",
                                     }}
                                   >
-                                    <li
+                                    <ul
                                       style={{
-                                        fontWeight: "bold",
-                                        borderBottom:
-                                          invtype == 0
-                                            ? "2px solid #00b386"
-                                            : "none",
-                                        marginRight: "12px",
-                                        color:
-                                          invtype == 0 ? "#00b386" : "gray",
-                                        cursor: "pointer",
-                                        fontSize: "16px",
-                                        fontFamily: "Inter",
-                                      }}
-                                      onClick={() => {
-                                        {
-                                          !listing.properyheading.includes(
-                                            "Dholera"
-                                          ) && setinvtype(0);
-                                        }
+                                        display: "flex",
+                                        listStyle: "none",
+                                        paddingInlineStart: "0px",
+                                        borderBottom: "1px solid #e9e9eb",
+                                        gap: "20px",
                                       }}
                                     >
-                                      Allotment
-                                    </li>
-                                    <li
-                                      style={{
-                                        fontWeight: "bold",
-                                        borderBottom:
-                                          invtype == 1
-                                            ? "2px solid #00b386"
-                                            : "none",
-                                        color:
-                                          invtype == 1 ? "#00b386" : "gray",
-                                        marginRight: "12px",
-                                        cursor: "pointer",
-                                        fontSize: "16px",
-                                        fontFamily: "Inter",
-                                      }}
-                                      onClick={() => {
-                                        setinvtype(1);
-                                      }}
-                                    >
-                                      Invest
-                                    </li>
-                                  </ul>
-                                </nav>
-                                {/* <Label>
+                                      <li
+                                        style={{
+                                          fontWeight: "bold",
+                                          borderBottom:
+                                            invtype == 0
+                                              ? "2px solid #00b386"
+                                              : "none",
+                                          marginRight: "12px",
+                                          color:
+                                            invtype == 0 ? "#00b386" : "gray",
+                                          cursor: "pointer",
+                                          fontSize: "16px",
+                                          fontFamily: "Inter",
+                                        }}
+                                        onClick={() => {
+                                          {
+                                            !listing.properyheading.includes(
+                                              "Dholera"
+                                            ) && setinvtype(0);
+                                          }
+                                        }}
+                                      >
+                                        Allotment
+                                      </li>
+                                      <li
+                                        style={{
+                                          fontWeight: "bold",
+                                          borderBottom:
+                                            invtype == 1
+                                              ? "2px solid #00b386"
+                                              : "none",
+                                          color:
+                                            invtype == 1 ? "#00b386" : "gray",
+                                          marginRight: "12px",
+                                          cursor: "pointer",
+                                          fontSize: "16px",
+                                          fontFamily: "Inter",
+                                        }}
+                                        onClick={() => {
+                                          setinvtype(1);
+                                        }}
+                                      >
+                                        Invest
+                                      </li>
+                                    </ul>
+                                  </nav>
+                                  {/* <Label>
           <LabelName>Allotment:</LabelName>
         </Label>
       <Radio {...controlProps('allotment')} /> */}
-                              </div>
-                              {/* <div style={{
+                                </div>
+                                {/* <div style={{
           display:'flex',
           justifyContent:'space-evenly'
         }}>
@@ -4928,119 +4945,248 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       <Radio {...controlProps('investment')} />
         </div>
       </div> */}
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}
-                              >
-                                <Label>
-                                  <LabelName
-                                    sx={{
-                                      fontSize: "14px",
-                                      marginTop: "14px",
-                                    }}
-                                  >
-                                    Investment Amount:
-                                  </LabelName>
-                                </Label>
-                                {
-                                  invtype == 0 && (
-                                    <input
-                                      type="text"
-                                      value={userinvest}
-                                      onChange={(event) => {
-                                        setUserInvest(event.target.value);
-                                      }}
-                                      style={{
-                                        width: "40%",
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    // backgroundColor:"red"
+                                  }}
+                                >
+                                  {/* <Label>
+                                    <LabelName
+                                      sx={{
                                         fontSize: "14px",
-                                        backgroundColor: "#EBF9F5",
-                                        color: "#50B487",
+                                        marginTop: "14px",
                                       }}
-                                    />
-                                  )
-                                  //   <TextField
-                                  //   required
-                                  //   name="userinvestmentamount"
-                                  //   value={userinvest}
-                                  //   onChange={(event)=>{
-                                  //    setUserInvest(event.target.value);
-                                  //   }}
-                                  //  //  label="Enter your email"
-                                  //  sx={{
-                                  //    width:'40%',
-                                  //    fontSize:'14px',
-                                  //    backgroundColor:'#EBF9F5',
-                                  //    color:'#50B487'
-                                  //  }}
-                                  //   type="text"
-                                  // />
-                                }
-                                {invtype == 1 && (
-                                  <input
-                                    type="text"
-                                    value={userinvestone}
-                                    onChange={(event) => {
-                                      setUserInvest(event.target.value);
-                                    }}
-                                    style={{
-                                      width: "40%",
-                                      fontSize: "14px",
-                                      backgroundColor: "#EBF9F5",
-                                      color: "#50B487",
-                                    }}
-                                  />
+                                    >
+                                      Investment Amount 1:
+                                    </LabelName>
+                                  </Label> */}
+                                  {
+                                    invtype == 0 && (
+                                      <input
+                                        type="text"
+                                        value={userinvest}
+                                        onChange={(event) => {
+                                          setUserInvest(event.target.value);
+                                        }}
+                                        style={{
+                                          width: "40%",
+                                          fontSize: "14px",
+                                          backgroundColor: "#EBF9F5",
+                                          color: "#50B487",
+                                        }}
+                                      />
+                                    )
+                                    //   <TextField
+                                    //   required
+                                    //   name="userinvestmentamount"
+                                    //   value={userinvest}
+                                    //   onChange={(event)=>{
+                                    //    setUserInvest(event.target.value);
+                                    //   }}
+                                    //  //  label="Enter your email"
+                                    //  sx={{
+                                    //    width:'40%',
+                                    //    fontSize:'14px',
+                                    //    backgroundColor:'#EBF9F5',
+                                    //    color:'#50B487'
+                                    //  }}
+                                    //   type="text"
+                                    // />
+                                  }
+                                  {invtype == 1 && (
+                                    <>
+                                      <div class="invest-main-container">
+                                        <div className="top-heading gray s-mb-10">
+                                          No. of units
+                                        </div>
+                                        <div
+                                          style={{
+                                            width: "100%",
+                                          }}
+                                          className="input-button-container"
+                                        >
+                                          <button
+                                            className="des"
+                                            onClick={stockHandlerDec}
+                                          >
+                                            -
+                                          </button>
+                                          <input
+                                            style={{
+                                              fontSize: "1.4rem",
+                                              backgroundColor: "#EBF9F5",
+                                              marginTop: "0",
+                                              maxWidth: "120px",
+                                              fontWeight: "600",
+                                            }}
+                                            className="stk-quantity"
+                                            type="text"
+                                            value={totalStock.stockQun}
+                                            id="stock-quantity"
+                                          />
+                                          <button
+                                            className="asc"
+                                            onClick={stockHandlerInc}
+                                          >
+                                            +
+                                          </button>
+                                        </div>
+                                        <div className="unit-value">
+                                          <div className="gray">Unit Value</div>
+                                          <div className="price-input-container">
+                                            <input
+                                              style={{
+                                                outline: "none",
+                                                border: "none",
+                                              }}
+                                              className="unit-value-in"
+                                              type="text"
+                                              value={"₹5,000.00"}
+                                            />
+                                          </div>
+                                        </div>
+                                        <div className="unit-value">
+                                          <div className="gray">
+                                            Subscription Value
+                                          </div>
+                                          <div className="price-input-container">
+                                            <input
+                                              style={{
+                                                outline: "none",
+                                                border: "none",
+                                              }}
+                                              className="unit-value-in"
+                                              type="text"
+                                              value={totalStock.totalCurrency}
+                                            />
+                                          </div>
+                                        </div>
+                                        <div className="unit-value transaction-fee">
+                                          <div className="gray">
+                                            Transaction Fees
+                                          </div>
+                                          <div className="price-input-container">
+                                            <input
+                                              style={{
+                                                outline: "none",
+                                                border: "none",
+                                              }}
+                                              className="unit-value-in"
+                                              type="text"
+                                              value={totalStock.transPer}
+                                            />
+                                          </div>
+                                        </div>
+                                        <div className="unit-value total-fee">
+                                          <div>Total</div>
+                                          <div className="price-input-container">
+                                            <input
+                                              style={{
+                                                outline: "none",
+                                                border: "none",
+                                              }}
+                                              className="unit-value-in"
+                                              type="text"
+                                              value={totalStock.totalAmt}
+                                            />
+                                          </div>
+                                        </div>
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            gap: "30px",
+                                          }}
+                                        >
+                                          <Button
+                                            type="submit"
+                                            variant="contained"
+                                            style={{
+                                              margin: "8px 0",
+                                              width: "50%",
+                                              backgroundColor: "#EBF9F5",
+                                              borderRadius: "8px",
+                                              color: "#50B487",
+                                            }}
+                                            color="primary"
+                                            fullWidth
+                                            onClick={() => {
+                                              handleRequest(0);
+                                            }}
+                                            // disabled={selectedValue==""}
+                                          >
+                                            ADD TO CART
+                                          </Button>
+                                          <Button
+                                            type="submit"
+                                            variant="contained"
+                                            style={{
+                                              margin: "8px 0",
+                                              width: "50%",
+                                              backgroundColor: "#00b386",
+                                              borderRadius: "8px",
+                                            }}
+                                            color="primary"
+                                            fullWidth
+                                            onClick={handlePopopRequest}
+                                            // disabled={selectedValue==""}
+                                          >
+                                            INVEST123
+                                          </Button>
+                                        </div>
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
+                                {invtype == 0 && (
+                                  <>
+                                    <Box
+                                      sx={{
+                                        width: "90%",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        marginLeft: "16px",
+                                      }}
+                                    >
+                                      <Slider
+                                        aria-label="Temperature"
+                                        defaultValue={5000}
+                                        getAriaValueText={valuetext}
+                                        min={5000}
+                                        max={305000}
+                                        step={30000}
+                                        marks={marks}
+                                        onChange={handleUserInvestChange}
+                                      />
+                                    </Box>
+                                  </>
                                 )}
-                              </div>
-                              {invtype == 0 && (
-                                <>
-                                  <Box
-                                    sx={{
-                                      width: "90%",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      marginLeft: "16px",
-                                    }}
-                                  >
-                                    <Slider
-                                      aria-label="Temperature"
-                                      defaultValue={5000}
-                                      getAriaValueText={valuetext}
-                                      min={5000}
-                                      max={305000}
-                                      step={30000}
-                                      marks={marks}
-                                      onChange={handleUserInvestChange}
-                                    />
-                                  </Box>
-                                </>
-                              )}
-                              {invtype == 1 && (
-                                <>
-                                  <Box
-                                    sx={{
-                                      width: "90%",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      marginLeft: "16px",
-                                    }}
-                                  >
-                                    <Slider
-                                      aria-label="Temperature"
-                                      defaultValue={5000}
-                                      getAriaValueText={valuetext}
-                                      min={5000}
-                                      max={310000}
-                                      step={50000}
-                                      marks={marks}
-                                      onChange={handleUserInvestChangeOne}
-                                    />
-                                  </Box>
-                                </>
-                              )}
+                                {/* {invtype == 1 && (
+                                  <>
+                                    <Box
+                                      sx={{
+                                        width: "90%",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        marginLeft: "16px",
+                                      }}
+                                    >
+                                      <Slider
+                                        aria-label="Temperature"
+                                        defaultValue={5000}
+                                        getAriaValueText={valuetext}
+                                        min={5000}
+                                        max={310000}
+                                        step={50000}
+                                        marks={marks}
+                                        onChange={handleUserInvestChangeOne}
+                                      />
+                                    </Box>
+                                  </>
+                                )} */}
 
-                              {/* <LabelSlider
+                                {/* <LabelSlider
             type="range"
             min="50000"
             max="300000"
@@ -5048,35 +5194,35 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             value={interestamount}
             onChange={handleInterestChange}
           /> */}
-                            </Box>
-                            {invtype == 0 && (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                }}
-                              >
-                                <Label>
-                                  <LabelName
-                                    sx={{
-                                      marginTop: "14px",
-                                      fontSize: "14px",
-                                    }}
-                                  >
-                                    Allotment Fees:
-                                  </LabelName>
-                                </Label>
-                                <input
-                                  type="text"
-                                  value={`₹ ` + userinvest * 0.05}
+                              </Box>
+                              {invtype == 0 && (
+                                <div
                                   style={{
-                                    width: "40%",
-                                    fontSize: "14px",
-                                    backgroundColor: "#EBF9F5",
-                                    color: "#50B487",
+                                    display: "flex",
+                                    justifyContent: "space-between",
                                   }}
-                                />
-                                {/* <TextField
+                                >
+                                  <Label>
+                                    <LabelName
+                                      sx={{
+                                        marginTop: "14px",
+                                        fontSize: "14px",
+                                      }}
+                                    >
+                                      Allotment Fees:
+                                    </LabelName>
+                                  </Label>
+                                  <input
+                                    type="text"
+                                    value={`₹ ` + userinvest * 0.05}
+                                    style={{
+                                      width: "40%",
+                                      fontSize: "14px",
+                                      backgroundColor: "#EBF9F5",
+                                      color: "#50B487",
+                                    }}
+                                  />
+                                  {/* <TextField
                        required
                        fullWidth
                        name="name"
@@ -5088,138 +5234,141 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         width:'40%'
                        }}
                      /> */}
-                              </div>
-                            )}
-
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                              }}
-                            >
-                              {invtype == 0 && (
-                                <>
-                                  <Label>
-                                    <LabelName
-                                      sx={{
-                                        marginTop: "14px",
-                                        fontSize: "14px",
-                                      }}
-                                    >
-                                      Allotment date:
-                                    </LabelName>
-                                  </Label>
-                                  <input
-                                    type="text"
-                                    value={`1 Mar`}
-                                    style={{
-                                      width: "40%",
-                                      fontSize: "14px",
-                                      backgroundColor: "#EBF9F5",
-                                      color: "#50B487",
-                                    }}
-                                  />
-                                </>
+                                </div>
                               )}
-                            </div>
-                            {invtype == 0 && (
-                              <Label
+
+                              <div
                                 style={{
-                                  textAlign: "center",
-                                }}
-                                sx={{
-                                  textAlign: "center",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  marginTop: "50px",
+                                  display: "flex",
+                                  justifyContent: "space-between",
                                 }}
                               >
-                                <LabelName
+                                {invtype == 0 && (
+                                  <>
+                                    <Label>
+                                      <LabelName
+                                        sx={{
+                                          marginTop: "14px",
+                                          fontSize: "14px",
+                                        }}
+                                      >
+                                        Allotment date:
+                                      </LabelName>
+                                    </Label>
+                                    <input
+                                      type="text"
+                                      value={`1 Mar`}
+                                      style={{
+                                        width: "40%",
+                                        fontSize: "14px",
+                                        backgroundColor: "#EBF9F5",
+                                        color: "#50B487",
+                                      }}
+                                    />
+                                  </>
+                                )}
+                              </div>
+                              {invtype == 0 && (
+                                <Label
+                                  style={{
+                                    textAlign: "center",
+                                  }}
                                   sx={{
                                     textAlign: "center",
-                                    fontSize: "8px",
-                                    color: "#7c7e8c",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginTop: "50px",
                                   }}
                                 >
-                                  This 5% application fees is a reservation
-                                  only. You will have to pay the whole amount on
-                                  the date of allotment to know more checkout{" "}
-                                  <a href="https://www.venq.in/investing">
-                                    venq.in/investing
-                                  </a>
-                                </LabelName>
-                              </Label>
-                            )}
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                gap: "30px",
-                                marginTop: invtype == 1 ? "205px" : "0px",
-                              }}
-                            >
-                              <Button
-                                type="submit"
-                                variant="contained"
+                                  <LabelName
+                                    sx={{
+                                      textAlign: "center",
+                                      fontSize: "8px",
+                                      color: "#7c7e8c",
+                                      marginTop: "50px",
+                                    }}
+                                  >
+                                    This 5% application fees is a reservation
+                                    only. You will have to pay the whole amount
+                                    on the date of allotment to know more
+                                    checkout{" "}
+                                    <a href="https://www.venq.in/investing">
+                                      venq.in/investing
+                                    </a>
+                                  </LabelName>
+                                </Label>
+                              )}
+                              <div
                                 style={{
-                                  margin: "8px 0",
-                                  width: "50%",
-                                  paddingTop: "10px",
-                                  paddingBottom: "10px",
-                                  backgroundColor: "#EBF9F5",
-                                  borderRadius: "8px",
-                                  color: "#50B487",
+                                  display: "flex",
+
+                                  justifyContent: "space-between",
+                                  gap: "30px",
+                                  marginTop: invtype == 1 ? "250px" : "0px",
                                 }}
-                                color="primary"
-                                fullWidth
-                                onClick={() => {
-                                  handleRequest(0);
-                                }}
-                                // disabled={selectedValue==""}
                               >
-                                ADD TO CART
-                              </Button>
-                              {invtype == 0 && (
-                                <Button
-                                  type="submit"
-                                  variant="contained"
-                                  style={{
-                                    margin: "8px 0",
-                                    width: "50%",
-                                    backgroundColor: "#00b386",
-                                    borderRadius: "8px",
-                                  }}
-                                  color="primary"
-                                  fullWidth
-                                  onClick={() => {
-                                    handleRequest(1);
-                                  }}
-                                  // disabled={selectedValue==""}
-                                >
-                                  APPLY
-                                </Button>
-                              )}
-                              {invtype == 1 && (
-                                <Button
-                                  type="submit"
-                                  variant="contained"
-                                  style={{
-                                    margin: "8px 0",
-                                    width: "50%",
-                                    backgroundColor: "#00b386",
-                                    borderRadius: "8px",
-                                  }}
-                                  color="primary"
-                                  fullWidth
-                                  onClick={handleRequest}
-                                  // disabled={selectedValue==""}
-                                >
-                                  INVEST
-                                </Button>
-                              )}
-                            </div>
-                          </form>
-                        </div>
+                                <>
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{
+                                      margin: "8px 0",
+                                      width: "50%",
+                                      paddingTop: "10px",
+                                      paddingBottom: "10px",
+                                      backgroundColor: "#EBF9F5",
+                                      borderRadius: "8px",
+                                      color: "#50B487",
+                                    }}
+                                    color="primary"
+                                    fullWidth
+                                    onClick={() => {
+                                      handleRequest(0);
+                                    }}
+                                  >
+                                    ADD TO CART
+                                  </Button>
+                                  {invtype == 0 && (
+                                    <Button
+                                      type="submit"
+                                      variant="contained"
+                                      style={{
+                                        margin: "8px 0",
+                                        width: "50%",
+                                        backgroundColor: "#00b386",
+                                        borderRadius: "8px",
+                                      }}
+                                      color="primary"
+                                      fullWidth
+                                      onClick={() => {
+                                        handleRequest(1);
+                                      }}
+                                    >
+                                      APPLY
+                                    </Button>
+                                  )}
+                                  {invtype == 1 && (
+                                    <Button
+                                      type="submit"
+                                      variant="contained"
+                                      style={{
+                                        margin: "8px 0",
+                                        width: "50%",
+                                        backgroundColor: "#00b386",
+                                        borderRadius: "8px",
+                                      }}
+                                      color="primary"
+                                      fullWidth
+                                      onClick={handlePopopRequest}
+                                    >
+                                      INVEST123
+                                    </Button>
+                                  )}
+                                </>
+                              </div>
+                            </form>
+                          </div>
+                        )}
                       </StyledPopupinv>
                     </Box>
                     <div style={{}}>
@@ -5296,8 +5445,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 </Pricing>
               </Grid>
             )}
-
-
           </Grid>
         </Box>
         {isSmallScreen && (
@@ -5461,7 +5608,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   className="modal"
                   style={{
                     height: "100%",
-                    // backgroundColor:'red',
+                    // backgroundColor:'red',1
+
                     margin: "0px",
                     marginTop: "-10px",
                     paddingLeft: "18px",
@@ -5841,7 +5989,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                           color="primary"
                           fullWidth
-                          onClick={handleRequest}
+                          // onClick={handleRequest}
                           // disabled={selectedValue==""}
                         >
                           INVEST

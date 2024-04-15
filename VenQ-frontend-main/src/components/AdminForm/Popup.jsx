@@ -13,7 +13,7 @@ const AddContentPopup = ({ onAddContent, onClose }) => {
     onClose();
     alert('Content Added Successfully');
   };
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
   return (
     <div className="popup" style={styles.popup}>
       <div className="popup-content" style={styles.popupContent}>

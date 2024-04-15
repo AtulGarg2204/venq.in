@@ -1,12 +1,7 @@
 import "./App.css";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signup from "./components/signup/Signup";
 import Verification from "./components/signup/Verification";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -45,7 +40,7 @@ import FormPersonalDetails from "./components/dashboard/listings/FormPersonalDet
 import ThirdPage from "./components/dashboard/listings/ThirdPage";
 import FourthPage from "./components/dashboard/listings/FourthPage";
 import SecondLastPage from "./components/dashboard/listings/secondLastPage";
-import FinalPage from "./components/dashboard/listings/FinalPage";
+import FinalPage from "./components/dashboard/listings/LocationPage";
 import Addlisting from "./components/dashboard/listings/Addlistings";
 import AllPropertyInterests from "./components/dashboard/UserInterests/AllPropertyInterests";
 import PropertyPage from "./components/PropertyPage/PropertyPage";
@@ -54,11 +49,15 @@ import NewSignup from "./components/signup/NewSignup";
 import BlogPage from "./components/blog/BlogPage";
 import Blogpost from "./components/blog/Blogpost";
 import PendingKyc from "./components/dashboard/investors/PendingKyc";
+import Amenities from "./components/dashboard/listings/Amenities";
+import Allinvestorslist from "./components/dashboard/listings/Allinvestorslist";
+import InvestorsDetails from "./components/dashboard/UserInterests/InvestorsDetails";
+
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        <Route path="/login" element={<NewLogin />} />
+        <Route path="login" element={<NewLogin />} />
         <Route path="blog" element={<BlogPage />} />
         <Route exact path="/blog/:blogTitle" element={<Blogpost />} />
         <Route path="/signup" element={<NewSignup />} />
@@ -66,7 +65,7 @@ function App() {
         <Route path=":id/edit" element={<FormEdit />} />
         <Route path="terms" element={<Terms />} />
         <Route path="risks" element={<Risks />} />
-        <Route path="/privacy" element={<Privacy />} />
+        <Route path="privacy" element={<Privacy />} />
         <Route path="refund" element={<Refund />} />
         <Route path="learn" element={<Learn />} />
         <Route path="learn-view" element={<LearnView />} />
@@ -83,6 +82,11 @@ function App() {
         <Route path="propertyinterests">
           <Route path=":propertyid" element={<PropertyInterests />} />
         </Route>
+        <Route
+          path="investorDetails/:investorId"
+          element={<InvestorsDetails />}
+        />
+
         <Route path="abc/def/ghi" element={<FormUserDetails />} />
         {/* </Route> */}
         <Route path="/allinterests/view" element={<Allinterests />} />
@@ -100,6 +104,7 @@ function App() {
           <Route path="rewards/tier" element={<Tier />} />
           <Route path="rewards/referrals" element={<Referrals />} />
           <Route path="allinvestors" element={<PendingKyc />} />
+          <Route path="allinvestorslist" element={<Allinvestorslist />} />
           <Route
             path="allpropertyinterests/userinterests/:propertyid"
             element={<UserInterests />}
@@ -115,12 +120,13 @@ function App() {
             <Route path="info" element={<FourthPage />} />
             <Route path="timeline" element={<SecondLastPage />} />
             <Route path="location" element={<FinalPage />} />
+            <Route path="amenities" element={<Amenities />} />
           </Route>
         </Route>
 
         <Route path="/" element={<Home />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

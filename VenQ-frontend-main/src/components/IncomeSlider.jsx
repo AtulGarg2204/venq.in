@@ -5,7 +5,13 @@ import "swiper/css/pagination";
 import "./IncomeSlider.css";
 import { Pagination, Scrollbar, Mousewheel } from "swiper";
 import { Typography, styled, useMediaQuery } from "@mui/material";
-
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 const IncomeSlider = () => {
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);

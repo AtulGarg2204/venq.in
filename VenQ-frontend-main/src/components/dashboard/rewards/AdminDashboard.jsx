@@ -3,10 +3,10 @@ import Properties from "../property/Properties";
 import Portfolio from "../contents/Portfolio";
 import "../Dashboard.css";
 import Profile from "../account/Profile";
-import image from '../user.png'
+import image from "../user.png";
 import Bookmarks from "../account/Bookmarks";
 import Rewards from "../rewards/Rewards";
-import Addlisting from '../listings/Addlistings'
+import Addlisting from "../listings/Addlistings";
 import Tier from "../rewards/Tier";
 import Referrals from "../rewards/Referrals";
 import Cart from "../cart/Cart";
@@ -47,9 +47,12 @@ import FormUserDetails from "../listings/FormUserDetails";
 import FormPersonalDetails from "../listings/FormPersonalDetails";
 import ThirdPage from "../listings/ThirdPage";
 import FourthPage from "../listings/FourthPage";
-import FinalPage from "../listings/FinalPage";
+import FinalPage from "../listings/LocationPage";
 import SecondLastPage from "../listings/secondLastPage";
 import config from "../../../config";
+import Amenities from "../listings/Amenities";
+import Documents from "../listings/Documents";
+import ListingDate from "../listings/ListingDate";
 const drawerWidth = 280;
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -168,9 +171,10 @@ const NestedListContainer = styled(Box)`
   width: 250px;
   box-shadow: 0 1px 2px 1px black;
   z-index: 9;
-  
-  @media (max-width: 600px) {  // Set your preferred max-width for mobile
-    width: 100vw;  // Make it occupy the whole width of the viewport
+
+  @media (max-width: 600px) {
+    // Set your preferred max-width for mobile
+    width: 100vw; // Make it occupy the whole width of the viewport
     left: 0;
     top: 8%;
     border-radius: 0;
@@ -178,16 +182,17 @@ const NestedListContainer = styled(Box)`
   }
 `;
 
-
 const NestedList = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   background-color: white;
 
-  @media (max-width: 600px) {  // Set your preferred max-width for mobile
-    width: 100%;  // Make it occupy the whole width of the parent container
-  }`;
+  @media (max-width: 600px) {
+    // Set your preferred max-width for mobile
+    width: 100%; // Make it occupy the whole width of the parent container
+  }
+`;
 
 const NestedLink = styled(Link)`
   width: 100%;
@@ -212,14 +217,13 @@ const Logout = styled(Link)`
 `;
 
 const AdminDashboard = () => {
-  // const [open] = useState(true);
-  const URL =config.URL;
-  const token=JSON.parse(localStorage.getItem("userinfo"));
-  const [isAdmin,setAdmin] = useState(false);
+  const URL = config.URL;
+  const token = JSON.parse(localStorage.getItem("userinfo"));
+  const [isAdmin, setAdmin] = useState(false);
   useEffect(() => {
-     if(token && token.isAdmin){
+    if (token && token.isAdmin) {
       setAdmin(true);
-     }
+    }
   }, []);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
@@ -241,8 +245,8 @@ const AdminDashboard = () => {
   // const decodedToken = jwtDecode(token);
   const name = token.name;
   var namearr;
-  if(name){
-    namearr=name.split(" ");
+  if (name) {
+    namearr = name.split(" ");
   }
   const handleAccountClick = () => {
     setNestedListVisible(!nestedListVisible);
@@ -280,107 +284,212 @@ const AdminDashboard = () => {
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
-  const [im,setIm]=useState([]);
-  const [sim,setSim]=useState([]);
-  const [spo,setSpo]=useState([]);
-  const [fundt,setFundt]=useState([]);
-  const [amneties,setAmenities]=useState([]);
-  const [docs,setDocs]=useState([]);
-  const [dlink,setDlink]=useState("");
-  const [formData,setformData]=useState({
-      specs:[],
-      specsimage:"",
-      propertyoverview:"",
-      specstitle:"",
-      specssubtitle:"",
-      propertyprice:"",
-      propertypricen:"",
-      propertyheading:"",
-      propertydescription:"",
-      transactioncost:"",
-      propertylogolink:"",
-      invcost:"",
-      venqfee:"",
-      maintainencefee:"",
-      projectedgrossrent:"",
-      servicecharges:"",
-      annualnetincome:"",
-      mainheading:"",
-      boxheadings:"",
-      subheading:"",
-      price:"",
-      fund:"",
-      annualizedreturn:"",
-      annualappreciation:"",
-      grossyield:"",
-      netyield:"",
-      amenityname:"",
-      amenitylink:"",
-      documentName:"",
-      documentlink:"",
-      locationlink:"",
-      locationdescription:"",
-      tourlink:"",
-      fundingtitle:"",
-      fundingsubtitle:"",
-      fundingdescription:""
 
-  })
-  const FormTitles = ["First Page", "Second Page", "ThirdPage","FourthPage","Fifth Page","Sixth Page"];
-  const PageDisplay = () => {
-    if (step === 0) {
-      return <FormUserDetails fd={formData} sfd={setformData} si={setIm} i={im} />;
-    } else if (step === 1) {
-      return <FormPersonalDetails fd={formData} sfd={setformData} spi={setSim} sp={sim} fsp={spo} sfsp={setSpo} />;
-    } else if (step === 2) {
-      return  <ThirdPage fd={formData} sfd={setformData} />;;
-    } else if (step === 3) {
-      return  <FourthPage fd={formData} sfd={setformData} />;;
-    }else if (step === 4) {
-      return  <SecondLastPage fd={formData} sfd={setformData} fo={fundt} sfo={setFundt} />;;
-    }  else {
-      return <FinalPage fd={formData} sfd={setformData} am={amneties} sam={setAmenities} dc={docs} sdc={setDocs} dl={dlink} sdl={setDlink} />;
+  // const [open] = useState(true);
+
+  const [im, setIm] = useState([]);
+  const [sim, setSim] = useState([]);
+  const [spo, setSpo] = useState([]);
+  const [fundt, setFundt] = useState([]);
+  const [amneties, setAmenities] = useState([]);
+  const [docs, setDocs] = useState([]);
+  const [dlink, setDlink] = useState("");
+  const generateRandomId = () => {
+    // Generate a random hexadecimal ID
+    const randomId = Array.from({ length: 30 }, () =>
+      Math.floor(Math.random() * 16).toString(16)
+    ).join("");
+    return randomId;
+  };
+  const [formData, setformData] = useState({
+    _id: generateRandomId(),
+    amenities: [],
+    status: "Live",
+    propertyName: "",
+    tickerCode: "",
+    keyPoints: "",
+    highlightOne: "",
+    highlightTwo: "",
+    propertyHighlightHeading: "",
+    propertyHighlightDescription: "",
+    propertyHighlightTitle: "",
+    propertyHighlightSubTitle: "",
+    propertyImgUrlOne: "",
+    propertyImgUrlTwo: "",
+    propertyImgUrlThree: "",
+    propertyImgUrlFour: "",
+    financialInfoPropertyPrice: "",
+    financialInfoPropertyTransactionCost: "",
+    financialInfoPropertyGovtFess: "",
+    financialInfoPropertyTotalCost: "",
+    financialInfoPropertyGrossRent: "",
+    financialInfoPropertyRentServiceCharges: "",
+    financialInfoPropertyRentMaintenanceCost: "",
+    financialInfoPropertyTotalAnnualIncome: "",
+    timelineFundingTitle: "",
+    timelineFundingDescription: "",
+    locationCountryName: "",
+    locationCityName: "",
+    locationStreet: "",
+    documentFile: null,
+    listingDate: "",
+  });
+
+  const handleSubmit = async () => {
+    try {
+      const formDataArray = Object.entries(formData).map(([key, value]) => ({
+        [key]: value,
+      }));
+
+      // const result = await axios.post('YOUR_BACKEND_API_URL', formData);
+      // console.log('Submit successful:', result.data);
+      // Clear form data afteruccessful submission if needed
+      console.log(formDataArray);
+      setformData({
+        _id: generateRandomId(),
+        amenities: [],
+        propertyName: "",
+        status: "",
+        tickerCode: "",
+        keyPoints: "",
+        highlightOne: "",
+        highlightTwo: "",
+        propertyHighlightHeading: "",
+        propertyHighlightDescription: "",
+        propertyHighlightTitle: "",
+        propertyHighlightSubTitle: "",
+        propertyImgUrlOne: "",
+        propertyImgUrlTwo: "",
+        propertyImgUrlThree: "",
+        propertyImgUrlFour: "",
+        financialInfoPropertyPrice: "",
+        financialInfoPropertyTransactionCost: "",
+        financialInfoPropertyGovtFess: "",
+        financialInfoPropertyTotalCost: "",
+        financialInfoPropertyGrossRent: "",
+        financialInfoPropertyRentServiceCharges: "",
+        financialInfoPropertyRentMaintenanceCost: "",
+        financialInfoPropertyTotalAnnualIncome: "",
+        timelineFundingTitle: "",
+        timelineFundingDescription: "",
+        locationCountryName: "",
+        locationCityName: "",
+        locationStreet: "",
+        documentFile: "",
+        listingDate: "",
+      });
+    } catch (error) {
+      console.error("Error submitting data:", error);
     }
   };
-  const handleSubmit=async ()=>{
-    try{
-      const sobj={
-        images:im,
-        tourlink:formData.tourlink,
-        properyheading:formData.propertyheading,
-        propertydescription:formData.propertydescription,
-        specs:spo,
-        propertyprice:formData.propertyprice,
-        annualizedreturn:formData.annualizedreturn,
-        annualappreciation:formData.annualappreciation,
-        grossyield:formData.grossyield,
-        netyield:formData.netyield,
-        propertyoverview:formData.propertyoverview,
-        propertypricen:formData.propertypricen,
-        transactioncost:formData.transactioncost,
-        venqfee:formData.venqfee,
-        projectedgrossrent:formData.projectedgrossrent,
-        maintainencefee:formData.maintainencefee,
-        servicecharges:formData.servicecharges,
-        annualnetincome:formData.annualnetincome,
-        fundtimeline:fundt,
-        locationlink:formData.locationlink,
-        locationdescription:formData.locationdescription,
-        amenities:amneties,
-        documents:docs
-      }
-      // console.log(sobj);
-      const result=await axios.post(`${URL}/listing/add`,sobj);
-      if(result){
-        console.log('submit ho gaya');
-      }else{
-        console.log('nahi hua submit');
-      }
-    } catch (error) {
-      console.log(error);
+
+  const FormTitles = [
+    "Property Details",
+    "Property Highlights",
+    "Photos",
+    "Financial Information",
+    "Timeline",
+    "Location",
+    "Amenities",
+    "Documents",
+    "Listing Date",
+  ];
+  const PageDisplay = () => {
+    if (step === 0) {
+      return (
+        <FormUserDetails fd={formData} sfd={setformData} si={setIm} i={im} />
+      );
+    } else if (step === 1) {
+      return (
+        <FormPersonalDetails
+          fd={formData}
+          sfd={setformData}
+          spi={setSim}
+          sp={sim}
+          fsp={spo}
+          sfsp={setSpo}
+        />
+      );
+    } else if (step === 2) {
+      return <ThirdPage fd={formData} sfd={setformData} />;
+    } else if (step === 3) {
+      return <FourthPage fd={formData} sfd={setformData} />;
+    } else if (step === 4) {
+      return (
+        <SecondLastPage
+          fd={formData}
+          sfd={setformData}
+          fo={fundt}
+          sfo={setFundt}
+        />
+      );
+    } else if (step === 5) {
+      return (
+        <FinalPage
+          fd={formData}
+          sfd={setformData}
+          am={amneties}
+          sam={setAmenities}
+          dc={docs}
+          sdc={setDocs}
+          dl={dlink}
+          sdl={setDlink}
+        />
+      );
+    } else if (step === 6) {
+      return <Amenities fd={formData} sfd={setformData} />;
+    } else if (step === 7) {
+      return <Documents fd={formData} sfd={setformData} />;
+    } else if (step === 8) {
+      return (
+        <ListingDate
+          fd={formData}
+          sfd={setformData}
+          handleSubmit={handleSubmit}
+        />
+      );
     }
-  }
-  // console.log(step);
+  };
+  // const handleSubmit=async ()=>{
+  //   try{
+  //     const sobj={
+  //       images:im,
+  //       tourlink:formData.tourlink,
+  //       properyheading:formData.propertyheading,
+  //       propertydescription:formData.propertydescription,
+  //       specs:spo,
+  //       propertyprice:formData.propertyprice,
+  //       annualizedreturn:formData.annualizedreturn,
+  //       annualappreciation:formData.annualappreciation,
+  //       grossyield:formData.grossyield,
+  //       netyield:formData.netyield,
+  //       propertyoverview:formData.propertyoverview,
+  //       propertypricen:formData.propertypricen,
+  //       transactioncost:formData.transactioncost,
+  //       venqfee:formData.venqfee,
+  //       projectedgrossrent:formData.projectedgrossrent,
+  //       maintainencefee:formData.maintainencefee,
+  //       servicecharges:formData.servicecharges,
+  //       annualnetincome:formData.annualnetincome,
+  //       fundtimeline:fundt,
+  //       locationlink:formData.locationlink,
+  //       locationdescription:formData.locationdescription,
+  //       amenities:amneties,
+  //       documents:docs
+  //     }
+  //     // console.log(sobj);
+  //     const result=await axios.post(${URL}/listing/add,sobj);
+  //     if(result){
+  //       console.log('submit ho gaya');
+  //     }else{
+  //       console.log('nahi hua submit');
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  console.log(step);
   return (
     <Box
       sx={{
@@ -390,16 +499,26 @@ const AdminDashboard = () => {
       }}
     >
       {isMobile && (
-        <div style={{ display: "flex", justifyContent: "space-between",background:"#15242F" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            background: "#15242F",
+          }}
+        >
           New Listing
           <div style={{ display: "flex" }}>
             {name && (
               <Options onClick={handleAccountClick}>
-                <img style={{
-                        height:'30px',
-                        borderRadius:'40%',
-                        cursor:'pointer',
-                      }} src={image} alt="fsdf"/>
+                <img
+                  style={{
+                    height: "30px",
+                    borderRadius: "40%",
+                    cursor: "pointer",
+                  }}
+                  src={image}
+                  alt="fsdf"
+                />
               </Options>
             )}
             <IconButton
@@ -407,20 +526,22 @@ const AdminDashboard = () => {
               aria-label="open drawer"
               onClick={handleMenuClick}
               edge="start"
-              style={{marginTop:"0px"}}
+              style={{ marginTop: "0px" }}
             >
               <img
-              src="/images/menu.png"
-              alt="logo"
-              style={{ padding: "10px", cursor: "pointer" ,width: "30px", height: "30px"}}
-            />
+                src="/images/menu.png"
+                alt="logo"
+                style={{
+                  padding: "10px",
+                  cursor: "pointer",
+                  width: "30px",
+                  height: "30px",
+                }}
+              />
             </IconButton>
           </div>
-          
         </div>
-        
       )}
-
 
       <Popover
         anchorEl={anchorEl}
@@ -436,7 +557,7 @@ const AdminDashboard = () => {
         }}
       >
         <List component="nav">
-          <UpperItems>
+          {/* <UpperItems>
           <Options
               selected={step === 0}
               onClick={() => handleStepChange(0)}
@@ -492,7 +613,7 @@ const AdminDashboard = () => {
                     onMouseDown={handleClose}
                   >
                      <PropertyIcon selected={step === 5} />
-                  {/* <CartIcon selected={step === 6} /> */}
+                 
               <Heading selected={step === 5}>Location</Heading>
             </Options>
             <Options
@@ -503,7 +624,7 @@ const AdminDashboard = () => {
               onMouseDown={handleClose}
             >
                <PropertyIcon selected={step === 6} />
-              {/* <CartIcon selected={step === 7} /> */}
+             
               <Heading selected={step === 6}>Amenities</Heading>
             </Options>
             <Options
@@ -513,11 +634,11 @@ const AdminDashboard = () => {
               onClick={() => handleStepChange(7)}
               onMouseDown={handleClose}
             >
-              {/* <CartIcon selected={step === 8} /> */}
+              
               <PropertyIcon selected={step === 7} />
               <Heading selected={step === 7}>Documents</Heading>
             </Options>
-          </UpperItems>
+          </UpperItems> */}
 
           <Divider sx={{ my: 1 }} />
 
@@ -529,11 +650,15 @@ const AdminDashboard = () => {
             >
               <div className="account-container">
                 {/* <div className="circle">{name.slice(0, 2).toUpperCase()}</div> */}
-                <img style={{
-                        height:'30px',
-                        borderRadius:'40%',
-                        cursor:'pointer',
-                      }} src={image} alt="fsdf"/>
+                <img
+                  style={{
+                    height: "30px",
+                    borderRadius: "40%",
+                    cursor: "pointer",
+                  }}
+                  src={image}
+                  alt="fsdf"
+                />
                 <Heading style={{ fontSize: "16px" }}>{name}</Heading>
               </div>
               <ChevronRightIcon />
@@ -567,17 +692,20 @@ const AdminDashboard = () => {
               style={{ padding: "10px", cursor: "pointer" }}
             />
           </Link> */}
-         <h1 style={{
-          textAlign:'center'
-         }}>New Listing</h1> 
+          <h1
+            style={{
+              textAlign: "center",
+            }}
+          >
+            New Listing
+          </h1>
         </Toolbar>
 
         <Divider />
 
         <List component="nav">
           <UpperItems>
-          <Options
-              
+            <Options
               selected={step === 0}
               onClick={() => handleStepChange(0)}
               onMouseDown={handleClose} // Close the popover on mouse down
@@ -587,7 +715,6 @@ const AdminDashboard = () => {
             </Options>
 
             <Options
-          
               selected={step === 1}
               onClick={() => handleStepChange(1)}
               onMouseDown={handleClose}
@@ -597,27 +724,24 @@ const AdminDashboard = () => {
             </Options>
 
             <Options
-            
               selected={step === 2}
               onClick={() => handleStepChange(2)}
               onMouseDown={handleClose}
             >
-               <PropertyIcon selected={step ===2} />
+              <PropertyIcon selected={step === 2} />
               <Heading selected={step === 2}>Photos</Heading>
             </Options>
 
             <Options
-            
               selected={step === 3}
               onClick={() => handleStepChange(3)}
               onMouseDown={handleClose}
             >
-             <PropertyIcon selected={step === 3} />
+              <PropertyIcon selected={step === 3} />
               <Heading selected={step === 3}>Financial Information</Heading>
             </Options>
 
             <Options
-             
               style={{ marginBottom: "0px" }}
               selected={step === 4}
               onClick={() => handleStepChange(4)}
@@ -626,30 +750,27 @@ const AdminDashboard = () => {
               <PropertyIcon selected={step === 4} />
               <Heading selected={step === 4}>Timeline</Heading>
             </Options>
-                  <Options
-                
-                    style={{ marginBottom: "0px" }}
-                    selected={step === 5}
-                    onClick={() => handleStepChange(5)}
-                    onMouseDown={handleClose}
-                  >
-                     <PropertyIcon selected={step === 5} />
-                  {/* <CartIcon selected={step === 6} /> */}
+            <Options
+              style={{ marginBottom: "0px" }}
+              selected={step === 5}
+              onClick={() => handleStepChange(5)}
+              onMouseDown={handleClose}
+            >
+              <PropertyIcon selected={step === 5} />
+              {/* <CartIcon selected={step === 6} /> */}
               <Heading selected={step === 5}>Location</Heading>
             </Options>
             <Options
-        
               style={{ marginBottom: "0px" }}
               selected={step === 6}
               onClick={() => handleStepChange(6)}
               onMouseDown={handleClose}
             >
-               <PropertyIcon selected={step === 6} />
+              <PropertyIcon selected={step === 6} />
               {/* <CartIcon selected={step === 7} /> */}
               <Heading selected={step === 6}>Amenities</Heading>
             </Options>
             <Options
-            
               style={{ marginBottom: "0px" }}
               selected={step === 7}
               onClick={() => handleStepChange(7)}
@@ -659,9 +780,17 @@ const AdminDashboard = () => {
               <PropertyIcon selected={step === 7} />
               <Heading selected={step === 7}>Documents</Heading>
             </Options>
+            <Options
+              style={{ marginBottom: "0px" }}
+              selected={step === 8}
+              onClick={() => handleStepChange(8)}
+              onMouseDown={handleClose}
+            >
+              <PropertyIcon selected={step === 8} />
+              {/* <CartIcon selected={step === 7} /> */}
+              <Heading selected={step === 8}>Listing Date</Heading>
+            </Options>
           </UpperItems>
-
-          
         </List>
       </Drawer>
       {/* {nestedListVisible && (
@@ -709,18 +838,18 @@ const AdminDashboard = () => {
           setNestedListVisible(false);
         }}
       >
-         <div className="myform">
-      <div className="progressbar">
-        {/* <div
+        <div className="myform">
+          <div className="progressbar">
+            {/* <div
           style={{ width: step === 0 ? "33.3%" : step == 1 ? "66.6%" : "100%" }}
         ></div> */}
-      </div>
-      <div className="form-container">
-        <div className="header">
-          <h1>{FormTitles[step]}</h1>
-        </div>
-        <div className="body">{PageDisplay()}</div>
-        {(step === FormTitles.length - 1) && 
+          </div>
+          <div className="form-container">
+            <div className="header">
+              <h1>{FormTitles[step]}</h1>
+            </div>
+            <div className="body">{PageDisplay()}</div>
+            {/* {(step === FormTitles.length - 1) && 
           <div className="footer">
           <button
             onClick={() => {
@@ -731,12 +860,10 @@ const AdminDashboard = () => {
             Submit
           </button>
         </div>
-        }
-        
-      </div>
-    </div>
+        } */}
+          </div>
+        </div>
         {/* <Addlisting /> */}
-       
       </Box>
     </Box>
   );

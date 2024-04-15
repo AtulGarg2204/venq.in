@@ -17,6 +17,13 @@ const FormBox = styled(Box)(({ theme }) => ({
     margin: "2px 0",
   },
 }));
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -24,7 +31,7 @@ const Signup = () => {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phone,setPhone]=useState("");
+  const [phone, setPhone] = useState("");
   const dispatch = useDispatch();
   const { userDetails, signupError, userToken } = useSelector(
     (state) => state.auth
@@ -40,14 +47,14 @@ const Signup = () => {
       toast.error("Enter a valid Email");
     } else if (password === "") {
       toast.error("Enter your Password");
-    }else if(phone ===""){
+    } else if (phone === "") {
       toast.error("Enter your Phone number");
-    } else if(phone.length!=10){
+    } else if (phone.length != 10) {
       toast.error("Phone number should be of 10 digits");
-    }else if (password.length < 6) {
+    } else if (password.length < 6) {
       toast.error("Password must be at least 6 characters long");
     } else {
-      dispatch(signup(name, email, password,phone));
+      dispatch(signup(name, email, password, phone));
     }
   };
 

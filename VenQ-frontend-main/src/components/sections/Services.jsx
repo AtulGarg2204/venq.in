@@ -114,7 +114,7 @@ const Services = () => {
             <div className="card-details">
               <h3 className="card-title">Wealth Storage</h3>
               <p className="card-paragraph">
-                Real estate, being a tangible asset, serves as a valuable and universally desired store of wealth.
+                Being a tangible asset, serves as a valuable and universally desired store of wealth.
               </p>
             </div>
           </div>

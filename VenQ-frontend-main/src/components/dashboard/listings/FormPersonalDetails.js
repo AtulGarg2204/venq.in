@@ -1,10 +1,3 @@
-// import React, { Component } from 'react';
-// import { Dialog } from '@mui/material';
-// import {AppBar} from '@mui/material';
-// import {Box} from '@mui/material'
-// import { ThemeProvider as MuiThemeProvider } from '@mui/system';
-// import {TextField} from '@mui/material';
-// import {Button} from '@mui/material';
 import PhotoUploader from './PhotoUploader';
 
 // export class FormPersonalDetails extends Component {
@@ -159,68 +152,73 @@ import PhotoUploader from './PhotoUploader';
 // export default FormPersonalDetails;
 
 import React from "react";
-
+import "./FormPersonalDetails.css"
 function FormPersonalDetails({ fd, sfd ,spi,sp ,fsp,sfsp }) {
-  // console.log(fd.specs);
-  const addspec=()=>{
-          if(sp.length != 0 && fd.specstitle!="" && fd.specssubtitle!=""){
-              const newspec={
-                specsimage:sp,
-                specstitle:fd.specstitle,
-                specssubtitle:fd.specssubtitle
-              }
-              // console.log(newspec);
-               sp=[];
-               fd.specstitle="";
-               fd.specssubtitle="";
-               fsp.push(newspec);
-               sfsp(fsp);
-              //  console.log(fsp);
-               return;
-              }
-              alert("Empty Field")
-             }
+  //  console.log(fd.specs);
+  
+  // const addspec=()=>{
+  //         if(sp.length != 0 && fd.specstitle!="" && fd.specssubtitle!=""){
+  //             const newspec={
+  //               specsimage:sp,
+  //               specstitle:fd.specstitle,
+  //               specssubtitle:fd.specssubtitle
+  //             }
+  //             //  console.log(newspec);
+  //              sp=[];
+  //              fd.specstitle="";
+  //              fd.specssubtitle="";
+  //              fsp.push(newspec);
+  //              sfsp(fsp);
+  //             //  console.log(newspec);
+  //              return;
+  //             }
+              
+  //            }
   return (
     <div className="personal-info-container">
-      <input
+      
+        <h5>Heading</h5>
+        <input
         type="text"
-        placeholder="Propery heading..."
-        value={fd.propertyheading}
+        placeholder="Enter Property heading..."
+        value={fd.propertyHighlightHeading}
         onChange={(e) => {
-          sfd({ ...fd, propertyheading: e.target.value });
+          sfd({ ...fd, propertyHighlightHeading: e.target.value });
         }}
       />
+      <h5>Description</h5>
       <input
         type="text"
-        placeholder="Property description..."
-        value={fd.propertydescription}
+        placeholder="Enter Property description..."
+        value={fd.propertyHighlightDescription}
         onChange={(e) => {
-          sfd({ ...fd, propertydescription: e.target.value });
+          sfd({ ...fd, propertyHighlightDescription: e.target.value });
         }}
       />
-      <div style={{
-        border:'2px solid black'
-      }}>
-        <PhotoUploader addedPhotos={sp}  onChange={spi}/>
+
+{/* <PhotoUploader addedPhotos={sp}  onChange={spi}/> */}
+        <h5>Title</h5>
          <input
         type="text"
-        placeholder="specstitle..."
-        value={fd.specstitle}
+        placeholder="Enter title..."
+        value={fd.propertyHighlightTitle}
         onChange={(e) => {
-          sfd({ ...fd, specstitle: e.target.value });
+          sfd({ ...fd, propertyHighlightTitle: e.target.value });
         }}
       />
+      <h5>SubTitle</h5>
       <input
         type="text"
-        placeholder="specssubtitle..."
-        value={fd.specssubtitle}
+        placeholder="Enter Subtitle..."
+        value={fd.propertyHighlightSubTitle}
         onChange={(e) => {
-          sfd({ ...fd, specssubtitle: e.target.value });
+          sfd({ ...fd, propertyHighlightSubTitle: e.target.value });
         }}
         />
-        <button onClick={addspec}>add</button>
+        <br/>
+        
 
-      </div>
+      
     </div>
   );
 }

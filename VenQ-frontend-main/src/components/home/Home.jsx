@@ -17,11 +17,11 @@ import PartnerSlider from "../Partners/PartnerSlider";
 import sample from "../../hero-section/hero-section-video.mp4";
 import { useNavigate } from "react-router-dom";
 const Heading = styled(Typography)`
-  /* font-family: "Bebas Neue"; */
+  font-family: "Bebas Neue";
   font-style: normal;
-  font-weight: 400;
-  font-size: 3em;
-  line-height: 70px;
+  font-weight: 500;
+  font-size: 3.2em;
+  line-height: 55px;
   display: flex;
   align-items: flex-end;
   text-transform: uppercase;
@@ -30,10 +30,10 @@ const Heading = styled(Typography)`
   justify-content: center;
 `;
 const HeadingBig = styled(Typography)`
-  /* font-family: "Bebas Neue"; */
+  font-family: "Bebas Neue";
   font-style: normal;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 4.4em;
   line-height: 70px;
   display: flex;
   align-items: flex-end;
@@ -43,10 +43,10 @@ const HeadingBig = styled(Typography)`
   margin-top: -10px;
 `;
 const HeadingSmallone = styled(Typography)`
-  /* font-family: "Bebas Neue"; */
+  font-family: "Bebas Neue";
   font-style: normal;
   font-weight: 400;
-  font-size: 1.6em;
+  font-size: 2.8em;
   margin-block-start: 0px;
   margin-block-end: 0px;
   display: flex;
@@ -57,10 +57,10 @@ const HeadingSmallone = styled(Typography)`
   margin-top: -10px;
 `;
 const HeadingSmall = styled(Typography)`
-  /* font-family: "Bebas Neue"; */
+  font-family: "Bebas Neue";
   font-style: normal;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 2.8em;
   margin-block-start: 0px;
   margin-block-end: 0px;
   display: flex;
@@ -71,21 +71,20 @@ const HeadingSmall = styled(Typography)`
 `;
 
 const SubHeading = styled(Typography)`
-  /* font-family: "Bebas Neue"; */
+  font-family: "Bebas Neue";
   font-weight: 500;
   font-size: 18px;
   color: white;
   line-height: 26px;
   margin-bottom: 30px;
-  padding-right: 14%;
+  padding-right: 15%;
 `;
 const SubHeadingSmall = styled(Typography)`
-  /* font-family: "Bebas Neue"; */
+  font-family: "Bebas Neue";
   font-weight: 500;
   font-size: 18px;
   color: white;
   line-height: 26px;
-  margin-top: 2rem;
   margin-bottom: 30px;
   margin-block-end: 0px;
 `;
@@ -197,8 +196,8 @@ const SellButtonSmall = styled(Button)`
 const SubSection = styled(Typography)`
   /* font-family: "Bebas Neue"; */
   font-style: normal;
-  font-weight: 550;
-  font-size: 30px;
+  font-weight: 450;
+  font-size: 25px;
   line-height: 43px;
   letter-spacing: 0.05em;
   text-align: left;
@@ -209,6 +208,13 @@ const SubSection = styled(Typography)`
     text-align: center;
   }
 `;
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 
 const Home = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -264,7 +270,13 @@ const Home = () => {
                   Shape your portfolio with industry-leading properties,
                   starting as low as ₹5,000.
                 </SubHeading>
-                <MainButton>Get Started</MainButton>
+                <MainButton
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Get Started
+                </MainButton>
               </div>
             </div>
           </div>

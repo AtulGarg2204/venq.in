@@ -16,6 +16,7 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
+
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -37,7 +38,13 @@ import AddContentPopup from "./Popup";
 import AddAmenityPopup from "./AddAmenityPopup";
 import AddDocumentPopup from "./AddDocumentPopup";
 import config from "../../config";
-
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 const arrow = ">";
 const PropertyLink = styled(Link)`
   text-decoration: none;
@@ -334,7 +341,7 @@ const Header = styled(Typography)`
 
 const documents = ["hello", "bye", "noob", "player"];
 
-const Form = ({ handleCart, clicked, setClicked, }) => {
+const Form = ({ handleCart, clicked, setClicked }) => {
   console.log("hello");
 
   const [quantity, setQuantity] = useState(2000);
@@ -367,7 +374,7 @@ const Form = ({ handleCart, clicked, setClicked, }) => {
   const truncatedContent = content.split(" ").slice(0, maxWords).join(" ");
   const shouldTruncate = content.split(" ").length > maxWords;
 
-   const URL = config.URL;
+  const URL = config.URL;
 
   const handleInvestmentChange = (event) => {
     setInvestment(Number(event.target.value));

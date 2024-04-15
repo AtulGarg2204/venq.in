@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Link, useNavigate } from "react-router-dom";
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
 const Property = styled(Card)`
   background-color: white;
   border-radius: 10px;

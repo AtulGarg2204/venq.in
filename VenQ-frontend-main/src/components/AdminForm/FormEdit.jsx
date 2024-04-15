@@ -37,7 +37,13 @@ import AddContentPopup from "./Popup";
 import AddAmenityPopup from "./AddAmenityPopup";
 import AddDocumentPopup from "./AddDocumentPopup";
 import config from "../../config";
-
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 const arrow = ">";
 const PropertyLink = styled(Link)`
   text-decoration: none;
@@ -334,7 +340,14 @@ const Header = styled(Typography)`
 
 const documents = ["hello", "bye", "noob", "player"];
 
-const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitSuccess }) => {
+const FormEdit = ({
+  handleCart,
+  clicked,
+  setClicked,
+  mode,
+  listingId,
+  onSubmitSuccess,
+}) => {
   console.log("hello");
 
   const [quantity, setQuantity] = useState(2000);
@@ -446,7 +459,6 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
     }));
   };
 
-
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -463,7 +475,6 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
         //   field2: listingData.field2,
         //   // Add other fields as needed
         // });
-
       } catch (error) {
         console.error("Error fetching listing:", error);
       }
@@ -535,20 +546,18 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
     }
   };
 
-
   const handleUpdateClick = async () => {
     try {
       // Make an API call to update the listing
       const response = await axios.put(`${URL}/listing/${id}`, formData, {
         headers: {
           // Include any headers needed, e.g., authorization
-          'Authorization': `Bearer ${localStorage.getItem("details")}`,
+          Authorization: `Bearer ${localStorage.getItem("details")}`,
         },
       });
 
       // Optionally, you can handle the updated data or navigate to another page
-      console.log('Updated listing:', response.data);
-
+      console.log("Updated listing:", response.data);
     } catch (error) {
       console.error("Error updating listing:", error);
     }
@@ -875,8 +884,6 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
                       </PropertyDetails>
                     </Box>
                   ))}
-
-                
 
                 <Divider />
 
@@ -1586,8 +1593,6 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
                           </DownloadIcon>
                         </DownloadBox>
                       ))}
-
-                    
                   </Box>
                 </Box>
 
@@ -1972,7 +1977,9 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
           </Grid>
         </Box>
 
-        <CartButton type="submit" onClick={handleUpdateClick}>Update</CartButton>
+        <CartButton type="submit" onClick={handleUpdateClick}>
+          Update
+        </CartButton>
 
         <Box style={{ padding: "10px 0", margin: "40px 0" }}>
           <Typography
@@ -2277,9 +2284,8 @@ const FormEdit  = ({ handleCart, clicked, setClicked, mode, listingId, onSubmitS
 
 export default FormEdit;
 
-
-
-{/* <PropertyDetails>
+{
+  /* <PropertyDetails>
                     <Logo>
                       <svg
                         viewBox="0 0 24 24"
@@ -2418,12 +2424,11 @@ export default FormEdit;
                       </PropertySubHeading>
                     </Box>
                   </PropertyDetails>
-                </Box> */}
+                </Box> */
+}
 
-
-
-
-                {/* <DownloadBox
+{
+  /* <DownloadBox
                       onClick={() =>
                         handleDownload(
                           "/files/CP2A-Data.xlsx",
@@ -2557,4 +2562,5 @@ export default FormEdit;
                         />
                       </DownloadIcon>
                     </DownloadBox>
-                   */}
+                   */
+}

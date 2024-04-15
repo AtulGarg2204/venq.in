@@ -11,7 +11,7 @@ const MultiStep = () => {
   const handleButtonClick = (step) => {
     updateSteps(step);
   };
-
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
   return (
     <div className="container">
       <div className="steps-container">
