@@ -369,7 +369,8 @@ const Home = () => {
               style={{
                 // position: "absolute",
                 // position: "center",
-                objectFit: "fill",
+                overflow: "hidden",
+                objectFit: "cover",
                 bottom: "10px",
                 marginLeft: "-20px",
               }}
@@ -377,6 +378,7 @@ const Home = () => {
               src="images/homebg.png"
               alt="error"
             />
+
             {/* </div> */}
             {/* </div> */}
           </div>

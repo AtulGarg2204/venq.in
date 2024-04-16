@@ -359,7 +359,7 @@ export default function SignUp() {
                       {
                         fontSize:'1rem'
                       }
-                    }>Enter OTP sent to mobile number</p>
+                    }>Enter OTP sent to mobile number </p>
                     <p style={
                        {
                         fontSize:'14px',
