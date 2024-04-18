@@ -201,7 +201,10 @@ const Footer = (addTopMargin) => {
             <CallIcon className="socialIcon" />
             <EmailIcon className="socialIcon" />
           </div>
-
+          <Rights>Phone no: 9205553696</Rights>
+          <RightContainer style={{ marginTop: "-20px", marginLeft:"5px" }}>
+            Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital, Uttarakhand-263001
+          </RightContainer>
           <Rights>Copyright &copy; {year}</Rights>
           <Rights>All Rights Reserved.</Rights>
         </LeftContainer>
