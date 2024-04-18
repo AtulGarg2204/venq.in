@@ -52,7 +52,7 @@ import PendingKyc from "./components/dashboard/investors/PendingKyc";
 import Amenities from "./components/dashboard/listings/Amenities";
 import Allinvestorslist from "./components/dashboard/listings/Allinvestorslist";
 import InvestorsDetails from "./components/dashboard/UserInterests/InvestorsDetails";
-
+import ContactUs from "./footerpages/ContactUs";
 function App() {
   return (
     <Router>
@@ -64,6 +64,7 @@ function App() {
         <Route path="form" element={<Form />} />
         <Route path=":id/edit" element={<FormEdit />} />
         <Route path="terms" element={<Terms />} />
+        <Route path="contactUs" element={<ContactUs />} />
         <Route path="risks" element={<Risks />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="refund" element={<Refund />} />
