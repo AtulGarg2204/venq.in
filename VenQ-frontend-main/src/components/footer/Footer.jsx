@@ -252,9 +252,9 @@ const Footer = (addTopMargin) => {
                 <a href="#blog" className="footer-link">
                   <SubHeading>Blog</SubHeading>
                 </a>
-                <a href="#contact-us" className="footer-link">
+                <Link to="contactUs" className="footer-link">
                   <SubHeading>Contact Us</SubHeading>
-                </a>
+                </Link>
                 <a href="#hiring" className="footer-link">
                   <Extra>We're Hiring</Extra>
                 </a>
