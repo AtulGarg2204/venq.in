@@ -64,7 +64,6 @@ function App() {
         <Route path="form" element={<Form />} />
         <Route path=":id/edit" element={<FormEdit />} />
         <Route path="terms" element={<Terms />} />
-
         <Route path="risks" element={<Risks />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="refund" element={<Refund />} />

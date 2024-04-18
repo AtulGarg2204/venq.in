@@ -276,7 +276,7 @@ const Portfolio = ({ handleBuyProperties }) => {
   ></script>;
   return (
     <>
-      {onbcomp ? (
+      {!onbcomp ? (
         <>
           <KycVerification />
           <div>
