@@ -202,8 +202,9 @@ const Footer = (addTopMargin) => {
             <EmailIcon className="socialIcon" />
           </div>
           <Rights>Phone no: 9205553696</Rights>
-          <RightContainer style={{ marginTop: "-20px", marginLeft:"5px" }}>
-            Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital, Uttarakhand-263001
+          <RightContainer style={{ marginTop: "-20px", marginLeft: "5px" }}>
+            Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital,
+            Uttarakhand-263001
           </RightContainer>
           <Rights>Copyright &copy; {year}</Rights>
           <Rights>All Rights Reserved.</Rights>
@@ -234,32 +235,32 @@ const Footer = (addTopMargin) => {
             <Grid item xs sx={{ margin: "0px" }}>
               <Startup>
                 <Heading>FOR DEVELOPERS</Heading>
-                <a href="#why-raise" className="footer-link">
+                {/* <a href="#why-raise" className="footer-link">
                   <SubHeading>Why Raise?</SubHeading>
-                </a>
-                <a href="#learn" className="footer-link">
+                </a> */}
+                <Link to="/learn" className="footer-link">
                   <SubHeading>Learn</SubHeading>
-                </a>
-                <a href="#instruments" className="footer-link">
+                </Link>
+                {/* <a href="#instruments" className="footer-link">
                   <SubHeading>Instruments</SubHeading>
-                </a>
+                </a> */}
               </Startup>
             </Grid>
 
             <Grid item xs sx={{ margin: "0px" }}>
               <Company>
                 <Heading>COMPANY</Heading>
-                <a href="#about" className="footer-link">
+                <Link to="/learn" className="footer-link">
                   <SubHeading>About</SubHeading>
-                </a>
-                <a href="#blog" className="footer-link">
+                </Link>
+                <Link to="/blog" className="footer-link">
                   <SubHeading>Blog</SubHeading>
-                </a>
+                </Link>
                 <Link to="contactUs" className="footer-link">
                   <SubHeading>Contact Us</SubHeading>
                 </Link>
                 <a href="#hiring" className="footer-link">
-                  <Extra>We're Hiring</Extra>
+                  {/* <Extra>We're Hiring</Extra> */}
                 </a>
               </Company>
             </Grid>
