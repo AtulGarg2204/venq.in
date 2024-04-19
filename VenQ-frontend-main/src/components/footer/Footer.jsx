@@ -179,6 +179,26 @@ const Extra = styled(Typography)`
 const Footer = (addTopMargin) => {
   let date = new Date();
   let year = date.getFullYear();
+  const openInstagramAccount = () => {
+    // Replace 'YOUR_INSTAGRAM_USERNAME' with the actual username of the Instagram account you want to open
+    const instagramUsername = "venq.in";
+
+    // Construct the Instagram URL
+    const instagramUrl = `https://www.instagram.com/${instagramUsername}`;
+
+    // Open the Instagram account in a new window or tab
+    window.open(instagramUrl, "_blank");
+  };
+  const openLinkedInAccount = () => {
+    // Replace 'YOUR_INSTAGRAM_USERNAME' with the actual username of the Instagram account you want to open
+
+    // Construct the Instagram URL
+    const instagramUrl = `https://www.linkedin.com/company/venq/`;
+
+    // Open the Instagram account in a new window or tab
+    window.open(instagramUrl, "_blank");
+  };
+
   return (
     <div>
       <div className="rotated-button-container">
@@ -196,12 +216,17 @@ const Footer = (addTopMargin) => {
             className="footerLogo"
           />
           <div className="socialIcons">
-            <InstagramIcon className="socialIcon" />
-            <LinkedInIcon className="socialIcon" />
-            <CallIcon className="socialIcon" />
-            <EmailIcon className="socialIcon" />
+            <Link onClick={openInstagramAccount}>
+              <InstagramIcon className="socialIcon" />
+            </Link>
+            <Link onClick={openLinkedInAccount}>
+              <LinkedInIcon className="socialIcon" />
+            </Link>
+            {/* <CallIcon className="socialIcon" />
+            <EmailIcon className="socialIcon" /> */}
           </div>
           <Rights>Phone no: 9205553696</Rights>
+          <Rights>Mail : team@venq.in</Rights>
           <RightContainer style={{ marginTop: "-20px", marginLeft: "5px" }}>
             Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital,
             Uttarakhand-263001
@@ -256,9 +281,9 @@ const Footer = (addTopMargin) => {
                 <Link to="/blog" className="footer-link">
                   <SubHeading>Blog</SubHeading>
                 </Link>
-                <Link to="contactUs" className="footer-link">
+                {/* <Link to="contactUs" className="footer-link">
                   <SubHeading>Contact Us</SubHeading>
-                </Link>
+                </Link> */}
                 <a href="#hiring" className="footer-link">
                   {/* <Extra>We're Hiring</Extra> */}
                 </a>
