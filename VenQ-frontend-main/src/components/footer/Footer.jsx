@@ -6,7 +6,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link } from "react-router-dom";
-
+<script async src="https://tally.so/widgets/embed.js"></script>;
 const MainContainer = styled(Box)`
   background-color: #f6f7f9;
   display: flex;
@@ -204,8 +204,13 @@ const Footer = (addTopMargin) => {
       <div className="rotated-button-container">
         <h2 className="rotated-heading">SO, WHAT ARE YOU WAITING FOR?</h2>
         <div className="rotated-buttons-container">
-          <button className="rotated-invest-button">Invest</button>
-          <button className="rotated-sell-button">List Property</button>
+          <Link to="/properties">
+            <button className="rotated-invest-button">Invest</button>
+          </Link>
+
+          <button data-tally-open="3qR2Ed" className="rotated-sell-button">
+            List Property
+          </button>
         </div>
       </div>
       <MainContainer>

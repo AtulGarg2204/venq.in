@@ -292,7 +292,7 @@ const Home = () => {
                 >
                   Invest
                 </InvestButton>
-                <SellButton>List Property</SellButton>
+                <SellButton data-tally-open="3qR2Ed">List Property</SellButton>
               </div>
             </div>
             <div class="banner">
