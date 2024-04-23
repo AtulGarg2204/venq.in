@@ -1,4 +1,4 @@
-// Services.jsx
+
 import React from "react";
 import "./Services.css"; // Add your CSS file
 import { useMediaQuery } from "@mui/material";
@@ -36,7 +36,7 @@ const Services = () => {
               </p> */}
               <p className="smallscreenpara">
               Venq is India's First platform that makes real estate investment
-                accessible with a minimum of just ₹50,000
+                accessible with a minimum of just ₹5,000
               </p>
             </div>
             {/* Left Div with Cards */}
@@ -173,7 +173,7 @@ const Services = () => {
                 />
                 <div className="card-details">
                   <h3 className="card-title">Inflation Hedge</h3>
-                  <p className="card-paragraph">
+                  <p style={{marginBottom:"30px"}} className="card-paragraph">
                     Real estate, like gold, serves as a historical and effective
                     hedge against inflation.
                   </p>
@@ -217,7 +217,7 @@ const Services = () => {
               </p> */}
               <p className="largescreenpara">
               Venq is India's First platform that makes real estate investment
-                accessible with a minimum of just ₹50,000
+                accessible with a minimum of just ₹5,000
               </p>
             </div>
           </>

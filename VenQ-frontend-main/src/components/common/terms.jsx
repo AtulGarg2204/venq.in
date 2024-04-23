@@ -434,7 +434,7 @@ const Terms = (props) => {
                   alignItems: "center",
                   marginTop: "12px",
                   color: "black",
-                  fontSize: "14px",
+                  fontSize: "12px",
                 }}
               >
                 I have read and agree to the e sign disclosure
@@ -459,7 +459,7 @@ const Terms = (props) => {
                   fontFamily: "Gilroy-Medium",
                   alignItems: "center",
                   color: "black",
-                  fontSize: "14px",
+                  fontSize: "12px",
                 }}
               >
                 I have read and accept the terms of the agreement

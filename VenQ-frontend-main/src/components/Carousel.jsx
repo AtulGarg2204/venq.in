@@ -1,4 +1,3 @@
-// Carousel.js
 import React, { useEffect, useState } from "react";
 import "./Carousel.css";
 import i1 from "../slider images/i1.jpg";
@@ -17,7 +16,7 @@ const Carousel = () => {
     // { imgSrc: i3, topic: 'COMMERCIAL PROPERTIES', des: 'Build your portfolio of industry-leading Properties by investing only Rs 5,000' },
     // { imgSrc: i4, topic: 'PLOTS', des: 'Build your portfolio of industry-leading Properties by investing only Rs 5,000' },
     { imgSrc: i2, topic: "RENTAL FOCUSED BNB'S", des: "" },
-    { imgSrc: i1, topic: "LUXURY RESIDENTIAL PROPERTIES", des: "" },
+    { imgSrc: i1, topic: "LUXURY-RESIDENTIAL PROPERTIES", des: "" },
     { imgSrc: i3, topic: "COMMERCIAL PROPERTIES", des: "" },
     { imgSrc: i4, topic: "PLOTS", des: "" },
   ];

@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./PartnerSlider.css";
+import razorpayimg from "./razorpay.png"
 
 const PartnerSlider = () => {
   const partnerArray = [
@@ -12,6 +13,7 @@ const PartnerSlider = () => {
     { name: "Partner 4", imageSrc: "images/phonepe.png" },
     { name: "Partner 5", imageSrc: "images/otpless.png" },
     { name: "Partner 6", imageSrc: "images/surepass.png" },
+    { name: "Partner 7", imageSrc: razorpayimg },
  
     // { name: "Partner 3", imageSrc: "images/whiteland.png" },
     // { name: "Partner 4", imageSrc: "images/smartHomenew.png" }

@@ -1,9 +1,9 @@
-/* Add your styles as needed */
 
 .partnerMain {
   display: flex;
   flex-direction: column;
   margin-bottom: -40px;
+  margin-top: 0;
 }
 .partnerbox{
   display: flex;

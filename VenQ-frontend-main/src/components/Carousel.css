@@ -50,7 +50,6 @@
   border: 2px solid white;
 }
 .container .list .item .subtitle {
-
   width: fit-content;
   font-size: 1.3em;
   font-weight: 500;
@@ -61,7 +60,6 @@
   font-size: 4.15em;
   font-weight: bold;
   line-height: 1.3em;
-
 }
 .container .list .item .des {
   width: fit-content;
@@ -128,6 +126,7 @@
 .thumbnail .item .content .title {
   font-size: 1.25em;
   font-weight: 500;
+  font-family: "Bebas Neue";
 }
 .thumbnail .item .content .description {
   font-size: 1em;
@@ -677,7 +676,7 @@
   letter-spacing: 3px;
   font-family: "Bebas Neue";
   font-weight: 500;
-    /* margin-left: -138%;
+  /* margin-left: -138%;
     margin-right: 150%; */
 }
 /* .container .list .item .buttons button:nth-child(2) {

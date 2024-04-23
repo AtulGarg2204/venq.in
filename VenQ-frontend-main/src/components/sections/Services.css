@@ -177,3 +177,9 @@
 
   /* ... (additional styles for small screens) */
 }
+
+/* @media screen and (max-width: 480px) {
+  .custom-services-card.small-screen-card {
+    height: 300px;
+  }
+} */

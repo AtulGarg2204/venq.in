@@ -260,10 +260,10 @@ const Home = () => {
           <div className="main-section">
             <div className="image-container">
               <div className="text-container">
-                <Heading style={{ fontSize: "40px" }}>
+                <Heading style={{ fontSize: "55px" }}>
                   JOIN THE REVOLUTION OF SMART PROPERTY INVESTMENT.
                 </Heading>
-                <SubHeading>
+                <SubHeading style={{ fontSize: "25px" }}>
                   Shape your portfolio with industry-leading properties,
                   starting as low as ₹5,000.
                 </SubHeading>
@@ -368,9 +368,11 @@ const Home = () => {
                 // position: "center",
                 overflow: "hidden",
                 objectFit: "cover",
-                bottom: "10px",
+                // bottom: "50px",
+                marginTop:"-65px",
                 marginLeft: "-20px",
-                width:"100vw"
+                // width:"100vw"
+                width:"380px"
               }}
               height={300}
              
