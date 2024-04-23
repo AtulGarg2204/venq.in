@@ -111,7 +111,7 @@ const StyledPopupinv = styled(Popup)`
 
     @media (max-width: 600px) {
       width: 80%;
-      margin-left: 10%;
+      margin-left: 20%;
       margin-top: 25%;
     }
   }
@@ -3749,6 +3749,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               marginTop: "-10px",
                               paddingLeft: "18px",
                               paddingRight: "18px",
+                              // backgroundColor: "red",
                             }}
                           >
                             <a
@@ -4399,81 +4400,68 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     onSubmit={handleInterest}
                   >
                     <Box>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-evenly",
-                        }}
-                      >
-                        {/* <div style={{
-          display:'flex',
-          justifyContent:'space-evenly'
-        }}> */}
-                        <nav
+                      {!showInvestComponent ? (
+                        <div
                           style={{
-                            width: "100%",
+                            display: "flex",
+                            justifyContent: "space-evenly",
                           }}
                         >
-                          <ul
+                          <nav
                             style={{
-                              display: "flex",
-                              listStyle: "none",
-                              paddingInlineStart: "0px",
-                              borderBottom: "1px solid #e9e9eb",
-                              gap: "20px",
+                              width: "100%",
                             }}
                           >
-                            <li
+                            <ul
                               style={{
-                                fontWeight: "bold",
-                                borderBottom:
-                                  invtype == 0 ? "2px solid #00b386" : "none",
-                                marginRight: "12px",
-                                color: invtype == 0 ? "#00b386" : "gray",
-                                cursor: "pointer",
-                                fontSize: "16px",
-                                fontFamily: "Inter",
-                              }}
-                              onClick={() => {
-                                setinvtype(0);
+                                display: "flex",
+                                listStyle: "none",
+                                paddingInlineStart: "0px",
+                                borderBottom: "1px solid #e9e9eb",
+                                gap: "20px",
                               }}
                             >
-                              Allotment
-                            </li>
-                            <li
-                              style={{
-                                fontWeight: "bold",
-                                borderBottom:
-                                  invtype == 1 ? "2px solid #00b386" : "none",
-                                color: invtype == 1 ? "#00b386" : "gray",
-                                marginRight: "12px",
-                                cursor: "pointer",
-                                fontSize: "16px",
-                                fontFamily: "Inter",
-                              }}
-                              onClick={() => {
-                                setinvtype(1);
-                              }}
-                            >
-                              Invest
-                            </li>
-                          </ul>
-                        </nav>
-                        {/* <Label>
-          <LabelName>Allotment:</LabelName>
-        </Label>
-      <Radio {...controlProps('allotment')} /> */}
-                      </div>
-                      {/* <div style={{
-          display:'flex',
-          justifyContent:'space-evenly'
-        }}>
-        <Label>
-          <LabelName>Invest:</LabelName>
-        </Label>
-      <Radio {...controlProps('investment')} />
-        </div>
-      </div> */}
+                              <li
+                                style={{
+                                  fontWeight: "bold",
+                                  borderBottom:
+                                    invtype == 0 ? "2px solid #00b386" : "none",
+                                  marginRight: "12px",
+                                  color: invtype == 0 ? "#00b386" : "gray",
+                                  cursor: "pointer",
+                                  fontSize: "16px",
+                                  fontFamily: "Inter",
+                                }}
+                                onClick={() => {
+                                  setinvtype(0);
+                                }}
+                              >
+                                Allotment
+                              </li>
+                              <li
+                                style={{
+                                  fontWeight: "bold",
+                                  borderBottom:
+                                    invtype == 1 ? "2px solid #00b386" : "none",
+                                  color: invtype == 1 ? "#00b386" : "gray",
+                                  marginRight: "12px",
+                                  cursor: "pointer",
+                                  fontSize: "16px",
+                                  fontFamily: "Inter",
+                                }}
+                                onClick={() => {
+                                  setinvtype(1);
+                                }}
+                              >
+                                Invest
+                              </li>
+                            </ul>
+                          </nav>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+
                       {showInvestComponent ? (
                         <Terms userinvestone={userinvestone} />
                       ) : (
@@ -4650,7 +4638,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           )}
                         </div>
                       )}
-                      {invtype == 0 && (
+                      {invtype == 0 && !showInvestComponent &&(
                         <>
                           <Box
                             sx={{

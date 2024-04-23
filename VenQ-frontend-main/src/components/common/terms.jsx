@@ -26,7 +26,7 @@ import payment_logo from "./payment-logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-
+import "./terms.css";
 // import { Box, Button, Typography, styled } from '@mui/material'
 import { ThemeProvider, Tooltip, createTheme } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -46,6 +46,7 @@ const Amount = styled(Typography)`
   font-weight: 600;
   font-family: "Gilroy-Bold";
   font-size: 20px;
+  backgroundcolor: "red";
 `;
 const TermDetails = styled(Box)`
   margin-top: 10px;
@@ -53,6 +54,11 @@ const TermDetails = styled(Box)`
   background-color: white;
   height: 240px;
   overflow-y: scroll;
+  @media (max-width: 800px) {
+    width: 70%;
+    margin-left: -15px;
+    margin-top: 0px;
+  }
 `;
 const PaymentButton = styled(Button)`
   font-family: "Inter";
@@ -65,6 +71,11 @@ const PaymentButton = styled(Button)`
   text-decoration: none;
   &:hover {
     background-color: #0170dc;
+  }
+  @media (max-width: 800px) {
+    width: 70%;
+    height: 30px;
+    margin-left: -15px;
   }
 `;
 
@@ -187,6 +198,7 @@ const Terms = (props) => {
               marginLeft: "20px",
               alignItems: "center",
               direction: "flex",
+
               justifyContent: "center",
             }}
           >
@@ -404,6 +416,7 @@ const Terms = (props) => {
             </TermDetails>
 
             <div
+              className="first-checkbox"
               style={{
                 display: "flex",
               }}
@@ -428,6 +441,7 @@ const Terms = (props) => {
               </Typography>
             </div>
             <div
+              className="first-checkbox"
               style={{
                 display: "flex",
                 alignItems: "center",

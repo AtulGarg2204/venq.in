@@ -186,7 +186,7 @@ app.post("/payment/createTransfer", async (req, res) => {
       transfers: [
         {
           account: "acc_NzJ7ixN968wfiB",
-          amount: Number(amount) * 80,
+          amount: Number(amount) * 86.3,
           currency: "INR",
           notes: {
             name: "Gaurav Kumar",
