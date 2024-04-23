@@ -195,8 +195,8 @@ app.post("/payment/createTransfer", async (req, res) => {
         },
       ],
     });
-    res.json({ transfer });
     res.redirect(`https://www.venq.in/success`);
+    res.json({ transfer });
   } catch (error) {
     console.error("Error creating transfer:", error);
     res.status(500).json({ error: "Failed to create transfer" });

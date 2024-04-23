@@ -179,6 +179,7 @@ const Terms = (props) => {
             // Check if payment is successful
             if (response.razorpay_payment_id) {
               // Payment successful, now create the transfer
+              window.location.href = "/success";
               const transferResponse = await axios.post(
                 "https://venq-wo88.onrender.com/payment/createTransfer",
                 {
@@ -193,6 +194,7 @@ const Terms = (props) => {
 
               // Optionally, handle the transfer creation response
               console.log("Transfer created:", transferResponse.data);
+              window.location.href = "/success";
             } else {
               // Payment failed or was cancelled
               console.error("Payment failed or cancelled:", response.error);
