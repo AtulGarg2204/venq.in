@@ -117,7 +117,6 @@ const Terms = (props) => {
         setPropertyName(e.property);
       });
 
-      // Create an order
       const {
         data: { order },
       } = await axios.post("https://venq-wo88.onrender.com/payment/checkout", {
@@ -127,7 +126,7 @@ const Terms = (props) => {
 
       // Configure Razorpay options
       const options = {
-        key: "rzp_test_itc2N0mSqRXSwE",
+        key: "rzp_live_gHZIY3vAzSxfGR",
         amount: order.amount,
         currency: order.currency,
         name: "Venq",
@@ -290,6 +289,7 @@ const Terms = (props) => {
                   alignItems: "center",
                 }}
               >
+              
                 I understand that investing this amount into several deals would
                 better diversify my risk
               </Typography>

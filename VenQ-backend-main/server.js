@@ -28,8 +28,8 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 const razorpay = new Razorpay({
-  key_id: "rzp_test_itc2N0mSqRXSwE",
-  key_secret: "YZbKNUpyiZBsNuFZXs0haM66",
+  key_id: "rzp_live_gHZIY3vAzSxfGR",
+  key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
 });
 console.log(process.env.NODE_ENV);
 connectDB();
@@ -153,7 +153,7 @@ app.post("/payment/paymentVerification", async (req, res) => {
   const body_data = razorpay_order_id + "|" + razorpay_payment_id;
   try {
     const expect = crypto
-      .createHmac("sha256", "YZbKNUpyiZBsNuFZXs0haM66")
+      .createHmac("sha256", "78lMVpG9gwiuTOD4C9zLDYAV")
       .update(body_data)
       .digest("hex");
 
