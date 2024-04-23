@@ -410,7 +410,7 @@ const PropertyPage = () => {
 
                                 <ReturnsBox>
                                   <Box>
-                                    <Box>Fuding Date</Box>
+                                    <Box>Funding Date</Box>
                                     {/* {`${listing.annualizedreturn}`} */}
                                     <Box
                                       style={{

@@ -188,84 +188,121 @@ const Footer = (addTopMargin) => {
           <button className="rotated-sell-button">List Property</button>
         </div>
       </div>
-      <MainContainer>
-        <LeftContainer>
-          <img
-            src="images\VENQ_BOLD_Big.png"
-            alt="logo"
-            className="footerLogo"
-          />
-          <div className="socialIcons">
+
+      <div className="home_footer_main">
+        <div className="home_footer_logo">
+          <img src="images\VENQ_BOLD_Big.png" alt="" />
+        </div>
+        <div className="home_footer_content_container_main">
+          <div className="home_footer_content_container_partone">
+            <div className="home_footer_content_container_one">
+              <h1>INVESTORS</h1>
+              <Link to="/terms" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  Terms & Conditions
+                </p>
+              </Link>
+              <Link to="/privacy" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  Privacy Policy
+                </p>
+              </Link>
+              <Link to="/risks" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  Risks Involved
+                </p>
+              </Link>
+              <Link to="/refund" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  Refund Policy
+                </p>
+              </Link>
+            </div>
+            <div className="home_footer_content_container_two">
+              <h1>COMPANY</h1>
+              <Link to="blog" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600"   }}>
+                  Blog
+                </p>
+              </Link>
+              <Link to="contactUs" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" , } } className="contact">
+                  Contact Us
+                </p>
+              </Link>
+            </div>
+            <div className="home_footer_content_container_three">
+              <h1>DEVELOPERS</h1>
+              <Link to="" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  {/* Why Raise? */}
+                </p>
+              </Link>
+              <Link to="/learn" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  Learn
+                </p>
+              </Link>
+              <a href="#instruments" className="footer-link">
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                  Instruments
+                </p>
+              </a>
+            </div>
+          </div>
+
+          <div className="home_footer_content_container_parttwo">
+            <div className="home_footer_content_container_four">
+              <h1>CONTACT US</h1>
+              <p>team@venq.in</p>
+              <p>+91-92055 53696</p>
+            </div>
+            <div className="home_footer_content_container_five">
+              <h1>REGISTERED OFFICE</h1>
+              <p>
+                Bisht Bhawan Compound, Near Kirlani Cottage, Nainital,
+                Uttarakhand-263001
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="home_footer_socialIcons_main">
+          <h1>Follow Us</h1>
+          <div>
             <InstagramIcon className="socialIcon" />
             <LinkedInIcon className="socialIcon" />
             <CallIcon className="socialIcon" />
             <EmailIcon className="socialIcon" />
           </div>
-          <Rights>Phone no: 9205553696</Rights>
-          <RightContainer style={{ marginTop: "-20px", marginLeft:"5px" }}>
-            Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital, Uttarakhand-263001
-          </RightContainer>
-          <Rights>Copyright &copy; {year}</Rights>
-          <Rights>All Rights Reserved.</Rights>
-        </LeftContainer>
+        </div>
+        <div className="home_footer_allrights_main">
+          <div className="home_footer_allrights_container_one"></div>
+          <div className="home_footer_allrights_container_two">
+            <h2 className="copyright">Copyright © 2024 | All Rights Reserved.</h2>
+          </div>
+        </div>
 
-        <RightContainer sx={{ flexGrow: 1 }}>
-          <GridContainer container spacing={3}>
-            <Grid item xs sx={{ margin: "0px" }}>
-              {" "}
-              {/* Adjust the margin as needed */}
-              <Investors>
-                <Heading>FOR INVESTORS</Heading>
-                <Link to="/terms" className="footer-link">
-                  <SubHeading>Terms & Conditions</SubHeading>
-                </Link>
-                <Link to="/privacy" className="footer-link">
-                  <SubHeading>Privacy Policy</SubHeading>
-                </Link>
-                <Link to="/risks" className="footer-link">
-                  <SubHeading>Risks Involved</SubHeading>
-                </Link>
-                <Link to="/refund" className="footer-link">
-                  <SubHeading>Refund Policy</SubHeading>
-                </Link>
-              </Investors>
-            </Grid>
-
-            <Grid item xs sx={{ margin: "0px" }}>
-              <Startup>
-                <Heading>FOR DEVELOPERS</Heading>
-                <a href="#why-raise" className="footer-link">
-                  <SubHeading>Why Raise?</SubHeading>
-                </a>
-                <a href="#learn" className="footer-link">
-                  <SubHeading>Learn</SubHeading>
-                </a>
-                <a href="#instruments" className="footer-link">
-                  <SubHeading>Instruments</SubHeading>
-                </a>
-              </Startup>
-            </Grid>
-
-            <Grid item xs sx={{ margin: "0px" }}>
-              <Company>
-                <Heading>COMPANY</Heading>
-                <a href="#about" className="footer-link">
-                  <SubHeading>About</SubHeading>
-                </a>
-                <a href="#blog" className="footer-link">
-                  <SubHeading>Blog</SubHeading>
-                </a>
-                <Link to="contactUs" className="footer-link">
-                  <SubHeading>Contact Us</SubHeading>
-                </Link>
-                <a href="#hiring" className="footer-link">
-                  <Extra>We're Hiring</Extra>
-                </a>
-              </Company>
-            </Grid>
-          </GridContainer>
-        </RightContainer>
-      </MainContainer>
+        <div className="home_footer_disclaimer_main">
+          <h2>Disclaimer:</h2>
+          <p>
+            All trademarks and logos or registered trademarks and logos found on
+            this site or mentioned herein belong to their respective owners and
+            are solely being used for informational purposes. Information
+            provided herein has been gathered from public sources. VENQ
+            Technologies Pvt Ltd disclaims any and all responsibility in
+            connection with veracity of this data. Information presented on this
+            website is for educational purposes only and should not be treated
+            as legal, financial , or any other form of advice. VENQ Technologies
+            Pvt Ltd is not liable for financial or any other form of loss
+            incurred by the user or any affiliated party on the basis of
+            information provided herein. VENQ Technologies Pvt Ltd is neither a
+            stock exchange nor does it intend to get recognized as a stock
+            exchange under the Securities Contracts Regulation Act, 1956. VENQ
+            Technologies Pvt Ltd has not been authorized by the capital markets
+            regulator to solicit investments.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

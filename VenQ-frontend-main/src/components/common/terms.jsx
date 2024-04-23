@@ -22,6 +22,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
+import payment_logo from "./payment-logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
@@ -95,45 +96,6 @@ const Terms = (props) => {
         console.error(error);
       });
   }, []);
-  // const handlePayment = async () => {
-  //   userDetail.map((e) => {
-  //     setUserName(e.name);
-  //     setUserEmailId(e.email);
-  //     setUserMobNumber(e.phone);
-  //     setPropertyName(e.property);
-  //   });
-  //   // const quantity = 5;
-  //   // console.log(quantity);
-  //   const {
-  //     data: { order },
-  //   } = await axios.post("http://localhost:4000/payment/checkout", {
-  //     name: propertyName,
-  //     amount: props.userinvestone,
-  //   });
-  //   var options = {
-  //     key: "rzp_test_itc2N0mSqRXSwE",
-  //     amount: order.amount,
-  //     currency: order.currency,
-  //     name: "Acme Corp",
-  //     description: "Test Transaction",
-  //     image: "https://example.com/your_logo",
-  //     order_id: order.id,
-  //     callback_url: "http://localhost:4000/payment/paymentVerification",
-  //     prefill: {
-  //       name: userName,
-  //       email: userEmailId,
-  //       contact: userMobNumber,
-  //     },
-  //     notes: {
-  //       address: "Razorpay Corporate Office",
-  //     },
-  //     theme: {
-  //       color: "#3399cc",
-  //     },
-  //   };
-  //   var rzp1 = new Razorpay(options);
-  //   rzp1.open();
-  // };
   const handlePayment = async () => {
     try {
       // Map user details to state variables if needed
@@ -157,9 +119,9 @@ const Terms = (props) => {
         key: "rzp_test_itc2N0mSqRXSwE",
         amount: order.amount,
         currency: order.currency,
-        name: "Acme Corp",
+        name: "Venq",
         description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        image: { payment_logo },
         order_id: order.id,
         callback_url:
           "https://venq-wo88.onrender.com/payment/paymentVerification",
@@ -179,11 +141,10 @@ const Terms = (props) => {
             // Check if payment is successful
             if (response.razorpay_payment_id) {
               // Payment successful, now create the transfer
-              window.location.href = "/success";
               const transferResponse = await axios.post(
                 "https://venq-wo88.onrender.com/payment/createTransfer",
                 {
-                  amount: props.userinvestone * 0.8, // Amount to transfer (80% of payment amount)
+                  amount: props.userinvestone, // Amount to transfer (80% of payment amount)
                   paymentId: response.razorpay_payment_id,
                   recipientAccountId: "acc_NzJ7ixN968wfiB", // Replace with recipient's account ID
                   notes: {
@@ -191,18 +152,17 @@ const Terms = (props) => {
                   },
                 }
               );
-
               // Optionally, handle the transfer creation response
               console.log("Transfer created:", transferResponse.data);
               window.location.href = "/success";
             } else {
               // Payment failed or was cancelled
               console.error("Payment failed or cancelled:", response.error);
+              // window.location.href = "/dashboard/properties";
               // Handle payment failure or cancellation
             }
           } catch (error) {
             console.error("Error creating transfer:", error);
-            // Handle transfer creation error
           }
         },
       };
@@ -215,7 +175,6 @@ const Terms = (props) => {
       // Handle errors appropriately
     }
   };
-
   return (
     <>
       {openTerms ? (

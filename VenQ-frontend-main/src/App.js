@@ -55,6 +55,7 @@ import InvestorsDetails from "./components/dashboard/UserInterests/InvestorsDeta
 import ContactUs from "./footerpages/ContactUs";
 import SuccessPage from "./components/common/SuccessPage";
 import { DataProvider } from "./components/context/DataContext";
+import Failed from "./components/common/Failed";
 function App() {
   return (
     <DataProvider>
@@ -79,6 +80,7 @@ function App() {
           <Route path="regulations" element={<Regulations />} />
           <Route path="investing" element={<Investing />} />
           <Route path="/success" element={<SuccessPage />} />
+          <Route path="/failed" element={<Failed />} />
           {/* <Route path="signup/*" element={<Signup />}>
           <Route path="verify" element={<Verification />} />
         </Route> */}

@@ -16,8 +16,8 @@
   margin-top: 50px;
 
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  letter-spacing: 5px; /* Adjust the letter-spacing value as needed */
-  font-weight: 400; /* Adjust the font-weight value as needed */
+  letter-spacing: 5px;
+  font-weight: 400;
 }
 
 .rotated-buttons-container {
@@ -25,13 +25,13 @@
   justify-content: center;
   gap: 10px;
   transform: rotate(-5deg);
-  margin-top: 20px; /* Add margin between the buttons */
+  margin-top: 20px;
 }
 
 .rotated-invest-button,
 .rotated-sell-button {
-  padding: 10px 100px; /* Adjust padding as needed */
-  font-size: 18px; /* Adjust the font size of the buttons */
+  padding: 10px 100px;
+  font-size: 18px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -51,24 +51,23 @@
 }
 
 .horizontal-line {
-  border: 1px solid #ccc; /* Set the color and style of the line */
-  margin: 20px 0; /* Adjust the margin as needed */
+  border: 1px solid #ccc;
+  margin: 20px 0;
 }
 .footer-link {
-  text-decoration: none; /* Remove underlines from links */
-  color: inherit; /* Inherit the text color from the parent */
+  text-decoration: none;
+  color: inherit;
   justify-content: center;
 }
 
 .footer-link:hover {
-  text-decoration: underline; /* Add underline on hover if desired */
+  text-decoration: underline;
 }
 
-.socialIcons {
-  justify-content: space-between;
+.footerLogo {
+  width: 150px;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .rotated-button-container {
     height: auto;
@@ -77,14 +76,13 @@
   }
 
   .rotated-heading {
-    font-size: 40px;
+    font-size: 30px;
     margin-top: 20px;
     align-items: flex-start;
     transform: none;
   }
 
   .rotated-buttons-container {
-    /* flex-direction: column; */
     align-items: center;
     margin-top: 10px;
     transform: none;
@@ -93,8 +91,173 @@
   .rotated-invest-button,
   .rotated-sell-button {
     margin: 5px 0;
-    width: 100px;
-    padding: 10px; /* Adjust padding as needed */
-    font-size: 18px; /* Adjust the font size of the buttons */
+    width: 130px;
+    padding: 10px;
+    font-size: 18px;
   }
+}
+
+.home_footer_main {
+  /* border: solid red; */
+  height: auto;
+  /* width: 100%; */
+  margin-top: 150px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.home_footer_logo {
+  /* border: solid blue; */
+  height: 60px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 25px;
+}
+.home_footer_logo > img {
+  width: 180px;
+}
+.home_footer_content_container_main {
+  /* border: solid blue; */
+  height: 220px;
+
+  width: 89%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.home_footer_content_container_partone > div > h1 {
+  font-size: 20px;
+}
+.home_footer_content_container_partone > div > p {
+  color: rgb(83, 83, 83);
+  font-weight: 600;
+}
+.home_footer_content_container_parttwo > div > h1 {
+  font-size: 20px;
+}
+.home_footer_content_container_parttwo > div > p {
+  color: rgb(83, 83, 83);
+  font-weight: 600;
+}
+.home_footer_content_container_one {
+  margin-right: 30px;
+}
+.home_footer_content_container_one > p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.home_footer_content_container_two {
+  margin-left: 20px;
+}
+.home_footer_content_container_two > p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.home_footer_content_container_three > p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.home_footer_content_container_parttwo {
+  display: grid;
+  grid-template-columns: 40% 30%;
+  justify-content: end;
+}
+.home_footer_content_container_partone {
+  display: grid;
+  grid-template-columns: 33% 30% 33%;
+  justify-content: flex-start;
+}
+/* .home_footer_content_container_two{
+  margin-left: -20px;
+}
+
+.home_footer_content_container_three{
+  margin-left: -80px;
+}
+.home_footer_content_container_five{
+  margin-left: -80px;
+} */
+
+.home_footer_socialIcons_main {
+  /* border: solid blue; */
+  width: 90%;
+  margin: auto;
+  text-align: end;
+}
+.home_footer_socialIcons_main > h1 {
+  margin-right: 58px;
+  font-size: 24px;
+}
+.home_footer_socialIcons_main > div {
+  margin-right: 40px;
+}
+.socialIcon {
+  margin-left: 20px;
+}
+.home_footer_allrights_main {
+  /* border: solid blue; */
+  width: 90%;
+  height: auto;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 25px;
+}
+.home_footer_allrights_container_one {
+  /* border: solid black; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.home_footer_allrights_container_one > h2 {
+  font-size: 14px;
+  color: rgb(83, 83, 83);
+}
+.home_footer_allrights_container_two > h2 {
+  font-size: 14px;
+  color: rgb(83, 83, 83);
+}
+.home_footer_allrights_container_two {
+  /* border: solid black; */
+  text-align: right;
+}
+
+.home_footer_disclaimer_main {
+  /* border: solid blue; */
+  width: 90%;
+  margin: auto;
+  height: auto;
+  margin-bottom: 20px;
+}
+.home_footer_disclaimer_main > p {
+  color: rgb(83, 83, 83);
+}
+
+
+
+@media (max-width: 868px) {
+  .home_footer_content_container_one  h1{
+font-size: 18px;
+margin-bottom: 10px;
+  }
+  .home_footer_content_container_two{
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 20px;
+  }
+  .home_footer_content_container_two  p{
+    margin-top: 15px;
+  }
+  .home_footer_content_container_two .contact{
+margin-top: -10px;
+margin-left: -20px;
+  }
+  .home_footer_content_container_one{
+    margin-bottom: 2px;
+  }
+.home_footer_allrights_container_two{
+  width: 300px;
+}
 }
