@@ -53,81 +53,87 @@ import Amenities from "./components/dashboard/listings/Amenities";
 import Allinvestorslist from "./components/dashboard/listings/Allinvestorslist";
 import InvestorsDetails from "./components/dashboard/UserInterests/InvestorsDetails";
 import ContactUs from "./footerpages/ContactUs";
+import SuccessPage from "./components/common/SuccessPage";
+import { DataProvider } from "./components/context/DataContext";
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="login" element={<NewLogin />} />
-        <Route path="blog" element={<BlogPage />} />
-        <Route exact path="/blog/:blogTitle" element={<Blogpost />} />
-        <Route path="/signup" element={<NewSignup />} />
-        <Route path="form" element={<Form />} />
-        <Route path=":id/edit" element={<FormEdit />} />
-        <Route path="terms" element={<Terms />} />
-        <Route path="risks" element={<Risks />} />
-        <Route path="privacy" element={<Privacy />} />
-        <Route path="refund" element={<Refund />} />
-        <Route path="learn" element={<Learn />} />
-        <Route path="learn-view" element={<LearnView />} />
-        <Route path="ccd" element={<CCD />} />
-        <Route path="exitwindow" element={<ExitWindows />} />
-        <Route path="returns" element={<Returns />} />
-        <Route path="regulations" element={<Regulations />} />
-        <Route path="investing" element={<Investing />} />
+    <DataProvider>
+      <Router>
+        <Routes>
+          <Route path="login" element={<NewLogin />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route exact path="/blog/:blogTitle" element={<Blogpost />} />
+          <Route path="/signup" element={<NewSignup />} />
+          <Route path="form" element={<Form />} />
+          <Route path=":id/edit" element={<FormEdit />} />
+          <Route path="terms" element={<Terms />} />
 
-        {/* <Route path="signup/*" element={<Signup />}>
+          <Route path="risks" element={<Risks />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="refund" element={<Refund />} />
+          <Route path="learn" element={<Learn />} />
+          <Route path="learn-view" element={<LearnView />} />
+          <Route path="ccd" element={<CCD />} />
+          <Route path="exitwindow" element={<ExitWindows />} />
+          <Route path="returns" element={<Returns />} />
+          <Route path="regulations" element={<Regulations />} />
+          <Route path="investing" element={<Investing />} />
+          <Route path="/success" element={<SuccessPage />} />
+          {/* <Route path="signup/*" element={<Signup />}>
           <Route path="verify" element={<Verification />} />
         </Route> */}
 
-        <Route path="propertyinterests">
-          <Route path=":propertyid" element={<PropertyInterests />} />
-        </Route>
-        <Route
-          path="investorDetails/:investorId"
-          element={<InvestorsDetails />}
-        />
-
-        <Route path="abc/def/ghi" element={<FormUserDetails />} />
-        {/* </Route> */}
-        <Route path="/allinterests/view" element={<Allinterests />} />
-        <Route path="/properties" element={<PropertyPage />} />
-        <Route path="dashboard/*" element={<Dashboard />}>
-          <Route path="properties" element={<Properties />} />
-          <Route path="properties/view/:id" element={<PropertyItem />} />
-          <Route path="properties/view/photos/:id" element={<Photos />} />
-          <Route path="wallet" element={<Wallet />} />
-          <Route path="portfolio" element={<Portfolio />} />
-          <Route path="rewards" element={<Rewards />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="bookmarks" element={<Bookmarks />} />
-          <Route path="rewards/tier" element={<Tier />} />
-          <Route path="rewards/referrals" element={<Referrals />} />
-          <Route path="allinvestors" element={<PendingKyc />} />
-          <Route path="allinvestorslist" element={<Allinvestorslist />} />
-          <Route
-            path="allpropertyinterests/userinterests/:propertyid"
-            element={<UserInterests />}
-          />
-          <Route
-            path="allpropertyinterests"
-            element={<PropertyInterests />}
-          ></Route>
-          <Route path="addlisting/*" element={<AdminDashboard />}>
-            <Route path="details" element={<Addlisting />} />
-            <Route path="highlights" element={<FormPersonalDetails />} />
-            <Route path="photos" element={<ThirdPage />} />
-            <Route path="info" element={<FourthPage />} />
-            <Route path="timeline" element={<SecondLastPage />} />
-            <Route path="location" element={<FinalPage />} />
-            <Route path="amenities" element={<Amenities />} />
+          <Route path="propertyinterests">
+            <Route path=":propertyid" element={<PropertyInterests />} />
           </Route>
-        </Route>
+          <Route
+            path="investorDetails/:investorId"
+            element={<InvestorsDetails />}
+          />
 
-        <Route path="/" element={<Home />} />
-      <Route path="contactUs" element={<ContactUs />} />
-      </Routes>
-    </Router>
+          <Route path="abc/def/ghi" element={<FormUserDetails />} />
+          {/* </Route> */}
+          <Route path="/allinterests/view" element={<Allinterests />} />
+          <Route path="/properties" element={<PropertyPage />} />
+          <Route path="dashboard/*" element={<Dashboard />}>
+            <Route path="properties" element={<Properties />} />
+            <Route path="properties/view/:id" element={<PropertyItem />} />
+            <Route path="properties/view/photos/:id" element={<Photos />} />
+            <Route path="wallet" element={<Wallet />} />
+            <Route path="portfolio" element={<Portfolio />} />
+            <Route path="rewards" element={<Rewards />} />
+
+            <Route path="cart" element={<Cart />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="bookmarks" element={<Bookmarks />} />
+            <Route path="rewards/tier" element={<Tier />} />
+            <Route path="rewards/referrals" element={<Referrals />} />
+            <Route path="allinvestors" element={<PendingKyc />} />
+            <Route path="allinvestorslist" element={<Allinvestorslist />} />
+            <Route
+              path="allpropertyinterests/userinterests/:propertyid"
+              element={<UserInterests />}
+            />
+            <Route
+              path="allpropertyinterests"
+              element={<PropertyInterests />}
+            ></Route>
+            <Route path="addlisting/*" element={<AdminDashboard />}>
+              <Route path="details" element={<Addlisting />} />
+              <Route path="highlights" element={<FormPersonalDetails />} />
+              <Route path="photos" element={<ThirdPage />} />
+              <Route path="info" element={<FourthPage />} />
+              <Route path="timeline" element={<SecondLastPage />} />
+              <Route path="location" element={<FinalPage />} />
+              <Route path="amenities" element={<Amenities />} />
+            </Route>
+          </Route>
+
+          <Route path="/" element={<Home />} />
+          <Route path="contactUs" element={<ContactUs />} />
+        </Routes>
+      </Router>
+    </DataProvider>
   );
 }
 

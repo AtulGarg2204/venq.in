@@ -6,7 +6,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Link } from "react-router-dom";
-<script async src="https://tally.so/widgets/embed.js"></script>;
+
 const MainContainer = styled(Box)`
   background-color: #f6f7f9;
   display: flex;
@@ -179,38 +179,13 @@ const Extra = styled(Typography)`
 const Footer = (addTopMargin) => {
   let date = new Date();
   let year = date.getFullYear();
-  const openInstagramAccount = () => {
-    // Replace 'YOUR_INSTAGRAM_USERNAME' with the actual username of the Instagram account you want to open
-    const instagramUsername = "venq.in";
-
-    // Construct the Instagram URL
-    const instagramUrl = `https://www.instagram.com/${instagramUsername}`;
-
-    // Open the Instagram account in a new window or tab
-    window.open(instagramUrl, "_blank");
-  };
-  const openLinkedInAccount = () => {
-    // Replace 'YOUR_INSTAGRAM_USERNAME' with the actual username of the Instagram account you want to open
-
-    // Construct the Instagram URL
-    const instagramUrl = `https://www.linkedin.com/company/venq/`;
-
-    // Open the Instagram account in a new window or tab
-    window.open(instagramUrl, "_blank");
-  };
-
   return (
     <div>
       <div className="rotated-button-container">
         <h2 className="rotated-heading">SO, WHAT ARE YOU WAITING FOR?</h2>
         <div className="rotated-buttons-container">
-          <Link to="/properties">
-            <button className="rotated-invest-button">Invest</button>
-          </Link>
-
-          <button data-tally-open="3qR2Ed" className="rotated-sell-button">
-            List Property
-          </button>
+          <button className="rotated-invest-button">Invest</button>
+          <button className="rotated-sell-button">List Property</button>
         </div>
       </div>
       <MainContainer>
@@ -221,20 +196,14 @@ const Footer = (addTopMargin) => {
             className="footerLogo"
           />
           <div className="socialIcons">
-            <Link onClick={openInstagramAccount}>
-              <InstagramIcon className="socialIcon" />
-            </Link>
-            <Link onClick={openLinkedInAccount}>
-              <LinkedInIcon className="socialIcon" />
-            </Link>
-            {/* <CallIcon className="socialIcon" />
-            <EmailIcon className="socialIcon" /> */}
+            <InstagramIcon className="socialIcon" />
+            <LinkedInIcon className="socialIcon" />
+            <CallIcon className="socialIcon" />
+            <EmailIcon className="socialIcon" />
           </div>
           <Rights>Phone no: 9205553696</Rights>
-          <Rights>Mail : team@venq.in</Rights>
-          <RightContainer style={{ marginTop: "-20px", marginLeft: "5px" }}>
-            Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital,
-            Uttarakhand-263001
+          <RightContainer style={{ marginTop: "-20px", marginLeft:"5px" }}>
+            Address : Bisht Bhawan Compound, Near Kirlani Cottage, Nainital, Uttarakhand-263001
           </RightContainer>
           <Rights>Copyright &copy; {year}</Rights>
           <Rights>All Rights Reserved.</Rights>
@@ -265,32 +234,32 @@ const Footer = (addTopMargin) => {
             <Grid item xs sx={{ margin: "0px" }}>
               <Startup>
                 <Heading>FOR DEVELOPERS</Heading>
-                {/* <a href="#why-raise" className="footer-link">
+                <a href="#why-raise" className="footer-link">
                   <SubHeading>Why Raise?</SubHeading>
-                </a> */}
-                <Link to="/learn" className="footer-link">
+                </a>
+                <a href="#learn" className="footer-link">
                   <SubHeading>Learn</SubHeading>
-                </Link>
-                {/* <a href="#instruments" className="footer-link">
+                </a>
+                <a href="#instruments" className="footer-link">
                   <SubHeading>Instruments</SubHeading>
-                </a> */}
+                </a>
               </Startup>
             </Grid>
 
             <Grid item xs sx={{ margin: "0px" }}>
               <Company>
                 <Heading>COMPANY</Heading>
-                <Link to="/learn" className="footer-link">
+                <a href="#about" className="footer-link">
                   <SubHeading>About</SubHeading>
-                </Link>
-                <Link to="/blog" className="footer-link">
+                </a>
+                <a href="#blog" className="footer-link">
                   <SubHeading>Blog</SubHeading>
-                </Link>
-                {/* <Link to="contactUs" className="footer-link">
+                </a>
+                <Link to="contactUs" className="footer-link">
                   <SubHeading>Contact Us</SubHeading>
-                </Link> */}
+                </Link>
                 <a href="#hiring" className="footer-link">
-                  {/* <Extra>We're Hiring</Extra> */}
+                  <Extra>We're Hiring</Extra>
                 </a>
               </Company>
             </Grid>

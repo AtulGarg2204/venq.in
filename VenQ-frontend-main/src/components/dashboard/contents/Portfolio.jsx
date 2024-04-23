@@ -12,13 +12,15 @@ import {
   createTheme,
   styled,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useMediaQuery } from "@mui/material";
 import config from "../../../config";
 import axios from "axios";
 import KycVerification from "../portfolio/KycVerification";
+import "./Portfolio.css";
+import { DataContext } from "../../context/DataContext";
 const token = JSON.parse(localStorage.getItem("userinfo"));
 const URL = config.URL;
 
@@ -172,7 +174,6 @@ const Insights = styled(Typography)`
 const TransactionTable = styled(Table)`
   background-color: white;
   border-radius: 20px;
-  height: 40vh;
 `;
 const Head = styled(TableCell)`
   color: black;
@@ -196,16 +197,17 @@ const rows1 = [];
 const Portfolio = ({ handleBuyProperties }) => {
   const id = localStorage.getItem("selectedId");
   console.log(id, "selectedId");
-  const [data, setData] = useState([]);
+  const [ldata, setLdata] = useState([]);
   const [propertyArray, setPropertyArray] = useState([]); // Use state for propertyArray
   const [investmentAmount, setInvestmentAmount] = useState(0);
   const [showKycVerification, setShowKycVerification] = useState(false);
   const [onbcomp, setonbcomp] = useState(0);
   const [isAdmin, setAdmin] = useState(false);
+  const { data } = useContext(DataContext);
   const handleRequest = () => {
     setShowKycVerification(true);
   };
-
+  console.log(data, "this is our portfolio amount");
   const closeModal = () => {
     setShowKycVerification(false);
   };
@@ -214,16 +216,17 @@ const Portfolio = ({ handleBuyProperties }) => {
       try {
         const response = await axios.get(`${URL}/listing/${id}`);
         const listingData = response.data;
+        setLdata(listingData);
 
-        setData(listingData);
         // Create an object with dynamic properties
+        console.log(listingData, "table ka data");
         const propertyObject = {
           propertyName: listingData?.properyheading,
           tickerCode: "2",
-          investmentAmount: localStorage.getItem("investmentAmount"),
-          noOfUnits: 2, // Example of adding another property
+          investmentAmount: localStorage.getItem("portfolioAmount"),
+          noOfUnits: localStorage.getItem("units"), // Example of adding another property
         };
-        setInvestmentAmount(localStorage.getItem("investmentAmount"));
+        setInvestmentAmount(localStorage.getItem("portfolioAmount"));
 
         // Update the state with the new object
         setPropertyArray((prevArray) => [...prevArray, propertyObject]);
@@ -256,6 +259,7 @@ const Portfolio = ({ handleBuyProperties }) => {
         console.log(error);
       });
   }, []);
+
   console.log(propertyArray, "data");
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const Container = styled(Box)`
@@ -265,7 +269,6 @@ const Portfolio = ({ handleBuyProperties }) => {
     margin: 20px 0;
     border-radius: 20px;
     padding: 30px;
-    height: ${isMobile ? "none" : "70vh"};
   `;
   <script
     type="text/javascript"
@@ -335,43 +338,24 @@ const Portfolio = ({ handleBuyProperties }) => {
                   </Typography>
                 </Box>
 
-                {/* <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              height: "100%",
-            }}
-          >
-            <Typography style={{ fontFamily: "Inter" }}>
-              Invest in properties
-            </Typography>
-            <Typography style={{ fontFamily: "Inter" }}>
-              to start building your
-            </Typography>
-            <Typography style={{ fontFamily: "Inter" }}>wealth</Typography>
-            <Link
-              to="/dashboard/properties"
-              onClick={handleBuyProperties}
-              style={{
-                fontFamily: "Inter",
-                margin: "20px",
-                border: "2px solid #0170dc",
-                padding: "10px 20px",
-                color: "white",
-                backgroundColor: "#0170dc",
-                borderRadius: "10px",
-                textDecoration: "none",
-              }}
-            >
-              Buy Properties
-            </Link>
-          </Box> */}
-                <Box style={{ margin: "20px 0" }}>
+                <Box
+                  style={{
+                    backgroundColor: "#d9ecff",
+                    color: "#000",
+                    textAlign: "center",
+                    margin: "20px 0",
+                  }}
+                >
                   <TransactionTable size="small">
                     {!isMobile && (
-                      <TableHead>
+                      <TableHead
+                        style={{
+                          margin: "20px 0",
+                          border: "1px solid #ccc",
+                          borderRadius: "20px",
+                          overflow: "hidden",
+                        }}
+                      >
                         <TableRow>
                           <Head>Property Name</Head>
                           <Head>Ticker Code</Head>
@@ -380,9 +364,8 @@ const Portfolio = ({ handleBuyProperties }) => {
                         </TableRow>
                       </TableHead>
                     )}
-
                     {propertyArray.length === 0 ? (
-                      <TableBody>
+                      <TableBody class="portfolio-container">
                         <TableRow>
                           <TableCell colSpan={5}>
                             <Box
@@ -410,7 +393,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                       </TableBody>
                     ) : (
                       propertyArray.map((row) => (
-                        <TableBody>
+                        <TableBody class="portfolio-container">
                           <TableRow key={row.id}>
                             <TableCell>{row.propertyName}</TableCell>
                             <TableCell>{row.tickerCode}</TableCell>
@@ -986,6 +969,8 @@ const Portfolio = ({ handleBuyProperties }) => {
                 </Grid>
               </Box>
 
+              {/* // Owned stack */}
+
               <Box style={{ margin: "20px 0" }}>
                 <Header>Owned Stacks (0)</Header>
                 <TransactionTable size="small">
@@ -1001,7 +986,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                   )}
 
                   {rows.length === 0 ? (
-                    <TableBody>
+                    <TableBody class="portfolio-container">
                       <TableRow>
                         <TableCell colSpan={5}>
                           <Box
@@ -1029,7 +1014,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                     </TableBody>
                   ) : (
                     rows.map((row) => (
-                      <TableBody>
+                      <TableBody class="portfolio-container">
                         <TableRow key={row.id}>
                           <TableCell>{row.type}</TableCell>
                           <TableCell>{row.status}</TableCell>
@@ -1059,7 +1044,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                   )}
 
                   {rows1.length === 0 ? (
-                    <TableBody>
+                    <TableBody class="portfolio-container">
                       <TableRow>
                         <TableCell colSpan={5}>
                           <Box
@@ -1087,7 +1072,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                     </TableBody>
                   ) : (
                     rows1.map((row) => (
-                      <TableBody>
+                      <TableBody class="portfolio-container">
                         <TableRow key={row.id}>
                           <TableCell>{row.type}</TableCell>
                           <TableCell>{row.status}</TableCell>
@@ -1192,21 +1177,44 @@ const Portfolio = ({ handleBuyProperties }) => {
               Buy Properties
             </Link>
           </Box> */}
-              <Box style={{ margin: "20px 0" }}>
+
+              {/* Protfolio value */}
+
+              <Box
+                style={{
+                  margin: "20px 0",
+                  border: "1px solid #ccc",
+                  borderRadius: "20px",
+                  overflow: "hidden",
+                }}
+              >
                 <TransactionTable size="small">
                   {!isMobile && (
-                    <TableHead>
+                    <TableHead
+                      style={{
+                        backgroundColor: "#d9ecff",
+                        color: "#000",
+                        textAlign: "center",
+                      }}
+                    >
                       <TableRow>
-                        <Head>Property Name</Head>
-                        <Head>Ticker Code</Head>
-                        <Head>Investment amount</Head>
-                        <Head>No. of Units</Head>
+                        <Head style={{ textAlign: "center" }}>S. No.</Head>
+                        <Head style={{ textAlign: "center" }}>
+                          Property Name
+                        </Head>
+                        <Head style={{ textAlign: "center" }}>Ticker Code</Head>
+                        <Head style={{ textAlign: "center" }}>
+                          Investment amount
+                        </Head>
+                        <Head style={{ textAlign: "center" }}>
+                          No. of Units
+                        </Head>
+                        <Head style={{ textAlign: "center" }}>Progress</Head>
                       </TableRow>
                     </TableHead>
                   )}
-
                   {propertyArray.length === 0 ? (
-                    <TableBody>
+                    <TableBody class="portfolio-container">
                       <TableRow>
                         <TableCell colSpan={5}>
                           <Box
@@ -1233,14 +1241,45 @@ const Portfolio = ({ handleBuyProperties }) => {
                       </TableRow>
                     </TableBody>
                   ) : (
-                    propertyArray.map((row) => (
-                      <TableBody>
+                    propertyArray.map((row, index) => (
+                      <TableBody class="portfolio-container">
                         <TableRow key={row.id}>
-                          <TableCell>{row.propertyName}</TableCell>
-                          <TableCell>{row.tickerCode}</TableCell>
-                          <TableCell>{row.investmentAmount}</TableCell>
-                          <TableCell>{row.noOfUnits}</TableCell>
-                          {/* <TableCell>{`$${row.amount}`}</TableCell> */}
+                          <TableCell
+                            style={{ textAlign: "center", padding: "1rem 0" }}
+                          >
+                            {index + 1}
+                          </TableCell>
+                          <TableCell
+                            style={{ textAlign: "center", padding: "1rem 0" }}
+                          >
+                            {row.propertyName}
+                          </TableCell>
+                          <TableCell
+                            style={{ textAlign: "center", padding: "1rem 0" }}
+                          >
+                            {row.tickerCode}
+                          </TableCell>
+                          <TableCell
+                            style={{ textAlign: "center", padding: "1rem 0" }}
+                          >
+                            {row.investmentAmount}
+                          </TableCell>
+                          <TableCell
+                            style={{ textAlign: "center", padding: "1rem 0" }}
+                          >
+                            {row.noOfUnits}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              textAlign: "center",
+                              padding: "1rem 0",
+                              display: "flex",
+                              alignItem: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <div class="progress-tag">applied</div>
+                          </TableCell>
                         </TableRow>
                       </TableBody>
                     ))
@@ -1251,7 +1290,6 @@ const Portfolio = ({ handleBuyProperties }) => {
 
             <Box style={{ margin: "20px 0" }}>
               <Header>Key financials</Header>
-
               <Grid
                 container
                 spacing={{ xs: 2, md: 3 }}
@@ -1466,7 +1504,6 @@ const Portfolio = ({ handleBuyProperties }) => {
                         RUP 0
                       </Typography>
                     </Box>
-
                     <Box
                       style={{
                         display: "flex",
@@ -1596,6 +1633,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             margin: "10px 0",
                           }}
                         >
+                          {/* Portifolio occupancy */}
                           <ThemeProvider theme={theme}>
                             <SubHeader>
                               Portfolio occupancy
@@ -1690,6 +1728,8 @@ const Portfolio = ({ handleBuyProperties }) => {
                   </Grid>
                 </Grid>
 
+                {/* Annual Invest */}
+
                 <Grid item xs={12} md={5}>
                   <ThemeProvider theme={theme2}>
                     <Header>
@@ -1712,7 +1752,6 @@ const Portfolio = ({ handleBuyProperties }) => {
                       </Tooltip>
                     </Header>
                   </ThemeProvider>
-
                   <Grid item>
                     <Box
                       style={{
@@ -1807,7 +1846,6 @@ const Portfolio = ({ handleBuyProperties }) => {
                 </Grid>
               </Grid>
             </Box>
-
             <Box style={{ margin: "20px 0" }}>
               <Header>Owned Stacks (0)</Header>
               <TransactionTable size="small">
@@ -1823,7 +1861,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                 )}
 
                 {rows.length === 0 ? (
-                  <TableBody>
+                  <TableBody class="portfolio-container">
                     <TableRow>
                       <TableCell colSpan={5}>
                         <Box
@@ -1851,7 +1889,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                   </TableBody>
                 ) : (
                   rows.map((row) => (
-                    <TableBody>
+                    <TableBody class="portfolio-container">
                       <TableRow key={row.id}>
                         <TableCell>{row.type}</TableCell>
                         <TableCell>{row.status}</TableCell>
@@ -1867,7 +1905,6 @@ const Portfolio = ({ handleBuyProperties }) => {
 
             <Box style={{ margin: "20px 0" }}>
               <Header>Pending investments (0)</Header>
-              <button onClick={handleRequest}>Click Me</button>
 
               <TransactionTable size="small">
                 {!isMobile && (
@@ -1880,9 +1917,8 @@ const Portfolio = ({ handleBuyProperties }) => {
                     </TableRow>
                   </TableHead>
                 )}
-
                 {rows1.length === 0 ? (
-                  <TableBody>
+                  <TableBody class="portfolio-container">
                     <TableRow>
                       <TableCell colSpan={5}>
                         <Box
@@ -1910,7 +1946,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                   </TableBody>
                 ) : (
                   rows1.map((row) => (
-                    <TableBody>
+                    <TableBody class="portfolio-container">
                       <TableRow key={row.id}>
                         <TableCell>{row.type}</TableCell>
                         <TableCell>{row.status}</TableCell>

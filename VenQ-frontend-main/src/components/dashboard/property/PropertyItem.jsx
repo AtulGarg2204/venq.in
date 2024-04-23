@@ -43,9 +43,10 @@ import PoolIcon from "@mui/icons-material/Pool";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config";
 // import Slider from "react-slick";
@@ -75,8 +76,9 @@ const Options = styled(Link)`
 const StyledPopup = styled(Popup)`
   &-overlay {
     height: 50%;
-    width: 30%;
-    margin-left: 33%;
+    width: max-content;
+    min-width: 400px;
+    margin-left: 40%;
     margin-top: 15%;
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(5px);
@@ -98,8 +100,9 @@ const StyledPopup = styled(Popup)`
 const StyledPopupinv = styled(Popup)`
   &-overlay {
     height: 480px;
-    width: 35%;
-    margin-left: 33%;
+    width: max-content;
+    min-widt: 400px;
+    margin-left: 40%;
     margin-top: 5%;
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(5px);
@@ -680,7 +683,71 @@ const arrowStyle = { color: "#000" }; // style for an svg element
 
 const documents = ["hello", "bye", "noob", "player"];
 
+const perItemCurrency = 5000;
+
+const numberFormat = (value) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+  }).format(value);
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "inc":
+      const upStockQun = state.stockQun + 1;
+      const upTotal = upStockQun * perItemCurrency;
+      const upTrans = (upStockQun * perItemCurrency * 5) / 100;
+      const upTotalCurrency = numberFormat(upTotal);
+      const upTransPer = numberFormat(upTrans);
+      const upTotalAmt = numberFormat(upTotal + upTrans);
+      return {
+        stockQun: upStockQun,
+        totalCurrency: upTotalCurrency,
+        totalAmt: upTotalAmt,
+        transPer: upTransPer,
+      };
+    case "dec":
+      if (state.stockQun > 1) {
+        const upStockQun = state.stockQun - 1;
+        const upTotal = upStockQun * perItemCurrency;
+        const upTrans = (upStockQun * perItemCurrency * 5) / 100;
+        const upTotalCurrency = numberFormat(upTotal);
+        const upTransPer = numberFormat(upTrans);
+        const upTotalAmt = numberFormat(upTotal + upTrans);
+        return {
+          stockQun: upStockQun,
+          totalCurrency: upTotalCurrency,
+          totalAmt: upTotalAmt,
+          transPer: upTransPer,
+        };
+      } else {
+        return state;
+      }
+    default:
+      return state;
+  }
+}
+
 const PropertyItem = ({ handleCart, clicked, setClicked }) => {
+  const [totalStock, dispatch] = useReducer(reducer, {
+    stockQun: 1,
+    totalCurrency: "₹5,000.00",
+    totalAmt: "₹5,250.00",
+    transPer: "₹250.00",
+  });
+  let unitPrice = numberFormat(5000);
+
+  const stockHandlerInc = () => {
+    dispatch({ type: "inc" });
+    setUserInvestOne(totalStock.totalAmt);
+  };
+
+  const stockHandlerDec = () => {
+    if (totalStock.stockQun > 1) {
+      dispatch({ type: "dec" });
+    }
+  };
+
   const [selectedValue, setSelectedValue] = useState("");
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
@@ -717,6 +784,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [truncatedContent, settruncatedcontent] = useState("");
   const [shouldTruncate, setShouldtruncate] = useState(false);
   const maxWords = 50;
+  const { setData } = useContext(DataContext);
   console.log(location);
   useEffect(() => {
     const fetchListing = async () => {
@@ -898,60 +966,21 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
   const handlePopopRequest = () => {
     setShowInvestComponent(true);
+    setUserInvestOne(Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, "")));
+    localStorage.setItem(
+      "portfolioAmount",
+      Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""))
+    );
+    localStorage.setItem("units", totalStock.stockQun);
+    console.log(
+      Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, "")),
+      "hello oak"
+    );
+    setData(Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, "")));
   };
 
   const closeInvestComponent = () => {
     setShowInvestComponent(false);
-  };
-  const allState = {
-    stockQun: 1,
-    totalCurrency: "₹5,000.00",
-    totalAmt: "₹5,250.00",
-    transPer: "₹250.00",
-  };
-
-  const perItemCurrency = 5000;
-  const [totalStock, setTotalStock] = useState(allState);
-
-  const numberFormat = (value) =>
-    new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-    }).format(value);
-
-  const stockHandlerInc = (e) => {
-    const upStockQun = allState.stockQun + 1;
-    const upTotal = upStockQun * perItemCurrency;
-    const upTrans = (upStockQun * perItemCurrency * 5) / 100;
-    const upTotalCurrency = numberFormat(upTotal);
-    const upTransPer = numberFormat(upTrans);
-    const upTotalAmt = numberFormat(upTotal + upTrans);
-
-    setTotalStock({
-      stockQun: upStockQun,
-      totalCurrency: upTotalCurrency,
-      totalAmt: upTotalAmt,
-      transPer: upTransPer,
-    });
-    console.log(totalStock);
-  };
-
-  const stockHandlerDec = (e) => {
-    if (allState.stockQun > 1) {
-      const upStockQun = allState.stockQun - 1;
-      const upTotal = upStockQun * perItemCurrency;
-      const upTrans = (upStockQun * perItemCurrency * 5) / 100;
-      const upTotalCurrency = numberFormat(upTotal);
-      const upTransPer = numberFormat(upTrans);
-      const upTotalAmt = numberFormat(upTotal + upTrans);
-      setTotalStock({
-        stockQun: upStockQun,
-        totalCurrency: upTotalCurrency,
-        totalAmt: upTotalAmt,
-        transPer: upTransPer,
-      });
-    }
-    console.log(totalStock);
   };
   return (
     <div
@@ -1252,168 +1281,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       {listing.mininvestment}
                     </Typography>
                   </Box>
-
-                  {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected gross yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.grossyield}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected net yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.netyield}
-                        </Typography>
-                      </Box> */}
-                  {/* <div style={{
-        marginTop:'0px',
-        display:'flex',
-        justifyContent:'center'
-      }}>
-      <button  onClick={()=>{
-                       window.location.href='https://calendly.com/venqtech/15min';
-                       }} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        backgroundColor:'#00b386',
-                        borderRadius:'5px'
-                      }}>
-                        Schedule an E-meet </button> 
-      </div> */}
                 </Box>
-                {/* <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      margin: "20px 0",
-                      paddingTop: "10px",
-                    }}
-                  >
-                    <Typography
-                      style={{ fontSize: "14px", fontFamily: "Inter" }}
-                    >
-                      Annualised return
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {listing.annualizedreturn}
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      margin: "20px 0",
-                    }}
-                  >
-                    <Typography
-                      style={{ fontSize: "14px", fontFamily: "Inter" }}
-                    >
-                      Annual appreciation
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {listing.annualappreciation}
-                    </Typography>
-                  </Box> */}
-                {/* 
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      margin: "20px 0",
-                    }}
-                  >
-                    <Typography
-                      style={{ fontSize: "14px", fontFamily: "Inter" }}
-                    >
-                      Projected gross yield
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {listing.grossyield}
-                    </Typography>
-                  </Box> */}
-
-                {/* <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      margin: "20px 0",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    <Typography
-                      style={{ fontSize: "14px", fontFamily: "Inter" }}
-                    >
-                      Projected net yield
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {listing.netyield}
-                    </Typography>
-                  </Box> */}
               </Box>
             </Pricing>
           </Grid>
@@ -1439,30 +1307,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                     <Box style={{ display: "flex", paddingBottom: "30px" }}>
                       <SubTitle>{listing.propertydescription}</SubTitle>
-
-                      {/* <Divider
-                        orientation="vertical"
-                        variant="middle"
-                        flexItem
-                        style={{ backgroundColor: "darkgrey" }}
-                      />
-                      <SubTitle>{listing.specs?.[1]}</SubTitle>
-
-                      <Divider
-                        orientation="vertical"
-                        variant="middle"
-                        flexItem
-                        style={{ backgroundColor: "darkgrey" }}
-                      />
-                      <SubTitle>{listing.specs?.[2]}</SubTitle>
-
-                      <Divider
-                        orientation="vertical"
-                        variant="middle"
-                        flexItem
-                        style={{ backgroundColor: "darkgrey" }}
-                      />
-                      <SubTitle>{listing.specs?.[3]}</SubTitle> */}
                     </Box>
                   </Box>
 
@@ -2456,71 +2300,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Typography>
                     </Box>
 
-                    {/* <progress
-                      value={1634600}
-                      max={2059765}
-                      style={{ width: "100%" }}
-                    /> */}
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "20px",
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        {" "}
-                        funded
-                      </Typography>
-                      <Typography
-                        style={{
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        RUP 4,25,165 available
-                      </Typography>
-                    </Box> */}
-
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "10px",
-                      }}
-                    > */}
-                    {/* <Typography
-                        style={{
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        <b style={{ paddingRight: "5px", color: "#0170dc" }}>
-                          493
-                        </b>
-                        investors
-                      </Typography> */}
-                    {/* <Typography
-                        style={{
-                          alignItems: "center",
-                          display: "flex",
-                          color: "red",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        <AccessTimeIcon style={{ paddingRight: "5px" }} /> 56
-                        days left
-                      </Typography> */}
-                    {/* </Box> */}
                     <div>
                       <ProgressBar
                         completed={100}
@@ -2580,22 +2359,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       >
-                        {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
                         <span>Yearly investment return</span>
                         <span style={{ fontWeight: 800 }}>9.8%</span>
                       </Box>
@@ -2608,22 +2371,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       >
-                        {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
                         <span>Funded date</span>
                         <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
                       </Box>
@@ -2636,74 +2383,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       >
-                        {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
                         <span>Current valuation</span>
                         <span style={{ fontWeight: 800 }}>RUP 1,100,000</span>
                       </Box>
-
-                      {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected gross yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.grossyield}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected net yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.netyield}
-                        </Typography>
-                      </Box> */}
                     </Box>
 
                     {listing.islive == 2 && (
@@ -2954,21 +2636,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   </li>
                                 </ul>
                               </nav>
-                              {/* <Label>
-          <LabelName>Allotment:</LabelName>
-        </Label>
-      <Radio {...controlProps('allotment')} /> */}
                             </div>
-                            {/* <div style={{
-          display:'flex',
-          justifyContent:'space-evenly'
-        }}>
-        <Label>
-          <LabelName>Invest:</LabelName>
-        </Label>
-      <Radio {...controlProps('investment')} />
-        </div>
-      </div> */}
+
                             <div
                               style={{
                                 display: "flex",
@@ -2985,39 +2654,21 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Investment Amount :
                                 </LabelName>
                               </Label>
-                              {
-                                invtype == 0 && (
-                                  <input
-                                    type="text"
-                                    value={userinvest}
-                                    onChange={(event) => {
-                                      setUserInvest(event.target.value);
-                                    }}
-                                    style={{
-                                      width: "40%",
-                                      fontSize: "14px",
-                                      backgroundColor: "#EBF9F5",
-                                      color: "#50B487",
-                                    }}
-                                  />
-                                )
-                                //   <TextField
-                                //   required
-                                //   name="userinvestmentamount"
-                                //   value={userinvest}
-                                //   onChange={(event)=>{
-                                //    setUserInvest(event.target.value);
-                                //   }}
-                                //  //  label="Enter your email"
-                                //  sx={{
-                                //    width:'40%',
-                                //    fontSize:'14px',
-                                //    backgroundColor:'#EBF9F5',
-                                //    color:'#50B487'
-                                //  }}
-                                //   type="text"
-                                // />
-                              }
+                              {invtype == 0 && (
+                                <input
+                                  type="text"
+                                  value={userinvest}
+                                  onChange={(event) => {
+                                    setUserInvest(event.target.value);
+                                  }}
+                                  style={{
+                                    width: "40%",
+                                    fontSize: "14px",
+                                    backgroundColor: "#EBF9F5",
+                                    color: "#50B487",
+                                  }}
+                                />
+                              )}
                               {invtype == 1 && (
                                 <input
                                   type="text"
@@ -3080,15 +2731,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 </Box>
                               </>
                             )}
-
-                            {/* <LabelSlider
-            type="range"
-            min="50000"
-            max="300000"
-            step="500"
-            value={interestamount}
-            onChange={handleInterestChange}
-          /> */}
                           </Box>
                           {invtype == 0 && (
                             <div
@@ -3117,18 +2759,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   color: "#50B487",
                                 }}
                               />
-                              {/* <TextField
-                       required
-                       fullWidth
-                       name="name"
-                       value={`₹ `+userinvest*0.05}
-                       type="text"
-                       sx={{
-                        backgroundColor:'#EBF9F5',
-                        fontSize:'14px',
-                        width:'40%'
-                       }}
-                     /> */}
                             </div>
                           )}
 
@@ -3270,37 +2900,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         display: "flex",
                         justifyContent: "center",
                       }}
-                    >
-                      {/* <button  onClick={()=>{
-                       window.location.href='https://calendly.com/venqtech/15min';
-                       }} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        backgroundColor:'#00b386',
-                        borderRadius:'5px'
-                      }}>
-                        Schedule an E-meet  11</button>  */}
-                    </div>
+                    ></div>
                   </div>
                   <ToastContainer />
-                  {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "20px 0",
-                      }}
-                    >
-                      <PriceAddButton onClick={handleTwo}>
-                        + RUP 2000
-                      </PriceAddButton>
-                      <PriceAddButton onClick={handleFive}>
-                        + RUP 5000
-                      </PriceAddButton>
-                      <PriceAddButton onClick={handleTen}>
-                        + RUP 10000
-                      </PriceAddButton>
-                    </Box> */}
 
                   <Typography
                     style={{
@@ -3372,165 +2974,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Typography>
                     </Box>
 
-                    {/* <progress
-                      value={1634600}
-                      max={2059765}
-                      style={{ width: "100%" }}
-                    /> */}
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "20px",
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        {" "}
-                        funded
-                      </Typography>
-                      <Typography
-                        style={{
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        RUP 4,25,165 available
-                      </Typography>
-                    </Box> */}
-
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "10px",
-                      }}
-                    > */}
-                    {/* <Typography
-                        style={{
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        <b style={{ paddingRight: "5px", color: "#0170dc" }}>
-                          493
-                        </b>
-                        investors
-                      </Typography> */}
-                    {/* <Typography
-                        style={{
-                          alignItems: "center",
-                          display: "flex",
-                          color: "red",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        <AccessTimeIcon style={{ paddingRight: "5px" }} /> 56
-                        days left
-                      </Typography> */}
-                    {/* </Box> */}
-                    {/* <div>
-                      <ProgressBar
-                        completed={100}
-                        customLabel=""
-                        className="wrapper"
-                        bgColor="#50B487"
-                        labelColor='#50B487'
-                        height="0.6rem"
-                        // labelClassName="label"
-                      />
-                      <Typography
-                          style={{ fontSize: "14px",color:"black" , fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          100% funded
-                        </Typography>
-                    </div> */}
-                    {/* <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',margin:'1.5rem 0'}}> */}
-                    {/* <div>
-                          <span style={{color:'#50B487',fontWeight:'800'}}>380 </span>
-                          <span>investors</span>
-                        </div> */}
-                    {/* <div style={{display:'flex',alignItems:'center'}}>
-                      <img
-                        src="/images/clock.png"
-                        style={{marginRight:'1rem'}}
-                      ></img>
-                      <span style={{color:'red'}}> Closed on Mar 31,2024</span>
-                      </div>
-                    </div> */}
-
-                    {/* <Box
-                      style={{
-                        backgroundColor: "#f6f7f9",
-                        padding: "1px",
-                        borderRadius: "15px",
-                      }}
-                    > */}
-                    {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "1rem 2rem",
-                        }}
-                      > */}
-                    {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
-                    {/* <span>Yearly investment return</span>
-                        <span style={{ fontWeight: 800 }}>9.8%</span> */}
-                    {/* </Box> */}
-
-                    {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "1rem 2rem",
-                        }}
-                      > */}
-                    {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
-                    {/* <span>Funded date</span>
-                        <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
-                      </Box> */}
-
                     <Box
                       style={{
                         display: "flex",
@@ -3538,181 +2981,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         alignItems: "center",
                         margin: "1rem 2rem",
                       }}
-                    >
-                      {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
-                      {/* <span>Current valuation</span>
-                        <span style={{ fontWeight: 800 }}>RUP 1,100,000</span> */}
-                    </Box>
+                    ></Box>
 
-                    {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected gross yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.grossyield}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected net yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.netyield}
-                        </Typography>
-                      </Box> */}
-                    {/* </Box> */}
-                    {/* <Box
-                      style={{
-                        backgroundColor: "#f6f7f9",
-                        padding: "0px 20px",
-                        borderRadius: "20px",
-                      }}
-                    >
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingTop: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Annualised return
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.annualizedreturn}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Annual appreciation
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.annualappreciation}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected gross yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.grossyield}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected net yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.netyield}
-                        </Typography>
-                      </Box>
-                    </Box> */}
                     <ReturnsBox style={{ marginTop: "1rem" }}>
                       <Box>
                         <Box>Investment starts</Box>
@@ -4257,37 +3527,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           display: "flex",
                           justifyContent: "center",
                         }}
-                      >
-                        {/* <button  onClick={()=>{
-                       window.location.href='https://calendly.com/venqtech/15min';
-                       }} style={{
-                        alignContent:'center',
-                        alignItems:'center',
-                        backgroundColor:'#00b386',
-                        borderRadius:'5px'
-                      }}>
-                        Schedule an E-meet  11</button>  */}
-                      </div>
+                      ></div>
                     </div>
                     <ToastContainer />
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "20px 0",
-                      }}
-                    >
-                      <PriceAddButton onClick={handleTwo}>
-                        + RUP 2000
-                      </PriceAddButton>
-                      <PriceAddButton onClick={handleFive}>
-                        + RUP 5000
-                      </PriceAddButton>
-                      <PriceAddButton onClick={handleTen}>
-                        + RUP 10000
-                      </PriceAddButton>
-                    </Box> */}
 
                     <Typography
                       style={{
@@ -4358,165 +3600,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Typography>
                     </Box>
 
-                    {/* <progress
-                      value={1634600}
-                      max={2059765}
-                      style={{ width: "100%" }}
-                    /> */}
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "20px",
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        {" "}
-                        funded
-                      </Typography>
-                      <Typography
-                        style={{
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        RUP 4,25,165 available
-                      </Typography>
-                    </Box> */}
-
-                    {/* <Box
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingBottom: "10px",
-                      }}
-                    > */}
-                    {/* <Typography
-                        style={{
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        <b style={{ paddingRight: "5px", color: "#0170dc" }}>
-                          493
-                        </b>
-                        investors
-                      </Typography> */}
-                    {/* <Typography
-                        style={{
-                          alignItems: "center",
-                          display: "flex",
-                          color: "red",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        <AccessTimeIcon style={{ paddingRight: "5px" }} /> 56
-                        days left
-                      </Typography> */}
-                    {/* </Box> */}
-                    {/* <div>
-                      <ProgressBar
-                        completed={100}
-                        customLabel=""
-                        className="wrapper"
-                        bgColor="#50B487"
-                        labelColor='#50B487'
-                        height="0.6rem"
-                        // labelClassName="label"
-                      />
-                      <Typography
-                          style={{ fontSize: "14px",color:"black" , fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          100% funded
-                        </Typography>
-                    </div> */}
-                    {/* <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',margin:'1.5rem 0'}}> */}
-                    {/* <div>
-                          <span style={{color:'#50B487',fontWeight:'800'}}>380 </span>
-                          <span>investors</span>
-                        </div> */}
-                    {/* <div style={{display:'flex',alignItems:'center'}}>
-                      <img
-                        src="/images/clock.png"
-                        style={{marginRight:'1rem'}}
-                      ></img>
-                      <span style={{color:'red'}}> Closed on Mar 31,2024</span>
-                      </div>
-                    </div> */}
-
-                    {/* <Box
-                      style={{
-                        backgroundColor: "#f6f7f9",
-                        padding: "1px",
-                        borderRadius: "15px",
-                      }}
-                    > */}
-                    {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "1rem 2rem",
-                        }}
-                      > */}
-                    {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
-                    {/* <span>Yearly investment return</span>
-                        <span style={{ fontWeight: 800 }}>9.8%</span> */}
-                    {/* </Box> */}
-
-                    {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "1rem 2rem",
-                        }}
-                      > */}
-                    {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
-                    {/* <span>Funded date</span>
-                        <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
-                      </Box> */}
-
                     <Box
                       style={{
                         display: "flex",
@@ -4524,181 +3607,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         alignItems: "center",
                         margin: "1rem 2rem",
                       }}
-                    >
-                      {/* <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter",
-                        marginLeft:'5px' }}
-                        >
-                          Funding Date
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                            marginRight:'5px'
-                          }}
-                        >
-                          {listing.fundingdate}
-                        </Typography> */}
-                      {/* <span>Current valuation</span>
-                        <span style={{ fontWeight: 800 }}>RUP 1,100,000</span> */}
-                    </Box>
+                    ></Box>
 
-                    {/* <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected gross yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.grossyield}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected net yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.netyield}
-                        </Typography>
-                      </Box> */}
-                    {/* </Box> */}
-                    {/* <Box
-                      style={{
-                        backgroundColor: "#f6f7f9",
-                        padding: "0px 20px",
-                        borderRadius: "20px",
-                      }}
-                    >
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingTop: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Annualised return
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.annualizedreturn}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Annual appreciation
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.annualappreciation}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected gross yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.grossyield}
-                        </Typography>
-                      </Box>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "20px 0",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
-                        >
-                          Projected net yield
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.netyield}
-                        </Typography>
-                      </Box>
-                    </Box> */}
                     <ReturnsBox style={{ marginTop: "1rem" }}>
                       <Box>
                         <Box>Investment starts</Box>
@@ -4835,8 +3745,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <div
                             style={{
                               height: "100%",
-                              width: "30vw",
-
                               margin: "0px",
                               marginTop: "-10px",
                               paddingLeft: "18px",
@@ -4930,21 +3838,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       </li>
                                     </ul>
                                   </nav>
-                                  {/* <Label>
-          <LabelName>Allotment:</LabelName>
-        </Label>
-      <Radio {...controlProps('allotment')} /> */}
                                 </div>
-                                {/* <div style={{
-          display:'flex',
-          justifyContent:'space-evenly'
-        }}>
-        <Label>
-          <LabelName>Invest:</LabelName>
-        </Label>
-      <Radio {...controlProps('investment')} />
-        </div>
-      </div> */}
+
                                 <div
                                   style={{
                                     display: "flex",
@@ -4962,39 +3857,21 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       Investment Amount 1:
                                     </LabelName>
                                   </Label> */}
-                                  {
-                                    invtype == 0 && (
-                                      <input
-                                        type="text"
-                                        value={userinvest}
-                                        onChange={(event) => {
-                                          setUserInvest(event.target.value);
-                                        }}
-                                        style={{
-                                          width: "40%",
-                                          fontSize: "14px",
-                                          backgroundColor: "#EBF9F5",
-                                          color: "#50B487",
-                                        }}
-                                      />
-                                    )
-                                    //   <TextField
-                                    //   required
-                                    //   name="userinvestmentamount"
-                                    //   value={userinvest}
-                                    //   onChange={(event)=>{
-                                    //    setUserInvest(event.target.value);
-                                    //   }}
-                                    //  //  label="Enter your email"
-                                    //  sx={{
-                                    //    width:'40%',
-                                    //    fontSize:'14px',
-                                    //    backgroundColor:'#EBF9F5',
-                                    //    color:'#50B487'
-                                    //  }}
-                                    //   type="text"
-                                    // />
-                                  }
+                                  {invtype == 0 && (
+                                    <input
+                                      type="text"
+                                      value={userinvest}
+                                      onChange={(event) => {
+                                        setUserInvest(event.target.value);
+                                      }}
+                                      style={{
+                                        width: "40%",
+                                        fontSize: "14px",
+                                        backgroundColor: "#EBF9F5",
+                                        color: "#50B487",
+                                      }}
+                                    />
+                                  )}
                                   {invtype == 1 && (
                                     <>
                                       <div class="invest-main-container">
@@ -5043,7 +3920,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                               }}
                                               className="unit-value-in"
                                               type="text"
-                                              value={"₹5,000.00"}
+                                              value={unitPrice}
                                             />
                                           </div>
                                         </div>
@@ -5090,6 +3967,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                               className="unit-value-in"
                                               type="text"
                                               value={totalStock.totalAmt}
+                                              // value="9999"
                                             />
                                           </div>
                                         </div>
@@ -5132,7 +4010,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             onClick={handlePopopRequest}
                                             // disabled={selectedValue==""}
                                           >
-                                            INVEST123
+                                            INVEST
                                           </Button>
                                         </div>
                                       </div>
@@ -5162,38 +4040,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     </Box>
                                   </>
                                 )}
-                                {/* {invtype == 1 && (
-                                  <>
-                                    <Box
-                                      sx={{
-                                        width: "90%",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        marginLeft: "16px",
-                                      }}
-                                    >
-                                      <Slider
-                                        aria-label="Temperature"
-                                        defaultValue={5000}
-                                        getAriaValueText={valuetext}
-                                        min={5000}
-                                        max={310000}
-                                        step={50000}
-                                        marks={marks}
-                                        onChange={handleUserInvestChangeOne}
-                                      />
-                                    </Box>
-                                  </>
-                                )} */}
-
-                                {/* <LabelSlider
-            type="range"
-            min="50000"
-            max="300000"
-            step="500"
-            value={interestamount}
-            onChange={handleInterestChange}
-          /> */}
                               </Box>
                               {invtype == 0 && (
                                 <div
@@ -5222,18 +4068,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       color: "#50B487",
                                     }}
                                   />
-                                  {/* <TextField
-                       required
-                       fullWidth
-                       name="name"
-                       value={`₹ `+userinvest*0.05}
-                       type="text"
-                       sx={{
-                        backgroundColor:'#EBF9F5',
-                        fontSize:'14px',
-                        width:'40%'
-                       }}
-                     /> */}
                                 </div>
                               )}
 
@@ -5298,74 +4132,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   </LabelName>
                                 </Label>
                               )}
-                              <div
-                                style={{
-                                  display: "flex",
-
-                                  justifyContent: "space-between",
-                                  gap: "30px",
-                                  marginTop: invtype == 1 ? "250px" : "0px",
-                                }}
-                              >
-                                <>
-                                  <Button
-                                    type="submit"
-                                    variant="contained"
-                                    style={{
-                                      margin: "8px 0",
-                                      width: "50%",
-                                      paddingTop: "10px",
-                                      paddingBottom: "10px",
-                                      backgroundColor: "#EBF9F5",
-                                      borderRadius: "8px",
-                                      color: "#50B487",
-                                    }}
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => {
-                                      handleRequest(0);
-                                    }}
-                                  >
-                                    ADD TO CART
-                                  </Button>
-                                  {invtype == 0 && (
-                                    <Button
-                                      type="submit"
-                                      variant="contained"
-                                      style={{
-                                        margin: "8px 0",
-                                        width: "50%",
-                                        backgroundColor: "#00b386",
-                                        borderRadius: "8px",
-                                      }}
-                                      color="primary"
-                                      fullWidth
-                                      onClick={() => {
-                                        handleRequest(1);
-                                      }}
-                                    >
-                                      APPLY
-                                    </Button>
-                                  )}
-                                  {invtype == 1 && (
-                                    <Button
-                                      type="submit"
-                                      variant="contained"
-                                      style={{
-                                        margin: "8px 0",
-                                        width: "50%",
-                                        backgroundColor: "#00b386",
-                                        borderRadius: "8px",
-                                      }}
-                                      color="primary"
-                                      fullWidth
-                                      onClick={handlePopopRequest}
-                                    >
-                                      INVEST123
-                                    </Button>
-                                  )}
-                                </>
-                              </div>
                             </form>
                           </div>
                         )}
@@ -5708,24 +4474,24 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       <Radio {...controlProps('investment')} />
         </div>
       </div> */}
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Label>
-                          <LabelName
-                            sx={{
-                              fontSize: "14px",
-                              marginTop: "14px",
-                            }}
-                          >
-                            Investment Amount:
-                          </LabelName>
-                        </Label>
-                        {
-                          invtype == 0 && (
+                      {showInvestComponent ? (
+                        <Terms userinvestone={userinvestone} />
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Label>
+                            <LabelName
+                              sx={{
+                                fontSize: "14px",
+                                marginTop: "14px",
+                              }}
+                            ></LabelName>
+                          </Label>
+                          {invtype == 0 && (
                             <input
                               type="text"
                               value={userinvest}
@@ -5739,40 +4505,151 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 color: "#50B487",
                               }}
                             />
-                          )
-                          //   <TextField
-                          //   required
-                          //   name="userinvestmentamount"
-                          //   value={userinvest}
-                          //   onChange={(event)=>{
-                          //    setUserInvest(event.target.value);
-                          //   }}
-                          //  //  label="Enter your email"
-                          //  sx={{
-                          //    width:'40%',
-                          //    fontSize:'14px',
-                          //    backgroundColor:'#EBF9F5',
-                          //    color:'#50B487'
-                          //  }}
-                          //   type="text"
-                          // />
-                        }
-                        {invtype == 1 && (
-                          <input
-                            type="text"
-                            value={userinvestone}
-                            onChange={(event) => {
-                              setUserInvest(event.target.value);
-                            }}
-                            style={{
-                              width: "40%",
-                              fontSize: "14px",
-                              backgroundColor: "#EBF9F5",
-                              color: "#50B487",
-                            }}
-                          />
-                        )}
-                      </div>
+                          )}
+                          {invtype == 1 && (
+                            <>
+                              <div class="invest-main-container">
+                                <div className="top-heading gray s-mb-10">
+                                  No. of units
+                                </div>
+                                <div
+                                  style={{
+                                    width: "100%",
+                                  }}
+                                  className="input-button-container"
+                                >
+                                  <button
+                                    className="des"
+                                    onClick={stockHandlerDec}
+                                  >
+                                    -
+                                  </button>
+                                  <input
+                                    style={{
+                                      fontSize: "1.4rem",
+                                      backgroundColor: "#EBF9F5",
+                                      marginTop: "0",
+                                      maxWidth: "120px",
+                                      fontWeight: "600",
+                                    }}
+                                    className="stk-quantity"
+                                    type="text"
+                                    value={totalStock.stockQun}
+                                    id="stock-quantity"
+                                  />
+                                  <button
+                                    className="asc"
+                                    onClick={stockHandlerInc}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                                <div className="unit-value">
+                                  <div className="gray">Unit Value</div>
+                                  <div className="price-input-container">
+                                    <input
+                                      style={{
+                                        outline: "none",
+                                        border: "none",
+                                      }}
+                                      className="unit-value-in"
+                                      type="text"
+                                      value={unitPrice}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="unit-value">
+                                  <div className="gray">Subscription Value</div>
+                                  <div className="price-input-container">
+                                    <input
+                                      style={{
+                                        outline: "none",
+                                        border: "none",
+                                      }}
+                                      className="unit-value-in"
+                                      type="text"
+                                      value={totalStock.totalCurrency}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="unit-value transaction-fee">
+                                  <div className="gray">Transaction Fees</div>
+                                  <div className="price-input-container">
+                                    <input
+                                      style={{
+                                        outline: "none",
+                                        border: "none",
+                                      }}
+                                      className="unit-value-in"
+                                      type="text"
+                                      value={totalStock.transPer}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="unit-value total-fee">
+                                  <div>Total</div>
+                                  <div className="price-input-container">
+                                    <input
+                                      style={{
+                                        outline: "none",
+                                        border: "none",
+                                      }}
+                                      className="unit-value-in"
+                                      type="text"
+                                      value={totalStock.totalAmt}
+                                      // value="9999"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    gap: "30px",
+                                  }}
+                                >
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{
+                                      margin: "8px 0",
+                                      width: "50%",
+                                      height: "5vh",
+                                      backgroundColor: "#EBF9F5",
+                                      borderRadius: "8px",
+                                      color: "#50B487",
+                                    }}
+                                    color="primary"
+                                    fullWidth
+                                    onClick={() => {
+                                      handleRequest(0);
+                                    }}
+                                    // disabled={selectedValue==""}
+                                  >
+                                    ADD TO CART
+                                  </Button>
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{
+                                      margin: "8px 0",
+                                      width: "50%",
+                                      height: "5vh",
+                                      backgroundColor: "#00b386",
+                                      borderRadius: "8px",
+                                    }}
+                                    color="primary"
+                                    fullWidth
+                                    onClick={handlePopopRequest}
+                                    // disabled={selectedValue==""}
+                                  >
+                                    INVEST
+                                  </Button>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      )}
                       {invtype == 0 && (
                         <>
                           <Box
@@ -5796,206 +4673,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </Box>
                         </>
                       )}
-                      {invtype == 1 && (
-                        <>
-                          <Box
-                            sx={{
-                              width: "90%",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              marginLeft: "16px",
-                            }}
-                          >
-                            <Slider
-                              aria-label="Temperature"
-                              defaultValue={5000}
-                              getAriaValueText={valuetext}
-                              min={5000}
-                              max={310000}
-                              step={50000}
-                              marks={marks}
-                              onChange={handleUserInvestChangeOne}
-                            />
-                          </Box>
-                        </>
-                      )}
-
-                      {/* <LabelSlider
-            type="range"
-            min="50000"
-            max="300000"
-            step="500"
-            value={interestamount}
-            onChange={handleInterestChange}
-          /> */}
                     </Box>
-                    {invtype == 0 && (
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Label>
-                          <LabelName
-                            sx={{
-                              marginTop: "14px",
-                              fontSize: "14px",
-                            }}
-                          >
-                            Allotment Fees:
-                          </LabelName>
-                        </Label>
-                        <input
-                          type="text"
-                          value={`₹ ` + userinvest * 0.05}
-                          style={{
-                            width: "40%",
-                            fontSize: "14px",
-                            backgroundColor: "#EBF9F5",
-                            color: "#50B487",
-                          }}
-                        />
-                        {/* <TextField
-                       required
-                       fullWidth
-                       name="name"
-                       value={`₹ `+userinvest*0.05}
-                       type="text"
-                       sx={{
-                        backgroundColor:'#EBF9F5',
-                        fontSize:'14px',
-                        width:'40%'
-                       }}
-                     /> */}
-                      </div>
-                    )}
-
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      {invtype == 0 && (
-                        <>
-                          <Label>
-                            <LabelName
-                              sx={{
-                                marginTop: "14px",
-                                fontSize: "14px",
-                              }}
-                            >
-                              Allotment date:
-                            </LabelName>
-                          </Label>
-                          <input
-                            type="text"
-                            value={`1 Mar`}
-                            style={{
-                              width: "40%",
-                              fontSize: "14px",
-                              backgroundColor: "#EBF9F5",
-                              color: "#50B487",
-                            }}
-                          />
-                        </>
-                      )}
-                    </div>
-                    {invtype == 0 && (
-                      <Label
-                        style={{
-                          textAlign: "center",
-                        }}
-                        sx={{
-                          textAlign: "center",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginTop: "50px",
-                        }}
-                      >
-                        <LabelName
-                          sx={{
-                            textAlign: "center",
-                            fontSize: "8px",
-                            color: "#7c7e8c",
-                          }}
-                        >
-                          This 5% application fees is a reservation only. You
-                          will have to pay the whole amount on the date of
-                          allotment to know more checkout{" "}
-                          <a href="https://www.venq.in/investing">
-                            venq.in/investing
-                          </a>
-                        </LabelName>
-                      </Label>
-                    )}
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                        marginTop: invtype == 1 ? "205px" : "0px",
-                      }}
-                    >
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        style={{
-                          marginBottom: "18px",
-                          width: "130px",
-                          backgroundColor: "#EBF9F5",
-                          borderRadius: "8px",
-                          color: "#50B487",
-                        }}
-                        color="primary"
-                        fullWidth
-                        onClick={() => {
-                          handleRequest(0);
-                        }}
-                        // disabled={selectedValue==""}
-                      >
-                        ADD TO CART
-                      </Button>
-                      {invtype == 0 && (
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          style={{
-                            marginBottom: "18px",
-                            width: "130px",
-                            backgroundColor: "#00b386",
-                            borderRadius: "8px",
-                          }}
-                          color="primary"
-                          fullWidth
-                          onClick={() => {
-                            handleRequest(1);
-                          }}
-                          // disabled={selectedValue==""}
-                        >
-                          APPLY
-                        </Button>
-                      )}
-                      {invtype == 1 && (
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          style={{
-                            marginBottom: "18px",
-                            width: "130px",
-                            backgroundColor: "#00b386",
-                            borderRadius: "8px",
-                          }}
-                          color="primary"
-                          fullWidth
-                          // onClick={handleRequest}
-                          // disabled={selectedValue==""}
-                        >
-                          INVEST
-                        </Button>
-                      )}
-                    </div>
                   </form>
                 </div>
               </StyledPopupinvSmall>

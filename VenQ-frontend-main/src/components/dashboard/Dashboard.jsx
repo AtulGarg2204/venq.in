@@ -848,7 +848,7 @@ const Options = styled(Link)`
   color: ${({ selected }) => (selected ? "black" : "rgb(112,111,111)")};
   &:hover {
     background-color: ${({ selected }) =>
-      selected ? "#cbe5ffb9" : "#cbe5ffb9"};
+    selected ? "#cbe5ffb9" : "#cbe5ffb9"};
     color: black;
   }
 `;
@@ -926,6 +926,7 @@ const NestedListContainer = styled(Box)`
   width: 250px;
   box-shadow: 0 1px 2px 1px black;
   z-index: 9;
+  overflow:hidden;
 
   @media (max-width: 600px) {
     // Set your preferred max-width for mobile
@@ -1422,7 +1423,7 @@ const Dashboard = () => {
       </Drawer>
       {nestedListVisible && (
         <NestedListContainer>
-          <NestedList>
+          <NestedList className="nested-list">
             <NestedLink
               to="/dashboard/profile"
               selected={step === 8}

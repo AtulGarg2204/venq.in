@@ -394,7 +394,7 @@ function Dashboard() {
               {/* progress bar chalu  */}
 
               <div className="containerone">
-                <div className="steps-containerone">
+                <div className="steps-containerone ">
                   {[1, 2, 3].map((stepNumber) => (
                     <div
                       key={stepNumber}
@@ -403,12 +403,12 @@ function Dashboard() {
                         gap: "10px",
                       }}
                     >
-                      <div>
+                      <div className="progress-container">
                         <span>
                           {stepNumber > 1 && <div className="line"></div>}
                           <span
                             className={`step-circle ${
-                              stepNumber === currentStep ? "active" : ""
+                              stepNumber <= currentStep ? "active" : ""
                             }`}
                           >
                             {stepNumber}
@@ -443,7 +443,7 @@ function Dashboard() {
                     <span
                       className="progress-indicator"
                       style={{
-                        width: `${((currentStep - 1) / 3) * 100}%`,
+                        width: `${((currentStep - 1) / 2) * 100}%`,
                       }}
                     ></span>
                   </div>
@@ -559,7 +559,6 @@ function Dashboard() {
                       }}
                     />
                   </div>
-
                   <ToastContainer />
                   {/* <div className="action-buttons">
         <button
@@ -636,7 +635,7 @@ function Dashboard() {
                       >
                         <button
                           style={{
-                            backgroundColor: "#626bea",
+                            backgroundColor: "#5ece8f",
                             width: "100%",
                           }}
                           onClick={() => {
@@ -937,7 +936,8 @@ function Dashboard() {
           <div
             className="main-otp-div popup"
             style={{
-              width: "60%",
+              width: "max-content",
+              padding: "0 20px 30px",
               marginTop: "100px",
             }}
           >
@@ -969,35 +969,31 @@ function Dashboard() {
               {/* progress bar chalu  */}
 
               <div className="containerone">
-                <div className="steps-containerone">
+                <div className="steps-containerone ">
                   {[1, 2, 3].map((stepNumber) => (
-                    <div
-                      key={stepNumber}
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                      }}
-                    >
-                      <div>
-                        <span>
+                    <div key={stepNumber}>
+                      <div className="progress-container">
+                        <div
+                          style={{
+                            display: "flex",
+                            cursor: "pointer",
+                          }}
+                        >
                           {stepNumber > 1 && <div className="line"></div>}
                           <span
+                            onClick={() => {
+                              if (step > stepNumber - 1) {
+                                setStep(stepNumber - 1);
+                              }
+                            }}
                             className={`step-circle ${
-                              stepNumber === currentStep ? "active" : ""
+                              stepNumber <= currentStep ? "active" : ""
                             }`}
                           >
                             {stepNumber}
                           </span>
-                        </span>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <span
+                        </div>
+                        <div
                           style={{
                             fontFamily: "Gilroy-Bold",
                             width: "60px",
@@ -1008,19 +1004,27 @@ function Dashboard() {
                             : stepNumber == 2
                             ? "PAN"
                             : "Bank"}
-                        </span>
+                        </div>
                       </div>
-
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      ></div>
                       {/* <Divider style={{ backgroundColor:'blue',height:'5px',border:'3px solid red' }} /> */}
                     </div>
                   ))}
                   <div className="progress-bar-containerone">
-                    <span
+                    <div
                       className="progress-indicator"
                       style={{
-                        width: `${((currentStep - 1) / 3) * 100}%`,
+                        width: `${((currentStep - 1) / 2) * 100}%`,
+                        height: "5px",
+                        background: "#5ece8f",
                       }}
-                    ></span>
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -1042,7 +1046,7 @@ function Dashboard() {
                       fontFamily: "Gilroy-Medium",
                     }}
                   >
-                    Aadhar Verification
+                    Aadhar Verification{" "}
                   </div>
                   <div
                     style={{
@@ -1110,7 +1114,7 @@ function Dashboard() {
                         cursor: "pointer",
                         marginTop: "8px",
                         width: "100%",
-                        backgroundColor: "#626bea",
+                        backgroundColor: "#5ece8f",
                       }}
                       onClick={() => {
                         handleotpsend();
@@ -1161,7 +1165,7 @@ function Dashboard() {
                       >
                         <button
                           style={{
-                            backgroundColor: "#626bea",
+                            backgroundColor: "#5ece8f",
                             width: "100%",
                           }}
                           onClick={() => {
@@ -1252,7 +1256,7 @@ function Dashboard() {
                     <Button
                       style={{
                         cursor: "pointer",
-                        backgroundColor: "#626bea",
+                        backgroundColor: "#5ece8f",
                         color: "white",
                         width: "100%",
                       }}

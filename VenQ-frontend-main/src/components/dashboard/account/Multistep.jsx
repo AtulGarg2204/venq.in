@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './multistep.css'; // Import the CSS styles
+import React, { useState } from "react";
+import "./multistep.css"; // Import the CSS styles
 
 const MultiStep = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -11,7 +11,13 @@ const MultiStep = () => {
   const handleButtonClick = (step) => {
     updateSteps(step);
   };
-<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
+  <script
+    type="text/javascript"
+    id="hs-script-loader"
+    async
+    defer
+    src="//js.hs-scripts.com/45720526.js"
+  ></script>;
   return (
     <div className="container">
       <div className="steps-container">
@@ -19,7 +25,9 @@ const MultiStep = () => {
           <span key={stepNumber}>
             {stepNumber > 1 && <div className="line"></div>}
             <span
-              className={`step-circle ${stepNumber === currentStep ? 'active' : ''}`}
+              className={`step-circle ${
+                stepNumber === currentStep ? "active" : ""
+              }`}
             >
               {stepNumber}
             </span>

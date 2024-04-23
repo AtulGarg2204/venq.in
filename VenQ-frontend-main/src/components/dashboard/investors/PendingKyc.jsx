@@ -14,14 +14,8 @@ import Paper from "@mui/material/Paper";
 import { ToastContainer, toast } from "react-toastify";
 import config from "../../../config";
 import Popup from "reactjs-popup";
+import "./progressBar.css";
 
-<script
-  type="text/javascript"
-  id="hs-script-loader"
-  async
-  defer
-  src="//js.hs-scripts.com/45720526.js"
-></script>;
 const StyledPopup = styled(Popup)`
   &-overlay {
     height: 50%;
@@ -255,8 +249,9 @@ const PendingKyc = () => {
           <div
             className="main-otp-div popup"
             style={{
-              width: "60%",
+              width: "max-content",
               marginTop: "100px",
+              padding: "0 20px 20px",
             }}
           >
             <div className="backarrow">
@@ -287,21 +282,29 @@ const PendingKyc = () => {
               {/* progress bar chalu  */}
 
               <div className="containerone">
-                <div className="steps-containerone">
+                <div className="steps-containerone detailed">
                   {[1, 2, 3].map((stepNumber) => (
                     <div
                       key={stepNumber}
                       style={{
                         display: "flex",
                         gap: "10px",
+                        flexDirection: "column",
+                        zIndex: "2",
                       }}
                     >
                       <div>
                         <span>
                           {stepNumber > 1 && <div className="line"></div>}
                           <span
+                            onClick={() => {
+                              if (step > stepNumber - 1) {
+                                setStep(stepNumber - 1);
+                                setCurrentStep(stepNumber);
+                              }
+                            }}
                             className={`step-circle ${
-                              stepNumber === currentStep ? "active" : ""
+                              stepNumber <= currentStep ? "active" : ""
                             }`}
                           >
                             {stepNumber}
@@ -332,11 +335,11 @@ const PendingKyc = () => {
                       {/* <Divider style={{ backgroundColor:'blue',height:'5px',border:'3px solid red' }} /> */}
                     </div>
                   ))}
-                  <div className="progress-bar-containerone">
+                  <div className="progress-bar-containerone detailed">
                     <span
                       className="progress-indicator"
                       style={{
-                        width: `${((currentStep - 1) / 3) * 100}%`,
+                        width: `${((currentStep - 1) / 2) * 100}%`,
                       }}
                     ></span>
                   </div>
@@ -414,6 +417,36 @@ const PendingKyc = () => {
                       required
                       name="name"
                       value={kycdata.aadhaar_number}
+                      autoFocus={true}
+                      style={{
+                        width: "450px",
+                        marginTop: "0px",
+                        marginBottom: "10px",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <p
+                      htmlFor="aadharverification"
+                      className="form-label"
+                      style={{
+                        marginTop: "20px",
+                        fontFamily: "Gilroy-Medium",
+                      }}
+                    >
+                      DOB
+                    </p>
+
+                    <input
+                      type="text"
+                      required
+                      name="name"
+                      value={kycdata.dob}
                       autoFocus={true}
                       style={{
                         width: "450px",
@@ -912,7 +945,10 @@ const PendingKyc = () => {
               <ToastContainer />
             </StyledPopup>
             <Table
-              sx={{ minWidth: 650, fontFamily: "Work Sans" }}
+              sx={{
+                minWidth: 650,
+                fontFamily: "Work Sans",
+              }}
               aria-label="simple table"
             >
               <TableHead

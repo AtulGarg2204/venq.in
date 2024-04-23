@@ -290,7 +290,7 @@ const Navbar = (props) => {
                 width:'400px'
               }}>
               <Text onClick={handleClick}>Invest</Text>
-              <Text data-tally-open="3qR2Ed">List Property</Text>
+              <Text>List Property</Text>
               <Text  
                  onClick={handleClicklearn}
                 aria-controls={open ? 'account-menu' : undefined}

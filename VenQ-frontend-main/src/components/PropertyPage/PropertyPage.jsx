@@ -118,6 +118,9 @@ const Options = styled(Box)`
   width: 50%;
   border-radius: 10px;
   display: flex;
+  @media (max-width: 600px) {
+    margin-left: 10%;
+  }
 `;
 const SmallOptions = styled(Box)`
   margin-top: 36%;
@@ -220,30 +223,7 @@ const PropertyPage = () => {
           </h1>
         </SubText>
       </UpperPart>
-      {/* {true && (
-        <SmallOptions>
-          <OptionName
-            onClick={() => handleButtonClick("available")}
-            active={activeButton === "available"}
-          >
-            Available
-          </OptionName>
 
-          <OptionName
-            onClick={() => handleButtonClick("funded")}
-            active={activeButton === "funded"}
-          >
-            Funded
-          </OptionName>
-
-          <OptionName
-            onClick={() => handleButtonClick("exited")}
-            active={activeButton === "exited"}
-          >
-            Exited
-          </OptionName>
-        </SmallOptions>
-      )} */}
       {!false && (
         <Options>
           <OptionName
@@ -288,7 +268,9 @@ const PropertyPage = () => {
                 {/* .filter((listing) => listing.main_heading === "New Listing") */}
 
                 {listings
-                  .filter((listing) => listing.islive !== 1)
+                  .filter(
+                    (listing) => listing.islive === 1 || listing.islive === 2
+                  )
                   .map((listing) => (
                     <Grid
                       key={listing._id}
@@ -566,7 +548,7 @@ const PropertyPage = () => {
                               marginBottom: "15px",
                             }}
                           >
-                            {listing.islive == 1 && (
+                            {isLoggedIn && listing.islive == 1 && (
                               <Button
                                 sx={{
                                   paddingLeft: "65px",

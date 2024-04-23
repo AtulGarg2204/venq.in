@@ -25,18 +25,19 @@ const KycVerification = () => {
         style={{
           backgroundColor: "white",
           position: "absolute",
-          height: "25%",
+          height: "max-content",
           width: "60%",
           padding: "2rem",
           top: "50%",
           left: "43%",
           transform: "translate(-50%, -50%)",
+          fontFamily: "sans-serif"
         }}
         onClick={(e) => e.stopPropagation()}
       >
         <h4>Personal information</h4>
         <p style={{ color: "gray" }}>
-          Required by United States banking laws. This information is{" "}
+          Required by Indian banking laws. This information is{" "}
           <span style={{ color: "blue" }}> kept secure </span>. It will never be
           used for any purpose beyond executing your investment.
         </p>
@@ -46,7 +47,7 @@ const KycVerification = () => {
             navigate("/dashboard/profile");
           }}
         >
-          Verify my Indentity
+          Verify my Identity
         </button>
       </div>
     </div>

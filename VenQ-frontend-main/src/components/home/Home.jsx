@@ -256,9 +256,6 @@ const Home = () => {
         </video>`,
             }}
           />
-          {/* <video className="videoTag" autoPlay playsInline loop muted preload="metadata">
-            <source src={sample} type="video/mp4" />
-          </video> */}
           <Navbar isLoggedIn={isLoggedIn} />
           <div className="main-section">
             <div className="image-container">
@@ -292,7 +289,7 @@ const Home = () => {
                 >
                   Invest
                 </InvestButton>
-                <SellButton data-tally-open="3qR2Ed">List Property</SellButton>
+                <SellButton>List Property</SellButton>
               </div>
             </div>
             <div class="banner">
@@ -373,8 +370,10 @@ const Home = () => {
                 objectFit: "cover",
                 bottom: "10px",
                 marginLeft: "-20px",
+                width:"100vw"
               }}
               height={300}
+             
               src="images/homebg.png"
               alt="error"
             />
