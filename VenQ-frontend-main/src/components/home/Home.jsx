@@ -352,6 +352,7 @@ const Home = () => {
                 paddingRight: "20px",
                 paddingLeft: "20px",
                 marginTop: "10px",
+                zIndex: "100",
               }}
               onClick={() => {
                 navigate("/login");
@@ -359,8 +360,6 @@ const Home = () => {
             >
               Start Investing
             </button>
-            {/* <Link to="/login">Start Investing</Link>
-             */}
 
             <img
               style={{
@@ -369,13 +368,13 @@ const Home = () => {
                 overflow: "hidden",
                 objectFit: "cover",
                 // bottom: "50px",
-                marginTop:"-65px",
-                marginLeft: "-20px",
+                marginTop: "-10px",
+                marginLeft: "-15px",
                 // width:"100vw"
-                width:"380px"
+                width: "380px",
+                zIndex:"-1"
               }}
               height={300}
-             
               src="images/homebg.png"
               alt="error"
             />
