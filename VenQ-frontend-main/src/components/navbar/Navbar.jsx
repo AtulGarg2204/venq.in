@@ -523,11 +523,11 @@ const Navbar = (props) => {
                               <div>
                                 <MenuElement name={namearr[0]} />
                               </div>
-                              <Link to="/dashboard">
+                              {/* <Link to="/dashboard">
                                 <button className="dashboard-mobile-screen">
                                   Dashboard
                                 </button>
-                              </Link>
+                              </Link> */}
                             </>
                           )}
                         </div>

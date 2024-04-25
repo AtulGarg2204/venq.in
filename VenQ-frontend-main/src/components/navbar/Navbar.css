@@ -2,9 +2,8 @@
   display: flex;
   justify-content: space-evenly;
   width: 300px;
-  font-family:'Gilroy-Bold';
+  font-family: "Gilroy-Bold";
 }
-
 
 .loginButton {
   border: 2px solid #4393c6;
@@ -34,7 +33,6 @@
 .SignupButton:hover {
   background-color: #1b527b;
   transform: scale(1.05);
-  
 }
 
 .SignupButton {
@@ -112,10 +110,13 @@
   }
 }
 
-.dashboard-mobile-screen{
-  
-  width: 84vw;
-  height: 4.1vh;
+.dashboard-mobile-screen {
+  width: 190px;
+  height: 4.3vh;
   border-radius: 25px;
-  margin-left: 3.1%;
+  margin-left: 6%;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
 }
