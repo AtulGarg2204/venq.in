@@ -355,7 +355,7 @@ const Properties = () => {
                                   fontFamily: "Inter",
                                 }}
                               >
-                                RUP {filteredListing.propertyprice}
+                                INR {filteredListing.propertyprice}
                               </Box>
                               <Box></Box>
                             </PriceBox>
@@ -584,7 +584,7 @@ const Properties = () => {
                                   fontFamily: "Inter",
                                 }}
                               >
-                                RUP {filteredListing.propertyprice}
+                                INR {filteredListing.propertyprice}
                               </Box>
                               <Box></Box>
                             </PriceBox>
@@ -718,7 +718,7 @@ const Properties = () => {
                                   fontFamily: "Inter",
                                 }}
                               >
-                                RUP {listing.propertyprice}
+                                INR {listing.propertyprice}
                               </Box>
                               <Box>
 
@@ -829,7 +829,7 @@ const Properties = () => {
                                   fontFamily: "Inter",
                                 }}
                               >
-                                RUP {listing.propertyprice}
+                                INR {listing.propertyprice}
                               </Box>
                               <Box> */}
 

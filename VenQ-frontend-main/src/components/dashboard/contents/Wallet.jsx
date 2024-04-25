@@ -187,7 +187,7 @@ const Wallet = () => {
                   Cash Balance
                 </Typography>
                 <Typography style={{ fontWeight: 700, fontSize: "40px" }}>
-                  RUP 0
+                  INR 0
                 </Typography>
               </Box>
               <Box
@@ -256,7 +256,7 @@ const Wallet = () => {
                   </Typography>
                 </ThemeProvider>
                 <Typography style={{ fontWeight: 700, fontSize: "40px" }}>
-                  RUP 0
+                  INR 0
                 </Typography>
               </Box>
               <Box

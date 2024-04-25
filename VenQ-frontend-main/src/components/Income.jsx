@@ -205,7 +205,7 @@ const Income = () => {
                                 fontFamily: "Inter",
                               }}
                             >
-                              Rup 3,30,00,000
+                              INR 3,30,00,000
                             </Box>
                             {/* <Box>523 Investors</Box> */}
                           </PriceBox>
@@ -234,7 +234,7 @@ const Income = () => {
                               <Box
                                 style={{ color: "black", fontWeight: "bold" }}
                               >
-                                Rup 3,30,00,000
+                                INR 3,30,00,000
                               </Box>
                             </Box>
                           </ReturnsBox>

@@ -112,7 +112,7 @@ const VerticalBarGraph = ({ investment, propertyValueGrowth, rentalYield, handle
         <Box>
           <Label>
             <LabelName>Investment:</LabelName>
-            <LabelAmount>RUP {investment}</LabelAmount>
+            <LabelAmount>INR {investment}</LabelAmount>
           </Label>
 
           <LabelSlider

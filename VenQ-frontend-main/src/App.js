@@ -56,6 +56,7 @@ import ContactUs from "./footerpages/ContactUs";
 import SuccessPage from "./components/common/SuccessPage";
 import { DataProvider } from "./components/context/DataContext";
 import Failed from "./components/common/Failed";
+import About from "./footerpages/About";
 function App() {
   return (
     <DataProvider>
@@ -73,6 +74,7 @@ function App() {
           <Route path="privacy" element={<Privacy />} />
           <Route path="refund" element={<Refund />} />
           <Route path="learn" element={<Learn />} />
+          <Route path="/about" element={<About />} />
           <Route path="learn-view" element={<LearnView />} />
           <Route path="ccd" element={<CCD />} />
           <Route path="exitwindow" element={<ExitWindows />} />

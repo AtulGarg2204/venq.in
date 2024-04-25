@@ -159,7 +159,7 @@ const CartItem = (items) => {
                     </Tooltip>
 
                   </Typography>
-                  <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>RUP 4</Typography>
+                  <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>INR 4</Typography>
                 </Box>
               </ThemeProvider>
 
@@ -173,7 +173,7 @@ const CartItem = (items) => {
                     </Tooltip>
 
                   </Typography>
-                  <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>RUP 161</Typography>
+                  <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>INR 161</Typography>
                 </Box>
               </ThemeProvider>
 
@@ -208,7 +208,7 @@ const CartItem = (items) => {
 
             <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0' }}>
               <Amount>Total</Amount>
-              <Amount>RUP {quantity}</Amount>
+              <Amount>INR {quantity}</Amount>
             </Box>
 
             <Box>

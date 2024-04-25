@@ -395,7 +395,7 @@ const PropertyPage = () => {
                                       fontFamily: "Inter",
                                     }}
                                   >
-                                    RUP {listing.propertyprice}
+                                    INR {listing.propertyprice}
                                   </Box>
                                 </PriceBox>
                                 {/* <progress
@@ -711,7 +711,7 @@ const PropertyPage = () => {
                                     fontFamily: "Inter",
                                   }}
                                 >
-                                  RUP {filteredListing.propertyprice}
+                                  INR {filteredListing.propertyprice}
                                 </Box>
                                 <Box></Box>
                               </PriceBox>
@@ -850,7 +850,7 @@ const PropertyPage = () => {
                                 fontFamily: "Inter",
                               }}
                             >
-                              RUP {listing.propertyprice}
+                              INR {listing.propertyprice}
                             </Box>
                             <Box></Box>
                           </PriceBox> */}

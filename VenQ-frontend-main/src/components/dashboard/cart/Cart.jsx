@@ -312,7 +312,7 @@ const info = `The "Apply for Allotment" system is an alternative method allowing
 //                              </Tooltip>
 
 //                            </Typography>
-//                            <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>RUP {item.amount}</Typography>
+//                            <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>INR {item.amount}</Typography>
 //                          </Box>
 //                        </ThemeProvider>
 
@@ -326,7 +326,7 @@ const info = `The "Apply for Allotment" system is an alternative method allowing
 //                              </Tooltip>
 
 //                            </Typography>
-//                            <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>RUP 161</Typography>
+//                            <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>INR 161</Typography>
 //                          </Box>
 //                        </ThemeProvider>
 
@@ -361,7 +361,7 @@ const info = `The "Apply for Allotment" system is an alternative method allowing
 
 //                      <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0' }}>
 //                        <Amount>Total</Amount>
-//                        <Amount>RUP {quantity}</Amount>
+//                        <Amount>INR {quantity}</Amount>
 //                      </Box>
 
 //                      <Box>
@@ -809,7 +809,7 @@ const Properties = () => {
                                       fontFamily: "Inter",
                                     }}
                                   >
-                                    RUP {cartItem.amount}{" "}
+                                    INR {cartItem.amount}{" "}
                                   </Typography>
                                 </Box>
                               </ThemeProvider>
@@ -824,7 +824,7 @@ const Properties = () => {
                   </Tooltip>
 
                 </Typography>
-                <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>RUP 161</Typography>
+                <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>INR 161</Typography>
               </Box>
             </ThemeProvider> */}
                             </Box>
@@ -1274,7 +1274,7 @@ const Properties = () => {
                                       fontFamily: "Inter",
                                     }}
                                   >
-                                    RUP {cartItem.amount}{" "}
+                                    INR {cartItem.amount}{" "}
                                   </Typography>
                                 </Box>
                               </ThemeProvider>
@@ -1289,7 +1289,7 @@ const Properties = () => {
                               </Tooltip>
           
                             </Typography>
-                            <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>RUP 161</Typography>
+                            <Typography style={{ fontWeight: '600', fontFamily: "Inter" }}>INR 161</Typography>
                           </Box>
                         </ThemeProvider> */}
                             </Box>

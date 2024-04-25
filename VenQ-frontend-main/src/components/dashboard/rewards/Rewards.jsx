@@ -117,7 +117,7 @@ const Rewards = ({ handleBalance }) => {
 
                 </ThemeProvider>
 
-                <Typography style={{ fontWeight: 700, fontSize: '40px' }}>RUP 0</Typography>
+                <Typography style={{ fontWeight: 700, fontSize: '40px' }}>INR 0</Typography>
 
                 <WalletLink to='/dashboard/wallet' onClick={handleBalance}>
                   view current balance
@@ -175,7 +175,7 @@ const Rewards = ({ handleBalance }) => {
                   </ThemeProvider>
                 </Box>
 
-                <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>RUP 0</Typography>
+                <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>INR 0</Typography>
               </Box>
 
               <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -204,7 +204,7 @@ const Rewards = ({ handleBalance }) => {
                   </ThemeProvider>
                 </Box>
 
-                <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>RUP 0</Typography>
+                <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>INR 0</Typography>
               </Box>
 
               <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -234,7 +234,7 @@ const Rewards = ({ handleBalance }) => {
 
                 </Box>
 
-                <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>RUP 0</Typography>
+                <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>INR 0</Typography>
               </Box>
 
             </Box>
@@ -260,14 +260,14 @@ const Rewards = ({ handleBalance }) => {
 
                 <Box style={{ margin: '10px 0' }}>
                   <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>RUP 0</Typography>
+                    <Typography style={{ fontSize: '20px', fontWeight: 600, fontFamily: 'Inter' }}>INR 0</Typography>
                     <Typography style={{ fontFamily: 'Inter', fontSize: '14px', color: 'rgb(112,111,111)' }}>Invested YTD 2023</Typography>
                   </Box>
                   <progress value={0} max={2000000} style={{ width: '100%' }} />
                 </Box>
 
                 <Box>
-                  <Typography style={{ textAlign: 'center', fontSize: '15px', fontFamily: 'Inter' }}>Invest <b>RUP 25,000</b> by 12/31/2023 to reach Plus</Typography>
+                  <Typography style={{ textAlign: 'center', fontSize: '15px', fontFamily: 'Inter' }}>Invest <b>INR 25,000</b> by 12/31/2023 to reach Plus</Typography>
                 </Box>
 
               </Link>
@@ -315,14 +315,14 @@ const Rewards = ({ handleBalance }) => {
                   <Box style={{ display: 'flex', alignItems: 'center', padding: '10px 0' }}>
                     <DoneIcon style={{ color: '#0170dc' }} />
                     <Typography style={{ fontFamily: 'Inter', paddingLeft: '10px' }}>
-                      Friends get <b style={{ padding: '0 3px' }}>RUP 250</b> upon signing up
+                      Friends get <b style={{ padding: '0 3px' }}>INR 250</b> upon signing up
                     </Typography>
                   </Box>
 
                   <Box style={{ display: 'flex', alignItems: 'center', padding: '10px 0' }}>
                     <DoneIcon style={{ color: '#0170dc' }} />
                     <Typography style={{ fontFamily: 'Inter', paddingLeft: '10px' }}>
-                      You get <b style={{ padding: '0 3px' }}>RUP 250</b> after they invest <b style={{ padding: '0 3px' }}>RUP 2,000</b>
+                      You get <b style={{ padding: '0 3px' }}>INR 250</b> after they invest <b style={{ padding: '0 3px' }}>INR 2,000</b>
                     </Typography>
                   </Box>
                 </Box>

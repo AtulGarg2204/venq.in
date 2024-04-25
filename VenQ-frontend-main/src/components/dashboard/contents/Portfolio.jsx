@@ -125,7 +125,7 @@ const info4 = (
 
     <h4 style={{ margin: "15px 0" }}>Why do we have limits?</h4>
     <p style={{ fontSize: "13px" }}>
-      Local regulations limit retail investors to a maximum od USD 50,000 (RUP
+      Local regulations limit retail investors to a maximum od USD 50,000 (INR
       183,500) invested on the VenQ platform per calendar year
     </p>
 
@@ -334,7 +334,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                       fontFamily: "Inter",
                     }}
                   >
-                    RUP {investmentAmount}
+                    INR {investmentAmount}
                   </Typography>
                 </Box>
 
@@ -539,7 +539,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             fontFamily: "Inter",
                           }}
                         >
-                          RUP 0
+                          INR 0
                         </Typography>
                       </Box>
 
@@ -622,7 +622,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             fontFamily: "Inter",
                           }}
                         >
-                          RUP 0
+                          INR 0
                         </Typography>
                       </Box>
 
@@ -903,7 +903,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             <Typography
                               style={{ fontWeight: "600", fontSize: "15px" }}
                             >
-                              RUP 183,500
+                              INR 183,500
                             </Typography>
                           </Box>
 
@@ -931,7 +931,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             <Typography
                               style={{ fontWeight: "600", fontSize: "15px" }}
                             >
-                              RUP 0
+                              INR 0
                             </Typography>
                           </Box>
 
@@ -959,7 +959,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             <Typography
                               style={{ fontWeight: "600", fontSize: "15px" }}
                             >
-                              RUP 183,500
+                              INR 183,500
                             </Typography>
                           </Box>
                         </Box>
@@ -1140,7 +1140,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                     fontFamily: "Inter",
                   }}
                 >
-                  RUP {investmentAmount}
+                  INR {investmentAmount}
                 </Typography>
               </Box>
 
@@ -1418,7 +1418,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        RUP 0
+                        INR 0
                       </Typography>
                     </Box>
 
@@ -1501,7 +1501,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        RUP 0
+                        INR 0
                       </Typography>
                     </Box>
                     <Box
@@ -1781,7 +1781,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           <Typography
                             style={{ fontWeight: "600", fontSize: "15px" }}
                           >
-                            RUP 183,500
+                            INR 183,500
                           </Typography>
                         </Box>
 
@@ -1809,7 +1809,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           <Typography
                             style={{ fontWeight: "600", fontSize: "15px" }}
                           >
-                            RUP 0
+                            INR 0
                           </Typography>
                         </Box>
 
@@ -1837,7 +1837,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           <Typography
                             style={{ fontWeight: "600", fontSize: "15px" }}
                           >
-                            RUP 183,500
+                            INR 183,500
                           </Typography>
                         </Box>
                       </Box>

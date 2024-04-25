@@ -927,7 +927,7 @@ const FormEdit = ({
                             color: "black",
                           }}
                         >
-                          RUP 81,475{" "}
+                          INR 81,475{" "}
                         </b>{" "}
                         in{" "}
                         <b
@@ -980,7 +980,7 @@ const FormEdit = ({
                         ></Box>
                         <Box style={{ textAlign: "left", padding: "0 10px" }}>
                           <GraphHeading>Investment</GraphHeading>
-                          <GraphSubHeading>RUP {investment}</GraphSubHeading>
+                          <GraphSubHeading>INR {investment}</GraphSubHeading>
                         </Box>
                       </GraphInfo>
 
@@ -997,7 +997,7 @@ const FormEdit = ({
                         <Box style={{ textAlign: "left", padding: "0 10px" }}>
                           <GraphHeading>Total rental income</GraphHeading>
                           <GraphSubHeading>
-                            RUP {propertyValueGrowth}
+                            INR {propertyValueGrowth}
                           </GraphSubHeading>
                         </Box>
                       </GraphInfo>
@@ -1014,7 +1014,7 @@ const FormEdit = ({
                         ></Box>
                         <Box style={{ textAlign: "left", padding: "0 10px" }}>
                           <GraphHeading>Value appreciation</GraphHeading>
-                          <GraphSubHeading>RUP {rentalYield}</GraphSubHeading>
+                          <GraphSubHeading>INR {rentalYield}</GraphSubHeading>
                         </Box>
                       </GraphInfo>
                     </Box>
@@ -1130,7 +1130,7 @@ const FormEdit = ({
                               Property price
                             </FinanceSubHeading>
                             <FinanceAmount>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="property_price"
@@ -1152,7 +1152,7 @@ const FormEdit = ({
                               Transaction costs
                             </FinanceSubHeading>
                             <FinanceAmount>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="transaction_cost"
@@ -1197,7 +1197,7 @@ const FormEdit = ({
                               Investment cost
                             </FinanceSubHeading>
                             <FinanceAmount style={{ color: "#0170dc" }}>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="inv_cost"
@@ -1227,7 +1227,7 @@ const FormEdit = ({
                               Projected gross rent
                             </FinanceSubHeading>
                             <FinanceAmount>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="projected_gross_rent"
@@ -1249,7 +1249,7 @@ const FormEdit = ({
                               Service charges
                             </FinanceSubHeading>
                             <FinanceAmount>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="service_charges"
@@ -1271,7 +1271,7 @@ const FormEdit = ({
                               Mgmt. and maintenance
                             </FinanceSubHeading>
                             <FinanceAmount>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="mgmt_maintenance"
@@ -1297,7 +1297,7 @@ const FormEdit = ({
                               Annual net income
                             </FinanceSubHeading>
                             <FinanceAmount style={{ color: "#0170dc" }}>
-                              RUP{" "}
+                              INR{" "}
                               <input
                                 type="text"
                                 name="annual_net_income"
@@ -1698,7 +1698,7 @@ const FormEdit = ({
                         fontFamily: "Inter",
                       }}
                     >
-                      RUP{" "}
+                      INR{" "}
                       <b style={{ fontSize: "32px" }}>
                         <input
                           type="text"
@@ -1740,7 +1740,7 @@ const FormEdit = ({
                         fontFamily: "Inter",
                       }}
                     >
-                      RUP 4,25,165 available
+                      INR 4,25,165 available
                     </Typography>
                   </Box>
 
@@ -1930,13 +1930,13 @@ const FormEdit = ({
                     }}
                   >
                     <PriceAddButton onClick={handleTwo}>
-                      + RUP 2000
+                      + INR 2000
                     </PriceAddButton>
                     <PriceAddButton onClick={handleFive}>
-                      + RUP 5000
+                      + INR 5000
                     </PriceAddButton>
                     <PriceAddButton onClick={handleTen}>
-                      + RUP 10000
+                      + INR 10000
                     </PriceAddButton>
                   </Box>
 
@@ -2036,7 +2036,7 @@ const FormEdit = ({
                             fontFamily: "Inter",
                           }}
                         >
-                          Rup 1,239,000
+                          INR 1,239,000
                         </Box>
                         <Box>523 Investors</Box>
                       </PriceBox>
@@ -2059,7 +2059,7 @@ const FormEdit = ({
                         <Box>
                           <Box>Current Valuation</Box>
                           <Box style={{ color: "black", fontWeight: "bold" }}>
-                            Rup 1,745,000
+                            INR 1,745,000
                           </Box>
                         </Box>
                       </ReturnsBox>
@@ -2105,7 +2105,7 @@ const FormEdit = ({
                             fontFamily: "Inter",
                           }}
                         >
-                          Rup 1,239,000
+                          INR 1,239,000
                         </Box>
                         <Box>523 Investors</Box>
                       </PriceBox>
@@ -2128,7 +2128,7 @@ const FormEdit = ({
                         <Box>
                           <Box>Current Valuation</Box>
                           <Box style={{ color: "black", fontWeight: "bold" }}>
-                            Rup 1,745,000
+                            INR 1,745,000
                           </Box>
                         </Box>
                       </ReturnsBox>
@@ -2174,7 +2174,7 @@ const FormEdit = ({
                             fontFamily: "Inter",
                           }}
                         >
-                          Rup 1,239,000
+                          INR 1,239,000
                         </Box>
                         <Box>523 Investors</Box>
                       </PriceBox>
@@ -2197,7 +2197,7 @@ const FormEdit = ({
                         <Box>
                           <Box>Current Valuation</Box>
                           <Box style={{ color: "black", fontWeight: "bold" }}>
-                            Rup 1,745,000
+                            INR 1,745,000
                           </Box>
                         </Box>
                       </ReturnsBox>
@@ -2243,7 +2243,7 @@ const FormEdit = ({
                             fontFamily: "Inter",
                           }}
                         >
-                          Rup 1,239,000
+                          INR 1,239,000
                         </Box>
                         <Box>523 Investors</Box>
                       </PriceBox>
@@ -2266,7 +2266,7 @@ const FormEdit = ({
                         <Box>
                           <Box>Current Valuation</Box>
                           <Box style={{ color: "black", fontWeight: "bold" }}>
-                            Rup 1,745,000
+                            INR 1,745,000
                           </Box>
                         </Box>
                       </ReturnsBox>

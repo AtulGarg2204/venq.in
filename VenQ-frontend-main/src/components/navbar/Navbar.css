@@ -111,3 +111,11 @@
     padding-right: 5%;
   }
 }
+
+.dashboard-mobile-screen{
+  
+  width: 84vw;
+  height: 4.1vh;
+  border-radius: 25px;
+  margin-left: 3.1%;
+}

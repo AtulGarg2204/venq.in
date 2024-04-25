@@ -1216,7 +1216,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       fontFamily: "Inter",
                     }}
                   >
-                    RUP{" "}
+                    INR{" "}
                     <b style={{ fontSize: "32px" }}>{listing.propertyprice}</b>
                   </Typography>
                 </Box>
@@ -1382,7 +1382,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               color: "black",
                             }}
                           >
-                            RUP{" "}
+                            INR{" "}
                             {investment +
                               (investment * propertyValueGrowth) / 100 +
                               (rentalYield * (3 * investment)) / 100}
@@ -1439,7 +1439,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           ></Box>
                           <Box style={{ textAlign: "left", padding: "0 10px" }}>
                             <GraphHeading>Investment</GraphHeading>
-                            <GraphSubHeading>RUP {investment}</GraphSubHeading>
+                            <GraphSubHeading>INR {investment}</GraphSubHeading>
                           </Box>
                         </GraphInfo>
 
@@ -1456,7 +1456,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Box style={{ textAlign: "left", padding: "0 10px" }}>
                             <GraphHeading>Total rental income</GraphHeading>
                             <GraphSubHeading>
-                              RUP {(rentalYield * (3 * investment)) / 100}
+                              INR {(rentalYield * (3 * investment)) / 100}
                             </GraphSubHeading>
                           </Box>
                         </GraphInfo>
@@ -1474,7 +1474,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Box style={{ textAlign: "left", padding: "0 10px" }}>
                             <GraphHeading>Value appreciation</GraphHeading>
                             <GraphSubHeading>
-                              RUP {(investment * propertyValueGrowth) / 100}
+                              INR {(investment * propertyValueGrowth) / 100}
                             </GraphSubHeading>
                           </Box>
                         </GraphInfo>
@@ -1617,7 +1617,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Property price
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  RUP {listing.propertyprice}
+                                  INR {listing.propertyprice}
                                 </FinanceAmount>
                               </Box>
 
@@ -1633,7 +1633,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Transaction costs
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  RUP {listing.transactioncost}
+                                  INR {listing.transactioncost}
                                 </FinanceAmount>
                               </Box>
 
@@ -1667,7 +1667,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Investment cost
                                 </FinanceSubHeading>
                                 <FinanceAmount style={{ color: "#0170dc" }}>
-                                  RUP {listing.propertyprice}
+                                  INR {listing.propertyprice}
                                 </FinanceAmount>
                               </Box>
                             </Box>
@@ -1693,7 +1693,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Projected gross rent
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  RUP {listing.projectedgrossrent}
+                                  INR {listing.projectedgrossrent}
                                 </FinanceAmount>
                               </Box>
 
@@ -1709,7 +1709,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Service charges
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  (RUP {listing.servicecharges})
+                                  (INR {listing.servicecharges})
                                 </FinanceAmount>
                               </Box>
 
@@ -1725,7 +1725,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Mgmt. and maintenance
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  (RUP {listing.maintainencefee})
+                                  (INR {listing.maintainencefee})
                                 </FinanceAmount>
                               </Box>
                             </Box>
@@ -1745,7 +1745,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Annual net income
                                 </FinanceSubHeading>
                                 <FinanceAmount style={{ color: "#0170dc" }}>
-                                  RUP {listing.annualnetincome}
+                                  INR {listing.annualnetincome}
                                 </FinanceAmount>
                               </Box>
                             </Box>
@@ -1823,7 +1823,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Property price
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  RUP {listing.propertypricen}
+                                  INR {listing.propertypricen}
                                 </FinanceAmount>
                               </Box>
 
@@ -1839,7 +1839,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Transaction costs
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  RUP {listing.transactioncost}
+                                  INR {listing.transactioncost}
                                 </FinanceAmount>
                               </Box>
 
@@ -1873,7 +1873,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Investment cost
                                 </FinanceSubHeading>
                                 <FinanceAmount style={{ color: "#0170dc" }}>
-                                  RUP {listing.propertyprice}
+                                  INR {listing.propertyprice}
                                 </FinanceAmount>
                               </Box>
                             </Box>
@@ -1899,7 +1899,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Projected gross rent
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  RUP {listing.projectedgrossrent}
+                                  INR {listing.projectedgrossrent}
                                 </FinanceAmount>
                               </Box>
 
@@ -1915,7 +1915,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Service charges
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  (RUP {listing.servicecharges})
+                                  (INR {listing.servicecharges})
                                 </FinanceAmount>
                               </Box>
 
@@ -1931,7 +1931,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Mgmt. and maintenance
                                 </FinanceSubHeading>
                                 <FinanceAmount>
-                                  (RUP {listing.maintainencefee})
+                                  (INR {listing.maintainencefee})
                                 </FinanceAmount>
                               </Box>
                             </Box>
@@ -1951,7 +1951,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Annual net income
                                 </FinanceSubHeading>
                                 <FinanceAmount style={{ color: "#0170dc" }}>
-                                  RUP {listing.annualnetincome}
+                                  INR {listing.annualnetincome}
                                 </FinanceAmount>
                               </Box>
                             </Box>
@@ -2293,7 +2293,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        RUP{" "}
+                        INR{" "}
                         <b style={{ fontSize: "32px" }}>
                           {listing.propertyprice}
                         </b>
@@ -2384,7 +2384,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         }}
                       >
                         <span>Current valuation</span>
-                        <span style={{ fontWeight: 800 }}>RUP 1,100,000</span>
+                        <span style={{ fontWeight: 800 }}>INR 1,100,000</span>
                       </Box>
                     </Box>
 
@@ -2508,7 +2508,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             </Label>
 
                             <Label>
-                              <LabelAmount>RUP {interestamount}</LabelAmount>
+                              <LabelAmount>INR {interestamount}</LabelAmount>
                             </Label>
 
                             <LabelSlider
@@ -2967,7 +2967,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        RUP{" "}
+                        INR{" "}
                         <b style={{ fontSize: "32px" }}>
                           {listing.propertyprice}
                         </b>
@@ -3081,7 +3081,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               </Label>
 
                               <Label>
-                                <LabelAmount>RUP {interestamount}</LabelAmount>
+                                <LabelAmount>INR {interestamount}</LabelAmount>
                               </Label>
 
                               <LabelSlider
@@ -3593,7 +3593,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        RUP{" "}
+                        INR{" "}
                         <b style={{ fontSize: "32px" }}>
                           {listing.propertyprice}
                         </b>
@@ -3707,7 +3707,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               </Label>
 
                               <Label>
-                                <LabelAmount>RUP {interestamount}</LabelAmount>
+                                <LabelAmount>INR {interestamount}</LabelAmount>
                               </Label>
 
                               <LabelSlider
@@ -4167,13 +4167,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       }}
                     >
                       <PriceAddButton onClick={handleTwo}>
-                        + RUP 2000
+                        + INR 2000
                       </PriceAddButton>
                       <PriceAddButton onClick={handleFive}>
-                        + RUP 5000
+                        + INR 5000
                       </PriceAddButton>
                       <PriceAddButton onClick={handleTen}>
-                        + RUP 10000
+                        + INR 10000
                       </PriceAddButton>
                     </Box> */}
 
@@ -4339,7 +4339,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         <LabelName>Select Amount to invest:</LabelName>
                       </Label>
                       <Label>
-                        <LabelAmount>RUP {interestamount}</LabelAmount>
+                        <LabelAmount>INR {interestamount}</LabelAmount>
                       </Label>
 
                       <LabelSlider
