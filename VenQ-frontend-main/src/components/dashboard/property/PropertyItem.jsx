@@ -131,7 +131,8 @@ const StyledPopupinvSmall = styled(Popup)`
     border: 1px solid #e9e9eb;
     border-radius: 10px;
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+      height: 530px;
       width: 80%;
       margin-left: 10%;
       margin-top: 25%;
@@ -3994,7 +3995,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         >
                                           <input
                                             style={{
-                                              width: "60%",
+                                              width: "53%",
                                               height: "15px",
                                               marginLeft: "-3px",
                                               border:
@@ -4496,9 +4497,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   fontSize: "16px",
                                   fontFamily: "Inter",
                                 }}
-                                onClick={() => {
-                                  setinvtype(0);
-                                }}
+                                onClick={() => {}}
                               >
                                 Allotment
                               </li>
@@ -4638,6 +4637,44 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     />
                                   </div>
                                 </div>
+                                <div
+                                  className="couponInput"
+                                  style={{
+                                    width: "99%",
+                                    margin: "auto",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    borderRadius: "5px",
+                                    marginBottom: "15px",
+                                  }}
+                                >
+                                  <input
+                                    style={{
+                                      width: "50%",
+                                      height: "15px",
+                                      marginLeft: "-3px",
+                                      border: "1px solid rgb(0, 179, 134)",
+                                    }}
+                                    type="text"
+                                    placeholder="Enter Coupon Code"
+                                    value={couponInput}
+                                    onChange={handleCouponChange}
+                                  />
+
+                                  <button
+                                    style={{
+                                      backgroundColor: "rgb(0, 179, 134)",
+                                      display: "flex",
+                                      width: "30%",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={applyCoupon}
+                                  >
+                                    Apply Coupon
+                                  </button>
+                                </div>
                                 <div className="unit-value total-fee">
                                   <div>Total</div>
                                   <div className="price-input-container">
@@ -4648,7 +4685,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       }}
                                       className="unit-value-in"
                                       type="text"
-                                      value={totalStock.totalAmt}
+                                      value={"₹" + totalAmount + ".00"}
+                                      // value={totalStock.totalAmt}
                                       // value="9999"
                                     />
                                   </div>
