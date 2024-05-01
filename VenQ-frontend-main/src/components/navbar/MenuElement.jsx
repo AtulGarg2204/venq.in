@@ -106,7 +106,7 @@ export default function AccountMenu({ name }) {
                 {name[0].toUpperCase() + name.slice(1)}
               </Typography>
             </Box>
-            <Link to="/dashboard">
+            <Link to="/dashboard/properties">
               <button className="dashboard-mobile-screen">Dashboard</button>
             </Link>
             <Box

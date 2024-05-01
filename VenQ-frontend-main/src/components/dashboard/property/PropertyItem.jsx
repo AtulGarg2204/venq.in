@@ -4006,7 +4006,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             value={couponInput}
                                             onChange={handleCouponChange}
                                           />
-
                                           <button
                                             style={{
                                               backgroundColor:
@@ -4672,7 +4671,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     }}
                                     onClick={applyCoupon}
                                   >
-                                    Apply Coupon
+                                    Apply 
                                   </button>
                                 </div>
                                 <div className="unit-value total-fee">
@@ -4702,7 +4701,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     variant="contained"
                                     style={{
                                       margin: "8px 0",
-                                      width: "50%",
+                                      width: "70%",
                                       height: "5vh",
                                       backgroundColor: "#EBF9F5",
                                       borderRadius: "8px",
