@@ -289,7 +289,6 @@ const Terms = (props) => {
                   alignItems: "center",
                 }}
               >
-              
                 I understand that investing this amount into several deals would
                 better diversify my risk
               </Typography>

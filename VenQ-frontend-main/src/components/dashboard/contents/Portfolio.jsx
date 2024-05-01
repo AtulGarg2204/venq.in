@@ -211,6 +211,7 @@ const Portfolio = ({ handleBuyProperties }) => {
   const closeModal = () => {
     setShowKycVerification(false);
   };
+  
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -227,14 +228,12 @@ const Portfolio = ({ handleBuyProperties }) => {
           noOfUnits: localStorage.getItem("units"), // Example of adding another property
         };
         setInvestmentAmount(localStorage.getItem("portfolioAmount"));
-
         // Update the state with the new object
         setPropertyArray((prevArray) => [...prevArray, propertyObject]);
       } catch (error) {
         console.error("Error fetching listing:", error);
       }
     };
-
     fetchListing();
   }, [id]); // Depend on id to refetch data when it changes
   useEffect(() => {

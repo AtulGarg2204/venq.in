@@ -99,7 +99,7 @@ const StyledPopup = styled(Popup)`
 
 const StyledPopupinv = styled(Popup)`
   &-overlay {
-    height: 480px;
+    height: 510px;
     width: max-content;
     min-widt: 400px;
     margin-left: 40%;
@@ -696,7 +696,7 @@ function reducer(state, action) {
     case "inc":
       const upStockQun = state.stockQun + 1;
       const upTotal = upStockQun * perItemCurrency;
-      const upTrans = (upStockQun * perItemCurrency * 5) / 100;
+      const upTrans = upStockQun * 750;
       const upTotalCurrency = numberFormat(upTotal);
       const upTransPer = numberFormat(upTrans);
       const upTotalAmt = numberFormat(upTotal + upTrans);
@@ -733,7 +733,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     stockQun: 1,
     totalCurrency: "₹5,000.00",
     totalAmt: "₹5,250.00",
-    transPer: "₹250.00",
+    transPer: "₹750.00",
   });
   let unitPrice = numberFormat(5000);
 
@@ -777,12 +777,15 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [userinvestone, setUserInvestOne] = useState(10000);
   const [showFullContent, setShowFullContent] = useState(false);
 
-  const { id } = useParams(); // Access the ID from the URL params
+  const { id } = useParams();
   const [listing, setListing] = useState({});
   const token = JSON.parse(localStorage.getItem("userinfo"));
   const [content, setContent] = useState("");
   const [truncatedContent, settruncatedcontent] = useState("");
   const [shouldTruncate, setShouldtruncate] = useState(false);
+  const [couponInput, setCouponInput] = useState("");
+  const [message, setMessage] = useState("");
+  const [totalAmount, setTotalAmount] = useState(totalStock.totalAmt);
   const maxWords = 50;
   const { setData } = useContext(DataContext);
   console.log(location);
@@ -803,10 +806,34 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         console.error("Error fetching listing:", error);
       }
     };
+    setAdmin(token.isAdmin);
+
+    const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
+    setTotalAmount(numericAmount);
 
     fetchListing();
-  }, [id]);
+  }, [id, totalStock.totalAmt, totalStock.stockQun]);
+  const validCoupon = "VENQ456";
+  const discountAmount = totalStock.stockQun * 500;
 
+  const handleCouponChange = (e) => {
+    setCouponInput(e.target.value);
+  };
+  console.log(totalAmount, "number");
+  console.log(totalStock.totalAmt, "str");
+  const applyCoupon = () => {
+    if (couponInput === validCoupon) {
+      // Number((totalStock.totalAmt - discountAmount).replace(/[^0-9.-]+/g, ""))
+      const money = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
+      setTotalAmount(money - discountAmount);
+
+      alert(
+        `Coupon applied successfully! Discounted amount: Rs. ${discountAmount}`
+      );
+    } else {
+      alert("Invalid coupon code. Please try again.");
+    }
+  };
   const tableData = { ...listing };
   console.log(tableData, "my");
   console.log(userinvest, "myinvest");
@@ -869,8 +896,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       property: id,
     });
     localStorage.setItem("interestusers1", JSON.stringify(interestusers));
-    console.log(localStorage.getItem("interestusers1"));
-    toast.success("Response recorded sucessfully");
+
     setOpen(false);
     try {
       const data = {
@@ -904,7 +930,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         if (tp == 1) {
           navigate("/cart");
         }
-        toast.success("Response recorded sucessfully");
+
         setTimeout(() => {
           navigate("/dashboard/cart");
         }, 2000);
@@ -935,9 +961,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     document.body.removeChild(link);
   };
   const [isAdmin, setAdmin] = useState(false);
-  useEffect(() => {
-    setAdmin(token.isAdmin);
-  }, []);
+
   const [isEditMode, setIsEditMode] = useState(false);
   const navigate = useNavigate();
   const rowarr = [5, 4, 4, 2.5];
@@ -3740,7 +3764,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         onClose={closeModalinv}
                       >
                         {showInvestComponent ? (
-                          <Terms userinvestone={userinvestone} />
+                          <Terms userinvestone={totalAmount} />
                         ) : (
                           <div
                             style={{
@@ -3957,6 +3981,45 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             />
                                           </div>
                                         </div>
+                                        <div
+                                          className="couponInput"
+                                          style={{
+                                            width: "93%",
+                                            margin: "auto",
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            borderRadius: "5px",
+                                            marginBottom: "15px",
+                                          }}
+                                        >
+                                          <input
+                                            style={{
+                                              width: "60%",
+                                              height: "15px",
+                                              marginLeft: "-17px",
+                                              border:
+                                                "1px solid rgb(0, 179, 134)",
+                                            }}
+                                            type="text"
+                                            placeholder="Enter Coupon Code"
+                                            value={couponInput}
+                                            onChange={handleCouponChange}
+                                          />
+
+                                          <button
+                                            style={{
+                                              backgroundColor:
+                                                "rgb(0, 179, 134)",
+                                              display: "flex",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              cursor: "pointer",
+                                            }}
+                                            onClick={applyCoupon}
+                                          >
+                                            Apply Coupon
+                                          </button>
+                                        </div>
                                         <div className="unit-value total-fee">
                                           <div>Total</div>
                                           <div className="price-input-container">
@@ -3967,7 +4030,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                               }}
                                               className="unit-value-in"
                                               type="text"
-                                              value={totalStock.totalAmt}
+                                              value={"₹" + totalAmount + ".00"}
+                                              // value={totalStock.totalAmt}
                                               // value="9999"
                                             />
                                           </div>
@@ -4463,7 +4527,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       )}
 
                       {showInvestComponent ? (
-                        <Terms userinvestone={userinvestone} />
+                        <Terms userinvestone={totalAmount} />
                       ) : (
                         <div
                           style={{
@@ -4638,7 +4702,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           )}
                         </div>
                       )}
-                      {invtype == 0 && !showInvestComponent &&(
+                      {invtype == 0 && !showInvestComponent && (
                         <>
                           <Box
                             sx={{
