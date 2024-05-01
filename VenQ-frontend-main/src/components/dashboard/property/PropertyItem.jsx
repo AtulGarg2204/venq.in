@@ -710,7 +710,7 @@ function reducer(state, action) {
       if (state.stockQun > 1) {
         const upStockQun = state.stockQun - 1;
         const upTotal = upStockQun * perItemCurrency;
-        const upTrans = (upStockQun * perItemCurrency * 5) / 100;
+        const upTrans = upStockQun * 750;
         const upTotalCurrency = numberFormat(upTotal);
         const upTransPer = numberFormat(upTrans);
         const upTotalAmt = numberFormat(upTotal + upTrans);
@@ -732,7 +732,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [totalStock, dispatch] = useReducer(reducer, {
     stockQun: 1,
     totalCurrency: "₹5,000.00",
-    totalAmt: "₹5,250.00",
+    totalAmt: "₹5,750.00",
     transPer: "₹750.00",
   });
   let unitPrice = numberFormat(5000);
@@ -813,7 +813,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
     fetchListing();
   }, [id, totalStock.totalAmt, totalStock.stockQun]);
-  const validCoupon = "VENQ456";
+  const validCoupon = "VENQ500";
   const discountAmount = totalStock.stockQun * 500;
 
   const handleCouponChange = (e) => {
@@ -3984,7 +3984,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         <div
                                           className="couponInput"
                                           style={{
-                                            width: "93%",
+                                            width: "99%",
                                             margin: "auto",
                                             display: "flex",
                                             justifyContent: "space-between",
@@ -3996,7 +3996,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             style={{
                                               width: "60%",
                                               height: "15px",
-                                              marginLeft: "-17px",
+                                              marginLeft: "-3px",
                                               border:
                                                 "1px solid rgb(0, 179, 134)",
                                             }}
