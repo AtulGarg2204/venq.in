@@ -1,0 +1,59 @@
+.whyInvest-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.whyInvest-container .main-heading {
+    width: 100%;
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    margin: 0 7rem;
+}
+
+.article-grid p {
+    padding: 1rem 0;
+    color: rgb(90, 97, 110);
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 22.4px;
+    font-family: 'Plus Jakarta Sans';
+}
+
+.article-grid h3 {
+    color: rgb(18, 28, 48);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.article-grid img {
+    max-width: 200px;
+    padding: 1rem 0;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding-top: 1rem;
+}
+
+@media screen and (max-width:600px) and (min-width:900px) {
+    .article-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width:750px) {
+    .article-grid {
+        grid-template-columns: 1fr;
+        margin: 0 2rem;
+    }
+}

@@ -1,0 +1,46 @@
+.cal-radio-input {
+    margin: 50px 0;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: #e6e6e6;
+    cursor: pointer;
+    height: 0px;
+    width: 15rem;
+    color: #56a847;
+    padding: 2px 0;
+    outline: none;
+    border: none;
+    margin: 3rem 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgb(241, 232, 232);
+    border: 2px solid #00b368;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.cal-button-container {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 10px;
+}
+
+.cal-button-container button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media (max-width: 768px) {
+    input[type="range"] {
+        width: 13rem;
+    }
+}

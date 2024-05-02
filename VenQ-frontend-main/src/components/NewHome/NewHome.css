@@ -1,0 +1,71 @@
+:root {
+    --heading-color: rgb(18, 28, 48);
+    --sub-heading-color: #ccc;
+    --heading-font-family: "Plus Jakarta Sans",
+        "Plus Jakarta Sans Placeholder",
+        sans-serif;
+    --paragraph-color: rgba(90, 97, 110, 1);
+    --heading-line-height: 120%;
+    --heading-letter-spacing: -.96px;
+    --heading-font-size: 48px;
+    --font-scale: 1;
+    --heading-font-wight: 700;
+    --heading-container-width: 652px;
+    --container-padding: 112px 32px;
+    --heading-marign-bottom: 88px;
+    --top-sub-heading: 1.5rem;
+}
+
+.container-padding {
+    padding: var(--container-padding);
+}
+
+.page-width {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.new-home * {
+    font-family: var(--heading-font-family);
+}
+
+.new-home h2,
+p,
+h1,
+h3,
+h4,
+h5,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.heading--primary h3 {
+    color: var(--heading-color);
+    font-weight: var(--heading-font-wight);
+    letter-spacing: var(--heading-letter-spacing);
+    line-height: var(--heading-line-height);
+    font-size: var(--heading-font-size);
+}
+
+.new-home .sub-heading {
+    color: var(--paragraph-color);
+}
+
+.new-home .heading-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: var(--heading-container-width);
+    text-align: center;
+    margin-bottom: var(--heading-marign-bottom);
+}
+
+@media screen and (max-width:600px) {
+    :root {
+        --heading-font-size: 28px;
+        --container-padding: 50px 16px;
+        --heading-marign-bottom: 20px;
+        --top-sub-heading: 1rem;
+    }
+}

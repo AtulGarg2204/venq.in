@@ -57,15 +57,23 @@ import SuccessPage from "./components/common/SuccessPage";
 import { DataProvider } from "./components/context/DataContext";
 import Failed from "./components/common/Failed";
 import About from "./footerpages/About";
+import OtplessLogin from './components/OtplessLogin/OtplessLogin';
+import OptlessSignup from './components/OtplessSignup/OptlessSignup';
+import Name from "./components/OtplessSignup/Name"
+import NewHome from "./components/NewHome/NewHome"
 function App() {
   return (
     <DataProvider>
       <Router>
         <Routes>
-          <Route path="login" element={<NewLogin />} />
+          <Route path="login" element={<OtplessLogin />} />
+          <Route path="signup/">
+            <Route path="" element={<OptlessSignup />} />
+            <Route path="name" element={<Name />} />
+          </Route>
           <Route path="blog" element={<BlogPage />} />
           <Route exact path="/blog/:blogTitle" element={<Blogpost />} />
-          <Route path="/signup" element={<NewSignup />} />
+          {/* <Route path="/signup" element={<NewSignup />} /> */}
           <Route path="form" element={<Form />} />
           <Route path=":id/edit" element={<FormEdit />} />
           <Route path="terms" element={<Terms />} />
@@ -133,7 +141,8 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<NewHome />} />
           <Route path="contactUs" element={<ContactUs />} />
         </Routes>
       </Router>

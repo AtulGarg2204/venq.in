@@ -1,0 +1,12 @@
+.second-page {
+  height: 100vh;
+  width: 80vw;
+  background-color: red;
+}
+@media (max-width: 768px) {
+  .content-div {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+  }
+}

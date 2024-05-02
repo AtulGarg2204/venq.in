@@ -118,7 +118,7 @@ const Navbar = (props) => {
     navigate("/login");
   };
   const handleSignupClick = () => {
-    navigate("/login");
+    navigate("/signup");
   };
   const handleDashboard = () => {
     navigate("/dashboard");
@@ -259,7 +259,7 @@ const Navbar = (props) => {
                               <Link to="/login">Login</Link>
                             </button>
                             <button className="SignupButton">
-                              <Link to="/login">Signup</Link>
+                              <Link to="/signup">Signup</Link>
                             </button>
                           </div>
                         </>
@@ -401,7 +401,7 @@ const Navbar = (props) => {
                           <Link to="/login">Login</Link>
                         </button>
                         <button className="SignupButton">
-                          <Link to="/login">Signup</Link>
+                          <Link to="/signup">Signup</Link>
                         </button>
                       </div>
                     </>
@@ -539,7 +539,7 @@ const Navbar = (props) => {
                               <Link to="/login">Login</Link>
                             </button>
                             <button className="SignupButton">
-                              <Link to="/login">Signup</Link>
+                              <Link to="/signup">Signup</Link>
                             </button>
                           </div>
                         </>
@@ -692,7 +692,7 @@ const Navbar = (props) => {
                             <Link to="/login">Login</Link>
                           </button>
                           <button className="SignupButton">
-                            <Link to="/login">Signup</Link>
+                            <Link to="/signup">Signup</Link>
                           </button>
                         </div>
                       </>
