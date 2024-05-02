@@ -141,8 +141,8 @@ function App() {
             </Route>
           </Route>
 
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/" element={<NewHome />} />
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<NewHome />} /> */}
           <Route path="contactUs" element={<ContactUs />} />
         </Routes>
       </Router>
