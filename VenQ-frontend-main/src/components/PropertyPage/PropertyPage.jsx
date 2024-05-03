@@ -606,7 +606,7 @@ const PropertyPage = () => {
                 {/* .filter((listing) => listing.main_heading === "New Listing") */}
                 {console.log(listings)}
                 {listings
-                  .filter((listing) => listing.islive === 1)
+                  .filter((listing) => listing.islive === 3)
                   .map((filteredListing) => (
                     <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
                       <Link
