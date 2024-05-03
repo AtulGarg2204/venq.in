@@ -1,16 +1,18 @@
 .signup-container {
   padding-top: 5vh;
+
   padding: 50px;
-  height: 100vh;
+
+  height: 74vh;
   width: 91vw;
 }
 
 .content {
-  height: 90vh;
+  height: 80vh;
   width: 80vw;
-  margin-left: 13vw;
+  margin-left: 16vw;
   margin-right: 10vw;
-  background-color: white;
+  background: transparent;
   display: flex;
 }
 
@@ -39,7 +41,7 @@
   margin-top: 15px;
 }
 
-.step-heading1:hover+.step-number {
+.step-heading1:hover + .step-number {
   background-color: white;
 }
 
@@ -67,7 +69,7 @@
 }
 
 .step-image {
-  height: 80%;
+  height: 70%;
   width: 90%;
 }
 
@@ -82,7 +84,7 @@
   color: black;
 }
 
-.step-heading1:hover+.step-number {
+.step-heading1:hover + .step-number {
   background-color: blue;
 }
 
@@ -93,9 +95,9 @@
 @media (max-width: 768px) {
   .signup-container {
     padding-top: 5vh;
-    height: 130vh;
-    width: 98.7vw;
-    margin-left: 50px;
+    height: 80vh;
+    /* width: 98.7vw; */
+    margin-left: -45px;
   }
 
   .left-step {

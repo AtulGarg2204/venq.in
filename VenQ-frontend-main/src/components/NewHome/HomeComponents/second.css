@@ -3,10 +3,25 @@
   width: 80vw;
   background-color: red;
 }
+.sticky-div {
+  max-width: 500px;
+  position: sticky;
+  top: 0;
+  height: 60vh;
+  background-color: white;
+}
 @media (max-width: 768px) {
   .content-div {
     display: flex;
     flex-direction: column;
     position: sticky;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+  }
+  .sticky-div {
+    height: 40vh;
+    margin-right: 40px;
+    background-color: white;
   }
 }

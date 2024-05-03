@@ -57,10 +57,10 @@ import SuccessPage from "./components/common/SuccessPage";
 import { DataProvider } from "./components/context/DataContext";
 import Failed from "./components/common/Failed";
 import About from "./footerpages/About";
-import OtplessLogin from './components/OtplessLogin/OtplessLogin';
-import OptlessSignup from './components/OtplessSignup/OptlessSignup';
-import Name from "./components/OtplessSignup/Name"
-import NewHome from "./components/NewHome/NewHome"
+import OtplessLogin from "./components/OtplessLogin/OtplessLogin";
+import OptlessSignup from "./components/OtplessSignup/OptlessSignup";
+import Name from "./components/OtplessSignup/Name";
+import NewHome from "./components/NewHome/NewHome";
 function App() {
   return (
     <DataProvider>
@@ -143,6 +143,7 @@ function App() {
 
           <Route path="/" element={<Home />} />
           {/* <Route path="/" element={<NewHome />} /> */}
+          <Route path="/try" element={<NewHome />} />
           <Route path="contactUs" element={<ContactUs />} />
         </Routes>
       </Router>

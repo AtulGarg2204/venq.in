@@ -398,20 +398,11 @@ const PropertyPage = () => {
                                     INR {listing.propertyprice}
                                   </Box>
                                 </PriceBox>
-                                {/* <progress
-                              style={{
-                                width: "100%",
-                                margin: "5px 0 10px 0",
-                                height: "20px",
-                              }}
-                              max={1500000}
-                              value={1239000}
-                            /> */}
 
                                 <ReturnsBox>
                                   <Box>
                                     <Box>Funding Date</Box>
-                                    {/* {`${listing.annualizedreturn}`} */}
+
                                     <Box
                                       style={{
                                         color: "black",
@@ -433,27 +424,6 @@ const PropertyPage = () => {
                                       {listing.mininvestment}
                                     </Box>
                                   </Box>
-
-                                  {/* <Box>
-                                <Box>Annual Appreciation</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.annualappreciation}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected gross yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.grossyield}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected net yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.netyield}`}</Box>
-                              </Box> */}
                                 </ReturnsBox>
                               </CardContent>
                             )}
@@ -603,10 +573,9 @@ const PropertyPage = () => {
                 spacing={{ xs: 2, md: 3 }}
                 columns={{ xs: 1, sm: 4, md: 12 }}
               >
-                {/* .filter((listing) => listing.main_heading === "New Listing") */}
                 {console.log(listings)}
                 {listings
-                  .filter((listing) => listing.islive === 1)
+                  .filter((listing) => listing.islive === 3)
                   .map((filteredListing) => (
                     <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
                       <Link

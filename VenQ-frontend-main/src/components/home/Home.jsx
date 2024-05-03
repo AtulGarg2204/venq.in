@@ -15,6 +15,7 @@ import axios from "axios";
 import config from "../../config";
 import PartnerSlider from "../Partners/PartnerSlider";
 import sample from "../../hero-section/hero-section-video.mp4";
+
 import { useNavigate } from "react-router-dom";
 const Heading = styled(Typography)`
   font-family: "Bebas Neue";
