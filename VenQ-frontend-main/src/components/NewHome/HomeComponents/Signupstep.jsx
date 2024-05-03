@@ -17,7 +17,6 @@ const Signupstep = () => {
   });
 
   const changeImage = (imageSrc, description, heading) => {
-
     setCurrentImage(imageSrc);
     setCurrentDescription(description);
     setDescriptions((prevDescriptions) => ({
@@ -35,7 +34,14 @@ const Signupstep = () => {
       <div className="content">
         <div className="left-step">
           <div className="left-heading">
-            <h1 className="heading">HOW TO SUBCRIBE?</h1>
+            <h1
+              className="heading"
+              style={{
+              
+              }}
+            >
+              HOW TO SUBCRIBE?
+            </h1>
             <p className="left-desc">
               Enjoy the benefits of a completely online and <br /> seamless
               process

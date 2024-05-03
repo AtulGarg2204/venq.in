@@ -143,7 +143,7 @@ const Navbar = (props) => {
             {isMobile ? (
               <Container>
                 <div className="imageContainer">
-                  <img src="images/VENQ_BOLD_PNG.png" alt="logo" width="80" />
+                  <img src="images/VENQ_BOLD_small.png" alt="logo" width="80" />
                 </div>
                 <div>
                   <FontAwesomeIcon
@@ -272,7 +272,7 @@ const Navbar = (props) => {
               <NewContainer>
                 <div className="imageContainer">
                   <img
-                    src="images/VENQ_BOLD_small1.png"
+                    src="images/VENQ_BOLD_small.png"
                     alt="logo"
                     width="87"
                     height="32"
@@ -418,7 +418,7 @@ const Navbar = (props) => {
             {isMobile ? (
               <Container>
                 <div className="imageContainer">
-                  <img src="images/VENQ_BOLD_PNG.png" alt="logo" width="80" />
+                  <img src="images/VENQ_BOLD_small.png" alt="logo" width="80" />
                 </div>
                 <div>
                   <FontAwesomeIcon

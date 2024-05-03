@@ -20,8 +20,10 @@
     margin-right: 30px;
   }
   .sticky-div {
-    height: 40vh;
-    margin-right: 40px;
+    margin-top: 250px;
+
+    height: 45vh;
+    margin-left: 20px;
     background-color: white;
   }
 }

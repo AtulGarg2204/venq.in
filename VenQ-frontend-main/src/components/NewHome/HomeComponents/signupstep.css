@@ -25,20 +25,21 @@
 .right-image {
   height: auto;
   width: 28%;
+  margin-left: 40px;
 }
 
 .signup-step1 {
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .signup-step2 {
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .step-heading1:hover + .step-number {
@@ -49,14 +50,14 @@
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .signup-step4 {
   display: flex;
   align-items: center;
   gap: 30px;
-  margin-top: 15px;
+  margin-top: 40px;
 }
 
 .step-number {
@@ -75,11 +76,17 @@
 
 .step-heading1 {
   font-size: 20px;
+
   color: #bbb;
   cursor: pointer;
 }
-
+.left-heading h1 {
+  font-size: 40px;
+  font-family: "Plus Jakarta Sans";
+  margin-bottom: 20px;
+}
 .step-heading1:hover {
+  margin-bottom: 20px;
   font-size: 28px;
   color: black;
 }
@@ -95,18 +102,21 @@
 @media (max-width: 768px) {
   .signup-container {
     padding-top: 5vh;
-    height: 80vh;
+    height: 98vh;
     /* width: 98.7vw; */
+    margin-top: 150px;
     margin-left: -45px;
   }
-
   .left-step {
     width: 100%;
   }
-
+  .step-image {
+    height: 90%;
+  }
   .right-image {
     width: 100%;
     height: auto;
+    margin-left: 20px;
   }
 
   .content {
@@ -125,6 +135,16 @@
     width: 30px;
     border-radius: 50%;
     background-color: #bbb;
+    text-align: center;
+  }
+  .left-heading h1 {
+    font-size: 31px;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  .left-desc {
+    font-size: 14px;
+    font-family: "Plus Jakarta Sans";
     text-align: center;
   }
 }

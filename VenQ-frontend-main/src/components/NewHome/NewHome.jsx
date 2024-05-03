@@ -12,6 +12,7 @@ import Signupstep from "./HomeComponents/Signupstep";
 import Interstgraph from "./HomeComponents/Interstgraph";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
@@ -52,7 +53,7 @@ function App() {
         <OurCommitment />
         <WhyInvest />
         <FaQ />
-        
+        <Footer />
       </div>
     </div>
   );
