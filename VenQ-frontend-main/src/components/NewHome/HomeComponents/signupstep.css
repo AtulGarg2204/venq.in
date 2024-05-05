@@ -126,6 +126,9 @@
   }
   .right-image {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    
     height: auto;
     margin-top: 2px;
   }

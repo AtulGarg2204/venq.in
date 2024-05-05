@@ -26,6 +26,26 @@
   ;
 }
 
+.logo_div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: space-between;
+  background-color: white;
+  gap: 20px;
+}
+
+.logo_div>img {
+  width: 30%;
+  height: auto;
+  /* flex: 1 1 0; */
+  /* width: 100%; */
+  margin: 10px 2px;
+  object-fit: contain;
+  /* flex-grow: 1; */
+}
+
 @media (max-width: 768px) {
   .content-div {
     display: flex;

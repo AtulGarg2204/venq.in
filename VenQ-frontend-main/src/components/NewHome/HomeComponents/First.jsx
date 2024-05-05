@@ -307,23 +307,25 @@ const First = () => {
 
 
                                 <ReturnsBox>
-                                  <Box>
-                                    <Box>Funding Date</Box>
+                                  <Box sx={{ fontSize: "0.8rem" }} >
+                                    <Typography noWrap sx={{ fontSize: "0.8rem" }} >Funding Date</Typography>
                                     <Box
                                       style={{
                                         color: "black",
                                         fontWeight: "bold",
+                                        fontSize: "0.8rem"
                                       }}
                                     >
                                       {listing.fundingdate}
                                     </Box>
                                   </Box>
                                   <Box>
-                                    <Box>Min. Investment</Box>
+                                    <Typography noWrap sx={{ fontSize: "0.8rem" }} >Min. Investment</Typography>
                                     <Box
                                       style={{
                                         color: "black",
                                         fontWeight: "bold",
+                                        fontSize: "0.8rem"
                                       }}
                                     >
                                       {listing.mininvestment}

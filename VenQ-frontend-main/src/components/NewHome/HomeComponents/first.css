@@ -173,6 +173,10 @@ div {
   .live-property {
     height: 100%;
   }
+
+  .hero-heading {
+    margin-top: 40px;
+  }
 }
 
 /* 
@@ -234,7 +238,7 @@ div {
 
 .property_card_container {
   width: 100%;
-  height: 100%;
+  height: auto;
   /* background-color: red; */
   display: flex;
   gap: 20px;
@@ -246,16 +250,17 @@ div {
 
 .blue_container {
   width: 90%;
-  height: 110%;
+  height: 120%;
   background-color: #2f75a6;
   border-radius: 20px;
   display: flex;
-  margin-top: -20px;
+  /* margin-top: -20px; */
   flex-direction: column;
   align-items: center;
   justify-content: start;
   gap: 10px;
-  padding: 10px 0;
+  padding: 10px 15px 70px 15px;
+  scale: 0.8;
 }
 
 .property_heading_label {
@@ -268,9 +273,10 @@ div {
 
 .property_card {
   width: 250px;
-  height: 300px;
+  height: fit-content;
   /* border: 2px solid black; */
   /* background-color: #d26b6b; */
+  margin-top: 20px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -422,11 +428,13 @@ div {
     gap: 20px;
     align-items: center;
     justify-content: center;
+    margin-top: -40px;
   }
 
   .blue_container {
     width: 110%;
-    height: 90%;
+    height: 120%;
+    scale: 1;
     padding: 10px 0;
     transform: translateY(100px);
   }

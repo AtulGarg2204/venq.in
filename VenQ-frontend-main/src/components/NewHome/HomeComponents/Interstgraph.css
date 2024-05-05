@@ -489,6 +489,12 @@
   width: 350px;
 }
 
+.property_card{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 768px) {
   .home_live_property_heading {
     width: 95%;
