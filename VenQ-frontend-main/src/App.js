@@ -141,9 +141,9 @@ function App() {
             </Route>
           </Route>
 
-          <Route path="/" element={<Home />} />
+          <Route path="/try" element={<Home />} />
           {/* <Route path="/" element={<NewHome />} /> */}
-          <Route path="/try" element={<NewHome />} />
+          <Route path="/" element={<NewHome />} />
           <Route path="contactUs" element={<ContactUs />} />
         </Routes>
       </Router>

@@ -1,31 +1,38 @@
 .signup-container {
-  padding-top: 5vh;
-
-  padding: 50px;
-
+  padding-top: 25vh;
+  /* padding: 50px; */
   height: 74vh;
-  width: 91vw;
+  width: 55%;
+  margin: auto;
 }
 
 .content {
   height: 80vh;
-  width: 80vw;
-  margin-left: 16vw;
-  margin-right: 10vw;
+  width: 100%;
+  /* margin-left: 16vw; */
+  /* margin-right: 10vw; */
   background: transparent;
   display: flex;
+  justify-content: space-between;
+  gap: 50px;
 }
 
 .left-step {
-  height: 100%;
+  height: fit-content;
   width: 55%;
   background-color: white;
 }
 
 .right-image {
+  height: fit-content;
+  width: fit-content;
+  /* margin-left: 40px; */
+  margin-top: -100px;
+}
+
+.step-image {
+  width: 300px;
   height: auto;
-  width: 28%;
-  margin-left: 40px;
 }
 
 .signup-step1 {
@@ -69,11 +76,6 @@
   text-align: center;
 }
 
-.step-image {
-  height: 70%;
-  width: 90%;
-}
-
 .step-heading1 {
   font-size: 20px;
 
@@ -82,7 +84,7 @@
 }
 .left-heading h1 {
   font-size: 40px;
-  font-family: "Plus Jakarta Sans";
+  font-family: var(--heading-font-family);
   margin-bottom: 20px;
 }
 .step-heading1:hover {
@@ -101,11 +103,20 @@
 
 @media (max-width: 768px) {
   .signup-container {
-    padding-top: 5vh;
-    height: 98vh;
-    /* width: 98.7vw; */
-    margin-top: 150px;
-    margin-left: -45px;
+    padding-top: 1vh;
+    height: 115vh;
+    width: 98.7vw;
+    margin-top: 50px;
+    /* margin-left: -45px; */
+  }
+  .content {
+    height: 100vh;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
   }
   .left-step {
     width: 100%;
@@ -116,7 +127,7 @@
   .right-image {
     width: 100%;
     height: auto;
-    margin-left: 20px;
+    margin-top: 2px;
   }
 
   .content {
@@ -134,13 +145,16 @@
     height: 30px;
     width: 30px;
     border-radius: 50%;
-    background-color: #bbb;
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
   }
   .left-heading h1 {
     font-size: 31px;
     margin-bottom: 15px;
     font-weight: 700;
+    text-align: center;
   }
   .left-desc {
     font-size: 14px;

@@ -38,6 +38,12 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: center;
 }
 
+.would_have_become {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: -5px;
+}
+
 
 @media (max-width: 768px) {
     input[type="range"] {

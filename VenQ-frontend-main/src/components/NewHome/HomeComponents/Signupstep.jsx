@@ -37,10 +37,10 @@ const Signupstep = () => {
             <h1
               className="heading"
               style={{
-              
+                // paddingTop: "60px"
               }}
             >
-              HOW TO SUBCRIBE?
+              How To Subcribe?
             </h1>
             <p className="left-desc">
               Enjoy the benefits of a completely online and <br /> seamless
@@ -53,14 +53,14 @@ const Signupstep = () => {
               className="step-heading1"
               onMouseEnter={() =>
                 changeImage(
-                  image1,
-                  "Register on the platform by entering your mobile number and finishing the OTP authentication process or via Whatsapp",
+                  image2,
+                  "Explore a diverse range of investment opportunities, from residential to commercial properties, tailored to your preferences.",
                   "heading1"
                 )
               }
               onMouseLeave={clearDescription}
             >
-              Sign up using your number
+              Browse
             </h2>
           </div>
           <p className="step1-desc">{descriptions.heading1}</p>
@@ -70,14 +70,14 @@ const Signupstep = () => {
               className="step-heading1"
               onMouseEnter={() =>
                 changeImage(
-                  image2,
-                  "Complete your Know Your Customer (KYC) process by providing your PAN (Permanent Account Number) and add your bank account details.",
+                  image3,
+                  "Invest seamlessly by subscribing to fractional ownership in premium properties, with options starting from Rs 5,000.",
                   "heading2"
                 )
               }
               onMouseLeave={clearDescription}
             >
-              Complete KYC
+              Subscribe
             </h2>
           </div>
           <p className="step1-desc">{descriptions.heading2}</p>
@@ -87,14 +87,14 @@ const Signupstep = () => {
               className="step-heading1"
               onMouseEnter={() =>
                 changeImage(
-                  image3,
-                  "Browse through the live campaigns and choose the one that is most suitable for you. Once you have selected a campaign, proceed for payment and complete the subscription process",
+                  image4,
+                  "Monitor your investments in real-time, track performance metrics, and stay updated on property developments through our user-friendly platform.",
                   "heading3"
                 )
               }
               onMouseLeave={clearDescription}
             >
-              Explore
+              Track
             </h2>
           </div>
           <p className="step1-desc">{descriptions.heading3}</p>
@@ -104,14 +104,14 @@ const Signupstep = () => {
               className="step-heading1"
               onMouseEnter={() =>
                 changeImage(
-                  image4,
-                  "You can track your subscriptions and get an overview of number of units, current value and expected returns",
+                  image1,
+                  "Enjoy flexible exit options with our platform, allowing you to liquidate investments or exit projects based on your investment strategy and financial goals.",
                   "heading4"
                 )
               }
               onMouseLeave={clearDescription}
             >
-              See your Wealth grow
+              Exit
             </h2>
           </div>
           <p className="step1-desc">{descriptions.heading4}</p>

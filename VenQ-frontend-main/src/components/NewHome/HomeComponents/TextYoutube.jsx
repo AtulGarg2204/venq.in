@@ -78,7 +78,7 @@ function TextYoutube() {
                     <div className="youtube-container">
                         {data.embade}
                     </div>
-                    <YoutubeButtom youtubeLink={data.link} >Youtube</YoutubeButtom>
+                    <YoutubeButtom youtubeLink={"https://www.youtube.com/@venqtech"} >Youtube</YoutubeButtom>
                 </div>
             </div>
         </div >

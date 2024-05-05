@@ -1,18 +1,23 @@
 .rotated-button-container {
   text-align: center;
   padding: 25px;
-  transform: rotate(5deg);
-  background-color: #f6f7f9;
+  /* transform: rotate(5deg); */
+  background-color: transparent;
   margin-bottom: -100px;
   height: 200px;
   position: relative;
   z-index: 0;
 }
 
+.rotated-button-container > h3 {
+  font-weight: 800;
+
+}
+
 .rotated-heading {
   font-size: 40px;
   margin-bottom: 10px;
-  transform: rotate(-5deg);
+  /* transform: rotate(-5deg); */
   margin-top: 50px;
 
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -24,7 +29,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  transform: rotate(-5deg);
+  /* transform: rotate(-5deg); */
   margin-top: 20px;
 }
 
@@ -73,6 +78,7 @@
     height: auto;
     margin-bottom: -45px;
     transform: none;
+    background-color: transparent;
   }
 
   .rotated-heading {
@@ -102,6 +108,7 @@
   height: auto;
   margin-top: 150px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
 }
 
 .home_footer_logo {
@@ -215,15 +222,18 @@
 @media (max-width: 768px) {
   .home_footer_content_container_main {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
   .home_footer_content_container_partone,
   .home_footer_content_container_parttwo {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .home_footer_socialIcons_main {
     text-align: center;
+    margin-top: 20px;
   }
 
   .home_footer_socialIcons_main > h1 {
@@ -232,11 +242,13 @@
   .home_footer_allrights_main {
     grid-template-columns: 1fr;
     text-align: center;
+    margin-top: 10px;
   }
   .home_footer_allrights_container_two {
     text-align: center;
   }
   .home_footer_disclaimer_main {
     text-align: center;
+    margin-top: 20px;
   }
 }

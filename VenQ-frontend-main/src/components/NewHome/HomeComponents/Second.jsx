@@ -1,15 +1,16 @@
 import "./second.css";
+import card_image_1 from "../assets/venq_card_1_img.jpeg"
+import card_image_2 from "../assets/venq_card_2_img.jpeg"
+import card_image_3 from "../assets/venq_card_3_img.jpeg"
+import card_image_4 from "../assets/venq_card_4_img.jpeg"
+
+
 export default function TextDiv() {
   return (
     <div
       className="content-div"
       style={{
-        display: "flex",
-        alignItems: "start",
-        justifyContent: "center",
-        padding: "1rem",
-        gap: "0rem",
-        height: "240vh",
+        
       }}
     >
       <div className="sticky-div">
@@ -28,9 +29,11 @@ export default function TextDiv() {
           style={{
             fontSize: "40px",
             fontWeight: "700",
+            paddingTop: "10px",
+            paddingBottom: "10px",
           }}
         >
-          The Global Leader in digital real estate investing
+          The Leader in digital real estate investing
         </h1>
         <p style={{ color: "grey" }}>
           Invest in high growth, income generating properties in the world's
@@ -56,7 +59,7 @@ export default function TextDiv() {
               width: "90px",
               margin: "10px 2px",
             }}
-            src="https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"
+            src={"https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"}
             alt="logo1"
           />
           <img
@@ -80,105 +83,149 @@ export default function TextDiv() {
         </div>
       </div>
 
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "40px", height: "fit-content" }}>
         <div
           style={{
             border: "1px solid #CFCFCF",
             borderRadius: "12px",
+            // height: "40vh",
             padding: "1rem",
-            marginLeft: "20px",
             marginTop: "2rem",
+            // marginLeft: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alighItems: "center",
             maxWidth: "300px",
-            height: "40vh",
+            marginRight: "auto",
+            marginLeft: "auto",
           }}
         >
           <img
             style={{
-              width: "100%",
-              height: "60%",
+              width: "90%",
+              height: "auto",
+              marginRight: "auto",
+              marginLeft: "auto",
+            
             }}
-            src="https://framerusercontent.com/images/XbJ9LeF3AdtdB7eRoEPINQN8h4.png?scale-down-to=512"
+            src={card_image_1}
             alt="icon"
           />
-          <h5>Invest from anywhere</h5>
-          <p>
-            We're trusted over 450K+ users from 203 countries worldwide to fully
-            manage their real estate investments
+          <h5>Low Ticket Size</h5>
+          <p
+            style={{
+              marginTop: "10px",
+            }}
+          >
+            Invest with ease starting from just Rs 5,000, making real estate accessible to all.
           </p>
         </div>
         <div
           style={{
             border: "1px solid #CFCFCF",
             borderRadius: "12px",
-            height: "40vh",
+            // height: "40vh",
             padding: "1rem",
             marginTop: "2rem",
-            marginLeft: "20px",
+            display: "flex",
+            flexDirection: "column",
+            alighItems: "center",
             maxWidth: "300px",
+            marginRight: "auto",
+            marginLeft: "auto",
           }}
         >
           <img
             style={{
-              width: "100%",
-              height: "60%",
+              width: "80%",
+              height: "auto",
+              marginRight: "auto",
+              marginLeft: "auto",
             }}
-            src="https://framerusercontent.com/images/XbJ9LeF3AdtdB7eRoEPINQN8h4.png?scale-down-to=512"
+            src={card_image_2}
             alt="icon"
           />
-          <h5>Invest from anywhere</h5>
-          <p>
-            We're trusted over 450K+ users from 203 countries worldwide to fully
-            manage their real estate investments
-          </p>
-        </div>
-        <div
-          style={{
-            border: "1px solid #CFCFCF",
-            height: "40vh",
-            borderRadius: "12px",
-            padding: "1rem",
-            marginTop: "2rem",
-            marginLeft: "20px",
-            maxWidth: "300px",
-          }}
-        >
-          <img
+          <h5>High Liquidity</h5>
+          <p
             style={{
-              width: "100%",
-              height: "60%",
+              marginTop: "10px",
             }}
-            src="https://framerusercontent.com/images/XbJ9LeF3AdtdB7eRoEPINQN8h4.png?scale-down-to=512"
-            alt="icon"
-          />
-          <h5>Invest from anywhere</h5>
-          <p>
-            We're trusted over 450K+ users from 203 countries worldwide to fully
-            manage their real estate investments
+          >
+            Easily liquidate your investments through our platform, ensuring quick access to funds when needed.
           </p>
         </div>
         <div
           style={{
             border: "1px solid #CFCFCF",
             borderRadius: "12px",
+            // height: "40vh",
             padding: "1rem",
             marginTop: "2rem",
-            height: "40vh",
+            display: "flex",
+            flexDirection: "column",
+            alighItems: "center",
             maxWidth: "300px",
-            marginLeft: "20px",
+            marginRight: "auto",
+            marginLeft: "auto",
           }}
         >
           <img
             style={{
               width: "100%",
-              height: "60%",
+              height: "auto",
+              marginRight: "auto",
+              marginLeft: "auto",
             }}
-            src="https://framerusercontent.com/images/XbJ9LeF3AdtdB7eRoEPINQN8h4.png?scale-down-to=512"
+            src={card_image_3}
             alt="icon"
           />
-          <h5>Invest from anywhere</h5>
-          <p>
-            We're trusted over 450K+ users from 203 countries worldwide to fully
-            manage their real estate investments
+          <h5>Consistent Passive Income</h5>
+          <p
+            style={{
+              marginTop: "10px",
+            }}
+          >
+            Earn regular income from rental yields and profit shares, providing a steady stream of passive income.
+          </p>
+        </div>
+        <div
+          style={{
+            border: "1px solid #CFCFCF",
+            borderRadius: "12px",
+            // height: "40vh",
+            padding: "1rem",
+            marginTop: "2rem",
+            display: "flex",
+            flexDirection: "column",
+            alighItems: "center",
+            maxWidth: "300px",
+            marginRight: "auto",
+            marginLeft: "auto",
+          }}
+        >
+          <img
+            style={{
+              width: "100%",
+              height: "auto",
+              marginRight: "auto",
+              marginLeft: "auto",
+            }}
+            src={card_image_4}
+            alt="icon"
+          />
+          <h5
+            style={{
+             
+            }}
+          >
+            Strong Annual Appreciation Potential
+          </h5>
+          <p
+            style={{
+              marginTop: "10px",
+            }}
+          >
+            Benefit from the potential for capital growth and property value appreciation, enhancing your investment over time
           </p>
         </div>
       </div>

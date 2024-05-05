@@ -69,3 +69,17 @@ ul {
     --top-sub-heading: 1rem;
   }
 }
+
+
+.our_partners_heading{
+  /* font-size: 2rem; */
+  font-weight: var(--heading-font-wight);
+  letter-spacing: var(--heading-letter-spacing);
+  font-size: var(--heading-font-size);
+  color: var(--heading-color);
+  margin-top: 20px;
+}
+
+.slider_container_for_try{
+  box-shadow: none;
+}

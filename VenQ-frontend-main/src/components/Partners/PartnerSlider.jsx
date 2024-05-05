@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./PartnerSlider.css";
 import razorpayimg from "./razorpay.png"
 
-const PartnerSlider = () => {
+const PartnerSlider = ({ ourPartnersClassName="",  sliderContainerClassName="" }) => {
   const partnerArray = [
     { name: "Partner 1", imageSrc: "images/landmark.png" },
     { name: "Partner 2", imageSrc: "images/whiteland.png" },
@@ -46,10 +46,10 @@ const PartnerSlider = () => {
   return (
     <div className="partnerMain">
       <div className="partners-container">
-        <div className="partners-text">
-          <h2 className="partners-heading">OUR PARTNERS</h2>
+        <div className={`partners-text`}>
+          <h2 className={`partners-heading ${ourPartnersClassName}`}>OUR PARTNERS</h2>
         </div>
-        <div className="slider-container">
+        <div className={`slider-container  ${sliderContainerClassName}`}>
           <Slider {...settings}>
             {partnerArray.map((partner, index) => (
           

@@ -94,11 +94,8 @@ const ReturnCalculator = () => {
         Total investment of ₹ {initialInvestment}
       </p>
       <p
-        style={{
-          fontSize: "1.25rem",
-          fontWeight: "600",
-          marginTop: "-5px",
-        }}
+        className="would_have_become"
+       
       >
         Would have become ₹
         <span
