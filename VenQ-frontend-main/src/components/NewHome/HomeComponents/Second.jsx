@@ -42,41 +42,18 @@ export default function TextDiv() {
         <p style={{ marginTop: "20px", backgroundColor: "white" }}>
           As seen in
         </p>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginTop: "20px",
-            justifyContent: "start",
-            backgroundColor: "white",
-            gap: "20px",
-            backgroundColor: "white",
-          }}
+        <div className="logo_div"
+          
         >
           <img
-            style={{
-              height: "30px",
-              width: "90px",
-              margin: "10px 2px",
-            }}
             src={"https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"}
             alt="logo1"
           />
           <img
-            style={{
-              height: "30px",
-              width: "90px",
-              margin: "10px 2px",
-            }}
             src="https://republicnewsindia.com/wp-content/uploads/2023/07/Republic-News-India-New-Logo-PNG-300x100.png"
             alt="logo2"
           />
           <img
-            style={{
-              height: "30px",
-              width: "90px",
-              margin: "10px 2px",
-            }}
             src="https://indiansentinel.in/wp-content/uploads/2021/04/cropped-Indian-Sentinel-Copy-scaled-1.jpg"
             alt="logo3"
           />
