@@ -935,7 +935,7 @@ const InterestGraph = () => {
   const lengthOfTimeOptions = [3, 5, 7, 9, 11, 13, 15];
 
   const screenWidth = window.innerWidth;
-  const chartWidth = screenWidth >= 768 ? 450 : 350;
+  const chartWidth = screenWidth >= 768 ? 450 : 330;
 
   const handleCalculate = () => {
 
@@ -1023,9 +1023,9 @@ const InterestGraph = () => {
     <div className='head'>
       <div className='compound_main'>
         <div className='compound_calculater_makemoney_main'>
-          <p>How will I make money?</p>
-          <h3>Calculate your potential returns</h3>
-          <div className='compound_calculater_annualrental_main'>
+          <p className='how_will_i_make_money'>How will I make money?</p>
+          <h3  >Calculate your potential returns</h3>
+          <div style={{ marginTop: "10px" }} className='compound_calculater_annualrental_main'>
             <div className='compound_calculater_annualrental_one'>
               <MoneyOutlinedIcon style={{ color: "rgb(32, 148, 118)" }} />
               <p>Annual Rental Yeild</p>
@@ -1042,12 +1042,14 @@ const InterestGraph = () => {
             </div>
             <p>Watch your investment grow as the property value appreciates.</p>
           </div>
-          <button>Sign Up</button>
+          <button
+            onClick={() => navigate("/signup")}
+          >Sign Up</button>
 
         </div>
 
         <div className='compound_calculater_form_main'>
-          <form>
+          <form >
 
 
             <div className='compound_calculater_initInvest'>
@@ -1198,7 +1200,7 @@ const InterestGraph = () => {
         <Box className="home_live_property_container_two" sx={{ flexGrow: 1, height: "20px", marginTop: "10px" }}>
           <div
             style={{
-              display: "flex",
+              // display: "flex",
               alignItems: "center",
               alignContent: "center",
               justifyContent: "center",

@@ -13,6 +13,7 @@ import Interstgraph from "./HomeComponents/Interstgraph";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
+import PartnerSlider from "../Partners/PartnerSlider";
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
@@ -52,6 +53,7 @@ function App() {
         <TextYoutube />
         <OurCommitment />
         <WhyInvest />
+        <PartnerSlider ourPartnersClassName="our_partners_heading" sliderContainerClassName="slider_container_for_try" />
         <FaQ />
         <Footer />
       </div>

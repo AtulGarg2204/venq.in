@@ -22,7 +22,7 @@
 }
 .loginButton a {
   text-decoration: none;
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 20px;
   line-height: 24px;
@@ -33,6 +33,7 @@
 .SignupButton:hover {
   background-color: #1b527b;
   transform: scale(1.05);
+  ;
 }
 
 .SignupButton {
@@ -47,15 +48,24 @@
   margin: 10px;
   padding: 6px 25px;
   cursor: pointer;
+  
 }
 .SignupButton a {
   text-decoration: none;
   color: #fff;
   font-style: normal;
-  font-weight: 200;
+  font-weight: 700;
   font-size: 20px;
   line-height: 25px;
   font-family: "Inter";
+}
+
+.menu_icon{
+  color: black;
+}
+
+.menu_icon > svg {
+  color: black;
 }
 
 .dropDown {
@@ -86,13 +96,14 @@
   text-decoration: none;
   color: #fff;
   cursor: pointer;
+
 }
 
 .mobileItem {
   /* position: relative; */
   padding: 2%;
   font-size: 1.5rem;
-
+  color: white;
   /* border-radius: 5px; */
   padding-left: 7%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

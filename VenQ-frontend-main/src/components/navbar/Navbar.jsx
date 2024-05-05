@@ -11,13 +11,15 @@ import {
   MenuItem,
   Avatar,
 } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import venqLogo from "../NewHome/assets/venq_logo.png"
+
 import React, { useState, useEffect } from "react";
 import MenuElement from "./MenuElement";
 import "./Navbar.css";
 import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 const NavbarComponent = styled(AppBar)`
   color: white;
   box-shadow: none;
@@ -121,7 +123,7 @@ const Navbar = (props) => {
     navigate("/signup");
   };
   const handleDashboard = () => {
-    navigate("/dashboard");
+    navigate("/dashboard/properties");
   };
   const handleClicklearn = (event) => {
     // console.log('click hua h');
@@ -146,11 +148,20 @@ const Navbar = (props) => {
                   <img src="images/VENQ_BOLD_small.png" alt="logo" width="80" />
                 </div>
                 <div>
+
+                  <div className="menu_icon">
                   <FontAwesomeIcon
+                    className="menu_icon"
                     icon={isMenuIconClicked ? faTimes : faBars}
-                    style={{ color: "white" }}
+                    color="black"
+                    style={{ color: "black" }}
                     onClick={handleNavToggle}
                   />
+                  </div>
+                  {/* <div>
+                    <MenuIcon className="menu_icon" onClick={handleNavToggle} />
+                  </div> */}
+
                   {isMobile && showNavItems && (
                     <div className="mobileNavItems">
                       <div className="mobileItem" onClick={handleClick}>
@@ -272,10 +283,10 @@ const Navbar = (props) => {
               <NewContainer>
                 <div className="imageContainer">
                   <img
-                    src="images/VENQ_BOLD_small.png"
+                    src={venqLogo}
                     alt="logo"
-                    width="87"
-                    height="32"
+                    width="140"
+                    height="auto"
                   />
                 </div>
                 <div
@@ -423,7 +434,7 @@ const Navbar = (props) => {
                 <div>
                   <FontAwesomeIcon
                     icon={isMenuIconClicked ? faTimes : faBars}
-                    style={{ color: "white", height: "20px" }}
+                    style={{ color: "black", height: "20px" }}
                     onClick={handleNavToggle}
                   />
                   {isMobile && showNavItems && (
@@ -715,5 +726,14 @@ const Navbar = (props) => {
     </Box>
   );
 };
+
+
+const MenuIcon = ({ className="" }) => {
+  return (
+    <svg style={{ color: "black" }} className={className} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24">
+      <path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"></path>
+    </svg>
+  )
+}
 
 export default Navbar;

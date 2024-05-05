@@ -3,27 +3,52 @@
   width: 80vw;
   background-color: red;
 }
+
 .sticky-div {
   max-width: 500px;
   position: sticky;
-  top: 0;
-  height: 60vh;
+  top: 10px;
+  /* height: 60vh; */
+  height: fit-content;
   background-color: white;
+  margin-top: 80px;
+  width: 400px;
 }
+
+.content-div {
+  margin-top: 0px;
+  display: flex;
+  /* alignItems: "center"; */
+  justify-content: center;
+  /* padding: "1rem"; */
+  gap: 6.3rem;
+  height: fit-content;
+  ;
+}
+
 @media (max-width: 768px) {
   .content-div {
     display: flex;
     flex-direction: column;
-    position: sticky;
+    /* position: sticky; */
     align-items: center;
     justify-content: center;
-    margin-right: 30px;
+    /* margin-right: 30px; */
+    width: 90%;
+    /* margin: auto; */
+    margin-right: auto;
+    margin-left: auto;
+    /* margin-top: -150px; */
+    gap: 10px;
   }
-  .sticky-div {
-    margin-top: 250px;
 
+  .sticky-div {
+    margin-top: 100px;
+    position: relative;
     height: 45vh;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     background-color: white;
+    width: 95%;
+    padding: 0px 20px;
   }
 }
