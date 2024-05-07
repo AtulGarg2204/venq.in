@@ -50,7 +50,7 @@ div {
   margin-top: 20px;
   margin-bottom: 10px;
   border-radius: 10px;
-  background-color: #535DF6;
+  background-color: #2381E8;
   border: none;
   font-size: 16px;
   font-weight: bold;
@@ -237,7 +237,7 @@ div {
 } */
 
 .property_card_container {
-  width: 100%;
+  width: 70%;
   height: auto;
   /* background-color: red; */
   display: flex;
@@ -251,7 +251,7 @@ div {
 .blue_container {
   width: 90%;
   height: 120%;
-  background-color: #FFFFFF;
+  background-color: #63A6EF;
   border-radius: 20px;
   display: flex;
   /* margin-top: -20px; */
@@ -259,7 +259,7 @@ div {
   align-items: center;
   justify-content: start;
   gap: 10px;
-  padding: 10px 15px 70px 15px;
+  padding: 10px 35px 70px 35px;
   scale: 0.8;
 }
 
@@ -267,8 +267,8 @@ div {
   font-size: 20px;
   font-weight: 600;
   color: #121417;
-  margin-top: 1px;
-  margin-top: 5px;
+  margin-top: 15px;
+  /* margin-top: 5px; */
 }
 
 .property_card {
@@ -388,6 +388,7 @@ div {
 
   .main-button {
     width: 150px;
+    /* background-color: #535DF6; */
   }
 
 }
@@ -432,10 +433,10 @@ div {
   }
 
   .blue_container {
-    width: 110%;
+    width: 125%;
     height: 120%;
     scale: 1;
-    padding: 10px 0;
+    padding: 10px 30px;
     transform: translateY(100px);
   }
 
