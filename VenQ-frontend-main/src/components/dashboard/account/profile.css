@@ -1,0 +1,41 @@
+.aadhar_details_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* width: 470px; */
+    width: 95%;
+ 
+    padding: 0px 40px;
+}
+
+.aadhar_details_container>div {
+    width: 100%;
+    /* margin-left: 15px; */
+
+}
+
+.aadhar_details_container input {
+    /* width: 450px; */
+    width: 95%;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.aadhar_details_container .next_button_container {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    /* padding: 0 10px; */
+}
+
+.aadhar_details_container .next_button {
+    cursor: pointer;
+    background-color: rgb(98, 107, 234);
+    color: white;
+    width: 100%;
+}
+
+.aadhar_details_container .next_button:hover {
+    background-color: rgb(98, 107, 234);
+}
