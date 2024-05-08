@@ -2,7 +2,7 @@
 .containerone {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   max-width: 475px;
   height: 75px;
   width: 100%;
@@ -60,9 +60,10 @@ button {
   height: 4px;
   width: 90%;
   background: #e0e0e0;
-  z-index: 0;
+  z-index: -1;
   top: 10px;
   left: 19px;
+
 }
 
 .progress-bar-containerone .progress-indicator {
@@ -98,4 +99,19 @@ button {
 .action-buttons button:disabled {
   background: #87a5f8;
   cursor: not-allowed;
+}
+
+
+@media (max-width: 768px) {
+  .containerone {
+    max-width: 375px;
+    align-items: start;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .steps-containerone {
+    width: 95%;
+    margin-left: 0;
+  }
 }

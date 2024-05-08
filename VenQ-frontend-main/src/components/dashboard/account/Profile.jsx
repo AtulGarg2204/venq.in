@@ -21,6 +21,7 @@ import MultiStep from "./Multistep";
 import DocumentUploader from "../listings/DocumentUploader";
 
 import "./multistep.css";
+import "./profile.css";
 function UserInfoItem({ userName, lastSeen, role }) {
   return (
     <div className="user-info">
@@ -354,16 +355,18 @@ function Dashboard() {
       {visible && onbcomp == 2 && (
         <div
           style={{
+            height: "100vh",
             display: "flex",
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {/* {step==0 && <> */}
           <div
             className="main-otp-div popup"
             style={{
-              width: "60%",
-              marginTop: "100px",
+              // width: "60%",
+              marginTop: 0,
             }}
           >
             <div className="backarrow">
@@ -400,16 +403,15 @@ function Dashboard() {
                       key={stepNumber}
                       style={{
                         display: "flex",
-                        gap: "10px",
+                        // gap: "10px",
                       }}
                     >
                       <div className="progress-container">
                         <span>
                           {stepNumber > 1 && <div className="line"></div>}
                           <span
-                            className={`step-circle ${
-                              stepNumber <= currentStep ? "active" : ""
-                            }`}
+                            className={`step-circle ${stepNumber <= currentStep ? "active" : ""
+                              }`}
                           >
                             {stepNumber}
                           </span>
@@ -431,8 +433,8 @@ function Dashboard() {
                           {stepNumber == 1
                             ? "Aadhar"
                             : stepNumber == 2
-                            ? "PAN"
-                            : "Bank"}
+                              ? "PAN"
+                              : "Bank"}
                         </span>
                       </div>
 
@@ -454,12 +456,13 @@ function Dashboard() {
             {step == 0 && (
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    flexDirection: "column",
-                    width: "470px",
-                  }}
+                  className="aadhar_details_container"
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "flex-start",
+                //   flexDirection: "column",
+                //   width: "470px",
+                // }}
                 >
                   <div
                     style={{
@@ -492,11 +495,11 @@ function Dashboard() {
                       name="name"
                       value={kycdata.full_name}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                        marginTop: "0px",
-                        marginBottom: "10px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <div
@@ -522,11 +525,11 @@ function Dashboard() {
                       name="name"
                       value={kycdata.aadhaar_number}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                        marginTop: "0px",
-                        marginBottom: "10px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <div
@@ -552,11 +555,11 @@ function Dashboard() {
                       name="name"
                       value={kycdata.dob}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                        marginTop: "0px",
-                        marginBottom: "10px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <ToastContainer />
@@ -578,12 +581,14 @@ function Dashboard() {
       </div>   */}
 
                   {!otpss && (
+
                     <button
+                      className="next_button"
                       style={{
-                        cursor: "pointer",
-                        marginTop: "8px",
-                        width: "100%",
-                        backgroundColor: "#626bea",
+                        // cursor: "pointer",
+                        // marginTop: "8px",
+                        // width: "100%",
+                        // backgroundColor: "#626bea",
                       }}
                       onClick={() => {
                         nextStep();
@@ -656,12 +661,13 @@ function Dashboard() {
             {step == 1 && (
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    flexDirection: "column",
-                    width: "470px",
-                  }}
+                  className="aadhar_details_container pan_details_container"
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "flex-start",
+                //   flexDirection: "column",
+                //   width: "470px",
+                // }}
                 >
                   <div
                     style={{
@@ -695,11 +701,11 @@ function Dashboard() {
                       name="pan"
                       value={kycdata.pan_number}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                        marginTop: "0px",
-                        marginBottom: "10px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <div
@@ -725,11 +731,11 @@ function Dashboard() {
                       name="pan"
                       value={kycdata.category}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                        marginTop: "0px",
-                        marginBottom: "10px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <div
@@ -755,29 +761,31 @@ function Dashboard() {
                       name="pan"
                       value={kycdata.gender}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                        marginTop: "0px",
-                        marginBottom: "10px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
 
                   <ToastContainer />
 
                   <div
+                    className="next_button_container"
                     style={{
                       display: "flex",
-                      justifyContent: "flex-end",
+                      justifyContent: "center",
                       marginTop: "8px",
                     }}
                   >
                     <Button
+                      className="next_button"
                       style={{
-                        cursor: "pointer",
-                        backgroundColor: "#626bea",
-                        color: "white",
-                        width: "100%",
+                        // cursor: "pointer",
+                        // backgroundColor: "#626bea",
+                        // color: "white",
+                        // width: "100%",
                       }}
                       onClick={() => {
                         setCurrentStep(currentStep + 1);
@@ -794,12 +802,13 @@ function Dashboard() {
             {step == 2 && (
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    flexDirection: "column",
-                    width: "470px",
-                  }}
+                  className="aadhar_details_container pan_details_container"
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "flex-start",
+                //   flexDirection: "column",
+                //   width: "470px",
+                // }}
                 >
                   <div
                     style={{
@@ -833,9 +842,9 @@ function Dashboard() {
                       name="bankname"
                       value={kycdata.bankName}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    // }}
                     />
                   </div>
 
@@ -862,9 +871,9 @@ function Dashboard() {
                       name="bankname"
                       value={acarr[Number(kycdata.ac_type)]}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    // }}
                     />
                   </div>
 
@@ -891,9 +900,9 @@ function Dashboard() {
                       name="ifsccode"
                       value={kycdata.ifsc_code}
                       autoFocus={true}
-                      style={{
-                        width: "450px",
-                      }}
+                    // style={{
+                    //   width: "450px",
+                    // }}
                     />
                   </div>
 
@@ -901,17 +910,18 @@ function Dashboard() {
 
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      marginTop: "8px",
+                      // display: "flex",
+                      // justifyContent: "flex-end",
+                      // marginTop: "8px",
                     }}
                   >
                     <Button
+                      className="next_button"
                       style={{
-                        cursor: "pointer",
-                        backgroundColor: "grey",
-                        color: "white",
-                        width: "100%",
+                        // cursor: "pointer",
+                        // backgroundColor: "grey",
+                        // color: "white",
+                        // width: "100%",
                       }}
                       disabled={true}
                     >
@@ -986,9 +996,8 @@ function Dashboard() {
                                 setStep(stepNumber - 1);
                               }
                             }}
-                            className={`step-circle ${
-                              stepNumber <= currentStep ? "active" : ""
-                            }`}
+                            className={`step-circle ${stepNumber <= currentStep ? "active" : ""
+                              }`}
                           >
                             {stepNumber}
                           </span>
@@ -1002,8 +1011,8 @@ function Dashboard() {
                           {stepNumber == 1
                             ? "Aadhar"
                             : stepNumber == 2
-                            ? "PAN"
-                            : "Bank"}
+                              ? "PAN"
+                              : "Bank"}
                         </div>
                       </div>
                       <div
@@ -1248,9 +1257,9 @@ function Dashboard() {
 
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      marginTop: "8px",
+                      // display: "flex",
+                      // justifyContent: "flex-end",
+                      // marginTop: "8px",
                     }}
                   >
                     <Button
@@ -1437,9 +1446,9 @@ function Dashboard() {
 
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      marginTop: "8px",
+                      // display: "flex",
+                      // justifyContent: "flex-end",
+                      // marginTop: "8px",
                     }}
                   >
                     <Button
