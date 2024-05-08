@@ -123,7 +123,7 @@ const Terms = (props) => {
 
         // Configure Razorpay options
         const options = {
-          key: "rzp_test_qhajW6qJ3G4guZ",
+          key: "rzp_live_gHZIY3vAzSxfGR",
           // key: "rzp_test_1Gua6rylAOKvtK",
           amount: order.amount,
           currency: order.currency,
