@@ -50,11 +50,7 @@ div {
   margin-top: 20px;
   margin-bottom: 10px;
   border-radius: 10px;
-<<<<<<< HEAD
   background-color: #0170dc;
-=======
-  background-color: #2381E8;
->>>>>>> origin/main
   border: none;
   font-size: 16px;
   font-weight: bold;
@@ -169,11 +165,7 @@ div {
 }
 
 .property_card_container {
-<<<<<<< HEAD
   width: 80%;
-=======
-  width: 70%;
->>>>>>> origin/main
   height: auto;
   /* background-color: red; */
   display: flex;
@@ -186,11 +178,7 @@ div {
 .blue_container {
   width: 100%;
   height: 120%;
-<<<<<<< HEAD
   background-color: #2382ea;
-=======
-  background-color: #63A6EF;
->>>>>>> origin/main
   border-radius: 20px;
   display: flex;
   /* margin-top: -20px; */
@@ -198,27 +186,17 @@ div {
   align-items: center;
   justify-content: start;
   gap: 10px;
-<<<<<<< HEAD
   padding: 25px 25px 65px 25px;
-=======
-  padding: 10px 35px 70px 35px;
->>>>>>> origin/main
   scale: 0.8;
 }
 
 .property_heading_label {
   font-size: 20px;
   font-weight: 600;
-<<<<<<< HEAD
   color: white;
   margin-bottom: 15px;
   margin-top: 1px;
   margin-top: 5px;
-=======
-  color: #121417;
-  margin-top: 15px;
-  /* margin-top: 5px; */
->>>>>>> origin/main
 }
 
 .property_card {
@@ -378,14 +356,7 @@ div {
     width: 125%;
     height: 120%;
     scale: 1;
-<<<<<<< HEAD
     padding: 10px 16px;
     transform: translateY(100px);
   }
-=======
-    padding: 10px 30px;
-    transform: translateY(100px);
-  }
-
->>>>>>> origin/main
 }
