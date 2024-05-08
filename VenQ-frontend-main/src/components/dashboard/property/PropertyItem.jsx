@@ -799,7 +799,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         setContent(listing.propertyoverview);
         settruncatedcontent(content.split(" ").slice(0, maxWords).join(" "));
         setShouldtruncate(content.split(" ").length > maxWords);
-        console.log("listingData", response.data);
+        console.log("listingData for date", response.data);
         localStorage.setItem("selectedId", id);
         // listing.push(response.data);
         // console.log(listing.images.length);
@@ -2355,10 +2355,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       }}
                     >
                       <div>
-                        <span style={{ color: "#50B487", fontWeight: "800" }}>
+                        {/* <span style={{ color: "#50B487", fontWeight: "800" }}>
                           67{" "}
                         </span>
-                        <span>investors</span>
+                        <span>investors</span> */}
                       </div>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <img src={clock} style={{ marginRight: "1rem" }}></img>
@@ -2397,7 +2397,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         }}
                       >
                         <span>Funded date</span>
-                        <span style={{ fontWeight: 800 }}>Mar 31, 2024</span>
+                        <span style={{ fontWeight: 800 }}>
+                          {listing.fundingdate}
+                        </span>
                       </Box>
 
                       <Box
@@ -2408,8 +2410,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           margin: "1rem 2rem",
                         }}
                       >
-                        <span>Current valuation</span>
-                        <span style={{ fontWeight: 800 }}>INR 1,100,000</span>
+                        <span>Minimum Investment</span>
+                        <span style={{ fontWeight: 800 }}>
+                          {listing.mininvestment}
+                        </span>
                       </Box>
                     </Box>
 
@@ -3946,7 +3950,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                               }}
                                               className="unit-value-in"
                                               type="text"
-                                              value={unitPrice}
+                                              value={listing.mininvestment}
                                             />
                                           </div>
                                         </div>
@@ -4671,7 +4675,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     }}
                                     onClick={applyCoupon}
                                   >
-                                    Apply 
+                                    Apply
                                   </button>
                                 </div>
                                 <div className="unit-value total-fee">

@@ -5,7 +5,7 @@ import "./ContactUs.css";
 import Footer from "../components/footer/Footer";
 import CountryCode from "./CountryCode";
 
-const FORM_ENDPOINT = "http://localhost:4000/contactUs/post";
+const FORM_ENDPOINT = "https://venq-wo88.onrender.com/contactUs/post";
 
 function ContactUs() {
   const [submitted, setSubmitted] = useState(false);

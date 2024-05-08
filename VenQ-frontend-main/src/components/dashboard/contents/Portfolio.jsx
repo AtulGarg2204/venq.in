@@ -184,14 +184,8 @@ const Head = styled(TableCell)`
   font-family: "Inter";
 `;
 
-// function createData(id, property, location, investmentValue, rentEarned) {
-//   return { id, property, location, investmentValue, rentEarned };
-// }
 const rows = [];
 
-// function createData1(id, property, location, investmentAmount, expectedRent) {
-//   return { id, property, location, investmentAmount, expectedRent };
-// }
 const rows1 = [];
 
 const Portfolio = ({ handleBuyProperties }) => {
@@ -211,38 +205,38 @@ const Portfolio = ({ handleBuyProperties }) => {
   const closeModal = () => {
     setShowKycVerification(false);
   };
-  
-  useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        const response = await axios.get(`${URL}/listing/${id}`);
-        const listingData = response.data;
-        setLdata(listingData);
 
-        // Create an object with dynamic properties
-        console.log(listingData, "table ka data");
-        const propertyObject = {
-          propertyName: listingData?.properyheading,
-          tickerCode: "2",
-          investmentAmount: localStorage.getItem("portfolioAmount"),
-          noOfUnits: localStorage.getItem("units"), // Example of adding another property
-        };
-        setInvestmentAmount(localStorage.getItem("portfolioAmount"));
-        // Update the state with the new object
-        setPropertyArray((prevArray) => [...prevArray, propertyObject]);
+  useEffect(() => {
+    const fetchTableData = async () => {
+      const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+      if (!userinfo || !userinfo._id) {
+        console.error("Customer ID not found in localStorage");
+        return;
+      }
+      const customerId = userinfo._id;
+      try {
+        const tableData = await axios.get(
+          `${URL}/purchased/${customerId}/getDetails`
+        );
+        console.log(tableData, "purchased table data");
+        const investedProperty = tableData.data.purchased;
+        setPropertyArray(investedProperty);
+        const totalAmount = investedProperty.reduce(
+          (total, investment) => total + investment.amount,
+          0
+        );
+        setInvestmentAmount(totalAmount);
       } catch (error) {
-        console.error("Error fetching listing:", error);
+        console.error("Error fetching investments:", error.message);
+        return [];
       }
     };
-    fetchListing();
-  }, [id]); // Depend on id to refetch data when it changes
+    fetchTableData();
+  }, []);
   useEffect(() => {
     axios
       .get(`${URL}/investment/${token.email}`)
       .then((response) => {
-        // console.log("Fetched data from server:", response.data);
-        // console.log(response.data);
-
         console.log(response.data);
       })
       .catch((error) => {
@@ -259,7 +253,8 @@ const Portfolio = ({ handleBuyProperties }) => {
       });
   }, []);
 
-  console.log(propertyArray, "data");
+  console.log(propertyArray, "data of the table");
+
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const Container = styled(Box)`
     background-color: white;
@@ -391,17 +386,23 @@ const Portfolio = ({ handleBuyProperties }) => {
                         </TableRow>
                       </TableBody>
                     ) : (
-                      propertyArray.map((row) => (
-                        <TableBody class="portfolio-container">
-                          <TableRow key={row.id}>
-                            <TableCell>{row.propertyName}</TableCell>
-                            <TableCell>{row.tickerCode}</TableCell>
-                            <TableCell>{row.investmentAmount}</TableCell>
-                            <TableCell>{row.noOfUnits}</TableCell>
-                            {/* <TableCell>{`$${row.amount}`}</TableCell> */}
-                          </TableRow>
-                        </TableBody>
-                      ))
+                      propertyArray.map(
+                        (value) => (
+                          console.log(value, "table row is printed here"),
+                          (
+                            <TableBody class="portfolio-container">
+                              <TableRow key={value._id}>
+                                <TableCell>{value.propertyName}</TableCell>
+                                <TableCell>DEC</TableCell>
+
+                                <TableCell>{value.amount}</TableCell>
+                                <TableCell>{value.quantity}</TableCell>
+                                {/* <TableCell>{`$${row.amount}`}</TableCell> */}
+                              </TableRow>
+                            </TableBody>
+                          )
+                        )
+                      )
                     )}
                   </TransactionTable>
                 </Box>
@@ -1242,7 +1243,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                   ) : (
                     propertyArray.map((row, index) => (
                       <TableBody class="portfolio-container">
-                        <TableRow key={row.id}>
+                        <TableRow key={row._id}>
                           <TableCell
                             style={{ textAlign: "center", padding: "1rem 0" }}
                           >
@@ -1256,17 +1257,17 @@ const Portfolio = ({ handleBuyProperties }) => {
                           <TableCell
                             style={{ textAlign: "center", padding: "1rem 0" }}
                           >
-                            {row.tickerCode}
+                            DEC
                           </TableCell>
                           <TableCell
                             style={{ textAlign: "center", padding: "1rem 0" }}
                           >
-                            {row.investmentAmount}
+                            {row.amount}
                           </TableCell>
                           <TableCell
                             style={{ textAlign: "center", padding: "1rem 0" }}
                           >
-                            {row.noOfUnits}
+                            {row.quantity}
                           </TableCell>
                           <TableCell
                             style={{

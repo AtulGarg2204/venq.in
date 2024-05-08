@@ -16,28 +16,36 @@ import {
 import Box from "@mui/material/Box";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import circle from "./interestgraphassets/Framecircle.png"
-import apartment from "./interestgraphassets/apartment.png"
-import building from "./interestgraphassets/building.png"
-import plotting from "./interestgraphassets/plotting.png"
-import villa from "./interestgraphassets/villa.png"
-import React, { useState, useEffect } from 'react';
-import MoneyOutlinedIcon from '@mui/icons-material/MoneyOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import "./Interstgraph.css"
-import config from "../../../config"
+import circle from "./interestgraphassets/Framecircle.png";
+import apartment from "./interestgraphassets/apartment.png";
+import building from "./interestgraphassets/building.png";
+import plotting from "./interestgraphassets/plotting.png";
+import villa from "./interestgraphassets/villa.png";
+import React, { useState, useEffect } from "react";
+import MoneyOutlinedIcon from "@mui/icons-material/MoneyOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import "./Interstgraph.css";
+import config from "../../../config";
 
-import { border, fontSize, height } from '@mui/system';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { border, fontSize, height } from "@mui/system";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const First = () => {
   const [initialInvestment, setInitialInvestment] = useState(10000);
   const [monthlyContribution, setMonthlyContribution] = useState(5000);
-  const [lengthOfTime, setLengthOfTime] = useState('3');
-  const [interestRate, setInterestRate] = useState('6.00');
-  const [compoundFrequency, setCompoundFrequency] = useState('annually');
+  const [lengthOfTime, setLengthOfTime] = useState("3");
+  const [interestRate, setInterestRate] = useState("6.00");
+  const [compoundFrequency, setCompoundFrequency] = useState("annually");
   const [finalAmount, setFinalAmount] = useState(null);
   const [rentalAmount, setRentalAmount] = useState(null);
   const [interestRateData, setInterestRateData] = useState([]);
@@ -48,7 +56,6 @@ const First = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     // ---------------------for live div home----------------
     if (JSON.parse(localStorage.getItem("userinfo"))) {
       setLoggedIn(true);
@@ -68,82 +75,111 @@ const First = () => {
   }, []);
 
   const Property = styled(Card)`
-  background-color: white;
-  border-radius: 10px;
-  transition: transform 0.2s ease-in-out; 
-  &:hover {
-    transform: translateY(-10px);
-  }
-`;
+    background-color: white;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: translateY(-10px);
+    }
+  `;
 
   const SubheaderFixed = styled(Box)`
-  display: flex;
-  position: fixed;
-  top: 5px;
-  left: 5px;
-  font-size: 12px;
-  gap: 10px;
-`;
+    display: flex;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    gap: 10px;
+  `;
 
   const FixedBox = styled(Box)`
-  background-color: white;
-  color: black;
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-  font-family: "Inter";
-  font-size: 12px;
-  padding: 5px;
-  border-radius: 5px;
-`;
+    background-color: white;
+    color: black;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-family: "Inter";
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 5px;
+  `;
 
   const PriceBox = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0 14px 0;
-  margin-left: 4px;
-  align-items: center;
-`;
-  const ReturnsBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #f6f7f9;
-  font-family: "Inter";
-  color: grey;
-  > div {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
-    font-size: 15px;
-  }
-`;
+    margin: 5px 0 14px 0;
+    margin-left: 4px;
+    align-items: center;
+  `;
+  const ReturnsBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f6f7f9;
+    font-family: "Inter";
+    color: grey;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      font-size: 15px;
+    }
+  `;
 
   const Subheader = styled(Box)`
-  display: flex;
-  gap: 5px;
-  margin-top: 10px;
-  margin-left: 16px;
-  & div {
-    // height:20px;
-    border: 1px solid lightgray;
-    padding: 4px 5px;
-    font-size: 14px;
-    border-radius: 6px;
-  }
-`;
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    margin-left: 16px;
+    & div {
+      // height:20px;
+      border: 1px solid lightgray;
+      padding: 4px 5px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+  `;
 
   const Header = styled(Typography)`
-  font-size: 16px;
-  font-weight: 600;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  font-family: "Gilroy-Bold";
-  margin-top: 10px;
-  margin-left: 20px;
-`;
+    font-size: 16px;
+    font-weight: 600;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-family: "Gilroy-Bold";
+    margin-top: 10px;
+    margin-left: 20px;
+  `;
+  const handleInvestment = () => {
+    const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+
+    if (!userinfo || !userinfo._id) {
+      console.error("Customer ID not found in localStorage");
+      return;
+    }
+    const customerId = userinfo._id;
+    const requestBody = {
+      propertyName: "fifth  entry property",
+      amount: 450,
+      quantity: 7,
+    };
+    axios
+      .post(`http://localhost:4000/purchased/${customerId}`, requestBody)
+      .then((response) => {
+        console.log(response.data, "responseeeee");
+        // Check if response is OK
+        if (!response.status === 201) {
+          throw new Error("Network response was not ok");
+        }
+        console.log("Investment added successfully:", response.data);
+        // Optionally, you can perform any actions after successful addition of investment
+      })
+      .catch((error) => {
+        console.error("Error adding investment:", error);
+        // Handle errors or display error message to the user
+      });
+  };
 
   return (
     <div className="hero-new-container">
@@ -153,10 +189,11 @@ const First = () => {
           <h2 style={{ marginRight: "9px" }} className="space"></h2>
           <h2 className="invest_in_real_estate"> REAL ESTATE</h2>
         </h3>
-        <h2 className="with_just" >WITH JUST RS. 5000</h2>
-        <button
-          onClick={() => navigate("/signup")}
-          className="main-button">GET STARTED</button>
+        <h2 className="with_just">WITH JUST RS. 5000</h2>
+        {/* <button onClick={handleInvestment}>post check</button> */}
+        <button onClick={() => navigate("/signup")} className="main-button">
+          GET STARTED
+        </button>
       </div>
       <div className="live-property">
         <div className="inner-box">
@@ -165,10 +202,8 @@ const First = () => {
             <ReturnCalculator />
           </div>
 
-          <div className='property_card_container'>
+          <div className="property_card_container">
             {/* <div className='home_live_property_container_one'></div> */}
-
-
 
             {/* <Grid
                 // container
@@ -179,12 +214,12 @@ const First = () => {
                 </Grid> */}
 
             <div className="blue_container">
-              <h3 className="property_heading_label" >Dont worry its not too late</h3>
+              <h3 className="property_heading_label">
+                Dont worry its not too late
+              </h3>
               <div className="property_card">
                 {listings
-                  .filter(
-                    (listing) => listing.islive === 1
-                  )
+                  .filter((listing) => listing.islive === 1)
                   .map((listing) => (
                     <Grid
                     // key={listing._id}
@@ -206,11 +241,9 @@ const First = () => {
                         }
                         style={{ textDecoration: "none" }}
                       >
-
                         <Property sx={{ maxWidth: 365 }}>
                           <CardActionArea>
                             <CardMedia>
-
                               <Carousel
                                 showThumbs={false}
                                 statusFormatter={() => {
@@ -260,7 +293,6 @@ const First = () => {
                                       </SubheaderFixed>
                                     )}
 
-
                                     <FixedBox>
                                       {listing.properyheading.includes("Plot")
                                         ? "Plot"
@@ -270,19 +302,47 @@ const First = () => {
                                 ))}
                               </Carousel>
                             </CardMedia>
-                            <Subheader sx={{ display: "flex", justifyContent: "space-around" }} >
-                              <Box style={{ marginLeft: "-8px", fontSize: "9px", height: "fit-content" }}>
+                            <Subheader
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <Box
+                                style={{
+                                  marginLeft: "-8px",
+                                  fontSize: "9px",
+                                  height: "fit-content",
+                                }}
+                              >
                                 {listing.propertydescription.split(" | ")[0]}
                               </Box>
-                              <Box style={{ marginLeft: "20px", fontSize: "9px", height: "fit-content" }}>
+                              <Box
+                                style={{
+                                  marginLeft: "20px",
+                                  fontSize: "9px",
+                                  height: "fit-content",
+                                }}
+                              >
                                 {listing.propertydescription.split(" | ")[1]}
                               </Box>
-                              <Box style={{ marginLeft: "20px", fontSize: "9px", height: "fit-content" }}>
+                              <Box
+                                style={{
+                                  marginLeft: "20px",
+                                  fontSize: "9px",
+                                  height: "fit-content",
+                                }}
+                              >
                                 {listing.propertydescription.split(" | ")[2]}
                               </Box>
                             </Subheader>
 
-                            <Header gutterBottom variant="p" sx={{ textAlign: "start" }} component="div">
+                            <Header
+                              gutterBottom
+                              variant="p"
+                              sx={{ textAlign: "start" }}
+                              component="div"
+                            >
                               {listing.properyheading}
                             </Header>
                             {isLoggedIn && (
@@ -305,34 +365,41 @@ const First = () => {
                                   </Box>
                                 </PriceBox>
 
-
                                 <ReturnsBox>
-                                  <Box sx={{ fontSize: "0.8rem" }} >
-                                    <Typography noWrap sx={{ fontSize: "0.8rem" }} >Funding Date</Typography>
+                                  <Box sx={{ fontSize: "0.8rem" }}>
+                                    <Typography
+                                      noWrap
+                                      sx={{ fontSize: "0.8rem" }}
+                                    >
+                                      Funding Date
+                                    </Typography>
                                     <Box
                                       style={{
                                         color: "black",
                                         fontWeight: "bold",
-                                        fontSize: "0.8rem"
+                                        fontSize: "0.8rem",
                                       }}
                                     >
                                       {listing.fundingdate}
                                     </Box>
                                   </Box>
                                   <Box>
-                                    <Typography noWrap sx={{ fontSize: "0.8rem" }} >Min. Investment</Typography>
+                                    <Typography
+                                      noWrap
+                                      sx={{ fontSize: "0.8rem" }}
+                                    >
+                                      Min. Investment
+                                    </Typography>
                                     <Box
                                       style={{
                                         color: "black",
                                         fontWeight: "bold",
-                                        fontSize: "0.8rem"
+                                        fontSize: "0.8rem",
                                       }}
                                     >
                                       {listing.mininvestment}
                                     </Box>
                                   </Box>
-
-
                                 </ReturnsBox>
                               </CardContent>
                             )}
@@ -459,15 +526,8 @@ const First = () => {
               </div>
             </div>
 
-
-
-
-
             {/* <div className='home_live_property_container_three'></div> */}
           </div>
-
-
-
         </div>
       </div>
     </div>

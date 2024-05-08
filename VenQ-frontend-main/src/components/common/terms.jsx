@@ -97,9 +97,6 @@ const Terms = (props) => {
     axios
       .get(`${URL}/investment/${token.email}`)
       .then((response) => {
-        // console.log("Fetched data from server:", response.data);
-        // console.log(response.data);
-
         setUserDetail(response.data.all);
         console.log(response.data, "hello ok");
       })
@@ -110,76 +107,82 @@ const Terms = (props) => {
   const handlePayment = async () => {
     try {
       // Map user details to state variables if needed
-      userDetail.forEach((e) => {
-        setUserName(e.name);
-        setUserEmailId(e.email);
-        setUserMobNumber(e.phone);
-        setPropertyName(e.property);
-      });
+      if (userDetail && userDetail.length > 0) {
+        const user = userDetail[userDetail.length - 1];
+        setUserName(user.name);
+        setUserEmailId(user.email);
+        setUserMobNumber(user.phone);
+        setPropertyName(user.property);
 
-      const {
-        data: { order },
-      } = await axios.post("https://venq-wo88.onrender.com/payment/checkout", {
-        name: propertyName,
-        amount: props.userinvestone,
-      });
+        const {
+          data: { order },
+        } = await axios.post(`${URL}/payment/checkout`, {
+          name: propertyName,
+          amount: props.userinvestone,
+        });
 
-      // Configure Razorpay options
-      const options = {
-        key: "rzp_live_gHZIY3vAzSxfGR",
-        amount: order.amount,
-        currency: order.currency,
-        name: "Venq",
-        description: "Test Transaction",
-        image: { payment_logo },
-        order_id: order.id,
-        callback_url:
-          "https://venq-wo88.onrender.com/payment/paymentVerification",
-        prefill: {
-          name: userName,
-          email: userEmailId,
-          contact: userMobNumber,
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-        handler: async function (response) {
-          try {
-            // Check if payment is successful
-            if (response.razorpay_payment_id) {
-              // Payment successful, now create the transfer
-              const transferResponse = await axios.post(
-                "https://venq-wo88.onrender.com/payment/createTransfer",
-                {
-                  amount: props.userinvestone, // Amount to transfer (80% of payment amount)
-                  paymentId: response.razorpay_payment_id,
-                  recipientAccountId: "acc_NzJ7ixN968wfiB", // Replace with recipient's account ID
-                  notes: {
-                    description: "Transfer from your platform",
-                  },
-                }
-              );
-              // Optionally, handle the transfer creation response
-              console.log("Transfer created:", transferResponse.data);
-              window.location.href = "/success";
-            } else {
-              // Payment failed or was cancelled
-              console.error("Payment failed or cancelled:", response.error);
-              // window.location.href = "/dashboard/properties";
-              // Handle payment failure or cancellation
+        // Configure Razorpay options
+        const options = {
+          key: "rzp_test_qhajW6qJ3G4guZ",
+          // key: "rzp_test_1Gua6rylAOKvtK",
+          amount: order.amount,
+          currency: order.currency,
+          name: "Venq",
+          description: "Test Transaction",
+          image: { payment_logo },
+          order_id: order.id,
+          callback_url: `${URL}/payment/paymentVerification`,
+          prefill: {
+            name: userName,
+            email: userEmailId,
+            contact: userMobNumber,
+          },
+          notes: {
+            name: user.name,
+            propertyName: user.property,
+          },
+          theme: {
+            color: "#3399cc",
+          },
+          handler: async function (response) {
+            try {
+              // Check if payment is successful
+              if (response.razorpay_payment_id) {
+                // Payment successful, now create the transfer
+                const transferResponse = await axios.post(
+                  `${URL}/payment/createTransfer`,
+                  {
+                    amount: props.userinvestone, // Amount to transfer (80% of payment amount)
+                    paymentId: response.razorpay_payment_id,
+                    recipientAccountId: "acc_NzJ7ixN968wfiB", // Replace with recipient's account ID
+                    notes: {
+                      name: user.name,
+                      propertyName: user.property,
+                    },
+                  }
+                );
+                // Optionally, handle the transfer creation response
+                console.log("Transfer created:", transferResponse.data);
+                // window.location.href = "/success";
+                window.location.href = `/success?name=${encodeURIComponent(
+                  user.name
+                )}&propertyName=${encodeURIComponent(user.property)}`;
+              } else {
+                // Payment failed or was cancelled
+                console.error("Payment failed or cancelled:", response.error);
+                // window.location.href = "/dashboard/properties";
+                // Handle payment failure or cancellation
+              }
+            } catch (error) {
+              console.error("Error creating transfer:", error);
             }
-          } catch (error) {
-            console.error("Error creating transfer:", error);
-          }
-        },
-      };
+          },
+        };
 
-      // Initialize Razorpay and open payment dialog
-      const rzp1 = new Razorpay(options);
-      rzp1.open();
+        // Initialize Razorpay and open payment dialog
+        const rzp1 = new Razorpay(options);
+        rzp1.open();
+      }
     } catch (error) {
       console.error("Error handling payment:", error);
       // Handle errors appropriately
