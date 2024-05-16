@@ -21,6 +21,7 @@ const UserInterests = () => {
   const [interestedInvestorsCount, setInterestedInvestorsCount] = useState(0);
   const [totalCompletedAmount, setTotalCompletedAmount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [completedData, setcompletedData] = useState([]);
   const URL = config.URL;
   const navigate = useNavigate();
 
@@ -28,19 +29,27 @@ const UserInterests = () => {
     const fetchInvestments = async () => {
       try {
         const response = await axios.get(`${URL}/investment`);
+
         const filteredInvestments = response.data.filter(
           (investment) => investment.property === propertyid
         );
         setInvestments(filteredInvestments);
-
-        const completedCount = filteredInvestments.filter(
-          (investment) => investment.isCompleted
-        ).length;
+        const responseCompleted = await axios.get(`${URL}/purchased/all/`);
+        console.log(
+          "purchased data retreive succefully",
+          responseCompleted.data
+        );
+        const completedData = responseCompleted.data.filter(
+          (investment) => investment.propertyName === propertyid
+        );
+        console.log("completedData", completedData);
+        setcompletedData(completedData);
+        const completedCount = completedData.length;
         const interestedCount = filteredInvestments.filter(
           (investment) => !investment.isCompleted
         ).length;
-        const totalAmount = filteredInvestments.reduce((total, investment) => {
-          return investment.isCompleted ? total + investment.amount : total;
+        const totalAmount = completedData.reduce((total, investment) => {
+          return total + investment.amount;
         }, 0);
 
         setCompletedInvestorsCount(completedCount);
@@ -63,10 +72,7 @@ const UserInterests = () => {
   };
 
   const filteredInvestments = investments.filter((investment) => {
-    return (
-      (displayType === "completed" && investment.isCompleted) ||
-      (displayType === "interested" && !investment.isCompleted)
-    );
+    return displayType === "interested" && !investment.isCompleted;
   });
 
   const filteredResults = filteredInvestments.filter((investment) =>
@@ -74,14 +80,40 @@ const UserInterests = () => {
   );
 
   const handleViewDetails = (investment) => {
-    // Navigate to the details page with the investment ID as route parameter
     navigate(`/investorDetails/${investment._id}`, { state: { investment } });
+  };
+  const handleSendMail = (
+    name,
+    email,
+    propertyName,
+    paymentAmount,
+    quantity
+  ) => {
+    const requestBodyMail = {
+      investorName: name,
+      investorEmail: email,
+      propertyName: propertyName,
+      paymentAmount: paymentAmount,
+      numberOfUnits: quantity,
+    };
+    axios
+      .post(`${URL}/sendmail/`, requestBodyMail)
+      .then((response) => {
+        console.log(response.data, "responseeeee");
+        if (!response.status === 201) {
+          throw new Error("Network response was not ok");
+        }
+        console.log("Email sent successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+      });
   };
 
   return (
     <div>
       <h1 style={{ textAlign: "center", fontFamily: "Gilroy-Bold" }}>
-        Investments for Property: {propertyid}
+        Investments for Property : {propertyid}
       </h1>
       <div
         style={{
@@ -110,7 +142,7 @@ const UserInterests = () => {
           style={{ padding: "10px", textAlign: "center", borderRadius: "5px" }}
         >
           <h3 style={{ fontFamily: "Gilroy-Bold" }}>Apply for Allotment</h3>
-          <p style={{ fontSize: "20px" }}></p>
+          <p style={{ fontSize: "20px" }}>0</p>
         </Paper>
         <Paper
           elevation={3}
@@ -164,24 +196,53 @@ const UserInterests = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredResults.map((investment) => (
-              <TableRow key={investment._id}>
-                <TableCell>{investment.name}</TableCell>
-                <TableCell>{investment.phone}</TableCell>
-                <TableCell>{investment.email}</TableCell>
-                <TableCell>{investment.property}</TableCell>
-                <TableCell>{investment.amount}</TableCell>
-                <TableCell>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleViewDetails(investment)}
-                  >
-                    View Details
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {displayType === "interested" &&
+              filteredResults.map((investment) => (
+                <TableRow key={investment._id}>
+                  <TableCell>{investment.name}</TableCell>
+                  <TableCell>{investment.phone}</TableCell>
+                  <TableCell>{investment.email}</TableCell>
+                  <TableCell>{investment.property}</TableCell>
+                  <TableCell>{investment.amount}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleViewDetails(investment)}
+                    >
+                      View Details
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            {displayType === "completed" &&
+              completedData.map((investment) => (
+                <TableRow key={investment._id}>
+                  <TableCell>{investment.customerId.name}</TableCell>
+                  <TableCell>{investment.customerId.phone}</TableCell>
+                  <TableCell>{investment.customerId.email}</TableCell>
+                  <TableCell>{investment.propertyName}</TableCell>
+                  <TableCell>{investment.amount}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      // onClick={() => handleViewDetails(investment)}
+                      onClick={() =>
+                        handleSendMail(
+                          investment.customerId.name,
+                          investment.customerId.email,
+                          investment.propertyName,
+                          investment.amount,
+                          investment.quantity
+                        )
+                      }
+                    >
+                      Send EOI
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

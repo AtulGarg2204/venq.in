@@ -184,7 +184,7 @@ const PendingKyc = () => {
     try {
       const getdet = await axios.get(`${URL}/kyc/${u}`);
       if (getdet) {
-        console.log(getdet.data);
+        console.log("user data", getdet.data);
         setkycdata(getdet.data.data);
       }
     } catch (error) {
@@ -227,7 +227,7 @@ const PendingKyc = () => {
       .get(`${URL}/auth/user/pendingkyc/all`)
       .then((response) => {
         // console.log("Fetched data from server:", response.data);
-        console.log(response.data);
+        console.log("server data ", response.data.data);
         setUsers(response.data.data);
       })
       .catch((error) => {
@@ -487,22 +487,6 @@ const PendingKyc = () => {
                   </div>
 
                   <ToastContainer />
-                  {/* <div className="action-buttons">
-        <button
-          id="prev"
-          disabled={currentStep === 1}
-          onClick={() => handleButtonClick(currentStep - 1)}
-        >
-          Prev
-        </button>
-        <button
-          id="next"
-          disabled={currentStep === 4}
-          onClick={() => handleButtonClick(currentStep + 1)}
-        >
-          Next
-        </button>
-      </div>   */}
 
                   {!otpss && (
                     <button
@@ -1046,7 +1030,7 @@ const PendingKyc = () => {
                             backgroundColor: "yellow",
                           }}
                         >
-                          Wating for Approval
+                          Waiting for Approval
                         </button>
                       )}
                       {user.isVerified == 2 && (

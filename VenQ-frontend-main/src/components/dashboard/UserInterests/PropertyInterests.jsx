@@ -88,15 +88,27 @@ const PropertyInterests = () => {
       let arr = JSON.parse(localStorage.getItem("interestusers1"));
       setvarr(arr);
       console.log(arr);
-      // console.log(arr);
-      // arr.map((elem)=>{
-      // 	rows.push(createData(elem.contactnumber,elem.email,elem.amount,<Button onClick={()=>{
-      // 		navigate(/dashboard/properties/view/${elem.property})
-      // 	}} sx={{
-      // 		backgroundColor:'blue',
-      // 		color:'white'
-      // 	}}>View Property</Button>));
-      // });
+      console.log(arr);
+      arr.map((elem) => {
+        rows.push(
+          createData(
+            elem.contactnumber,
+            elem.email,
+            elem.amount,
+            <Button
+              onClick={() => {
+                navigate(`/dashboard/properties/view/${elem.property}`);
+              }}
+              sx={{
+                backgroundColor: "blue",
+                color: "white",
+              }}
+            >
+              View Property
+            </Button>
+          )
+        );
+      });
       setCruds(arr);
     } catch (error) {
       console.log("error", error);

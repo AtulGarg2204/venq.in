@@ -11,7 +11,7 @@ const Allinvestorslist = () => {
   const [investments, setInvestments] = useState([]);
   const [displayType, setDisplayType] = useState("completed");
   const URL = config.URL;
-
+  const [purchased, setPurchased] = useState([]);
   useEffect(() => {
     axios
       .get(`${URL}/investment`)
@@ -22,11 +22,18 @@ const Allinvestorslist = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+    axios
+      .get(`${URL}/purchased/all/`)
+      .then((response) => {
+        console.log(" purchased data ", response.data);
+        setPurchased(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
-  const completedInvestors = investments.filter(
-    (investor) => investor.isCompleted
-  );
+  const completedInvestors = purchased;
   const interestedInvestors = investments.filter(
     (investor) => !investor.isCompleted
   );
@@ -50,7 +57,21 @@ const Allinvestorslist = () => {
       </TableBody>
     );
   };
-
+  const renderCompletedRows = (purchased) => {
+    return (
+      <TableBody>
+        {purchased.map((investor) => (
+          <TableRow key={investor._id}>
+            <TableCell>{investor.customerId.name}</TableCell>
+            <TableCell>{investor.customerId.phone}</TableCell>
+            <TableCell>{investor.customerId.email}</TableCell>
+            <TableCell>{investor.propertyName}</TableCell>
+            <TableCell>{investor.amount}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    );
+  };
   return (
     <div style={{ maxWidth: "100%", overflowX: "auto" }}>
       <h1 style={{ textAlign: "center", fontFamily: "Gilroy-Bold" }}>
@@ -97,7 +118,7 @@ const Allinvestorslist = () => {
             </TableCell>
           </TableRow>
         </TableHead>
-        {displayType === "completed" && renderInvestorRows(completedInvestors)}
+        {displayType === "completed" && renderCompletedRows(completedInvestors)}
         {displayType === "interested" &&
           renderInvestorRows(interestedInvestors)}
       </Table>
