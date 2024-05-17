@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+
 import { useParams } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,7 +11,26 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import config from "../../../config";
-import TextField from "@mui/material/TextField";
+
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  ImageList,
+  ImageListItem,
+  ThemeProvider,
+  Tooltip,
+  Typography,
+  createTheme,
+  styled,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  useMediaQuery,
+  TextField,
+} from "@mui/material";
 
 const UserInterests = () => {
   const { propertyid } = useParams();
@@ -22,6 +41,7 @@ const UserInterests = () => {
   const [totalCompletedAmount, setTotalCompletedAmount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [completedData, setcompletedData] = useState([]);
+  const [verificationStatus, setVerificationStatus] = useState({});
   const URL = config.URL;
   const navigate = useNavigate();
 
@@ -45,6 +65,11 @@ const UserInterests = () => {
         console.log("completedData", completedData);
         setcompletedData(completedData);
         const completedCount = completedData.length;
+        const initialVerificationStatus = {};
+        completedData.forEach((investment) => {
+          initialVerificationStatus[investment._id] = false;
+        });
+        setVerificationStatus(initialVerificationStatus);
         const interestedCount = filteredInvestments.filter(
           (investment) => !investment.isCompleted
         ).length;
@@ -81,33 +106,6 @@ const UserInterests = () => {
 
   const handleViewDetails = (investment) => {
     navigate(`/investorDetails/${investment._id}`, { state: { investment } });
-  };
-  const handleSendMail = (
-    name,
-    email,
-    propertyName,
-    paymentAmount,
-    quantity
-  ) => {
-    const requestBodyMail = {
-      investorName: name,
-      investorEmail: email,
-      propertyName: propertyName,
-      paymentAmount: paymentAmount,
-      numberOfUnits: quantity,
-    };
-    axios
-      .post(`${URL}/sendmail/`, requestBodyMail)
-      .then((response) => {
-        console.log(response.data, "responseeeee");
-        if (!response.status === 201) {
-          throw new Error("Network response was not ok");
-        }
-        console.log("Email sent successfully:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error sending email:", error);
-      });
   };
 
   return (
@@ -224,10 +222,10 @@ const UserInterests = () => {
                   <TableCell>{investment.propertyName}</TableCell>
                   <TableCell>{investment.amount}</TableCell>
                   <TableCell>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="primary"
-                      // onClick={() => handleViewDetails(investment)}
+                      disabled={!verificationStatus[investment._id]} // Disable the button if isVerified is false
                       onClick={() =>
                         handleSendMail(
                           investment.customerId.name,
@@ -239,6 +237,26 @@ const UserInterests = () => {
                       }
                     >
                       Send EOI
+                    </Button> */}
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      // onClick={() => handleViewDetails(investment)}
+                      onClick={() =>
+                        navigate("dashboard/kyc-details", {
+                          state: {
+                            email: investment.customerId.email,
+                            property: investment.propertyName,
+                            amount: investment.amount,
+                            quantity: investment.quantity,
+                            name: investment.customerId.name,
+                            id: investment._id,
+                          },
+                        })
+                      }
+                    >
+                      Show Details
                     </Button>
                   </TableCell>
                 </TableRow>

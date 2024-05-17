@@ -61,6 +61,7 @@ import OtplessLogin from "./components/OtplessLogin/OtplessLogin";
 import OptlessSignup from "./components/OtplessSignup/OptlessSignup";
 import Name from "./components/OtplessSignup/Name";
 import NewHome from "./components/NewHome/NewHome";
+import Kyc_details from "./components/dashboard/UserInterests/Kyc_details";
 function App() {
   return (
     <DataProvider>
@@ -108,13 +109,17 @@ function App() {
           <Route path="/allinterests/view" element={<Allinterests />} />
           <Route path="/properties" element={<PropertyPage />} />
           <Route path="dashboard/*" element={<Dashboard />}>
+            <Route
+              path="allpropertyinterests/userinterests/:propertyid/"
+              element={<UserInterests />}
+            />
+            <Route path="kyc-details" element={<Kyc_details />} />
             <Route path="properties" element={<Properties />} />
             <Route path="properties/view/:id" element={<PropertyItem />} />
             <Route path="properties/view/photos/:id" element={<Photos />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="rewards" element={<Rewards />} />
-
             <Route path="cart" element={<Cart />} />
             <Route path="profile" element={<Profile />} />
             <Route path="bookmarks" element={<Bookmarks />} />
@@ -122,14 +127,12 @@ function App() {
             <Route path="rewards/referrals" element={<Referrals />} />
             <Route path="allinvestors" element={<PendingKyc />} />
             <Route path="allinvestorslist" element={<Allinvestorslist />} />
-            <Route
-              path="allpropertyinterests/userinterests/:propertyid"
-              element={<UserInterests />}
-            />
+
             <Route
               path="allpropertyinterests"
               element={<PropertyInterests />}
             ></Route>
+
             <Route path="addlisting/*" element={<AdminDashboard />}>
               <Route path="details" element={<Addlisting />} />
               <Route path="highlights" element={<FormPersonalDetails />} />

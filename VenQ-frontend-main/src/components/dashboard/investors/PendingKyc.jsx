@@ -38,7 +38,6 @@ const StyledPopup = styled(Popup)`
     color: white;
   }
 `;
-
 const PendingKyc = () => {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
@@ -180,7 +179,9 @@ const PendingKyc = () => {
     setVisible(!visible);
   };
 
+  // show details of user
   const showDetails = async (u) => {
+    
     try {
       const getdet = await axios.get(`${URL}/kyc/${u}`);
       if (getdet) {

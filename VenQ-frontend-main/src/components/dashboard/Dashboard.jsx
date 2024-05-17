@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import Properties from "./property/Properties";
 import Portfolio from "./contents/Portfolio";
@@ -52,6 +50,7 @@ import AdminDashboard from "./rewards/AdminDashboard";
 import UserInterests from "./UserInterests/UserInterests";
 import PendingKyc from "./investors/PendingKyc";
 import Allinvestorslist from "./listings/Allinvestorslist";
+import Kyc_details from "./UserInterests/Kyc_details";
 
 const drawerWidth = 250;
 const Drawer = styled(MuiDrawer, {
@@ -93,7 +92,7 @@ const Options = styled(Link)`
   color: ${({ selected }) => (selected ? "black" : "rgb(112,111,111)")};
   &:hover {
     background-color: ${({ selected }) =>
-    selected ? "#cbe5ffb9" : "#cbe5ffb9"};
+      selected ? "#cbe5ffb9" : "#cbe5ffb9"};
     color: black;
   }
 `;
@@ -171,7 +170,7 @@ const NestedListContainer = styled(Box)`
   width: 250px;
   box-shadow: 0 1px 2px 1px black;
   z-index: 9;
-  overflow:hidden;
+  overflow: hidden;
 
   @media (max-width: 600px) {
     // Set your preferred max-width for mobile
@@ -750,6 +749,10 @@ const Dashboard = () => {
           <Route
             path="allpropertyinterests/userinterests/:propertyid"
             element={<UserInterests />}
+          />
+          <Route
+            path="allpropertyinterests/userinterests/:propertyid/dashboard/kyc-details"
+            element={<Kyc_details />}
           />
           <Route path="allpropertyinterests" element={<PropertyInterests />} />
           <Route path="allinvestors" element={<PendingKyc />} />
