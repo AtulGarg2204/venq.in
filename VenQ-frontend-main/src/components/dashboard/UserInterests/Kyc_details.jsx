@@ -21,6 +21,7 @@ import {
   useMediaQuery,
   TextField,
 } from "@mui/material";
+
 const Kyc_details = () => {
   const location = useLocation();
   const { email, id, property, amount, quantity, name } = location.state;
@@ -29,17 +30,19 @@ const Kyc_details = () => {
   const [showData, setShowData] = useState(false);
   const [Adharname, setAdharName] = useState(name);
   const URL = config.URL;
+
   const handleShowDetails = async () => {
     try {
       const response = await axios.get(`${URL}/kyc/${email}`);
       setUserData(response);
+      console.log(response.data);
+      setAdharName(response.data.data.full_name);
       setShowData(true);
-      setAdharName(userData.data.data.full_name);
-      console.log("user data adhar", userData);
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleSendEmail = () => {
     const requestBodyMail = {
       investorName: Adharname,
@@ -52,7 +55,7 @@ const Kyc_details = () => {
       .post(`${URL}/sendmail/`, requestBodyMail)
       .then((response) => {
         console.log(response.data, "responseeeee");
-        if (!response.status === 201) {
+        if (response.status !== 201) {
           throw new Error("Network response was not ok");
         }
         console.log("Email sent successfully:", response.data);
@@ -61,6 +64,7 @@ const Kyc_details = () => {
         console.error("Error sending email:", error);
       });
   };
+
   useEffect(() => {
     const checkVerification = async () => {
       try {
@@ -79,29 +83,32 @@ const Kyc_details = () => {
 
     checkVerification();
   }, [email]);
+
   return !verified ? (
     <div>User not verified</div>
   ) : (
     <div>
       <p>Verified user</p>
-      <Button
-        variant="contained"
-        color="primary"
-        // onClick={() => handleViewDetails(investment)}
-        onClick={() => handleShowDetails()}
-      >
+      <Button variant="contained" color="primary" onClick={handleShowDetails}>
         Show Details
       </Button>
       {showData ? (
         <div>
-          {" "}
-          details fetch successfully
-          <p>Aadhar number : {userData.data.data.aadhaar_number}</p>
-          <p>Full name : {userData.data.data.full_name}</p>
-          <Button onClick={handleSendEmail()}>SEND EOI</Button>
+          <p>Aadhar number: {userData.data.data.aadhaar_number}</p>
+          <p>Full name: {userData.data.data.full_name}</p>
+          <p>Gender: {userData.data.data.gender}</p>
+          <p>Category: {userData.data.data.category}</p>
+          <p>Date of birth: {userData.data.data.dob}</p>
+          <p>Bank Name: {userData.data.data.bankName}</p>
+          <p>IFSC CODE: {userData.data.data.ifsc_code}</p>
+          <p>PAN NUMBER: {userData.data.data.pan_number}</p>
+          <p>Phone Number: {userData.data.data.phone}</p>
+          <Button variant="contained" color="primary" onClick={handleSendEmail}>
+            SEND EOI
+          </Button>
         </div>
       ) : (
-        <div>Cant Fetch the verified details of user</div>
+        <div>Can't Fetch the verified details of user</div>
       )}
     </div>
   );
