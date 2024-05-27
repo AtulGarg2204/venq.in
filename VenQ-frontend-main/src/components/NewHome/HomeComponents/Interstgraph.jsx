@@ -1076,9 +1076,8 @@ const InterestGraph = () => {
             <div className='compound_calculater_monthlyInvestment'>
               <div className='compound_calculater_monthlyInvestment_container_one'>
                 <label>
-                  Monthly Contribution(₹): </label>
+                  Monthly Contribution (₹): </label>
                 <input
-
                   type="number"
                   value={monthlyContribution}
                   onChange={(e) => setMonthlyContribution(parseInt(e.target.value))}

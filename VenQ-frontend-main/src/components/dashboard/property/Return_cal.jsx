@@ -1,6 +1,25 @@
 import React, { useState } from "react";
-import "./ReturnCalculator.css";
-const ReturnCalculator = () => {
+import "./Return_cal.css";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  ImageList,
+  ImageListItem,
+  ThemeProvider,
+  Tooltip,
+  Typography,
+  createTheme,
+  styled,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  useMediaQuery,
+  TextField,
+} from "@mui/material";
+const Return_cal = () => {
   const [initialInvestment, setInitialInvestment] = useState(20000);
   const [finalInvestment, setFinalInvestment] = useState(
     initialInvestment + initialInvestment * 0.3
@@ -8,14 +27,17 @@ const ReturnCalculator = () => {
   const [year, setYear] = useState(3);
   return (
     <div className="cal-image">
-      <p
+      <Typography
         style={{
-          fontSize: "16px",
-          fontWeight: "600",
+          fontSize: "18px",
+          fontWeight: 600,
+          fontFamily: "Inter",
+          color: "#44475b",
+          padding: "20px 0",
         }}
       >
         ₹{initialInvestment} One Time
-      </p>
+      </Typography>
       <input
         className="cal-radio-input"
         type="range"
@@ -25,14 +47,16 @@ const ReturnCalculator = () => {
         value={initialInvestment}
         onChange={(e) => setInitialInvestment(parseInt(e.target.value))}
         style={{
-          marginTop: "30px",
-          marginBottom: "30px",
+          marginTop: "25px",
+          marginBottom: "60px",
         }}
       />
       <p
         style={{
           fontSize: "16px",
-          fontWeight: "600",
+          fontWeight: 400,
+          fontFamily: "Inter",
+          color: "#44475b",
         }}
       >
         Over the Past
@@ -46,7 +70,7 @@ const ReturnCalculator = () => {
             height: "30px",
             borderRadius: "20px",
             marginRight: "10px",
-            marginLeft: "-10px",
+            // marginLeft: "-10px",
           }}
           onClick={() => {
             setYear(3);
@@ -90,15 +114,32 @@ const ReturnCalculator = () => {
         </button>
       </div>
       <hr />
-      <p style={{ marginTop: "20px", marginBottom: "20px", fontSize: "1rem" }}>
+      <Typography
+        style={{
+          fontSize: "15px",
+          color: "rgb(112,111,111)",
+          fontFamily: "Inter",
+          marginTop: "30px",
+        }}
+      >
         Total investment of ₹ {initialInvestment}
-      </p>
-      <p className="would_have_become">
+      </Typography>
+      <Typography
+        style={{
+          fontSize: "18px",
+          fontWeight: 600,
+          fontFamily: "Inter",
+          color: "#44475b",
+          padding: "20px 0",
+        }}
+      >
         Would have become ₹
         <span
           style={{
-            fontSize: "1.125rem",
-            fontWeight: "600",
+            fontSize: "18px",
+            fontWeight: 600,
+            fontFamily: "Inter",
+            padding: "20px 0",
             color: "#00B368",
           }}
         >
@@ -106,9 +147,9 @@ const ReturnCalculator = () => {
           {year === 5 && initialInvestment + initialInvestment * 1.5}
           {year === 7 && initialInvestment + initialInvestment * 2.1}{" "}
         </span>
-      </p>
+      </Typography>
     </div>
   );
 };
 
-export default ReturnCalculator;
+export default Return_cal;

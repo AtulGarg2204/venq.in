@@ -221,12 +221,17 @@ const Footer = (addTopMargin) => {
             <div className="home_footer_content_container_two">
               <h1>COMPANY</h1>
               <Link to="blog" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600"   }}>
+                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
                   Blog
                 </p>
               </Link>
               <Link to="contactUs" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" , } } className="contact">
+                <p
+                  style={{
+                    color: "rgb(83, 83, 83)",
+                    fontWeight: "600",
+                  }}
+                >
                   Contact Us
                 </p>
               </Link>
@@ -278,7 +283,9 @@ const Footer = (addTopMargin) => {
         <div className="home_footer_allrights_main">
           <div className="home_footer_allrights_container_one"></div>
           <div className="home_footer_allrights_container_two">
-            <h2 className="copyright">Copyright © 2024 | All Rights Reserved.</h2>
+            <h2 className="copyright">
+              Copyright © 2024 | All Rights Reserved.
+            </h2>
           </div>
         </div>
 

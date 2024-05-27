@@ -453,6 +453,7 @@ const First = () => {
                                       <div
                                         style={{
                                           marginTop: "10px",
+                                          textAlign: "center",
                                         }}
                                       >
                                         <Link

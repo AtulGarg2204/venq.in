@@ -390,6 +390,7 @@ const AdminDashboard = () => {
         documentFile: "",
         listingDate: "",
       });
+      console.log(formData , "formadaaattaaaa");
     } catch (error) {
       console.error("Error submitting data:", error);
     }

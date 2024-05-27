@@ -34,16 +34,7 @@ function UserInfoItem({ userName, lastSeen, role }) {
   );
 }
 
-// function SideBarItem({ imgSrc, imgAlt, text }) {
-//   return (
-//     <div className="sidebar-item">
-//       <div className="icon-wrapper">
-//         <img loading="lazy" src={imgSrc} alt={imgAlt} className="icon" />
-//       </div>
-//       <div className="sidebar-item-text">{text}</div>
-//     </div>
-//   );
-// }
+
 <script
   type="text/javascript"
   id="hs-script-loader"

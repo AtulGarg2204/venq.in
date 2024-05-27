@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 import config from "../../../config";
 import {
   Box,
@@ -59,9 +61,11 @@ const Kyc_details = () => {
           throw new Error("Network response was not ok");
         }
         console.log("Email sent successfully:", response.data);
+        toast.success("EOI send successfully");
       })
       .catch((error) => {
         console.error("Error sending email:", error);
+        toast.error("EOI  not send");
       });
   };
 
@@ -100,6 +104,7 @@ const Kyc_details = () => {
           <p>Category: {userData.data.data.category}</p>
           <p>Date of birth: {userData.data.data.dob}</p>
           <p>Bank Name: {userData.data.data.bankName}</p>
+          <p>Account number: {userData.data.data.ac_no}</p>
           <p>IFSC CODE: {userData.data.data.ifsc_code}</p>
           <p>PAN NUMBER: {userData.data.data.pan_number}</p>
           <p>Phone Number: {userData.data.data.phone}</p>

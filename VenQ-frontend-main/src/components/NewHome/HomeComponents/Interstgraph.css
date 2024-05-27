@@ -22,7 +22,7 @@
   margin-top: 10px;
 }
 
-.compound_calculater_initInvest_container_one>input {
+.compound_calculater_initInvest_container_one > input {
   width: 150px;
   height: 15px;
   border: none;
@@ -34,10 +34,10 @@
   font-weight: 700;
   color: rgb(43, 43, 43);
   text-align: right;
-  margin-left: 90px;
+  margin-left: 80px;
 }
 
-.compound_calculater_initInvest_container_one>label {
+.compound_calculater_initInvest_container_one > label {
   color: #121c30;
   font-size: 18px;
   font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder", sans-serif;
@@ -45,25 +45,24 @@
   line-height: 43.93px;
 }
 
-.compound_calculater_monthlyInvestment>label {
+.compound_calculater_monthlyInvestment > label {
   margin-top: 10px;
 }
 
 .compound_calculater_monthlyInvestment_container_one {
   font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder",
     "sans-serif";
-
+  margin-bottom: 20px;
   color: #121c30;
   font-size: 18px;
   font-weight: 500;
   line-height: 43.93px;
 }
 
-.compound_calculater_monthlyInvestment_container_one>input {
-  width: 150px;
+.compound_calculater_monthlyInvestment_container_one > input {
+  width: 130px;
   height: 15px;
   border: none;
-  /* border-bottom: 2px solid #ccc;  */
   outline: none;
   padding: 8px 12px;
   font-size: 18px;
@@ -82,7 +81,7 @@
   margin-top: 5px;
 }
 
-.compound_calculater_totalamount_main>div {
+.compound_calculater_totalamount_main > div {
   text-align: center;
   height: 100%;
   border-radius: 8px;
@@ -99,7 +98,7 @@
   gap: 10px;
 }
 
-.compound_calculater_selectbox_main>div>select {
+.compound_calculater_selectbox_main > div > select {
   width: 100%;
   height: 30px;
   font-size: 16px;
@@ -110,11 +109,11 @@
   background-color: rgb(224, 255, 232);
 }
 
-.compound_calculater_totalamount_container_one>h1 {
+.compound_calculater_totalamount_container_one > h1 {
   font-size: 20px;
 }
 
-.compound_calculater_totalamount_container_one>p {
+.compound_calculater_totalamount_container_one > p {
   font-size: 16px;
   margin-top: -7px;
 }
@@ -128,14 +127,14 @@
   /* border: 2px solid black; */
 }
 
-.compound_calculater_makemoney_main>p {
+.compound_calculater_makemoney_main > p {
   color: rgba(82, 191, 131, 1);
   font-size: 20px;
   margin-top: 5px;
   /* margin-left: 5px; */
 }
 
-.compound_calculater_makemoney_main>h3 {
+.compound_calculater_makemoney_main > h3 {
   font-size: 48px;
   margin-top: 10px;
   margin-bottom: 40px;
@@ -148,13 +147,13 @@
   height: 25px;
 }
 
-.compound_calculater_annualrental_one>p {
-  font-size: 18px;
+.compound_calculater_annualrental_one > p {
+  font-size: 17px;
   margin-top: 2px;
   font-weight: 600;
 }
 
-.compound_calculater_annualrental_main>p {
+.compound_calculater_annualrental_main > p {
   width: 65%;
   color: gray;
 }
@@ -165,7 +164,7 @@
   align-items: center;
 }
 
-.compound_calculater_annualrental_two>p {
+.compound_calculater_annualrental_two > p {
   margin-top: -3px;
   font-size: 22px;
   font-weight: 700;
@@ -180,14 +179,14 @@
   margin-top: 20px;
 }
 
-.compound_calculater_annualrental_three>p {
-  font-size: 18px;
+.compound_calculater_annualrental_three > p {
+  font-size: 17px;
   margin-top: 2px;
   font-weight: 600;
   text-wrap: nowrap;
 }
 
-.compound_calculater_makemoney_main>button {
+.compound_calculater_makemoney_main > button {
   background-color: #121c30;
   width: 200px;
   height: 50px;
@@ -202,7 +201,6 @@
   padding: 30px;
   background-color: #f7f7f7;
   border-radius: 20px;
-
 }
 
 .bottom-half-circle {
@@ -232,7 +230,7 @@
     /* border: 2px solid black; */
   }
 
-  .compound_calculater_form_main>form {
+  .compound_calculater_form_main > form {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -264,7 +262,7 @@
     gap: 5px;
   }
 
-  .compound_calculater_totalamount_main>div {
+  .compound_calculater_totalamount_main > div {
     height: 100%;
     width: 100%;
     display: flex;
@@ -274,17 +272,17 @@
     gap: 3px;
   }
 
-  .compound_calculater_totalamount_main>div>p {
+  .compound_calculater_totalamount_main > div > p {
     font-size: 0.8rem;
     text-wrap: nowrap;
   }
 
-  .compound_calculater_totalamount_main>div>h1 {
+  .compound_calculater_totalamount_main > div > h1 {
     font-size: 1.2rem;
     text-wrap: nowrap;
   }
 
-  .compound_calculater_monthlyInvestment_container_one>input {
+  .compound_calculater_monthlyInvestment_container_one > input {
     width: 100px;
   }
 
@@ -302,44 +300,46 @@
     justify-content: space-between;
   }
 
-    .compound_calculater_initInvest_container_one > label {
-      text-wrap: nowrap;
-      text-align: center;
-    }
+  .compound_calculater_initInvest_container_one > label {
+    text-wrap: nowrap;
+    text-align: center;
+  }
 
-  .compound_calculater_initInvest_container_one>input {
+  .compound_calculater_initInvest_container_one > input {
     margin-left: 9px;
     text-align: center;
     text-wrap: nowrap;
-        transform: translateX(24px);
+    transform: translateX(24px);
   }
 
-  .compound_calculater_makemoney_main>h3 {
+  .compound_calculater_makemoney_main > h3 {
     font-size: 35px;
   }
 
   .compound_calculater_monthlyInvestment_container_one {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
-  .compound_calculater_monthlyInvestment_container_one>label {
+  .compound_calculater_monthlyInvestment_container_one > label {
     text-wrap: nowrap;
   }
 
-  .compound_calculater_monthlyInvestment_container_one>input {
+  .compound_calculater_monthlyInvestment_container_one > input {
     margin-left: 21px;
     text-align: center;
     text-wrap: nowrap;
+    width: 40%;
+    background-color: rgb(24, 158, 158);
   }
 
-  .compound_calculater_annualrental_two>p {
+  .compound_calculater_annualrental_two > p {
     overflow: hidden;
     width: 44%;
   }
 
-  .compound_calculater_annualrental_two>svg {
+  .compound_calculater_annualrental_two > svg {
     position: absolute;
     left: 50%;
     top: 7px;
@@ -355,13 +355,11 @@
     justify-content: space-between;
   }
 
-
-
-  .compound_calculater_totalamount_main>div>h1 {
+  .compound_calculater_totalamount_main > div > h1 {
     font-size: 18px;
   }
 
-  .compound_calculater_totalamount_main>div>p {
+  .compound_calculater_totalamount_main > div > p {
     font-size: 14px;
   }
 
@@ -371,7 +369,6 @@
     padding: 20px;
     border-radius: 8px;
     padding-left: 20px;
-
   }
 
   .compound_calculater_annualrental_one {
@@ -379,7 +376,7 @@
     margin-top: 5px;
   }
 
-  .compound_calculater_annualrental_main>p {
+  .compound_calculater_annualrental_main > p {
     width: 70%;
     color: gray;
   }
@@ -392,7 +389,7 @@
     margin-top: 15px;
   }
 
-  .compound_calculater_makemoney_main>button {
+  .compound_calculater_makemoney_main > button {
     margin-top: 20px;
   }
 
@@ -415,7 +412,7 @@
   /* background-color: yellow; */
 }
 
-.home_live_property_main>div {
+.home_live_property_main > div {
   height: auto;
 }
 
@@ -426,7 +423,7 @@
   margin-top: -120px;
 }
 
-.home_live_property_heading>h1 {
+.home_live_property_heading > h1 {
   font-size: 38px;
   margin-bottom: 30px;
 }
@@ -454,7 +451,7 @@
   margin: auto;
 }
 
-.home_circle_image>img {
+.home_circle_image > img {
   margin-left: -20px;
   display: block;
   width: 100%;
@@ -489,7 +486,7 @@
   width: 350px;
 }
 
-.property_card{
+.property_card {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -534,12 +531,12 @@
     margin-bottom: -40px;
   }
 
-  .home_circle_content_onresponsive_heading>h3 {
+  .home_circle_content_onresponsive_heading > h3 {
     text-align: center;
     color: rgba(82, 191, 131, 1);
   }
 
-  .home_circle_content_onresponsive_heading>h1 {
+  .home_circle_content_onresponsive_heading > h1 {
     text-align: center;
     color: black;
     font-size: 35px;
@@ -568,17 +565,17 @@
     background-image: url("https://framerusercontent.com/images/A9K6u1k9NVPu4liv8LSQemLVk.png?scale-down-to=1024");
   }
 
-  .home_circle_content_onresponsive_container_one>h3,
-  .home_circle_content_onresponsive_container_two>h3,
-  .home_circle_content_onresponsive_container_three>h3,
-  .home_circle_content_onresponsive_container_four>h3 {
+  .home_circle_content_onresponsive_container_one > h3,
+  .home_circle_content_onresponsive_container_two > h3,
+  .home_circle_content_onresponsive_container_three > h3,
+  .home_circle_content_onresponsive_container_four > h3 {
     font-size: 25px;
   }
 
-  .home_circle_content_onresponsive_container_one>img,
-  .home_circle_content_onresponsive_container_two>img,
-  .home_circle_content_onresponsive_container_three>img,
-  .home_circle_content_onresponsive_container_four>img {
+  .home_circle_content_onresponsive_container_one > img,
+  .home_circle_content_onresponsive_container_two > img,
+  .home_circle_content_onresponsive_container_three > img,
+  .home_circle_content_onresponsive_container_four > img {
     height: 60px;
     margin-top: 15px;
   }

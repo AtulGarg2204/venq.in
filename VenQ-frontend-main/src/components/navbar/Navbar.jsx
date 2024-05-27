@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import venqLogo from "../NewHome/assets/venq_logo.png"
+import venqLogo from "../NewHome/assets/venq_logo.png";
 
 import React, { useState, useEffect } from "react";
 import MenuElement from "./MenuElement";
@@ -148,15 +148,14 @@ const Navbar = (props) => {
                   <img src="images/VENQ_BOLD_small.png" alt="logo" width="80" />
                 </div>
                 <div>
-
                   <div className="menu_icon">
-                  <FontAwesomeIcon
-                    className="menu_icon"
-                    icon={isMenuIconClicked ? faTimes : faBars}
-                    color="black"
-                    style={{ color: "black" }}
-                    onClick={handleNavToggle}
-                  />
+                    <FontAwesomeIcon
+                      className="menu_icon"
+                      icon={isMenuIconClicked ? faTimes : faBars}
+                      color="black"
+                      style={{ color: "black" }}
+                      onClick={handleNavToggle}
+                    />
                   </div>
                   {/* <div>
                     <MenuIcon className="menu_icon" onClick={handleNavToggle} />
@@ -266,12 +265,12 @@ const Navbar = (props) => {
                       {!token && (
                         <>
                           <div className="buttonContainer">
-                            <button className="loginButton">
-                              <Link to="/login">Login</Link>
-                            </button>
-                            <button className="SignupButton">
-                              <Link to="/signup">Signup</Link>
-                            </button>
+                            <Link to="/login">
+                              <button className="loginButton">Login</button>
+                            </Link>{" "}
+                            <Link to="/signup">
+                              <button className="SignupButton">Signup</button>
+                            </Link>
                           </div>
                         </>
                       )}
@@ -282,12 +281,7 @@ const Navbar = (props) => {
             ) : (
               <NewContainer>
                 <div className="imageContainer">
-                  <img
-                    src={venqLogo}
-                    alt="logo"
-                    width="140"
-                    height="auto"
-                  />
+                  <img src={venqLogo} alt="logo" width="140" height="auto" />
                 </div>
                 <div
                   style={{
@@ -408,12 +402,14 @@ const Navbar = (props) => {
                   {!token && (
                     <>
                       <div className="buttonContainer">
-                        <button className="loginButton">
-                          <Link to="/login">Login</Link>
-                        </button>
-                        <button className="SignupButton">
-                          <Link to="/signup">Signup</Link>
-                        </button>
+                        <Link to="/login">
+                          {" "}
+                          <button className="loginButton">Login</button>
+                        </Link>
+                        <Link to="/signup">
+                          {" "}
+                          <button className="SignupButton">Signup</button>
+                        </Link>
                       </div>
                     </>
                   )}
@@ -727,13 +723,21 @@ const Navbar = (props) => {
   );
 };
 
-
-const MenuIcon = ({ className="" }) => {
+const MenuIcon = ({ className = "" }) => {
   return (
-    <svg style={{ color: "black" }} className={className} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24">
+    <svg
+      style={{ color: "black" }}
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width="100"
+      height="100"
+      viewBox="0 0 24 24"
+    >
       <path d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z"></path>
     </svg>
-  )
-}
+  );
+};
 
 export default Navbar;

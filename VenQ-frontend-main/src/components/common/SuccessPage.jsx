@@ -67,25 +67,6 @@ const SuccessPage = () => {
           .catch((error) => {
             console.error("Error adding investment:", error);
           });
-        const requestBodyMail = {
-          investorName: name,
-          investorEmail: investorEmail,
-          propertyName: propertyName,
-          paymentAmount: minInvestment * quantity,
-          numberOfUnits: quantity,
-        };
-        axios
-          .post(`${URL}/sendmail/`, requestBodyMail)
-          .then((response) => {
-            console.log(response.data, "responseeeee");
-            if (!response.status === 201) {
-              throw new Error("Network response was not ok");
-            }
-            console.log("Email sent successfully:", response.data);
-          })
-          .catch((error) => {
-            console.error("Error sending email:", error);
-          });
       } catch (error) {
         console.error("Error fetching listing:", error);
       }

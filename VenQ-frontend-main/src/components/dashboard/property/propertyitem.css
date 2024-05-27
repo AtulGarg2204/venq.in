@@ -110,12 +110,12 @@
 .total-fee input {
   color: rgb(0, 179, 134);
 }
-.couponInput>input::placeholder{
-font-size: 16px;
+.couponInput > input::placeholder {
+  font-size: 16px;
 }
-.couponInput>input{
+.couponInput > input {
   border-top-width: 5px;
 }
-.couponInput>button{
+.couponInput > button {
   height: 35px;
 }

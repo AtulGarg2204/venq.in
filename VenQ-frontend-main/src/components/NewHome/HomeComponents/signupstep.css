@@ -70,7 +70,7 @@
 .step-number {
   height: 25px;
   width: 25px;
-  background-color: #2A86F3;
+  background-color: #2a86f3;
   border-radius: 50%;
   color: white;
   text-align: center;
@@ -83,8 +83,8 @@
   cursor: pointer;
 }
 .left-heading h1 {
-  font-size: 40px;
-  font-family: var(--heading-font-family);
+  font-size: 38px;
+  font-family: "Plus Jakarta Sans";
   margin-bottom: 20px;
 }
 .step-heading1:hover {
@@ -128,7 +128,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    
+
     height: auto;
     margin-top: 2px;
   }
