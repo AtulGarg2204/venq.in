@@ -60,6 +60,11 @@ const LineChart = () => {
               },
             },
           },
+          interaction: {
+            mode: "nearest", // Tooltip mode
+            axis: "x", // Axis for finding the nearest item
+            intersect: false, // Display tooltip even if not intersecting a point
+          },
           scales: {
             x: {
               grid: {
