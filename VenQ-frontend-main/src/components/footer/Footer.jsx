@@ -220,12 +220,12 @@ const Footer = (addTopMargin) => {
             </div>
             <div className="home_footer_content_container_two">
               <h1>COMPANY</h1>
-              <Link to="blog" className="footer-link">
+              <Link to="/blog" className="footer-link">
                 <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
                   Blog
                 </p>
               </Link>
-              <Link to="contactUs" className="footer-link">
+              <Link to="/contactUs" className="footer-link">
                 <p
                   style={{
                     color: "rgb(83, 83, 83)",
@@ -274,10 +274,26 @@ const Footer = (addTopMargin) => {
         <div className="home_footer_socialIcons_main">
           <h1>Follow Us</h1>
           <div>
-            <InstagramIcon className="socialIcon" />
-            <LinkedInIcon className="socialIcon" />
-            <CallIcon className="socialIcon" />
-            <EmailIcon className="socialIcon" />
+            <a
+              href="https://www.instagram.com/venq.in"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstagramIcon className="socialIcon" />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/venq"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkedInIcon className="socialIcon" />
+            </a>
+            <a href="tel:+91-9205553696">
+              <CallIcon className="socialIcon" />
+            </a>
+            <a href="mailto:team@venq.in">
+              <EmailIcon className="socialIcon" />
+            </a>
           </div>
         </div>
         <div className="home_footer_allrights_main">

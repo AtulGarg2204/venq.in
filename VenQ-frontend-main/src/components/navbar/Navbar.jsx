@@ -145,7 +145,14 @@ const Navbar = (props) => {
             {isMobile ? (
               <Container>
                 <div className="imageContainer">
-                  <img src="images/VENQ_BOLD_small.png" alt="logo" width="80" />
+                  <Link to="/">
+                    {" "}
+                    <img
+                      src="images/VENQ_BOLD_small.png"
+                      alt="logo"
+                      width="80"
+                    />
+                  </Link>
                 </div>
                 <div>
                   <div className="menu_icon">
@@ -281,7 +288,9 @@ const Navbar = (props) => {
             ) : (
               <NewContainer>
                 <div className="imageContainer">
-                  <img src={venqLogo} alt="logo" width="140" height="auto" />
+                  <Link to="/">
+                    <img src={venqLogo} alt="logo" width="140" height="auto" />
+                  </Link>
                 </div>
                 <div
                   style={{
@@ -425,7 +434,14 @@ const Navbar = (props) => {
             {isMobile ? (
               <Container>
                 <div className="imageContainer">
-                  <img src="images/VENQ_BOLD_small.png" alt="logo" width="80" />
+                  <Link to="/">
+                    {" "}
+                    <img
+                      src="images/VENQ_BOLD_small.png"
+                      alt="logo"
+                      width="80"
+                    />
+                  </Link>
                 </div>
                 <div>
                   <FontAwesomeIcon

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar/Navbar";
 import "./ContactUs.css";
 
@@ -38,6 +38,9 @@ function ContactUs() {
         e.target.submit();
       });
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   if (submitted) {
     console.log("Aman");
     return (

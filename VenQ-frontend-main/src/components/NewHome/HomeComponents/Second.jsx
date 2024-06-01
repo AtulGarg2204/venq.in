@@ -1,18 +1,12 @@
 import "./second.css";
-import card_image_1 from "../assets/venq_card_1_img.jpeg"
-import card_image_2 from "../assets/venq_card_2_img.jpeg"
-import card_image_3 from "../assets/venq_card_3_img.jpeg"
-import card_image_4 from "../assets/venq_card_4_img.jpeg"
-
+import card_image_1 from "../assets/venq_card_1_img.jpeg";
+import card_image_2 from "../assets/venq_card_2_img.jpeg";
+import card_image_3 from "../assets/venq_card_3_img.jpeg";
+import card_image_4 from "../assets/venq_card_4_img.jpeg";
 
 export default function TextDiv() {
   return (
-    <div
-      className="content-div"
-      style={{
-        
-      }}
-    >
+    <div className="content-div" style={{}}>
       <div className="sticky-div">
         <h5
           style={{
@@ -21,6 +15,7 @@ export default function TextDiv() {
             fontWeight: "600",
             fontFamily: "Plus Jakarta Sans",
             paddingTop: "20px",
+            marginTop: "20px",
           }}
         >
           Why VENQ?
@@ -42,11 +37,11 @@ export default function TextDiv() {
         <p style={{ marginTop: "20px", backgroundColor: "white" }}>
           As seen in
         </p>
-        <div className="logo_div"
-          
-        >
+        <div className="logo_div">
           <img
-            src={"https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"}
+            src={
+              "https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"
+            }
             alt="logo1"
           />
           <img
@@ -83,7 +78,6 @@ export default function TextDiv() {
               height: "auto",
               marginRight: "auto",
               marginLeft: "auto",
-            
             }}
             src={card_image_1}
             alt="icon"
@@ -94,7 +88,8 @@ export default function TextDiv() {
               marginTop: "10px",
             }}
           >
-            Invest with ease starting from just Rs 5,000, making real estate accessible to all.
+            Invest with ease starting from just Rs 5,000, making real estate
+            accessible to all.
           </p>
         </div>
         <div
@@ -128,7 +123,8 @@ export default function TextDiv() {
               marginTop: "10px",
             }}
           >
-            Easily liquidate your investments through our platform, ensuring quick access to funds when needed.
+            Easily liquidate your investments through our platform, ensuring
+            quick access to funds when needed.
           </p>
         </div>
         <div
@@ -162,7 +158,8 @@ export default function TextDiv() {
               marginTop: "10px",
             }}
           >
-            Earn regular income from rental yields and profit shares, providing a steady stream of passive income.
+            Earn regular income from rental yields and profit shares, providing
+            a steady stream of passive income.
           </p>
         </div>
         <div
@@ -190,19 +187,14 @@ export default function TextDiv() {
             src={card_image_4}
             alt="icon"
           />
-          <h5
-            style={{
-             
-            }}
-          >
-            Strong Annual Appreciation Potential
-          </h5>
+          <h5 style={{}}>Strong Annual Appreciation Potential</h5>
           <p
             style={{
               marginTop: "10px",
             }}
           >
-            Benefit from the potential for capital growth and property value appreciation, enhancing your investment over time
+            Benefit from the potential for capital growth and property value
+            appreciation, enhancing your investment over time
           </p>
         </div>
       </div>

@@ -59,6 +59,9 @@ const Content = styled(Box)`
 `;
 
 const Terms = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar st={{ backgroundColor: "green" }} />

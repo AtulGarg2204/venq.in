@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, Typography, styled } from "@mui/material";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
-<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/45720526.js"></script>
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 const Heading = styled(Typography)`
   font-family: "Saira";
   font-style: normal;
@@ -53,6 +59,9 @@ const Content = styled(Box)`
 `;
 
 const Privacy = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar />
@@ -66,7 +75,11 @@ const Privacy = () => {
           <Heading>Privacy Policy</Heading>
           <SubHeading>Introduction</SubHeading>
           <Content>
-          VENQ Technologies Pvt. LTD. (Company Number: U72900UR2022PTC013946 with registered address at Bisht Bhawan Compound, Kirlani Cottage, Tallital, Nainital, Uttarakhand, India, 263001) (“we” or “ ur”) is dedicated to upholding the highest standards of privacy and security when collecting and using customers'personal data.<br></br>
+            VENQ Technologies Pvt. LTD. (Company Number: U72900UR2022PTC013946
+            with registered address at Bisht Bhawan Compound, Kirlani Cottage,
+            Tallital, Nainital, Uttarakhand, India, 263001) (“we” or “ ur”) is
+            dedicated to upholding the highest standards of privacy and security
+            when collecting and using customers'personal data.<br></br>
             <br></br> This policy outlines how we may gather, utilize, and
             disclose your personal information. Personal data includes all the
             details we retain or obtain directly or indirectly (including
@@ -315,11 +328,11 @@ const Privacy = () => {
             where needed to provide a service to us. These arrangements may
             involve your personal data being located India where we have our
             head office.<br></br>
-            <br></br> Different privacy laws may apply in these countries
-            versus the country you are located in. We will always aim to adopt
-            the highest privacy protection standards wherever your personal data
-            is located. Our Privacy Policy does not apply to third-party or
-            linked websites that we do not operate or control.<br></br>
+            <br></br> Different privacy laws may apply in these countries versus
+            the country you are located in. We will always aim to adopt the
+            highest privacy protection standards wherever your personal data is
+            located. Our Privacy Policy does not apply to third-party or linked
+            websites that we do not operate or control.<br></br>
             <br></br>We may share your information with selected third parties
             including:
             <BulletList>
@@ -379,14 +392,13 @@ const Privacy = () => {
           <Content>
             We use Google Analytics to collect details on how you use our
             website and anonymous data you enter into our forms.<br></br>
-            <br></br> We do this to
-            help analyze site usage patterns and traffic across multiple
-            devices, administer our site and manage your account. See our Cookie
-            Policy for more Google Analytics details. <br></br>
-            <br></br>We do not conduct any
-            other profiling or automated decision-making regarding the
-            information automatically collected about you when visiting our
-            site.
+            <br></br> We do this to help analyze site usage patterns and traffic
+            across multiple devices, administer our site and manage your
+            account. See our Cookie Policy for more Google Analytics details.{" "}
+            <br></br>
+            <br></br>We do not conduct any other profiling or automated
+            decision-making regarding the information automatically collected
+            about you when visiting our site.
           </Content>
 
           <SubHeading>Monitoring </SubHeading>
@@ -394,8 +406,7 @@ const Privacy = () => {
             To the extent permitted by law, we may record and monitor
             communications with you to ensure compliance with our legal,
             regulatory and internal policies.<br></br>
-            <br></br> This may include recording phone
-            conversations.
+            <br></br> This may include recording phone conversations.
           </Content>
 
           <SubHeading>Your Rights</SubHeading>
@@ -429,8 +440,8 @@ const Privacy = () => {
             To exercise any of your rights, please contact us at team@venq.in.
             Note that an archive copy of any information given to us may be
             retained for our records and audit purposes.<br></br>
-            <br></br> You can request a copy
-            of your information we hold by emailing team@venq.in.
+            <br></br> You can request a copy of your information we hold by
+            emailing team@venq.in.
           </Content>
 
           <SubHeading>Third Party Websites</SubHeading>
@@ -447,9 +458,8 @@ const Privacy = () => {
             services.<br></br>
             <br></br> We are not responsible for any information posted on those
             sites other than what we have posted.<br></br>
-            <br></br> We do not endorse the social
-            media sites themselves or any third party information posted on
-            them.
+            <br></br> We do not endorse the social media sites themselves or any
+            third party information posted on them.
           </Content>
 
           <SubHeading>
@@ -463,13 +473,14 @@ const Privacy = () => {
           </Content>
 
           <SubHeading>Contact</SubHeading>
-          <Content style={{ marginBottom:  "10%" }}>
+          <Content style={{ marginBottom: "10%" }}>
             Please contact team@venq.in with any questions, concerns or
-            complaints about our processing of your personal information.<br></br>
-            <br></br> If you
-            are dissatisfied with how we have handled your complaint or remain
-            concerned about our personal data handling, you can lodge a
-            complaint with the relevant privacy supervisory authority.
+            complaints about our processing of your personal information.
+            <br></br>
+            <br></br> If you are dissatisfied with how we have handled your
+            complaint or remain concerned about our personal data handling, you
+            can lodge a complaint with the relevant privacy supervisory
+            authority.
           </Content>
         </Grid>
       </Grid>

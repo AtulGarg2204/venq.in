@@ -7,10 +7,11 @@ import image3 from "../assets/signupstep-3.png";
 import image4 from "../assets/signupstep-4.png";
 
 const Signupstep = () => {
-  const [currentImage, setCurrentImage] = useState(image1);
+  const [currentImage, setCurrentImage] = useState(image2);
   const [currentDescription, setCurrentDescription] = useState();
   const [descriptions, setDescriptions] = useState({
-    heading1: "",
+    heading1:
+      "Explore a diverse range of investment opportunities, from residential to commercial properties, tailored to your preferences.",
     heading2: "",
     heading3: "",
     heading4: "",
@@ -36,9 +37,11 @@ const Signupstep = () => {
           <div className="left-heading">
             <h1
               className="heading"
-              style={{
-                // paddingTop: "60px"
-              }}
+              style={
+                {
+                  // paddingTop: "60px"
+                }
+              }
             >
               How To Subcribe?
             </h1>

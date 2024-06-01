@@ -203,16 +203,7 @@ const First = () => {
           </div>
 
           <div className="property_card_container">
-            {/* <div className='home_live_property_container_one'></div> */}
-
-            {/* <Grid
-                // container
-                // spacing={{ xs: 2, md: 3 }}
-                // columns={{ xs: 1, sm: 4, md: 12 }}
-                >
-                  || listing.islive === 2
-                </Grid> */}
-
+          
             <div className="blue_container">
               <h3 className="property_heading_label">
                 Dont worry its not too late

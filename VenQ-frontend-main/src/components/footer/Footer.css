@@ -175,8 +175,15 @@
   margin-right: 40px;
 }
 
+
 .socialIcon {
-  margin-left: 20px;
+  color: black; /* Set the icon color to black */
+  margin: 0 10px; /* Optional: Add some margin to space out the icons */
+  font-size: 24px; /* Optional: Adjust the size of the icons */
+}
+
+.socialIcon:hover {
+  color: #555; /* Optional: Change color on hover for better UX */
 }
 
 .home_footer_allrights_main {

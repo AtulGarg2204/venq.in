@@ -77,7 +77,7 @@ function App() {
           {/* <Route path="/signup" element={<NewSignup />} /> */}
           <Route path="form" element={<Form />} />
           <Route path=":id/edit" element={<FormEdit />} />
-          <Route path="terms" element={<Terms />} />
+          <Route path="/terms" element={<Terms />} />
 
           <Route path="risks" element={<Risks />} />
           <Route path="privacy" element={<Privacy />} />

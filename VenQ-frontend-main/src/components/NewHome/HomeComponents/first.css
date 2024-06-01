@@ -132,7 +132,7 @@ div {
 
   .inner-box {
     flex-direction: column;
-
+    height: auto;
     gap: 0px;
   }
 
@@ -154,9 +154,20 @@ div {
     flex: none;
     width: 100%;
   }
-
+  .left-div {
+    height: auto;
+    background-color: white;
+    display: flex;
+    /* flex: 1; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: black;
+    border-radius: 30px;
+  }
   .live-property {
-    height: 100%;
+    height: auto;
   }
 
   .hero-heading {
@@ -271,7 +282,6 @@ div {
     width: 70%;
     gap: 5px;
     flex-direction: column;
-    height: 90vh;
   }
 
   .left-div {
