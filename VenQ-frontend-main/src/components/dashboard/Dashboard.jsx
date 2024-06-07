@@ -596,7 +596,7 @@ const Dashboard = () => {
                   onMouseDown={handleClose}
                 >
                   <CartIcon selected={step === 6} />
-                  <Heading selected={step === 6}>Users1</Heading>
+                  <Heading selected={step === 6}>Users</Heading>
                 </Options>
                 <Options
                   to="/dashboard/addlisting"
