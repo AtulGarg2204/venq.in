@@ -104,7 +104,6 @@ const LowerItems = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 38vh;
 `;
 const PropertyIcon = styled(HomeOutlinedIcon)`
   font-size: 25px;
@@ -163,7 +162,7 @@ const SubHeading = styled(Typography)`
 const NestedListContainer = styled(Box)`
   position: absolute;
   left: ${drawerWidth}px;
-  top: 60vh;
+  top: 75%;
   background-color: white;
   border-radius: 10px;
   padding: 10px;
@@ -321,7 +320,7 @@ const Dashboard = () => {
               src="/images/VENQ_BOLD_PNG.png"
               alt="logo"
               style={{
-                paddingTop: "17px",
+                paddingTop: "20px",
                 paddingRight: "15px",
                 paddingLeft: "15px",
                 cursor: "pointer",
@@ -400,7 +399,7 @@ const Dashboard = () => {
               onMouseDown={handleClose} // Close the popover on mouse down
             >
               <PropertyIcon selected={step === 1} />
-              <Heading selected={step === 1}>Properties</Heading>
+              <Heading selected={step === 1}>Properties </Heading>
             </Options>
 
             <Options
@@ -435,7 +434,6 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/cart"
-              style={{ marginBottom: "0px" }}
               selected={step === 5}
               onClick={() => handleStepChange(5)}
               onMouseDown={handleClose}
@@ -443,11 +441,11 @@ const Dashboard = () => {
               <CartIcon selected={step === 5} />
               <Heading selected={step === 5}>Cart</Heading>
             </Options>
+
             {isAdmin && (
               <div>
                 <Options
                   to="/dashboard/alinvestors"
-                  style={{ marginBottom: "0px" }}
                   selected={step === 6}
                   onClick={() => handleStepChange(6)}
                   onMouseDown={handleClose}
@@ -457,7 +455,6 @@ const Dashboard = () => {
                 </Options>
                 <Options
                   to="/listings/add"
-                  style={{ marginBottom: "0px" }}
                   selected={step === 7}
                   onClick={() => handleStepChange(7)}
                   onMouseDown={handleClose}
@@ -468,7 +465,6 @@ const Dashboard = () => {
               </div>
             )}
           </UpperItems>
-
           <Divider sx={{ my: 1 }} />
 
           <LowerItems>
@@ -497,7 +493,7 @@ const Dashboard = () => {
 
             <Options style={{ marginBottom: "0px" }} onMouseDown={handleClose}>
               <HelpIcon />
-              <Heading>Help and Support</Heading>
+              <Heading>Help and Support </Heading>
             </Options>
           </LowerItems>
         </List>
@@ -520,7 +516,7 @@ const Dashboard = () => {
             <img
               src="/images/VENQ_BOLD_small.png"
               alt="logo"
-              style={{ padding: "10px", cursor: "pointer" }}
+              style={{ padding: "10px", cursor: "pointer" , marginTop:"10px" }}
             />
           </Link>
         </Toolbar>
@@ -538,6 +534,8 @@ const Dashboard = () => {
           <UpperItems>
             <Options
               to="/dashboard/properties"
+              style={{ marginBottom: "0px" , marginTop:"0px" }}
+
               selected={step === 1}
               onClick={() => handleStepChange(1)}
             >
@@ -547,6 +545,8 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/wallet"
+              style={{ marginBottom: "0px" , marginTop:"0px" }}
+
               selected={step === 2}
               onClick={() => handleStepChange(2)}
             >
@@ -556,6 +556,8 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/portfolio"
+              style={{ marginBottom: "0px" , marginTop:"0px" }}
+
               selected={step === 3}
               onClick={() => handleStepChange(3)}
             >
@@ -565,6 +567,8 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/rewards"
+              style={{ marginBottom: "0px" , marginTop:"0px" }}
+
               selected={step === 4}
               onClick={() => handleStepChange(4)}
             >
@@ -574,7 +578,8 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/cart"
-              style={{ marginBottom: "0px" }}
+              style={{ marginBottom: "0px" , marginTop:"0px" }}
+
               selected={step === 5}
               onClick={() => handleStepChange(5)}
             >
@@ -585,13 +590,13 @@ const Dashboard = () => {
               <div>
                 <Options
                   to="/dashboard/allinvestors"
-                  style={{ marginBottom: "0px" }}
+                  style={{ marginBottom: "0px" , marginTop:"0px" }}
                   selected={step === 6}
                   onClick={() => handleStepChange(6)}
                   onMouseDown={handleClose}
                 >
                   <CartIcon selected={step === 6} />
-                  <Heading selected={step === 6}>Users</Heading>
+                  <Heading selected={step === 6}>Users1</Heading>
                 </Options>
                 <Options
                   to="/dashboard/addlisting"
@@ -628,9 +633,13 @@ const Dashboard = () => {
             )}
           </UpperItems>
 
-          <Divider sx={{ my: 1 }} />
-
           <LowerItems>
+            <Options>
+              <HelpIcon />
+              <Heading>Help and Support</Heading>
+            </Options>
+            <Divider sx={{ my: 1 }} />
+
             <Options
               onClick={handleAccountClick}
               style={{ display: "flex", justifyContent: "space-between" }}
@@ -658,10 +667,10 @@ const Dashboard = () => {
               <ChevronRightIcon />
             </Options>
 
-            <Options style={{ marginBottom: "0px" }}>
+            {/* <Options style={{ marginBottom: "0px" }}>
               <HelpIcon />
-              <Heading>Help and Support</Heading>
-            </Options>
+              <Heading>Help and Support JI</Heading>
+            </Options> */}
           </LowerItems>
         </List>
       </Drawer>
@@ -674,7 +683,7 @@ const Dashboard = () => {
               onClick={() => handleStepChange(8)}
             >
               <UserIcon selected={step === 8} />
-              <SubHeading selected={step === 8}>My Profile</SubHeading>
+              <SubHeading selected={step === 8}>My Profile </SubHeading>
             </NestedLink>
 
             <NestedLink

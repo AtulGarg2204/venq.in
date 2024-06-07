@@ -1389,7 +1389,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 700,
-                      color: "rgb(112, 111, 111)",
+                      color: "rgb(90, 89, 89)",
+                      // color:"white",
                       fontSize: "25px",
                       width: "100%",
                       paddingBottom: "10px",
