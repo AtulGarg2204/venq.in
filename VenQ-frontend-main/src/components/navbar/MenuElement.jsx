@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
 import "./Navbar.css";
+import { width } from "@mui/system";
 export default function AccountMenu({ name }) {
   const navigate = useNavigate();
   const URL = config.URL;
@@ -167,7 +168,7 @@ export default function AccountMenu({ name }) {
                 flexDirection: isMobile ? "column" : "row",
               }}
             >
-              {onbcomp != 20 && (
+              {onbcomp == 0 ? (
                 <Box
                   onclick={() => {
                     navigate("/dashboard/profile");
@@ -214,6 +215,14 @@ export default function AccountMenu({ name }) {
                     alt="notfound"
                   />
                 </Box>
+              ) : (
+                <Box
+                  style={{
+                    width: "15vw",
+                  }}
+                >
+                  {" "}
+                </Box>
               )}
 
               <Typography
@@ -237,10 +246,11 @@ export default function AccountMenu({ name }) {
                 >
                   <Avatar
                     sx={{
-                      marginRight: "40px",
+                      // marginRight: "40px",
                       width: 32,
                       height: 32,
                       backgroundColor: "#5ECE8F",
+                      // backgroundColor: "red",
                     }}
                   >
                     <img style={{ width: 17 }} src="images/user.png" />

@@ -9,6 +9,7 @@ import {
   useTheme,
   Menu,
   MenuItem,
+  List,
   Avatar,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -324,7 +325,7 @@ const Navbar = (props) => {
                           Learn
                         </Text>
 
-                        <Menu
+                        {/* <Menu
                           anchorEl={anchorEl}
                           id="account-menu"
                           // sx={{
@@ -374,7 +375,7 @@ const Navbar = (props) => {
                               navigate("/blog");
                             }}
                           >
-                            Blog
+                            Blog1
                           </MenuItem>
                           <Divider />
                           <MenuItem
@@ -384,6 +385,70 @@ const Navbar = (props) => {
                           >
                             Faq's
                           </MenuItem>
+                        </Menu> */}
+
+                        <Menu
+                          anchorEl={anchorEl}
+                          id="account-menu"
+                          open={open}
+                          onClose={handleClose}
+                          onClick={handleClose}
+                          PaperProps={{
+                            elevation: 0,
+                            sx: {
+                              display: "flex",
+                              justifyContent: "center",
+                              overflow: "visible",
+                              filter:
+                                "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                              mt: 1.5,
+                              "&::before": {
+                                content: '""',
+                                display: "block",
+                                position: "absolute",
+                                top: 0,
+                                left: "50%",
+                                transform:
+                                  "translateX(-50%) translateY(-50%) rotate(45deg)",
+                                width: 10,
+                                height: 10,
+                                bgcolor: "background.paper",
+                                zIndex: 0,
+                              },
+                            },
+                          }}
+                          transformOrigin={{
+                            horizontal: "center",
+                            vertical: "top",
+                          }}
+                          anchorOrigin={{
+                            horizontal: "center",
+                            vertical: "bottom",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
+                          >
+                            <MenuItem
+                              onClick={() => {
+                                navigate("/blog");
+                              }}
+                            >
+                              Blog
+                            </MenuItem>
+                            <Divider orientation="vertical" flexItem />
+                            <MenuItem
+                              onClick={() => {
+                                navigate("/learn");
+                              }}
+                            >
+                              Faq's
+                            </MenuItem>
+                          </Box>
                         </Menu>
                       </div>
                     </div>

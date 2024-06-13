@@ -468,29 +468,6 @@ const Dashboard = () => {
           <Divider sx={{ my: 1 }} />
 
           <LowerItems>
-            {/* <Options
-              onClick={handleAccountClick}
-              style={{ display: "flex", justifyContent: "space-between" }}
-              onMouseDown={handleClose}
-            >
-              <div className="account-container"> */}
-            {/* <div className="circle">{name.slice(0, 2).toUpperCase()}</div> */}
-            {/* <Avatar sx={{ 
-                width: 32, height: 32,backgroundColor:'#5ECE8F' }}>
-
-                <img style={{ width: 17 }} src={image} />
-              </Avatar> */}
-            {/* <img style={{
-                          height:'30px',
-                          borderRadius:'40%',
-                          cursor:'pointer',
-                          backgroundColor:'#5ECE8F'
-                        }} src={image} alt="fsdf"/> */}
-            {/* <Heading style={{ fontSize: "16px" }}>{name}</Heading>
-              </div>
-              <ChevronRightIcon />
-            </Options> */}
-
             <Options style={{ marginBottom: "0px" }} onMouseDown={handleClose}>
               <HelpIcon />
               <Heading>Help and Support </Heading>
@@ -516,7 +493,7 @@ const Dashboard = () => {
             <img
               src="/images/VENQ_BOLD_small.png"
               alt="logo"
-              style={{ padding: "10px", cursor: "pointer" , marginTop:"10px" }}
+              style={{ padding: "10px", cursor: "pointer", marginTop: "10px" }}
             />
           </Link>
         </Toolbar>
@@ -534,8 +511,7 @@ const Dashboard = () => {
           <UpperItems>
             <Options
               to="/dashboard/properties"
-              style={{ marginBottom: "0px" , marginTop:"0px" }}
-
+              style={{ marginBottom: "5px", marginTop: "5px" }}
               selected={step === 1}
               onClick={() => handleStepChange(1)}
             >
@@ -545,8 +521,7 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/wallet"
-              style={{ marginBottom: "0px" , marginTop:"0px" }}
-
+              style={{ marginBottom: "5px", marginTop: "5px" }}
               selected={step === 2}
               onClick={() => handleStepChange(2)}
             >
@@ -556,8 +531,7 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/portfolio"
-              style={{ marginBottom: "0px" , marginTop:"0px" }}
-
+              style={{ marginBottom: "5px", marginTop: "5px" }}
               selected={step === 3}
               onClick={() => handleStepChange(3)}
             >
@@ -567,8 +541,7 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/rewards"
-              style={{ marginBottom: "0px" , marginTop:"0px" }}
-
+              style={{ marginBottom: "5px", marginTop: "5px" }}
               selected={step === 4}
               onClick={() => handleStepChange(4)}
             >
@@ -578,8 +551,7 @@ const Dashboard = () => {
 
             <Options
               to="/dashboard/cart"
-              style={{ marginBottom: "0px" , marginTop:"0px" }}
-
+              style={{ marginBottom: "5px", marginTop: "5px" }}
               selected={step === 5}
               onClick={() => handleStepChange(5)}
             >
@@ -590,7 +562,7 @@ const Dashboard = () => {
               <div>
                 <Options
                   to="/dashboard/allinvestors"
-                  style={{ marginBottom: "0px" , marginTop:"0px" }}
+                  style={{ marginBottom: "0px", marginTop: "0px" }}
                   selected={step === 6}
                   onClick={() => handleStepChange(6)}
                   onMouseDown={handleClose}
@@ -634,9 +606,13 @@ const Dashboard = () => {
           </UpperItems>
 
           <LowerItems>
-            <Options>
+            <Options
+              style={{
+                marginTop: isAdmin ? "0vh" : "21vh",
+              }}
+            >
               <HelpIcon />
-              <Heading>Help and Support</Heading>
+              <Heading>Help and Support </Heading>
             </Options>
             <Divider sx={{ my: 1 }} />
 
@@ -662,7 +638,9 @@ const Dashboard = () => {
                 >
                   <img style={{ width: 17 }} src={image} />
                 </Avatar>
-                <Heading style={{ fontSize: "16px" }}>{name}</Heading>
+                <Heading style={{ fontSize: "16px" }}>
+                  {name.split(" ")[0]}
+                </Heading>
               </div>
               <ChevronRightIcon />
             </Options>

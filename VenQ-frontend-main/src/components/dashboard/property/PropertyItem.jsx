@@ -1389,7 +1389,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       fontFamily: "Inter",
                       fontWeight: 700,
-                      color: "rgb(90, 89, 89)",
+                      color: "rgb(70, 59, 59)",
                       // color:"white",
                       fontSize: "25px",
                       width: "100%",
@@ -1930,7 +1930,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </SubTitle>
                       <Box
                         style={{
-                          // backgroundColor: "red",
                           marginTop: "30px",
                           marginBottom: "30px",
                           paddingTop: "30px",
@@ -1942,6 +1941,20 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           borderRadius: "10px",
                         }}
                       >
+                        <Typography
+                          style={{
+                            fontSize: "24px",
+                            fontWeight: 600,
+                            fontFamily: "Inter",
+                            padding: "5px 0",
+                            marginBottom: "5vh",
+                            textAlign: "start",
+                            marginLeft: "-21vw",
+                          }}
+                        >
+                          {" "}
+                          Return Calculator
+                        </Typography>
                         <Return_cal />
                       </Box>
 
