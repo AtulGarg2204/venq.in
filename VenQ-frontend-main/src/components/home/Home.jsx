@@ -270,7 +270,7 @@ const Home = () => {
                 </SubHeading>
                 <MainButton
                   onClick={() => {
-                    navigate("/login");
+                    navigate("/properties");
                   }}
                 >
                   Get Started

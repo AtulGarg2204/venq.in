@@ -191,7 +191,7 @@ const First = () => {
         </h3>
         <h2 className="with_just">WITH JUST RS. 5000</h2>
         {/* <button onClick={handleInvestment}>post check</button> */}
-        <button onClick={() => navigate("/signup")} className="main-button">
+        <button onClick={() => navigate("/properties")} className="main-button">
           GET STARTED
         </button>
       </div>

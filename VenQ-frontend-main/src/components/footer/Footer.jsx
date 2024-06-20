@@ -184,8 +184,12 @@ const Footer = (addTopMargin) => {
       <div className="rotated-button-container">
         <h2 className="rotated-heading">SO, WHAT ARE YOU WAITING FOR?</h2>
         <div className="rotated-buttons-container">
-          <button className="rotated-invest-button">Invest</button>
-          <button className="rotated-sell-button">List Property</button>
+          <Link to="/properties">
+            <button className="rotated-invest-button">Invest</button>
+          </Link>
+          <button className="rotated-sell-button" data-tally-open="3qR2Ed">
+            List Property{" "}
+          </button>
         </div>
       </div>
 

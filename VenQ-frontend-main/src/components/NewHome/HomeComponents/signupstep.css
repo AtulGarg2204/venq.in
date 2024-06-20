@@ -1,9 +1,10 @@
 .signup-container {
   padding-top: 25vh;
   /* padding: 50px; */
-  height: 74vh;
-  width: 55%;
+  height: 90vh;
+  width: 66%;
   margin: auto;
+  /* background-color: antiquewhite; */
 }
 
 .content {
@@ -14,13 +15,16 @@
   background: transparent;
   display: flex;
   justify-content: space-between;
+  /* align-items: center; */
   gap: 50px;
+  /* background-color: #2a86f3; */
 }
 
 .left-step {
-  height: fit-content;
+  /* height: fit-content; */
+  margin-top: -8vh;
   width: 55%;
-  background-color: white;
+  /* background-color: rebeccapurple; */
 }
 
 .right-image {
@@ -82,16 +86,23 @@
   color: #bbb;
   cursor: pointer;
 }
-.left-heading h1 {
-  font-size: 38px;
+.left-heading h5 {
+  font-size: 24px;
   font-family: "Plus Jakarta Sans";
   margin-bottom: 20px;
+  color: rgba(82, 191, 131, 1);
+  font-weight: 600;
+  /* style={{
+    fontSize: "24px",
+    fontFamily: "Plus Jakarta Sans",
+    paddingTop: "20px",
+    marginTop: "20px",
+  }} */
 }
 .step-heading1:hover {
   margin-bottom: 20px;
   font-size: 28px;
   color: black;
-  
 }
 
 .step-heading1:hover + .step-number {
@@ -101,6 +112,12 @@
 .step1-desc {
   margin-left: 52px;
 }
+.left-desc {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 38px;
+  text-align: left;
+}
 
 @media (max-width: 768px) {
   .signup-container {
@@ -108,11 +125,13 @@
     height: 115vh;
     width: 98.7vw;
     margin-top: 50px;
+    /* background-color: #2a86f3; */
     /* margin-left: -45px; */
   }
   .content {
     height: 100vh;
     width: 100%;
+
     margin-left: 0;
     margin-right: 0;
     background: transparent;
@@ -121,6 +140,7 @@
   }
   .left-step {
     width: 100%;
+    margin-top: 20px;
   }
   .step-image {
     height: 90%;
@@ -164,5 +184,6 @@
     font-size: 14px;
     font-family: "Plus Jakarta Sans";
     text-align: center;
+    line-height: 14px;
   }
 }

@@ -470,7 +470,13 @@ const Dashboard = () => {
           <LowerItems>
             <Options style={{ marginBottom: "0px" }} onMouseDown={handleClose}>
               <HelpIcon />
-              <Heading>Help and Support </Heading>
+              <Heading
+                onClick={() => {
+                  window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
+                }}
+              >
+                Help and Support{" "}
+              </Heading>
             </Options>
           </LowerItems>
         </List>
@@ -502,11 +508,13 @@ const Dashboard = () => {
 
         <List
           component="nav"
-          sx={
-            {
-              // backgroundColor:'red'
-            }
-          }
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            // alignItems: "center",
+            justifyContent: "space-between",
+          }}
         >
           <UpperItems>
             <Options
@@ -606,13 +614,15 @@ const Dashboard = () => {
           </UpperItems>
 
           <LowerItems>
-            <Options
-              style={{
-                marginTop: isAdmin ? "0vh" : "21vh",
-              }}
-            >
+            <Options style={{}}>
               <HelpIcon />
-              <Heading>Help and Support </Heading>
+              <Heading
+                onClick={() => {
+                  window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
+                }}
+              >
+                Help and Support{" "}
+              </Heading>
             </Options>
             <Divider sx={{ my: 1 }} />
 
@@ -621,13 +631,6 @@ const Dashboard = () => {
               style={{ display: "flex", justifyContent: "space-between" }}
             >
               <div className="account-container">
-                {/* <div className="circle">{name.slice(0, 2).toUpperCase()}</div> */}
-                {/* <img style={{
-                        height:'30px',
-                        borderRadius:'40%',
-                        cursor:'pointer',
-                        backgroundColor:'#5ECE8F'
-                      }} src={image} alt="fsdf"/> */}
                 <Avatar
                   sx={{
                     marginRight: "10px",
@@ -644,11 +647,6 @@ const Dashboard = () => {
               </div>
               <ChevronRightIcon />
             </Options>
-
-            {/* <Options style={{ marginBottom: "0px" }}>
-              <HelpIcon />
-              <Heading>Help and Support JI</Heading>
-            </Options> */}
           </LowerItems>
         </List>
       </Drawer>

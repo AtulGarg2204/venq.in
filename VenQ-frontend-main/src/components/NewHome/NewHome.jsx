@@ -1,4 +1,23 @@
 import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  ImageList,
+  ImageListItem,
+  ThemeProvider,
+  Tooltip,
+  Typography,
+  createTheme,
+  styled,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  useMediaQuery,
+  TextField,
+} from "@mui/material";
 import "./NewHome.css";
 import config from "../../config";
 import FaQ from "./HomeComponents/FaQ";
@@ -16,6 +35,7 @@ import Footer from "../footer/Footer";
 import PartnerSlider from "../Partners/PartnerSlider";
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const URL = config.URL;
   const navigate = useNavigate();
@@ -48,12 +68,15 @@ function App() {
         <First />
         <Second />
         <Signupstep />
-        <Interstgraph />
+        {!isSmallScreen ? <Interstgraph /> : <></>}
         {/* <NewHeroSection /> */}
         <TextYoutube />
         <OurCommitment />
         <WhyInvest />
-        <PartnerSlider ourPartnersClassName="our_partners_heading" sliderContainerClassName="slider_container_for_try" />
+        <PartnerSlider
+          ourPartnersClassName="our_partners_heading"
+          sliderContainerClassName="slider_container_for_try"
+        />
         <FaQ />
         <Footer />
       </div>

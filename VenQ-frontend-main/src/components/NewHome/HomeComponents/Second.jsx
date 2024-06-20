@@ -10,7 +10,7 @@ export default function TextDiv() {
       <div className="sticky-div">
         <h5
           style={{
-            color: "#209476",
+            color: "rgba(82, 191, 131, 1)",
             fontSize: "24px",
             fontWeight: "600",
             fontFamily: "Plus Jakarta Sans",

@@ -12,11 +12,8 @@ import {
   MenuItem,
   Box,
   useMediaQuery,
-  styled
+  styled,
 } from "@mui/material";
-
-
-
 
 import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
 import RocketLaunchOutlinedIcon from "@mui/icons-material/RocketLaunchOutlined";
@@ -36,30 +33,28 @@ const UpperPart = styled(Box)(({ theme }) => ({
   textAlign: "center",
   position: "absolute",
   top: "0%",
-  height: '250px',
-  backgroundColor: "#121c30",
+  height: "250px",
+  // backgroundColor: "#121c30",
+  backgroundColor: "#1b527b",
   color: "white",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "column",
   [theme.breakpoints.down("sm")]: {
-    height:'25%',
-    marginBottom:  "20px"
-    
+    height: "25%",
+    marginBottom: "20px",
   },
 }));
 
-
-
 const SubText = styled(Typography)`
-  display:flex;
+  display: flex;
   font-size: 12px;
   font-weight: 500;
   line-height: 24px;
   font-family: "Bebes Neue";
   font-style: normal;
-  text-align:left;
+  text-align: left;
 `;
 
 const typoStyle = {
@@ -75,14 +70,12 @@ const topics = [
     paragraph: "Learn more about VENQ and how to get started",
     icon: <RocketLaunchOutlinedIcon fontSize="large" />,
     route: "/learn-view",
-
   },
   {
     heading: "VENQ CCDs and Legality",
     paragraph: "Learn what's CCD and legal terms.",
     icon: <BusinessOutlinedIcon fontSize="large" />,
     route: "/ccd",
-
   },
   {
     heading: "Investing",
@@ -108,7 +101,6 @@ const topics = [
     paragraph: "Learn more about the regulatory environment we operate in",
     icon: <StarBorderOutlinedIcon fontSize="large" />,
     route: "/regulations",
-
   },
 ];
 
@@ -138,8 +130,8 @@ const Learn = () => {
         {/* <Container maxWidth="lg">
           <AppBar position="static" color="transparent">
             <Toolbar> */}
-              {/* Logo on the left */}
-              {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        {/* Logo on the left */}
+        {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 <img
                   src="images/VENQ_BOLD_small1.png"
                   alt="Logo"
@@ -147,8 +139,8 @@ const Learn = () => {
                 />
               </Typography> */}
 
-              {/* Tool icons on the right */}
-              {/* <IconButton
+        {/* Tool icons on the right */}
+        {/* <IconButton
                 color="inherit"
                 onClick={handleGoToVenQ}
                 sx={{ color: "#fff", fontSize: "20px" }}
@@ -156,8 +148,8 @@ const Learn = () => {
                 Go to venQ
               </IconButton> */}
 
-              {/* Language dropdown */}
-              {/* <Menu
+        {/* Language dropdown */}
+        {/* <Menu
                 anchorEl={null}
                 open={false}
                 onClose={() => {}}
@@ -170,8 +162,8 @@ const Learn = () => {
                 <MenuItem onClick={() => handleLanguageChange("Spanish")}>
                   Spanish
                 </MenuItem> */}
-                {/* Add more languages as needed */}
-              {/* </Menu>
+        {/* Add more languages as needed */}
+        {/* </Menu>
             </Toolbar>
           </AppBar>
         </Container> */}
@@ -201,49 +193,72 @@ const Learn = () => {
           />
         </Container> */}
 
-<UpperPart>
-      <div style={{
-         width:isSmallScreen?'80%':'610px',
-        display:'flex',
-        flexDirection:'column',
-      }}>
-        <div style={{
-          display:'flex',
-          justifyContent:'space-between'
-        }}>
-          <img src="images/VENQ_BOLD_small1.png" alt="notfound" height={30} style={{
-            marginTop:isSmallScreen?'8px':'0px'
-          }} />
-          <p style={{
-            fontFamily:'Gilroy-Medium',
-            cursor:'pointer'
-          }} onClick={()=>{
-            navigate('/')
-          }} >Go To VenQ</p>
-        </div>
-      <div style={{
-        display:'flex',
-        flexDirection:'column'
-      }}>
-      <SubText>
-               <h2 style={{
-                width:isSmallScreen?'80%':'600px' , 
-                fontFamily:'Inter',
-                display:'flex',
-               }}> Advice and answers from the venQ Team</h2>
+        <UpperPart>
+          <div
+            style={{
+              width: isSmallScreen ? "80%" : "610px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <img
+                src="images/VENQ_BOLD_small1.png"
+                alt="notfound"
+                height={30}
+                style={{
+                  marginTop: isSmallScreen ? "8px" : "0px",
+                }}
+              />
+              <p
+                style={{
+                  fontFamily: "Gilroy-Medium",
+                  cursor: "pointer",
+                  color: "white",
+                }}
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Go To VENQ{" "}
+              </p>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <SubText>
+                <h2
+                  style={{
+                    width: isSmallScreen ? "80%" : "600px",
+                    fontFamily: "Inter",
+                    display: "flex",
+                    color: "white",
+                  }}
+                >
+                  {" "}
+                  Advice and answers from the venQ Team
+                </h2>
               </SubText>
+            </div>
+          </div>
+          <input
+            style={{
+              width: isSmallScreen ? "80%" : "600px",
+            }}
+            placeholder="Search.."
+            type="text"
+          />
+        </UpperPart>
       </div>
-      </div>
-              <input style={{
-                width:isSmallScreen?'80%':'600px',
-                
-              }} placeholder='Search..' type="text" />
-      
-              
-              
-            </UpperPart>
-      </div>
-      <Container sx={{ marginTop: isSmallScreen?"200px":"260px" }}>
+      <Container sx={{ marginTop: isSmallScreen ? "200px" : "260px" }}>
         <Grid container spacing={2}>
           {topics.map((topic, index) => (
             <Grid
@@ -257,15 +272,16 @@ const Learn = () => {
               <Link
                 to={topic.route}
                 component="div"
-                style={{ textDecoration: "none",
-                display:'flex',
-                justifyContent:'center',
-                alignItems:'center'
-               }}
+                style={{
+                  textDecoration: "none",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
                 <Card
                   sx={{
-                    width: '345px',
+                    width: "345px",
                     paddingBottom: "5%",
                     height: "175px",
                     "&:hover": {
@@ -332,4 +348,3 @@ const Learn = () => {
 };
 
 export default Learn;
-

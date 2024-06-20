@@ -4766,6 +4766,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                               ? "2px solid #00b386"
                                               : "none",
                                           marginRight: "12px",
+                                          marginTop: "10px",
                                           color:
                                             invtype == 0 ? "#00b386" : "gray",
                                           cursor: "pointer",
@@ -4792,6 +4793,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           color:
                                             invtype == 1 ? "#00b386" : "gray",
                                           marginRight: "12px",
+                                          marginTop: "10px",
                                           cursor: "pointer",
                                           fontSize: "16px",
                                           fontFamily: "Inter",
@@ -4800,7 +4802,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           setinvtype(1);
                                         }}
                                       >
-                                        Invest
+                                        Invest test
                                       </li>
                                     </ul>
                                   </nav>
@@ -4969,7 +4971,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             gap: "30px",
                                           }}
                                         >
-                                          <Button
+                                          {/* <Button
                                             type="submit"
                                             variant="contained"
                                             style={{
@@ -4985,14 +4987,14 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                               handleRequest(0);
                                             }}
                                           >
-                                            ADD TO CART
-                                          </Button>
+                                            ADD TO CART disable
+                                          </Button> */}
                                           <Button
                                             type="submit"
                                             variant="contained"
                                             style={{
                                               margin: "8px 0",
-                                              width: "50%",
+                                              width: "100%",
                                               backgroundColor: "#00b386",
                                               borderRadius: "8px",
                                             }}

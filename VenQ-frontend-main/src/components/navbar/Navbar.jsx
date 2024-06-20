@@ -15,7 +15,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import venqLogo from "../NewHome/assets/venq_logo.png";
-
+import faqIcon from "./chat.png";
+import blogIcon from "./blog.png";
 import React, { useState, useEffect } from "react";
 import MenuElement from "./MenuElement";
 import "./Navbar.css";
@@ -314,7 +315,7 @@ const Navbar = (props) => {
                         }}
                       >
                         <Text onClick={handleClick}>Invest</Text>
-                        <Text>List Property</Text>
+                        <Text data-tally-open="3qR2Ed">List Property </Text>
 
                         <Text
                           onClick={handleClicklearn}
@@ -438,6 +439,10 @@ const Navbar = (props) => {
                                 navigate("/blog");
                               }}
                             >
+                              <img
+                                src={blogIcon}
+                                style={{ marginRight: "5px" }}
+                              ></img>
                               Blog
                             </MenuItem>
                             <Divider orientation="vertical" flexItem />
@@ -446,6 +451,12 @@ const Navbar = (props) => {
                                 navigate("/learn");
                               }}
                             >
+                              <img
+                                src={faqIcon}
+                                style={{
+                                  marginRight: "5px",
+                                }}
+                              ></img>
                               Faq's
                             </MenuItem>
                           </Box>
@@ -519,7 +530,9 @@ const Navbar = (props) => {
                       <div className="mobileItem" onClick={handleClick}>
                         Invest
                       </div>
-                      <div className="mobileItem">List Property</div>
+                      <div className="mobileItem" data-tally-open="3qR2Ed">
+                        List Property
+                      </div>
                       <Menu
                         anchorEl={anchorEl}
                         id="account-menu"
@@ -577,7 +590,7 @@ const Navbar = (props) => {
                             navigate("/learn");
                           }}
                         >
-                          Faq's
+                          Faq's 1
                         </MenuItem>
                       </Menu>
                       <div
@@ -736,6 +749,7 @@ const Navbar = (props) => {
                               navigate("/learn");
                             }}
                           >
+                            <img src={faqIcon}></img>
                             Faq's
                           </MenuItem>
                         </Menu>

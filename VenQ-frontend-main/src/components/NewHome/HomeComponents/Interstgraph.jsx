@@ -1,4 +1,3 @@
-
 // different style of graph
 // import React, { useState } from 'react';
 // import Plot from 'react-plotly.js';
@@ -181,11 +180,6 @@
 
 // export default InterestGraph;
 
-
-
-
-
-
 // one graph line code compound line
 // import React, { useState } from 'react';
 // import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area } from 'recharts';
@@ -351,10 +345,6 @@
 // };
 
 // export default InterestGraph;
-
-
-
-
 
 // two lines variance line and compund line
 // import React, { useState } from 'react';
@@ -527,9 +517,6 @@
 // };
 
 // export default InterestGraph;
-
-
-
 
 // import React, { useState, useEffect } from 'react';
 // import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
@@ -714,21 +701,24 @@
 
 // export default InterestGraph;
 
+import React, { useState, useEffect } from "react";
+import MoneyOutlinedIcon from "@mui/icons-material/MoneyOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import "./Interstgraph.css";
+import config from "../../../config";
 
-
-
-
-
-import React, { useState, useEffect } from 'react';
-import MoneyOutlinedIcon from '@mui/icons-material/MoneyOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import "./Interstgraph.css"
-import config from "../../../config"
-
-import { border } from '@mui/system';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { border } from "@mui/system";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -744,17 +734,17 @@ import {
 import Box from "@mui/material/Box";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import circle from "./interestgraphassets/Framecircle.png"
-import apartment from "./interestgraphassets/apartment.png"
-import building from "./interestgraphassets/building.png"
-import plotting from "./interestgraphassets/plotting.png"
-import villa from "./interestgraphassets/villa.png"
+import circle from "./interestgraphassets/Framecircle.png";
+import apartment from "./interestgraphassets/apartment.png";
+import building from "./interestgraphassets/building.png";
+import plotting from "./interestgraphassets/plotting.png";
+import villa from "./interestgraphassets/villa.png";
 const InterestGraph = () => {
   const [initialInvestment, setInitialInvestment] = useState(10000);
   const [monthlyContribution, setMonthlyContribution] = useState(5000);
-  const [lengthOfTime, setLengthOfTime] = useState('3');
-  const [interestRate, setInterestRate] = useState('6.00');
-  const [compoundFrequency, setCompoundFrequency] = useState('annually');
+  const [lengthOfTime, setLengthOfTime] = useState("3");
+  const [interestRate, setInterestRate] = useState("6.00");
+  const [compoundFrequency, setCompoundFrequency] = useState("annually");
   const [finalAmount, setFinalAmount] = useState(null);
   const [rentalAmount, setRentalAmount] = useState(null);
   const [interestRateData, setInterestRateData] = useState([]);
@@ -765,16 +755,14 @@ const InterestGraph = () => {
   const navigate = useNavigate();
   // ---------------------for live div home----------------
 
-
-
   const Property = styled(Card)`
-  background-color: white;
-  border-radius: 10px;
-  transition: transform 0.2s ease-in-out; 
-  &:hover {
-    transform: translateY(-10px);
-  }
-`;
+    background-color: white;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: translateY(-10px);
+    }
+  `;
   const UpperPart = styled(Box)(({ theme }) => ({
     width: "100%",
     textAlign: "center",
@@ -794,152 +782,149 @@ const InterestGraph = () => {
     },
   }));
   const Text = styled(Typography)`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 17px;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-  cursor: pointer;
-`;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+  `;
   const Subheader = styled(Box)`
-  display: flex;
-  gap: 5px;
-  margin-top: 10px;
-  margin-left: 16px;
-  & div {
-    // height:20px;
-    border: 1px solid lightgray;
-    padding: 4px 5px;
-    font-size: 14px;
-    border-radius: 6px;
-  }
-`;
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    margin-left: 16px;
+    & div {
+      // height:20px;
+      border: 1px solid lightgray;
+      padding: 4px 5px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+  `;
 
   const SubheaderFixed = styled(Box)`
-  display: flex;
-  position: fixed;
-  top: 5px;
-  left: 5px;
-  font-size: 12px;
-  gap: 10px;
-`;
+    display: flex;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    gap: 10px;
+  `;
 
   const FixedBox = styled(Box)`
-  background-color: white;
-  color: black;
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-  font-family: "Inter";
-  font-size: 12px;
-  padding: 5px;
-  border-radius: 5px;
-`;
+    background-color: white;
+    color: black;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-family: "Inter";
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 5px;
+  `;
 
   const PriceBox = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0 14px 0;
-  margin-left: 4px;
-  align-items: center;
-`;
-  const ReturnsBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #f6f7f9;
-  font-family: "Inter";
-  color: grey;
-  > div {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
-    font-size: 15px;
-  }
-`;
+    margin: 5px 0 14px 0;
+    margin-left: 4px;
+    align-items: center;
+  `;
+  const ReturnsBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f6f7f9;
+    font-family: "Inter";
+    color: grey;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      font-size: 15px;
+    }
+  `;
   const Options = styled(Box)`
-  margin-top: 165px;
-  margin-left: 25%;
-  background-color: white;
-  padding: 0 5x;
-  width: 50%;
-  border-radius: 10px;
-  display: flex;
-  @media (max-width: 600px) {
-    margin-left: 10%;
-  }
-`;
+    margin-top: 165px;
+    margin-left: 25%;
+    background-color: white;
+    padding: 0 5x;
+    width: 50%;
+    border-radius: 10px;
+    display: flex;
+    @media (max-width: 600px) {
+      margin-left: 10%;
+    }
+  `;
   const SmallOptions = styled(Box)`
-  margin-top: 36%;
-  margin-left: 10%;
-  background-color: white;
-  padding: 0 5x;
-  width: 50%;
-  border-radius: 10px;
-  display: flex;
-`;
+    margin-top: 36%;
+    margin-left: 10%;
+    background-color: white;
+    padding: 0 5x;
+    width: 50%;
+    border-radius: 10px;
+    display: flex;
+  `;
   const OptionName = styled(Button)`
-  // border: 2px solid black;
-  padding: 10px 45px;
-  margin: 10px;
-  width: 150%;
-  border-radius: 10px;
-  background-color: ${(props) =>
+    // border: 2px solid black;
+    padding: 10px 45px;
+    margin: 10px;
+    width: 150%;
+    border-radius: 10px;
+    background-color: ${(props) =>
       props.active ? "#0170dc !important" : "white"};
-  color: ${(props) => (props.active ? "white !important" : "black")};
-  &:hover {
-    background-color: #0170dc;
-    color: white;
-    border: none;
-  }
-  &:focus {
-    background-color: #0170dc;
-    color: white;
-  }
-`;
+    color: ${(props) => (props.active ? "white !important" : "black")};
+    &:hover {
+      background-color: #0170dc;
+      color: white;
+      border: none;
+    }
+    &:focus {
+      background-color: #0170dc;
+      color: white;
+    }
+  `;
   const Category = styled(Typography)`
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  background-color: #0170dc;
-  color: white;
-  z-index: 2;
-  padding: 5px;
-  font-family: "Inter";
-`;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    background-color: #0170dc;
+    color: white;
+    z-index: 2;
+    padding: 5px;
+    font-family: "Inter";
+  `;
   const Header = styled(Typography)`
-  font-size: 16px;
-  font-weight: 600;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  font-family: "Gilroy-Bold";
-  margin-top: 10px;
-  margin-left: 20px;
-`;
+    font-size: 16px;
+    font-weight: 600;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-family: "Gilroy-Bold";
+    margin-top: 10px;
+    margin-left: 20px;
+  `;
 
   const SubText = styled(Typography)`
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 24px;
-  font-family: "Bebes Neue";
-  font-style: normal;
-`;
-
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    font-family: "Bebes Neue";
+    font-style: normal;
+  `;
 
   // ---------------------for live div home----------------
 
-  const interestRateOptions = ['5.25', '5.50', '5.75', '6.00', '6.25', '6.50'];
+  const interestRateOptions = ["5.25", "5.50", "5.75", "6.00", "6.25", "6.50"];
   const lengthOfTimeOptions = [3, 5, 7, 9, 11, 13, 15];
 
   const screenWidth = window.innerWidth;
   const chartWidth = screenWidth >= 768 ? 450 : 330;
 
   const handleCalculate = () => {
-
-
     const decimalInterestRate = parseFloat(interestRate) / 100;
     const years = parseInt(lengthOfTime);
 
@@ -977,9 +962,7 @@ const InterestGraph = () => {
     setInterestRateData(data);
   };
 
-
   useEffect(() => {
-
     // ---------------------for live div home----------------
     if (JSON.parse(localStorage.getItem("userinfo"))) {
       setLoggedIn(true);
@@ -995,7 +978,13 @@ const InterestGraph = () => {
       });
     // ---------------------for live div home----------------
     handleCalculate();
-  }, [initialInvestment, monthlyContribution, lengthOfTime, interestRate, compoundFrequency]);
+  }, [
+    initialInvestment,
+    monthlyContribution,
+    lengthOfTime,
+    interestRate,
+    compoundFrequency,
+  ]);
 
   const yAxisFormatter = (value) => {
     if (value >= 1e6) {
@@ -1018,47 +1007,55 @@ const InterestGraph = () => {
     border: "solid blue",
   };
 
-
   return (
-    <div className='head'>
-      <div className='compound_main'>
-        <div className='compound_calculater_makemoney_main'>
-          <p className='how_will_i_make_money'>How will I make money?</p>
-          <h3  >Calculate your potential returns</h3>
-          <div style={{ marginTop: "10px" }} className='compound_calculater_annualrental_main'>
-            <div className='compound_calculater_annualrental_one'>
+    <div className="head">
+      <div className="compound_main">
+        <div className="compound_calculater_makemoney_main">
+          <p className="how_will_i_make_money">How will I make money?</p>
+          <h3>Calculate your potential returns</h3>
+          <div
+            style={{ marginTop: "10px" }}
+            className="compound_calculater_annualrental_main"
+          >
+            <div className="compound_calculater_annualrental_one">
               <MoneyOutlinedIcon style={{ color: "rgb(32, 148, 118)" }} />
               <p>Annual Rental Yeild</p>
             </div>
-            <p>Receive consistent passive income from monthly rental payments.</p>
-            <div className='compound_calculater_annualrental_two' >
+            <p>
+              Receive consistent passive income from monthly rental payments.
+            </p>
+            <div className="compound_calculater_annualrental_two">
               <p>_____________</p>
-              <AddCircleOutlineOutlinedIcon style={{ backgroundColor: "rgb(32, 148, 118)", color: "white", borderRadius: "50%" }} />
+              <AddCircleOutlineOutlinedIcon
+                style={{
+                  backgroundColor: "rgb(32, 148, 118)",
+                  marginTop: "10px",
+                  color: "white",
+                  borderRadius: "50%",
+                }}
+              />
               <p>_____________</p>
             </div>
-            <div className='compound_calculater_annualrental_three'>
+            <div className="compound_calculater_annualrental_three">
               <MoneyOutlinedIcon style={{ color: "rgb(32, 148, 118)" }} />
               <p>Annual Appreciation</p>
             </div>
             <p>Watch your investment grow as the property value appreciates.</p>
           </div>
-          <button
-            onClick={() => navigate("/signup")}
-          >Sign Up</button>
-
+          <button onClick={() => navigate("/signup")}>Sign Up</button>
         </div>
 
-        <div className='compound_calculater_form_main'>
-          <form >
-
-
-            <div className='compound_calculater_initInvest'>
-              <div className='compound_calculater_initInvest_container_one'>
+        <div className="compound_calculater_form_main">
+          <form>
+            <div className="compound_calculater_initInvest">
+              <div className="compound_calculater_initInvest_container_one">
                 <label>Initial Investment(₹):</label>
                 <input
                   type="number"
                   value={initialInvestment}
-                  onChange={(e) => setInitialInvestment(parseInt(e.target.value))}
+                  onChange={(e) =>
+                    setInitialInvestment(parseInt(e.target.value))
+                  }
                   required
                 />
               </div>
@@ -1073,17 +1070,17 @@ const InterestGraph = () => {
                 onChange={(e) => setInitialInvestment(parseInt(e.target.value))}
               />
             </div>
-            <div className='compound_calculater_monthlyInvestment'>
-              <div className='compound_calculater_monthlyInvestment_container_one'>
-                <label>
-                  Monthly Contribution (₹): </label>
+            <div className="compound_calculater_monthlyInvestment">
+              <div className="compound_calculater_monthlyInvestment_container_one">
+                <label>Monthly Contribution (₹): </label>
                 <input
                   type="number"
                   value={monthlyContribution}
-                  onChange={(e) => setMonthlyContribution(parseInt(e.target.value))}
+                  onChange={(e) =>
+                    setMonthlyContribution(parseInt(e.target.value))
+                  }
                   required
                 />
-
               </div>
               <input
                 style={{ marginTop: "-8px" }}
@@ -1092,26 +1089,29 @@ const InterestGraph = () => {
                 max="100000"
                 step="100"
                 value={monthlyContribution}
-                onChange={(e) => setMonthlyContribution(parseInt(e.target.value))}
+                onChange={(e) =>
+                  setMonthlyContribution(parseInt(e.target.value))
+                }
               />
-
             </div>
             {finalAmount && (
-              <div className='compound_calculater_totalamount_main'>
-                <div className='compound_calculater_totalamount_container_one'>
+              <div className="compound_calculater_totalamount_main">
+                <div className="compound_calculater_totalamount_container_one">
                   <h1 style={{ color: "#0c625e" }}>₹ {finalAmount}</h1>
                   <p style={{ color: "rgba(82, 191, 131, 1)" }}>Final Amount</p>
                 </div>
-                <div className='compound_calculater_totalamount_container_one'>
+                <div className="compound_calculater_totalamount_container_one">
                   <h1 style={{ color: "#0c625e" }}>₹ {rentalAmount}</h1>
-                  <p style={{ color: "rgba(82, 191, 131, 1)" }}>Rental Amount (Monthly)</p>
+                  <p style={{ color: "rgba(82, 191, 131, 1)" }}>
+                    Rental Amount (Monthly)
+                  </p>
                 </div>
               </div>
             )}
 
-            <div className='compound_calculater_graph_main'>
+            <div className="compound_calculater_graph_main">
               <LineChart
-                className='compound_chart'
+                className="compound_chart"
                 width={chartWidth}
                 height={300}
                 data={interestRateData}
@@ -1122,13 +1122,26 @@ const InterestGraph = () => {
                 <YAxis tickFormatter={yAxisFormatter} />
                 <Tooltip formatter={tooltipFormatter} />
                 <Legend />
-                <Line type="monotone" dataKey="amount" stroke="#8884d8" name="Compound Amount" />
-                <Line type="monotone" dataKey="totalInvested" stroke="#82ca9d" name="Total Invested" />
+                <Line
+                  type="monotone"
+                  dataKey="amount"
+                  stroke="#8884d8"
+                  name="Compound Amount"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="totalInvested"
+                  stroke="#82ca9d"
+                  name="Total Invested"
+                />
               </LineChart>
             </div>
-            <div className='compound_calculater_selectbox_main'>
+            <div className="compound_calculater_selectbox_main">
               <div>
-                <select value={lengthOfTime} onChange={(e) => setLengthOfTime(e.target.value)}>
+                <select
+                  value={lengthOfTime}
+                  onChange={(e) => setLengthOfTime(e.target.value)}
+                >
                   {lengthOfTimeOptions.map((years) => (
                     <option key={years} value={years}>
                       {years} years
@@ -1137,14 +1150,22 @@ const InterestGraph = () => {
                 </select>
               </div>
               <div>
-                <select value={interestRate} onChange={(e) => setInterestRate(e.target.value)}>
+                <select
+                  value={interestRate}
+                  onChange={(e) => setInterestRate(e.target.value)}
+                >
                   {interestRateOptions.map((rate) => (
-                    <option key={rate} value={rate}>{rate}%</option>
+                    <option key={rate} value={rate}>
+                      {rate}%
+                    </option>
                   ))}
                 </select>
               </div>
               <div>
-                <select value={compoundFrequency} onChange={(e) => setCompoundFrequency(e.target.value)}>
+                <select
+                  value={compoundFrequency}
+                  onChange={(e) => setCompoundFrequency(e.target.value)}
+                >
                   <option value="annually">Annually</option>
                   <option value="semi-annually">Semi-annually</option>
                   <option value="monthly">Monthly</option>
@@ -1155,33 +1176,32 @@ const InterestGraph = () => {
             </div>
           </form>
         </div>
-
       </div>
-      <div className='home_circle_image'>
+      <div className="home_circle_image">
         <img src={circle} alt="circle_image_not_found" />
-        <div className='home_circle_image_heading'>
+        <div className="home_circle_image_heading">
           <h3>WHERE CAN I INVEST?</h3>
           <h1>YOUR CHOICE</h1>
         </div>
       </div>
-      <div className='home_circle_content_onresponsive_main'>
-        <div className='home_circle_content_onresponsive_heading'>
+      <div className="home_circle_content_onresponsive_main">
+        <div className="home_circle_content_onresponsive_heading">
           <h3>WHERE CAN I INVEST?</h3>
           <h1>YOUR CHOICE</h1>
         </div>
-        <div className='home_circle_content_onresponsive_container_one'>
+        <div className="home_circle_content_onresponsive_container_one">
           <h3>Residential</h3>
           <img src={apartment} alt="" />
         </div>
-        <div className='home_circle_content_onresponsive_container_two'>
+        <div className="home_circle_content_onresponsive_container_two">
           <h3>Commercial</h3>
           <img src={building} alt="" />
         </div>
-        <div className='home_circle_content_onresponsive_container_three'>
+        <div className="home_circle_content_onresponsive_container_three">
           <h3>Rental Focused BnB’s</h3>
           <img src={plotting} alt="" />
         </div>
-        <div className='home_circle_content_onresponsive_container_four'>
+        <div className="home_circle_content_onresponsive_container_four">
           <h3>Plots</h3>
           <img src={villa} alt="" />
         </div>
@@ -1191,14 +1211,12 @@ const InterestGraph = () => {
                 
             </div> */}
 
-      <div className='home_live_property_heading'>
+      <div className="home_live_property_heading">
         <h1>LIVE PROPERTIES</h1>
       </div>
       <div className="property_card">
         {listings
-          .filter(
-            (listing) => listing.islive === 1
-          )
+          .filter((listing) => listing.islive === 1)
           .map((listing) => (
             <Grid
             // key={listing._id}
@@ -1214,17 +1232,13 @@ const InterestGraph = () => {
             >
               <Link
                 to={
-                  isLoggedIn
-                    ? `/dashboard/properties/view/${listing._id}`
-                    : ``
+                  isLoggedIn ? `/dashboard/properties/view/${listing._id}` : ``
                 }
                 style={{ textDecoration: "none" }}
               >
-
-                <Property sx={{ maxWidth: 365 }}>
+                <Property sx={{ maxWidth: 320 }}>
                   <CardActionArea>
                     <CardMedia>
-
                       <Carousel
                         showThumbs={false}
                         statusFormatter={() => {
@@ -1274,7 +1288,6 @@ const InterestGraph = () => {
                               </SubheaderFixed>
                             )}
 
-
                             <FixedBox>
                               {listing.properyheading.includes("Plot")
                                 ? "Plot"
@@ -1284,19 +1297,44 @@ const InterestGraph = () => {
                         ))}
                       </Carousel>
                     </CardMedia>
-                    <Subheader sx={{ display: "flex", justifyContent: "space-around" }} >
-                      <Box style={{ marginLeft: "-8px", fontSize: "9px", height: "fit-content" }}>
+                    <Subheader
+                      sx={{ display: "flex", justifyContent: "space-around" }}
+                    >
+                      <Box
+                        style={{
+                          marginLeft: "-8px",
+                          fontSize: "9px",
+                          height: "fit-content",
+                        }}
+                      >
                         {listing.propertydescription.split(" | ")[0]}
                       </Box>
-                      <Box style={{ marginLeft: "20px", fontSize: "9px", height: "fit-content" }}>
+                      <Box
+                        style={{
+                          marginLeft: "20px",
+                          fontSize: "9px",
+                          height: "fit-content",
+                        }}
+                      >
                         {listing.propertydescription.split(" | ")[1]}
                       </Box>
-                      <Box style={{ marginLeft: "20px", fontSize: "9px", height: "fit-content" }}>
+                      <Box
+                        style={{
+                          marginLeft: "20px",
+                          fontSize: "9px",
+                          height: "fit-content",
+                        }}
+                      >
                         {listing.propertydescription.split(" | ")[2]}
                       </Box>
                     </Subheader>
 
-                    <Header gutterBottom variant="p" sx={{ textAlign: "start" }} component="div">
+                    <Header
+                      gutterBottom
+                      variant="p"
+                      sx={{ textAlign: "start" }}
+                      component="div"
+                    >
                       {listing.properyheading}
                     </Header>
                     {isLoggedIn && (
@@ -1319,34 +1357,35 @@ const InterestGraph = () => {
                           </Box>
                         </PriceBox>
 
-
                         <ReturnsBox>
-                          <Box sx={{ fontSize: "0.8rem" }} >
-                            <Typography noWrap sx={{ fontSize: "0.8rem" }} >Funding Date</Typography>
+                          <Box sx={{ fontSize: "0.8rem" }}>
+                            <Typography noWrap sx={{ fontSize: "0.8rem" }}>
+                              Funding Date
+                            </Typography>
                             <Box
                               style={{
                                 color: "black",
                                 fontWeight: "bold",
-                                fontSize: "0.8rem"
+                                fontSize: "0.8rem",
                               }}
                             >
                               {listing.fundingdate}
                             </Box>
                           </Box>
                           <Box>
-                            <Typography noWrap sx={{ fontSize: "0.8rem" }} >Min. Investment</Typography>
+                            <Typography noWrap sx={{ fontSize: "0.8rem" }}>
+                              Min. Investment
+                            </Typography>
                             <Box
                               style={{
                                 color: "black",
                                 fontWeight: "bold",
-                                fontSize: "0.8rem"
+                                fontSize: "0.8rem",
                               }}
                             >
                               {listing.mininvestment}
                             </Box>
                           </Box>
-
-
                         </ReturnsBox>
                       </CardContent>
                     )}
@@ -1471,11 +1510,8 @@ const InterestGraph = () => {
             </Grid>
           ))}
       </div>
-
     </div>
   );
 };
 
 export default InterestGraph;
-
-
