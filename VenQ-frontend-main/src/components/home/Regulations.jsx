@@ -110,7 +110,7 @@ const Regulations = () => {
   };
   return (
     <>
-      <div style={{ backgroundColor: "#152532", padding: "40px 0px 20px" }}>
+      <div style={{ backgroundColor: "#1b527b", padding: "40px 0px 20px" }}>
         <Container maxWidth="lg">
           <AppBar position="static" color="transparent">
             <Toolbar>
@@ -122,7 +122,6 @@ const Regulations = () => {
                   style={{ maxWidth: "100%" }}
                 />
               </Typography>
-
               {/* Tool icons on the right */}
               <IconButton
                 color="inherit"
@@ -223,7 +222,6 @@ const Regulations = () => {
         </Container>
       </Container>
 
-
       <Container
         style={{
           height: "auto",
@@ -301,13 +299,15 @@ const Regulations = () => {
           padding: "20px 0",
           marginTop: "20px",
           textAlign: "center",
-        //   backgroundColor: "#152532",
-        //   color: "#fff",
+          //   backgroundColor: "#152532",
+          //   color: "#fff",
           borderRadius: "10px",
         }}
       >
         <Typography>
-          Please note that these FAQs provide general information and do not constitute legal advice. For specific legal queries, it is advisable to consult with our team at team@venq.in.
+          Please note that these FAQs provide general information and do not
+          constitute legal advice. For specific legal queries, it is advisable
+          to consult with our team at team@venq.in.
         </Typography>
       </Container>
 

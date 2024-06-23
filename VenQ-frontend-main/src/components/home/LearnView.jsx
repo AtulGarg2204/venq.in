@@ -19,7 +19,7 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import { Link, useNavigate } from "react-router-dom";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"; // Add this import
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 const typoStyle = {
   color: "#fff",
@@ -96,7 +96,7 @@ const LearnView = () => {
   };
   return (
     <>
-      <div style={{ backgroundColor: "#152532", padding: "40px 0px 20px" }}>
+      <div style={{ backgroundColor: "#1b527b", padding: "40px 0px 20px" }}>
         <Container maxWidth="lg">
           <AppBar position="static" color="transparent">
             <Toolbar>

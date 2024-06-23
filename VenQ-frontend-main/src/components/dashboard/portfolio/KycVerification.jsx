@@ -31,12 +31,19 @@ const KycVerification = () => {
           top: "50%",
           left: "43%",
           transform: "translate(-50%, -50%)",
-          fontFamily: "sans-serif"
+          fontFamily: "sans-serif",
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h4>Personal information</h4>
-        <p style={{ color: "gray" }}>
+        <h4
+          style={{
+            marginBottom: "20px",
+            fontSize: "28px",
+          }}
+        >
+          Personal information
+        </h4>
+        <p style={{ color: "gray", marginBottom: "20px" }}>
           Required by Indian banking laws. This information is{" "}
           <span style={{ color: "blue" }}> kept secure </span>. It will never be
           used for any purpose beyond executing your investment.

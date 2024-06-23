@@ -68,7 +68,7 @@ const ExitWindows = () => {
   };
   return (
     <>
-      <div style={{ backgroundColor: "#152532", padding: "40px 0px 20px" }}>
+      <div style={{ backgroundColor: "#1b527b", padding: "40px 0px 20px" }}>
         <Container maxWidth="lg">
           <AppBar position="static" color="transparent">
             <Toolbar>

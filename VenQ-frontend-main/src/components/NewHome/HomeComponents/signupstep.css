@@ -9,7 +9,7 @@
 
 .content {
   height: 80vh;
-  width: 100%;
+  width: 100vw;
   /* margin-left: 16vw; */
   /* margin-right: 10vw; */
   background: transparent;
@@ -23,7 +23,8 @@
 .left-step {
   /* height: fit-content; */
   margin-top: -8vh;
-  width: 55%;
+  width: 65%;
+  margin-left: 6%;
   /* background-color: rebeccapurple; */
 }
 
@@ -31,6 +32,7 @@
   height: fit-content;
   width: fit-content;
   /* margin-left: 40px; */
+  /* background-color: #2a86f3; */
   margin-top: -100px;
 }
 

@@ -19,7 +19,7 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import { Link, useNavigate } from "react-router-dom";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined"; // Add this import
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 const typoStyle = {
   color: "#fff",
@@ -45,17 +45,20 @@ const questions = [
       "CCD holders have the right to convert their debentures into equity shares, thereby becoming shareholders in the underlying real estate asset. Legal provisions within the issuance agreement protect the rights of CCD holders.",
   },
   {
-    question: "Is VENQ regulated by SEBI (Securities and Exchange Board of India)?",
+    question:
+      "Is VENQ regulated by SEBI (Securities and Exchange Board of India)?",
     answer:
       "VENQ issues CCDs through private placement, targeting a select group of investors. As this falls outside the public offering domain, SEBI regulations related to public issues do not apply directly. However, we operate within the broader framework of financial regulations.",
   },
   {
-    question: "How are CCDs different from traditional real estate investments?",
+    question:
+      "How are CCDs different from traditional real estate investments?",
     answer:
       "CCDs offer a unique investment avenue by providing a stake in a real estate asset without the need for full ownership. Investors benefit from potential appreciation while having the flexibility to convert their debentures into equity shares at the date of sale.",
   },
   {
-    question: "What happens if an investor wants to exit their investment before conversion?",
+    question:
+      "What happens if an investor wants to exit their investment before conversion?",
     answer:
       "Investors looking to exit their investment before the conversion period ends may explore secondary market options if available. VENQ is actively working on introducing a secondary market to facilitate such transactions.",
   },
@@ -65,12 +68,12 @@ const questions = [
       "CCD issuance is governed by legal agreements, including the agreement to sell, private placement offer, and other relevant documents. These agreements outline the terms, rights, and obligations of the parties involved.",
   },
   {
-    question: "How does VENQ ensure compliance with company laws during CCD issuance?",
+    question:
+      "How does VENQ ensure compliance with company laws during CCD issuance?",
     answer:
       "VENQ adheres to the provisions of the Companies Act 2013 during the issuance of CCDs, ensuring legal compliance and transparency in the process. Our legal team oversees the entire process to safeguard the interests of both VENQ and investors.",
   },
 ];
-
 
 const CCD = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -86,7 +89,7 @@ const CCD = () => {
   };
   return (
     <>
-      <div style={{ backgroundColor: "#152532", padding: "40px 0px 20px" }}>
+      <div style={{ backgroundColor: "#1b527b", padding: "40px 0px 20px" }}>
         <Container maxWidth="lg">
           <AppBar position="static" color="transparent">
             <Toolbar>

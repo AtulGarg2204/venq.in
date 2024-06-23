@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import "react-photo-view/dist/react-photo-view.css";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import axios from "axios";
@@ -162,7 +164,6 @@ const Photos = ({ clicked, setClicked }) => {
             </Bookmark>
           </Box>
         </Box>
-
         <div
           style={{
             marginTop: "20px",
@@ -178,29 +179,36 @@ const Photos = ({ clicked, setClicked }) => {
               gap: "20px",
             }}
           >
-            {listing.images?.map((post, index) => (
-              <Grid
-                item
-                xs={2}
-                sm={3}
-                md={3}
-                key={index}
-                sx={{
-                  marginLeft: "16px",
-                }}
-              >
-                <Property sx={{ maxWidth: 360 }}>
-                  <PropertyArea sx={{}}>
-                    <CardMedia
-                      component="img"
-                      height="191"
-                      image={post}
-                      alt="green iguana"
-                    />
-                  </PropertyArea>
-                </Property>
-              </Grid>
-            ))}
+            <PhotoProvider>
+              {listing.images?.map((post, index) => (
+                <Grid
+                  item
+                  xs={2}
+                  sm={3}
+                  md={3}
+                  key={index}
+                  sx={{
+                    marginLeft: "16px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Property sx={{ maxWidth: 360 }}>
+                    <PropertyArea sx={{}}>
+                      <PhotoView key={index} src={post}>
+                        <CardMedia
+                          component="img"
+                          height="191"
+                          image={post}
+                          alt="green iguana"
+                        />
+                      </PhotoView>
+                    </PropertyArea>
+                  </Property>
+                </Grid>
+              ))}
+            </PhotoProvider>
           </Grid>
         </div>
       </Box>
