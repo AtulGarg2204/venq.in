@@ -189,6 +189,9 @@ const rows = [];
 const rows1 = [];
 
 const Portfolio = ({ handleBuyProperties }) => {
+  const date = new Date();
+  const options = { year: "numeric", month: "long" };
+  const currentDate = date.toLocaleDateString("en-US", options);
   const id = localStorage.getItem("selectedId");
   console.log(id, "selectedId");
   const [ldata, setLdata] = useState([]);
@@ -505,6 +508,15 @@ const Portfolio = ({ handleBuyProperties }) => {
                           </g>
                         </svg>
                       </Box>
+                      <Typography
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: 600,
+                          fontFamily: "Inter",
+                        }}
+                      >
+                        INR 0
+                      </Typography>
                     </Box>
 
                     <Box
@@ -536,7 +548,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           </Tooltip>
                         </SubHeader>
                       </ThemeProvider>
-                      <SubHeader>May 2023</SubHeader>
+                      <SubHeader>{currentDate}</SubHeader>
                     </Box>
                   </Box>
                 </Grid>
@@ -625,7 +637,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           </Tooltip>
                         </SubHeader>
                       </ThemeProvider>
-                      <SubHeader>as of May 2023</SubHeader>
+                      <SubHeader>as of {currentDate}</SubHeader>
                     </Box>
                   </Box>
                 </Grid>
@@ -707,7 +719,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           </Tooltip>
                         </SubHeader>
                       </ThemeProvider>
-                      <SubHeader>as of May 2023</SubHeader>
+                      <SubHeader>as of {currentDate}</SubHeader>
                     </Box>
                   </Box>
                 </Grid>
@@ -1314,6 +1326,15 @@ const Portfolio = ({ handleBuyProperties }) => {
                             </g>
                           </svg>
                         </Box>
+                        <Typography
+                          style={{
+                            fontSize: "24px",
+                            fontWeight: 600,
+                            fontFamily: "Inter",
+                          }}
+                        >
+                          INR 0 1
+                        </Typography>
                       </Box>
 
                       <Box
@@ -1345,7 +1366,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             </Tooltip>
                           </SubHeader>
                         </ThemeProvider>
-                        <SubHeader>May 2023</SubHeader>
+                        <SubHeader>{currentDate}</SubHeader>
                       </Box>
                     </Box>
                   </Grid>
@@ -1434,7 +1455,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             </Tooltip>
                           </SubHeader>
                         </ThemeProvider>
-                        <SubHeader>as of May 2023</SubHeader>
+                        <SubHeader>as of {currentDate}</SubHeader>
                       </Box>
                     </Box>
                   </Grid>
@@ -1517,7 +1538,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                             </Tooltip>
                           </SubHeader>
                         </ThemeProvider>
-                        <SubHeader>as of May 2023</SubHeader>
+                        <SubHeader>as of {currentDate}</SubHeader>
                       </Box>
                     </Box>
                   </Grid>
