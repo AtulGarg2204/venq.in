@@ -102,6 +102,7 @@ export default function AccountMenu({ name }) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  color: "white",
                 }}
               >
                 {name[0].toUpperCase() + name.slice(1)}
