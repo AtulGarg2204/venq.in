@@ -165,6 +165,7 @@ export default function AccountMenu({ name }) {
                 display: "flex",
                 alignItems: "center",
                 textAlign: "center",
+
                 flexDirection: isMobile ? "column" : "row",
               }}
             >
@@ -218,7 +219,7 @@ export default function AccountMenu({ name }) {
               ) : (
                 <Box
                   style={{
-                    width: "15vw",
+                    width: "12vw",
                   }}
                 >
                   {" "}

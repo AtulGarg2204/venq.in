@@ -261,6 +261,7 @@ div {
   .inner-box {
     width: 70%;
     gap: 5px;
+    padding-top: 10px;
   }
 
   .left-div {
@@ -281,6 +282,7 @@ div {
   .inner-box {
     width: 70%;
     gap: 5px;
+    padding-top: 18px;
     flex-direction: column;
   }
 

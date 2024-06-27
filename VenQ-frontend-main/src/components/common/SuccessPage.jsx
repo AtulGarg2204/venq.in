@@ -56,7 +56,7 @@ const SuccessPage = () => {
         };
         console.log(requestBody, "requestedBody");
         axios
-          .post(`${URL}/purchased/${customerId}`, requestBody)
+          .post(`${URL}/purchase/${customerId}`, requestBody)
           .then((response) => {
             console.log(response.data, "responseeeee");
             if (!response.status === 201) {
