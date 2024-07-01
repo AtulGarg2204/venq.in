@@ -31,14 +31,18 @@ const Kyc_details = () => {
   const [userData, setUserData] = useState();
   const [showData, setShowData] = useState(false);
   const [Adharname, setAdharName] = useState(name);
+  const [mailData, setMailData] = useState([]);
+  const [aadhaar_number, setAAdhaarNumber] = useState();
+  const [mailSent, setMailsent] = useState();
   const URL = config.URL;
-
+  console.log(name, "property");
   const handleShowDetails = async () => {
     try {
       const response = await axios.get(`${URL}/kyc/${email}`);
       setUserData(response);
-      console.log(response.data);
       setAdharName(response.data.data.full_name);
+      setAAdhaarNumber(response.data.data.aadhaar_number);
+      setMailsent(response.data.data.mailSent);
       setShowData(true);
     } catch (error) {
       console.log(error);
@@ -53,21 +57,25 @@ const Kyc_details = () => {
       paymentAmount: amount,
       numberOfUnits: quantity,
     };
+
     axios
       .post(`${URL}/sendmail/`, requestBodyMail)
       .then((response) => {
-        console.log(response.data, "responseeeee");
-        if (response.status !== 201) {
-          throw new Error("Network response was not ok");
+        if (response.status === 200) {
+          setMailData(requestBodyMail);
+          setMailsent(true);
+          axios.post(`${URL}/kyc/updateStatus`, {
+            aadhaar_number: aadhaar_number,
+          });
         }
-        console.log("Email sent successfully:", response.data);
-        toast.success("EOI send successfully");
+        toast.success("EOI sent successfully");
       })
       .catch((error) => {
         console.error("Error sending email:", error);
-        toast.error("EOI  not send");
+        toast.error("EOI not sent");
       });
   };
+  // Log the response data
 
   useEffect(() => {
     const checkVerification = async () => {
@@ -108,9 +116,30 @@ const Kyc_details = () => {
           <p>IFSC CODE: {userData.data.data.ifsc_code}</p>
           <p>PAN NUMBER: {userData.data.data.pan_number}</p>
           <p>Phone Number: {userData.data.data.phone}</p>
-          <Button variant="contained" color="primary" onClick={handleSendEmail}>
-            SEND EOI
-          </Button>
+          <p>mail sent: {mailSent === true ? "true" : "false"}</p>
+
+          {userData.data.data.mailSent === false ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSendEmail}
+            >
+              SEND EOI
+            </Button>
+          ) : (
+            <></>
+          )}
+          {userData.data.data.mailSent === false ? (
+            <div>
+              <p>Data goes in mail</p>
+              <p>name : {mailData.investorName}</p>
+              <p>email: {mailData.investorEmail}</p>
+              <p>no of unit: {mailData.numberOfUnits}</p>
+              <p> amount: {mailData.paymentAmount}</p>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <div>Can't Fetch the verified details of user</div>
