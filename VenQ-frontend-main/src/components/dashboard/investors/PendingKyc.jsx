@@ -364,7 +364,7 @@ const PendingKyc = () => {
                       fontFamily: "Gilroy-Medium",
                     }}
                   >
-                    Aadhar Details
+                    Aadhar Details 
                   </div>
                   <div
                     style={{

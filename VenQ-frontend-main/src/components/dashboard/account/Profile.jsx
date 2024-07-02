@@ -34,7 +34,6 @@ function UserInfoItem({ userName, lastSeen, role }) {
   );
 }
 
-
 <script
   type="text/javascript"
   id="hs-script-loader"
@@ -914,7 +913,7 @@ function Dashboard() {
           <div
             className="main-otp-div popup"
             style={{
-              width: "max-content",
+              width: "70%",
               padding: "0 20px 30px",
               marginTop: "100px",
             }}
@@ -1015,7 +1014,7 @@ function Dashboard() {
                     display: "flex",
                     justifyContent: "flex-start",
                     flexDirection: "column",
-                    width: "470px",
+                    width: "100%",
                   }}
                 >
                   <div
@@ -1053,7 +1052,7 @@ function Dashboard() {
                         setAad(event.target.value);
                       }}
                       style={{
-                        width: "450px",
+                        width: "90%",
                         marginTop: "0px",
                         marginBottom: "10px",
                       }}
@@ -1168,7 +1167,7 @@ function Dashboard() {
                     display: "flex",
                     justifyContent: "flex-start",
                     flexDirection: "column",
-                    width: "470px",
+                    width: "100%",
                   }}
                 >
                   <div
@@ -1207,7 +1206,7 @@ function Dashboard() {
                         setPan(event.target.value);
                       }}
                       style={{
-                        width: "450px",
+                        width: "90%",
                         marginTop: "0px",
                         marginBottom: "10px",
                       }}
@@ -1258,7 +1257,7 @@ function Dashboard() {
                     display: "flex",
                     justifyContent: "flex-start",
                     flexDirection: "column",
-                    width: "470px",
+                    width: "100%",
                   }}
                 >
                   <div
@@ -1297,7 +1296,7 @@ function Dashboard() {
                         setbankanme(event.target.value);
                       }}
                       style={{
-                        width: "450px",
+                        width: "90%",
                       }}
                     />
                   </div>
@@ -1357,7 +1356,7 @@ function Dashboard() {
                         setacno(event.target.value);
                       }}
                       style={{
-                        width: "450px",
+                        width: "90%",
                       }}
                     />
                   </div>
@@ -1388,7 +1387,7 @@ function Dashboard() {
                         setifsccode(event.target.value);
                       }}
                       style={{
-                        width: "450px",
+                        width: "90%",
                       }}
                     />
                   </div>
@@ -1430,6 +1429,7 @@ function Dashboard() {
                         backgroundColor: "#626bea",
                         color: "white",
                         width: "100%",
+                        marginTop: "20px",
                       }}
                       onClick={() => {
                         savekyc();
