@@ -16,7 +16,7 @@ const SuccessPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/dashboard/portfolio");
-    }, 20000);
+    }, 5000);
     setInterval(() => {
       setCount((count) => count - 1);
     }, 1000);
