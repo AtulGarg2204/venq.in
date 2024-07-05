@@ -144,6 +144,7 @@ const Properties = () => {
   const handleButtonClick = (value) => {
     setActiveButton(value);
   };
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   const [listings, setListings] = useState([]);
   const [isAdmin, setAdmin] = useState(false);
@@ -151,6 +152,25 @@ const Properties = () => {
   const URL = config.URL;
 
   useEffect(() => {
+
+    if (token) {
+      setLoggedIn(true);
+    }
+    const head = document.querySelector("head");
+    const script = document.createElement("script");
+
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute(
+      "src",
+      "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+    );
+    script.setAttribute("id", "aisensy-wa-widget");
+    script.setAttribute("widget-id", "LKoMcZ");
+    head.appendChild(script);
+    console.log(script);
+
+
+
     axios
       .get(`${URL}/listing`)
       .then((response) => {
@@ -206,7 +226,7 @@ const Properties = () => {
             onClick={() => handleButtonClick("available")}
             active={activeButton === "available"}
           >
-            Available
+            Available 
           </OptionName>
 
           <OptionName
