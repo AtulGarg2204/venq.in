@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import star from "./star.png";
 import axios from "axios";
 import config from "../../config";
-
+import IconImage from "./favicon.png";
 import "./LoginPopup.css";
 const Property = styled(Card)`
   background-color: white;
@@ -222,6 +222,7 @@ const PropertyPage = () => {
             <button className="close-popup-button" onClick={handleLoginPopup}>
               ×
             </button>
+            <img src={IconImage} className="iconImage"/>
             <h2>Do you want to login or signup?</h2>
             <div className="choice-buttons">
               <Link
