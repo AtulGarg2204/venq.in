@@ -31,8 +31,10 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 const razorpay = new Razorpay({
-  key_id: "rzp_live_gHZIY3vAzSxfGR",
-  key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
+  // key_id: "rzp_live_gHZIY3vAzSxfGR",
+  // key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
+  key_id:"rzp_test_qhajW6qJ3G4guZ",
+  key_secret:"DGr7QRTZVxpDZWTFP9HtJWCF"
 });
 console.log(process.env.NODE_ENV);
 connectDB();
@@ -155,7 +157,7 @@ app.post("/payment/paymentVerification", async (req, res) => {
   const body_data = razorpay_order_id + "|" + razorpay_payment_id;
   try {
     const expect = crypto
-      .createHmac("sha256", "78lMVpG9gwiuTOD4C9zLDYAV")
+      .createHmac("sha256", "DGr7QRTZVxpDZWTFP9HtJWCF")
       .update(body_data)
       .digest("hex");
 
@@ -169,7 +171,7 @@ app.post("/payment/paymentVerification", async (req, res) => {
         existingOrder.razorpay_payment_id = razorpay_payment_id;
         existingOrder.razorpay_order_id = razorpay_order_id;
         await existingOrder.save();
-      }
+      } 
       res.redirect(`https://venq.in/success`);
       return;
     } else {

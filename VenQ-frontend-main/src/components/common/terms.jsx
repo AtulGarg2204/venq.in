@@ -123,8 +123,8 @@ const Terms = (props) => {
 
         // Configure Razorpay options
         const options = {
-          key: "rzp_live_gHZIY3vAzSxfGR",
-          // key: "rzp_test_1Gua6rylAOKvtK",
+          // key: "rzp_live_gHZIY3vAzSxfGR",
+          key: "rzp_test_qhajW6qJ3G4guZ",
           amount: order.amount,
           currency: order.currency,
           name: "Venq",
@@ -467,6 +467,11 @@ const Terms = (props) => {
                 I have read and accept the terms of the agreement
               </Typography>
             </div>
+
+            {/* <FormControlLabel sx={{
+fontFamily:'Gilroy-Medium'
+}} required control={<Checkbox />} label="I have read and agree to the e sign disclosure" /> */}
+
             <Box>
               <PaymentButton
                 disabled={check1 && check2 ? false : true}
