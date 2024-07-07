@@ -11,6 +11,7 @@ const SuccessPage = () => {
   const [count, setCount] = useState(5);
   const [minAmount, setMinAmount] = useState(0);
   const quantity = JSON.parse(localStorage.getItem("units"));
+  const userinfo = JSON.parse(localStorage.getItem("userinfo"));
   const URL = config.URL;
   console.log("quantity  of stock invested", quantity);
   useEffect(() => {

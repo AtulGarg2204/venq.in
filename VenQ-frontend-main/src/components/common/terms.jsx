@@ -104,6 +104,7 @@ const Terms = (props) => {
         console.error(error);
       });
   }, []);
+
   const handlePayment = async () => {
     try {
       // Map user details to state variables if needed
@@ -123,8 +124,8 @@ const Terms = (props) => {
 
         // Configure Razorpay options
         const options = {
-          // key: "rzp_live_gHZIY3vAzSxfGR",
-          key: "rzp_test_qhajW6qJ3G4guZ",
+          key: "rzp_live_gHZIY3vAzSxfGR",
+          // key: "rzp_test_qhajW6qJ3G4guZ",
           amount: order.amount,
           currency: order.currency,
           name: "Venq",
