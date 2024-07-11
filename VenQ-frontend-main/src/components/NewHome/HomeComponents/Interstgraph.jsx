@@ -1206,10 +1206,7 @@ const InterestGraph = () => {
           <img src={villa} alt="" />
         </div>
       </div>
-      {/* 
-            <div className="bottom-half-circle " style={BottomHalfCircle}>
-                
-            </div> */}
+      
 
       <div className="home_live_property_heading">
         <h1>LIVE PROPERTIES</h1>

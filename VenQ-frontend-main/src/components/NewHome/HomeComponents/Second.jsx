@@ -1,10 +1,39 @@
+import React from "react";
 import "./second.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import card_image_1 from "../assets/venq_card_1_img.jpeg";
 import card_image_2 from "../assets/venq_card_2_img.jpeg";
 import card_image_3 from "../assets/venq_card_3_img.jpeg";
 import card_image_4 from "../assets/venq_card_4_img.jpeg";
+import PartnerSlider from "../../Partners/PartnerSlider";
+import AsSeenIn from "./AsSeenIn";
 
-export default function TextDiv() {
+export default function TextDiv({ sliderContainerClassName = "" }) {
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 100,
+    cssEase: "linear",
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesPerRow: 1,
+          rows: 1,
+          speed: 1000,
+          dots: false,
+        },
+      },
+    ],
+  };
   return (
     <div className="content-div" style={{}}>
       <div className="sticky-div">
@@ -37,22 +66,27 @@ export default function TextDiv() {
         <p style={{ marginTop: "20px", backgroundColor: "white" }}>
           As seen in
         </p>
-        <div className="logo_div">
-          <img
-            src={
-              "https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"
-            }
-            alt="logo1"
-          />
-          <img
-            src="https://republicnewsindia.com/wp-content/uploads/2023/07/Republic-News-India-New-Logo-PNG-300x100.png"
-            alt="logo2"
-          />
-          <img
-            src="https://indiansentinel.in/wp-content/uploads/2021/04/cropped-Indian-Sentinel-Copy-scaled-1.jpg"
-            alt="logo3"
-          />
-        </div>
+        {/* <div
+          className={`slider-container  ${sliderContainerClassName}`}
+        >
+          <Slider {...settings}>
+            <img
+              src={
+                "https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130"
+              }
+              alt="logo1"
+            />
+            <img
+              src="https://republicnewsindia.com/wp-content/uploads/2023/07/Republic-News-India-New-Logo-PNG-300x100.png"
+              alt="logo2"
+            />
+            <img
+              src="https://indiansentinel.in/wp-content/uploads/2021/04/cropped-Indian-Sentinel-Copy-scaled-1.jpg"
+              alt="logo3"
+            />
+          </Slider>
+        </div> */}
+        <AsSeenIn />
       </div>
 
       <div style={{ marginTop: "40px", height: "fit-content" }}>

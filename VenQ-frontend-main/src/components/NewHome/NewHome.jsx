@@ -68,7 +68,8 @@ function App() {
         <First />
         <Second />
         <Signupstep />
-        {!isSmallScreen ? <Interstgraph /> : <></>}
+        {/* {!isSmallScreen ? <Interstgraph /> : <></>} */}
+        <Interstgraph />
         {/* <NewHeroSection /> */}
         <TextYoutube />
         <OurCommitment />

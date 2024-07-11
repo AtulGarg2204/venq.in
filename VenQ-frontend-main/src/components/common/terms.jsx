@@ -107,7 +107,6 @@ const Terms = (props) => {
 
   const handlePayment = async () => {
     try {
-      // Map user details to state variables if needed
       if (userDetail && userDetail.length > 0) {
         const user = userDetail[userDetail.length - 1];
         setUserName(user.name);
@@ -122,17 +121,14 @@ const Terms = (props) => {
           amount: props.userinvestone,
         });
 
-        // Configure Razorpay options
         const options = {
-          key: "rzp_live_gHZIY3vAzSxfGR",
-          // key: "rzp_test_qhajW6qJ3G4guZ",
+          key: "rzp_live_gHZIY3vAzSxfGR", // Test key, replace with live key when going to production
           amount: order.amount,
           currency: order.currency,
           name: "Venq",
           description: "Test Transaction",
           image: { payment_logo },
           order_id: order.id,
-          callback_url: `${URL}/payment/paymentVerification`,
           prefill: {
             name: userName,
             email: userEmailId,
@@ -149,44 +145,58 @@ const Terms = (props) => {
             try {
               // Check if payment is successful
               if (response.razorpay_payment_id) {
-                // Payment successful, now create the transfer
-                const transferResponse = await axios.post(
-                  `${URL}/payment/createTransfer`,
+                // Verify the payment
+                const verificationResponse = await axios.post(
+                  `${URL}/payment/paymentVerification`,
                   {
-                    amount: props.userinvestone, // Amount to transfer (80% of payment amount)
-                    paymentId: response.razorpay_payment_id,
-                    recipientAccountId: "acc_NzJ7ixN968wfiB", // Replace with recipient's account ID
-                    notes: {
-                      name: user.name,
-                      propertyName: user.property,
-                    },
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
                   }
                 );
-                // Optionally, handle the transfer creation response
-                console.log("Transfer created:", transferResponse.data);
-                // window.location.href = "/success";
-                window.location.href = `/success?name=${encodeURIComponent(
-                  user.name
-                )}&propertyName=${encodeURIComponent(user.property)}`;
+
+                if (verificationResponse.data.success) {
+                  // Payment verified successfully, now create the transfer
+                  const transferResponse = await axios.post(
+                    `${URL}/payment/createTransfer`,
+                    {
+                      amount: props.userinvestone,
+                      paymentId: response.razorpay_payment_id,
+                      recipientAccountId: "acc_NzJ7ixN968wfiB", // Replace with recipient's account ID
+                      notes: {
+                        name: user.name,
+                        propertyName: user.property,
+                      },
+                    }
+                  );
+
+                  console.log("Transfer created:", transferResponse.data);
+                  window.location.href = `/success?name=${encodeURIComponent(
+                    user.name
+                  )}&propertyName=${encodeURIComponent(user.property)}`;
+                } else {
+                  // Payment verification failed
+                  console.error("Payment verification failed");
+                  window.location.href = "/dashboard/properties"; // Redirect or handle verification failure
+                }
               } else {
                 // Payment failed or was cancelled
                 console.error("Payment failed or cancelled:", response.error);
-                // window.location.href = "/dashboard/properties";
-                // Handle payment failure or cancellation
+                window.location.href = "/dashboard/properties"; // Redirect or handle payment failure
               }
             } catch (error) {
-              console.error("Error creating transfer:", error);
+              console.error("Error handling payment:", error);
+              window.location.href = "/dashboard/properties"; // Redirect or handle error
             }
           },
         };
 
-        // Initialize Razorpay and open payment dialog
         const rzp1 = new Razorpay(options);
         rzp1.open();
       }
     } catch (error) {
       console.error("Error handling payment:", error);
-      // Handle errors appropriately
+      // Provide user feedback or redirect
     }
   };
   return (

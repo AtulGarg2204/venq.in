@@ -194,6 +194,7 @@
 }
 
 .compound_main {
+  /* background-color: red; */
   width: 65%;
   margin: auto;
   display: grid;
@@ -216,7 +217,9 @@
     width: 100%;
     position: relative;
   }
-
+  .compound_main {
+    display: none;
+  }
   .compound_calculater_form_main {
     width: 95%;
     margin-top: -100px;
@@ -498,7 +501,9 @@
   .home_live_property_heading {
     width: 95%;
   }
-
+  .compound_main {
+    display: none;
+  }
   .home_live_property_main {
     width: 95%;
     text-align: center;
