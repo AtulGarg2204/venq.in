@@ -3,12 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./AsSeenIn.css";
-import invetopedia from "./articleImages/investopedia.png";
-import et from "./articleImages/et.png";
-import forbes from "./articleImages/forbes.png";
-import geekwire from "./articleImages/geekwire.png";
-import entrepreneur from "./articleImages/entrepreneur.png";
-import cnbc from "./articleImages/cnbc.png";
+
+import one from "./articleImages/1.png";
+import two from "./articleImages/2.png";
+import three from "./articleImages/3.png";
+import four from "./articleImages/4.png";
+import five from "./articleImages/5.png";
+import six from "./articleImages/6.png";
+
 const AsSeenIn = ({
   ourPartnersClassName = "",
   sliderContainerClassName = "",
@@ -16,25 +18,27 @@ const AsSeenIn = ({
   const partnerArray = [
     {
       name: "Partner 2",
-      imageSrc:
-        "https://m.dailyhunt.in/assets/img/desktop/logo.svg?mode=pwa&ver=4.0.130",
+      imageSrc: one,
     },
     {
       name: "Partner 3",
-      imageSrc: invetopedia,
+      imageSrc: two,
     },
     {
       name: "Partner 4",
-      imageSrc:
-        "https://indiansentinel.in/wp-content/uploads/2021/04/cropped-Indian-Sentinel-Copy-scaled-1.jpg",
+      imageSrc: three,
     },
     {
       name: "Partner 5",
-      imageSrc: cnbc,
+      imageSrc: four,
     },
     {
       name: "Partner 6",
-      imageSrc: geekwire,
+      imageSrc: five,
+    },
+    {
+      name: "Partner 7",
+      imageSrc: six,
     },
   ];
   const settings = {

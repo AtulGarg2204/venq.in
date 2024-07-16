@@ -1447,8 +1447,8 @@ function Dashboard() {
       {!visible && (
         <div
           style={{
-            backgroundColor: "white",
-            width: isMobile ? "350px" : "60%",
+            // backgroundColor: "red",
+            width: "100%",
             height: "100%",
             borderRadius: "10px",
           }}
@@ -1456,22 +1456,26 @@ function Dashboard() {
           <div
             style={{
               backgroundColor: "white",
+              paddingLeft: "20px",
+              paddingRight: "20px",
               height: "100%",
             }}
           >
             <article className="main-content">
               <header className="user-header">
-                <h1 className="user-name">{token.name}</h1>
+                <h1 className="user-name">Profile</h1>
                 {/* <h2 className="user-last-seen">Last seen 3 hours ago</h2> */}
               </header>
               <nav className="tab-navigation">
                 <ul>
-                  <li className="nav-item">Profile</li>
+                  <li className="nav-item">Details</li>
                   <li className="nav-item1">Transactions</li>
-                  <li className="nav-item1">Documents</li>
+                  <li className="nav-item1">Documents </li>
                 </ul>
               </nav>
-              <section className="personal-information">
+
+              {/* information section  */}
+              {/* <section className="personal-information">
                 <h3 className="sub-heading">Personal Information</h3>
                 <div className="form-item">
                   <label htmlFor="firstName" className="form-label">
@@ -1508,7 +1512,21 @@ function Dashboard() {
                     {token.phone}
                   </p>
                 </div>
-              </section>
+              </section> */}
+              <div className="contact-info">
+                <div className="info-block">
+                  <p className="label">Name:</p>
+                  <p className="value"> {token.name.split(" ")[0]}</p>
+                </div>
+                <div className="info-block">
+                  <p className="label">Email:</p>
+                  <p className="value"> {token.email}</p>
+                </div>
+                <div className="info-block">
+                  <p className="label">Phone:</p>
+                  <p className="value">{token.phone}</p>
+                </div>
+              </div>
 
               <div
                 style={{
@@ -1573,164 +1591,34 @@ function Dashboard() {
                   </button>
                 )}
 
-                <button className="edit-btn">Edit Profile</button>
+                <button
+                  className="edit-btn"
+                  style={{
+                    backgroundColor: "#e9ecef",
+                  }}
+                >
+                  Edit Profile
+                </button>
+              </div>
+              <div className="required-documents">
+                <h2>Required Documents</h2>
+                <div className="document-info">
+                  <div className="doc-label">
+                    <p className="es-sign">E-sign required:</p>
+                  </div>
+                  <div className="doc-value">
+                    <p>Property Document</p>
+
+                    <img
+                      src="https://tse3.mm.bing.net/th?id=OIP.DUREJEAlIulzOwB5WuTNzQHaHa&pid=Api&P=0&h=180"
+                      alt="Download Icon"
+                      className="download-icon"
+                    />
+                  </div>
+                </div>
               </div>
             </article>
           </div>
-          <style jsx>{`
-            .profilepage {
-              height: 100%;
-              width: 100%;
-              display: flex;
-
-              align-items: flex-start;
-              justify-content: center;
-              font-family: "Work Sans", sans-serif;
-            }
-            .aadharbox {
-              border: 1.5px solid #f9c847;
-              background-color: #e1e7ea;
-              height: 8px;
-              width: 20%;
-            }
-            .upibox {
-              border: 1.5px solid #52bf83;
-              background-color: #e1e7ea;
-              height: 8px;
-              width: 20%;
-            }
-
-            aside {
-              width: 250px;
-              background-color: #f0f2f5;
-              padding: 20px;
-            }
-
-            .sidebar {
-              display: flex;
-              flex-direction: column;
-            }
-
-            .icon-wrapper {
-              width: 24px;
-              height: 24px;
-              margin-right: 10px;
-            }
-            .icon {
-              width: 100%;
-              height: auto;
-            }
-
-            .sidebar-item {
-              display: flex;
-              align-items: center;
-              margin-bottom: 10px;
-              cursor: pointer;
-            }
-
-            .sidebar-item-text {
-              font-size: 14px;
-            }
-
-            .user-info {
-              border-top: 1px solid #d1d1d1;
-              padding-top: 10px;
-            }
-
-            .user-info-text,
-            .role {
-              margin-bottom: 5px;
-            }
-            .user-header {
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-            }
-            .user-name {
-              font-weight: bold;
-              font-size: 36px;
-            }
-            .new-button {
-              align-self: center;
-              padding: 10px 20px;
-              background-color: #007bff;
-              color: white;
-              border-radius: 5px;
-              cursor: pointer;
-              margin-top: 10px;
-            }
-
-            .tab-navigation ul {
-              display: flex;
-              list-style: none;
-              padding: 0;
-            }
-
-            .nav-item {
-              font-weight: bold;
-              border-bottom: 2px solid black;
-              margin-right: 12px;
-              padding-bottom: 5px;
-              cursor: pointer;
-            }
-            .nav-item1 {
-              font-weight: bold;
-              color: grey;
-              padding-bottom: 5px;
-              border-bottom: 2px solid grey;
-              margin-right: 12px;
-              cursor: pointer;
-            }
-
-            .tab-selected {
-              background-color: #007bff;
-              color: white;
-            }
-            .main-content {
-              background-color: white;
-              padding-left: 20px;
-              padding-right: 20px;
-              border: 5px solid white;
-              flex: 1;
-              padding: 20px;
-            }
-
-            .sub-heading {
-              font-weight: bold;
-              margin: 20px 0 10px;
-            }
-
-            .form-item {
-              display: flex;
-              justify-content: space-between;
-            }
-
-            .form-label {
-              display: flex;
-              align-items: center;
-            }
-
-            .form-data {
-              // background-color: #e9ecef;
-              padding: 10px;
-              border-radius: 5px;
-            }
-            .edit-btn,
-            .verify-btn {
-              background-color: #e9ecef;
-              color: black;
-              font-weight: bold;
-              padding: 15px 20px;
-              border: none;
-              border-radius: 5px;
-              cursor: pointer;
-              margin: 10px 0px;
-            }
-
-            .edit-btn {
-              align-self: flex-start;
-            }
-          `}</style>
         </div>
       )}
     </div>

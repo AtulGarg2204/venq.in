@@ -38,7 +38,6 @@ import AddIcon from "@mui/icons-material/Add";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { width } from "@mui/system";
 
-// import succesImg from '../../images/success.png'
 
 const URL = config.URL;
 
@@ -83,7 +82,6 @@ const Terms = (props) => {
   const [Razorpay] = useRazorpay();
   const [openTerms, setOpenTerms] = useState(true);
   const navigate = useNavigate();
-
   const [check1, setCheckFirst] = useState(false);
   const [check2, setCheckSecond] = useState(false);
   const [userDetail, setUserDetail] = useState("");
@@ -122,7 +120,7 @@ const Terms = (props) => {
         });
 
         const options = {
-          key: "rzp_live_gHZIY3vAzSxfGR", // Test key, replace with live key when going to production
+          key: "rzp_test_qhajW6qJ3G4guZ", // Test key, replace with live key when going to production
           amount: order.amount,
           currency: order.currency,
           name: "Venq",
@@ -160,7 +158,7 @@ const Terms = (props) => {
                   const transferResponse = await axios.post(
                     `${URL}/payment/createTransfer`,
                     {
-                      amount: props.userinvestone,
+                      amount: props.userinvestone * 0.95,
                       paymentId: response.razorpay_payment_id,
                       recipientAccountId: "acc_NzJ7ixN968wfiB", // Replace with recipient's account ID
                       notes: {

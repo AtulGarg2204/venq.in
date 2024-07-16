@@ -31,10 +31,10 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 const razorpay = new Razorpay({
-  key_id: "rzp_live_gHZIY3vAzSxfGR",
-  key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
-  // key_id: "rzp_test_qhajW6qJ3G4guZ",
-  // key_secret: "DGr7QRTZVxpDZWTFP9HtJWCF",
+  // key_id: "rzp_live_gHZIY3vAzSxfGR",
+  // key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
+  key_id: "rzp_test_qhajW6qJ3G4guZ",
+  key_secret: "DGr7QRTZVxpDZWTFP9HtJWCF",
 });
 console.log(process.env.NODE_ENV);
 connectDB();
@@ -135,6 +135,7 @@ app.post("/payment/checkout", async (req, res) => {
     const order = await razorpay.orders.create({
       amount: Number(amount) * 100,
       currency: "INR",
+      name: name,
     });
 
     await OrderModel.create({
@@ -157,7 +158,7 @@ app.post("/payment/paymentVerification", async (req, res) => {
   const body_data = razorpay_order_id + "|" + razorpay_payment_id;
   try {
     const expect = crypto
-      .createHmac("sha256", "78lMVpG9gwiuTOD4C9zLDYAV")
+      .createHmac("sha256", "DGr7QRTZVxpDZWTFP9HtJWCF")
       .update(body_data)
       .digest("hex");
 
@@ -173,6 +174,7 @@ app.post("/payment/paymentVerification", async (req, res) => {
         await existingOrder.save();
 
         // Return a success response
+        console.log("payment successfulll");
         res.json({ success: true });
         return;
       }
@@ -196,7 +198,7 @@ app.post("/payment/createTransfer", async (req, res) => {
       transfers: [
         {
           account: recipientAccountId,
-          amount: Math.round(Number(amount) * 86.3), // Convert amount to paise
+          amount: Math.round(Number(amount) * 100), // Convert amount to paise
           currency: "INR",
           notes: {
             name: notes.name,
