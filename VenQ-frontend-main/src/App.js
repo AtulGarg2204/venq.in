@@ -62,6 +62,7 @@ import OptlessSignup from "./components/OtplessSignup/OptlessSignup";
 import Name from "./components/OtplessSignup/Name";
 import NewHome from "./components/NewHome/NewHome";
 import Kyc_details from "./components/dashboard/UserInterests/Kyc_details";
+import DemoPropertyPage from "./components/dashboard/property/DemoPropertyPage";
 function App() {
   return (
     <DataProvider>
@@ -108,6 +109,8 @@ function App() {
           {/* </Route> */}
           <Route path="/allinterests/view" element={<Allinterests />} />
           <Route path="/properties" element={<PropertyPage />} />
+          <Route path="/demoproperty/:id" element={<DemoPropertyPage />} />
+
           <Route path="dashboard/*" element={<Dashboard />}>
             <Route
               path="allpropertyinterests/userinterests/:propertyid/"

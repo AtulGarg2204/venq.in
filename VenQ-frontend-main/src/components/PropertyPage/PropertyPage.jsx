@@ -222,7 +222,7 @@ const PropertyPage = () => {
             <button className="close-popup-button" onClick={handleLoginPopup}>
               ×
             </button>
-            <img src={IconImage} className="iconImage"/>
+            <img src={IconImage} className="iconImage" />
             <h2>Do you want to login or signup?</h2>
             <div className="choice-buttons">
               <Link
@@ -326,7 +326,7 @@ const PropertyPage = () => {
                           to={
                             isLoggedIn
                               ? `/dashboard/properties/view/${listing._id}`
-                              : ``
+                              : `/demoproperty/${listing._id}`
                           }
                           style={{ textDecoration: "none" }}
                         >
@@ -544,6 +544,7 @@ const PropertyPage = () => {
                                               Login
                                             </Link>{" "}
                                             to view the property
+                                            {/* //i am working here  */}
                                           </div>
                                         </div>
                                       </Link>

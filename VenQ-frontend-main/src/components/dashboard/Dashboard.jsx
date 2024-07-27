@@ -224,15 +224,15 @@ const Dashboard = () => {
   const [drawerOpen, setDrawerOpen] = useState(!isMobile);
   const [isAdmin, setAdmin] = useState(false);
 
-  var sc = document.getElementById("aisensy-wa-widget");
+  // var sc = document.getElementById("aisensy-wa-widget");
   useEffect(() => {
-    console.log(sc);
-    if (sc && isMobile) {
-      console.log("removed");
-      console.log(sc);
-      sc?.parentNode?.removeChild(sc);
-      window.location.reload();
-    }
+    // console.log(sc);
+    // if (sc && isMobile) {
+    //   console.log("removed");
+    //   console.log(sc);
+    //   sc?.parentNode?.removeChild(sc);
+    //   window.location.reload();
+    // }
     if (token && token.isAdmin) {
       setAdmin(true);
     }

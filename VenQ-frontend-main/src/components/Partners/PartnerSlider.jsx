@@ -48,7 +48,7 @@ const PartnerSlider = ({
         <div className={`partners-text`}>
           <h2 className={`partners-heading ${ourPartnersClassName}`}>
             OUR PARTNERS
-          </h2> 
+          </h2>
         </div>
         <div className={`slider-container  ${sliderContainerClassName}`}>
           <Slider {...settings}>

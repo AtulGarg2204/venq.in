@@ -164,7 +164,7 @@ const Properties = () => {
       "src",
       "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
     );
-    script.setAttribute("id", "aisensy-wa-widget");
+    // script.setAttribute("id", "aisensy-wa-widget");
     script.setAttribute("widget-id", "LKoMcZ");
     head.appendChild(script);
     console.log(script);

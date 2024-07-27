@@ -11,7 +11,7 @@ const phonepeRoute = require("./routes/phonepeRoute");
 const surepassRoute = require("./routes/surepass");
 const blogsRoute = require("./routes/blogs");
 const mailRoute = require("./routes/mailRoute");
-
+const documentRoute = require("./routes/documentRouter");
 const purchasedRoute = require("./routes/purchasedRoute");
 const kycRoute = require("./routes/kyc");
 const { OrderModel } = require("./model/Ordermodels");
@@ -65,6 +65,7 @@ app.use("/phonepe", phonepeRoute);
 app.use("/investment", investmentRoute);
 app.use("/purchased", purchasedRoute);
 app.use("/surepass", surepassRoute);
+app.use("/document", documentRoute);
 app.use("/blogs", blogsRoute);
 app.use("/sendmail", mailRoute);
 app.use("/kyc", kycRoute);
