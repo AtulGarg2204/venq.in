@@ -95,7 +95,7 @@ app.post("/api/upload-by-link", async (req, res) => {
   try {
     const result = await cloudinary.uploader.upload(link, {
       folder: "upload",
-      allowed_formats: ["jpg", "jpeg", "png", "gif"],
+      allowed_formats: ["jpg", "jpeg", "png", "gif", "pdf"],
     });
     // console.log('heeere---');
     console.log(result);
