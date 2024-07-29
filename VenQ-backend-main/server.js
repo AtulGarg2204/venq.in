@@ -11,9 +11,10 @@ const phonepeRoute = require("./routes/phonepeRoute");
 const surepassRoute = require("./routes/surepass");
 const blogsRoute = require("./routes/blogs");
 const mailRoute = require("./routes/mailRoute");
-const documentRoute = require("./routes/documentRouter");
+
 const purchasedRoute = require("./routes/purchasedRoute");
 const kycRoute = require("./routes/kyc");
+// const documentRoute = require("./routes/documentRouter");
 const { OrderModel } = require("./model/Ordermodels");
 // image haxdling--------------------------------
 const bodyparser = require("body-parser");
@@ -31,10 +32,10 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 
 const razorpay = new Razorpay({
-  // key_id: "rzp_live_gHZIY3vAzSxfGR",
-  // key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
-  key_id: "rzp_test_qhajW6qJ3G4guZ",
-  key_secret: "DGr7QRTZVxpDZWTFP9HtJWCF",
+  key_id: "rzp_live_gHZIY3vAzSxfGR",
+  key_secret: "78lMVpG9gwiuTOD4C9zLDYAV",
+  // key_id: "rzp_test_qhajW6qJ3G4guZ",
+  // key_secret: "DGr7QRTZVxpDZWTFP9HtJWCF",
 });
 console.log(process.env.NODE_ENV);
 connectDB();
@@ -65,7 +66,7 @@ app.use("/phonepe", phonepeRoute);
 app.use("/investment", investmentRoute);
 app.use("/purchased", purchasedRoute);
 app.use("/surepass", surepassRoute);
-app.use("/document", documentRoute);
+// app.use("/document", documentRoute);
 app.use("/blogs", blogsRoute);
 app.use("/sendmail", mailRoute);
 app.use("/kyc", kycRoute);
@@ -136,7 +137,6 @@ app.post("/payment/checkout", async (req, res) => {
     const order = await razorpay.orders.create({
       amount: Number(amount) * 100,
       currency: "INR",
-      name: name,
     });
 
     await OrderModel.create({
@@ -159,7 +159,7 @@ app.post("/payment/paymentVerification", async (req, res) => {
   const body_data = razorpay_order_id + "|" + razorpay_payment_id;
   try {
     const expect = crypto
-      .createHmac("sha256", "DGr7QRTZVxpDZWTFP9HtJWCF")
+      .createHmac("sha256", "78lMVpG9gwiuTOD4C9zLDYAV")
       .update(body_data)
       .digest("hex");
 

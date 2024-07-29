@@ -38,7 +38,6 @@ import AddIcon from "@mui/icons-material/Add";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { width } from "@mui/system";
 
-
 const URL = config.URL;
 
 const Amount = styled(Typography)`
@@ -120,7 +119,7 @@ const Terms = (props) => {
         });
 
         const options = {
-          key: "rzp_test_qhajW6qJ3G4guZ", // Test key, replace with live key when going to production
+          key: "rzp_live_gHZIY3vAzSxfGR", // Test key, replace with live key when going to production
           amount: order.amount,
           currency: order.currency,
           name: "Venq",
