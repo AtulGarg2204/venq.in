@@ -25,7 +25,7 @@ function ThirdPage({ fd, sfd }) {
     fetch("https://api.cloudinary.com/v1_1/dos2aqlca/image/upload", {
       method: "POST",
       body: formData,
-    })
+    })  
       .then((response) => response.json())
       .then((data) => {
         setUrl(data.url);

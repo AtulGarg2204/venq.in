@@ -474,83 +474,104 @@ const PropertyPage = () => {
                                       // backgroundColor: "red",
                                     }}
                                   >
-                                    <div
-                                      style={{
-                                        width: "90%",
-                                        // backgroundColor: "",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        height: "100px",
-                                        alignItems: "center",
-                                      }}
-                                      onClick={handleLoginPopup}
+                                    <Link
+                                      to={
+                                        isLoggedIn
+                                          ? `/dashboard/properties/view/${listing._id}`
+                                          : `/demoproperty/${listing._id}`
+                                      }
+                                      style={{ textDecoration: "none" }}
                                     >
-                                      <Link
-                                        // to="/login"
+                                      <div
                                         style={{
-                                          textDecoration: "none",
+                                          width: "90%",
+                                          backgroundColor: "white",
+                                          display: "flex",
+                                          flexDirection: "column",
+                                          height: "100px",
+                                          alignItems: "center",
                                         }}
+                                        // onClick={handleLoginPopup}
                                       >
-                                        <div
-                                          style={{
-                                            padding: "10px",
-                                            borderRadius: "10px",
-                                            display: "flex",
-                                            flexDirection: "column",
-                                            backgroundImage:
-                                              "images/blurimg.png",
-                                          }}
+                                        <Link
+                                          // to="/login"
+                                          to={
+                                            isLoggedIn
+                                              ? `/dashboard/properties/view/${listing._id}`
+                                              : `/demoproperty/${listing._id}`
+                                          }
+                                          style={{ textDecoration: "none" }}
                                         >
                                           <div
                                             style={{
+                                              padding: "10px",
+                                              borderRadius: "10px",
                                               display: "flex",
-                                              justifyContent: "center",
-                                              marginTop: "5%",
+                                              flexDirection: "column",
+                                              backgroundImage:
+                                                "images/blurimg.png",
                                             }}
                                           >
-                                            <img
-                                              src="images/lock.png"
-                                              alt="lock"
-                                              height={30}
-                                              width={30}
-                                            />
-                                          </div>
-
-                                          <div
-                                            style={{
-                                              marginTop: "10px",
-                                              textAlign: "center",
-                                              // backgroundColor: "red",
-                                            }}
-                                          >
-                                            <Link
-                                              // to="/login"
+                                            <div
                                               style={{
-                                                textDecoration: "none",
-                                                color: "#41CE8E",
-                                                fontWeight: "600",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                marginTop: "5%",
                                               }}
                                             >
-                                              Signup
-                                            </Link>{" "}
-                                            or{" "}
-                                            <Link
+                                              <img
+                                                src="images/lock.png"
+                                                alt="lock"
+                                                height={30}
+                                                width={30}
+                                              />
+                                            </div>
+
+                                            <div
                                               style={{
-                                                textDecoration: "none",
-                                                color: "#41CE8E",
-                                                fontWeight: "600",
+                                                marginTop: "10px",
+                                                textAlign: "center",
+                                                // backgroundColor: "red",
                                               }}
                                             >
-                                              Login
-                                            </Link>{" "}
-                                            to view the property
-                                            {/* //i am working here  */}
+                                              <Link
+                                                to={
+                                                  isLoggedIn
+                                                    ? `/dashboard/properties/view/${listing._id}`
+                                                    : `/demoproperty/${listing._id}`
+                                                }
+                                                style={{
+                                                  textDecoration: "none",
+                                                  color: "#41CE8E",
+                                                  fontWeight: "600",
+                                                }}
+                                              >
+                                                Signup
+                                              </Link>{" "}
+                                              or{" "}
+                                              <Link
+                                                style={{
+                                                  textDecoration: "none",
+                                                  color: "#41CE8E",
+                                                  fontWeight: "600",
+                                                }}
+                                                to={
+                                                  isLoggedIn
+                                                    ? `/dashboard/properties/view/${listing._id}`
+                                                    : `/demoproperty/${listing._id}`
+                                                }
+                                              >
+                                                Login
+                                              </Link>{" "}
+                                              to view the property
+                                              {/* //i am working here  */}
+                                            </div>
                                           </div>
-                                        </div>
-                                      </Link>
+                                        </Link>
 
-                                      <div></div>
-                                    </div>
+                                        <div></div>
+                                      </div>
+                                    </Link>
                                   </div>
                                 </>
                               )}

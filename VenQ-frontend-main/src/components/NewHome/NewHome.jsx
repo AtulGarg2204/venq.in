@@ -60,6 +60,7 @@ function App() {
     return () => {
       head.removeChild(script);
     };
+    
   }, []);
   return (
     <div>

@@ -11,7 +11,6 @@
 
 .rotated-button-container > h3 {
   font-weight: 800;
-
 }
 
 .rotated-heading {
@@ -108,7 +107,6 @@
   height: auto;
   margin-top: 150px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  
 }
 
 .home_footer_logo {
@@ -163,7 +161,8 @@
 .home_footer_socialIcons_main {
   width: 90%;
   margin: auto;
-  text-align: end;
+
+  text-align: center;
 }
 
 .home_footer_socialIcons_main > h1 {
@@ -174,7 +173,6 @@
 .home_footer_socialIcons_main > div {
   margin-right: 40px;
 }
-
 
 .socialIcon {
   color: black; /* Set the icon color to black */
@@ -191,10 +189,16 @@
   height: auto;
   margin: auto;
   display: grid;
+  text-align: center;
+  margin-left: 15%;
   grid-template-columns: repeat(2, 1fr);
   margin-top: 25px;
 }
-
+.copyright {
+  color: rebeccapurple;
+  font-size: 80px;
+  margin-right: 100px;
+}
 .home_footer_allrights_container_one {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

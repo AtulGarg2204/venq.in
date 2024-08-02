@@ -10,10 +10,8 @@ import Verification from "./components/signup/Verification";
 <script
   type="text/javascript"
   id="hs-script-loader"
-  async
-  defer
   src="//js.hs-scripts.com/45720526.js"
-></script>
+></script>;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

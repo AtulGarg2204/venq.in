@@ -214,6 +214,13 @@ const Logout = styled(Link)`
     color: white;
   }
 `;
+<script
+  type="text/javascript"
+  id="hs-script-loader"
+  async
+  defer
+  src="//js.hs-scripts.com/45720526.js"
+></script>;
 
 const Dashboard = () => {
   // const [open] = useState(true);
@@ -233,6 +240,17 @@ const Dashboard = () => {
     //   sc?.parentNode?.removeChild(sc);
     //   window.location.reload();
     // }
+    const script = document.createElement("script");
+    script.setAttribute("id", "aisensy-wa-widget");
+    document.body.appendChild(script);
+
+    // Immediately remove the widget after adding it
+    const widget = document.getElementById("aisensy-wa-widget");
+    if (widget) {
+      widget.remove();
+      console.log("Aisensy widget removed.");
+    }
+    console.log("widget", widget);
     if (token && token.isAdmin) {
       setAdmin(true);
     }

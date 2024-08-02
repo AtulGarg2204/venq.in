@@ -301,7 +301,6 @@ const Footer = (addTopMargin) => {
           </div>
         </div>
         <div className="home_footer_allrights_main">
-          <div className="home_footer_allrights_container_one"></div>
           <div className="home_footer_allrights_container_two">
             <h2 className="copyright">
               Copyright © 2024 | All Rights Reserved.

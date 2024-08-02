@@ -1122,6 +1122,8 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
         style={{
           opacity: openinv ? "0.25" : "1.0",
           backgroundColor: "white",
+          paddingLeft: "30px",
+          paddingRight: "30px",
         }}
       >
         <Box style={{ padding: "20px" }}>
@@ -1133,7 +1135,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
             }}
           >
             <Box style={{ display: "flex" }}>
-              <PropertyLink to="/dashboard/properties">
+              <PropertyLink to="/properties">
                 <Typography
                   style={{
                     fontFamily: "Inter",
@@ -1211,7 +1213,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
               </Grid>
             ) : (
               <ImageList
-                sx={{ width: "100%", height: 500 }}
+                sx={{ width: "100%", height: 520 }}
                 variant="quilted"
                 cols={10}
               >
@@ -1248,7 +1250,10 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
               }}
             >
               <PhotoLink>
-                <SmallBoxes style={{ margin: "0 15px" }}>
+                <SmallBoxes
+                  style={{ margin: "0 15px" }}
+                  onClick={handleLoginPopup}
+                >
                   <Box
                     style={{ width: "40px", height: "40px", padding: "7px" }}
                   >
@@ -5375,7 +5380,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                       paddingRight: "11%",
                     }}
                   >
-                    Invest 9{" "}
+                    Invest{" "}
                   </button>
                 )}
                 <StyledPopup
@@ -5727,7 +5732,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
 
                                       // disabled={selectedValue==""}
                                     >
-                                      INVEST 11
+                                      INVEST
                                     </Button>
                                   </div>
                                 </div>
