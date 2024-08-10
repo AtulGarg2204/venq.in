@@ -119,13 +119,19 @@ const Kyc_details = () => {
           <p>mail sent: {mailSent === true ? "true" : "false"}</p>
 
           {userData.data.data.mailSent === false ? (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSendEmail}
-            >
-              SEND EOI
-            </Button>
+            <>
+              {" "}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSendEmail}
+              >
+                SEND EOI
+              </Button>
+              <Button variant="contained" color="primary">
+                upload documents
+              </Button>
+            </>
           ) : (
             <></>
           )}

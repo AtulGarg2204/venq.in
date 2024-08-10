@@ -16,6 +16,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import EventIcon from "@mui/icons-material/Event";
 import { Link, useNavigate } from "react-router-dom";
 import star from "./star.png";
+import Navbar from "../navbar/Navbar";
 import axios from "axios";
 import config from "../../config";
 import IconImage from "./favicon.png";
@@ -31,7 +32,7 @@ const UpperPart = styled(Box)(({ theme }) => ({
   width: "100%",
   textAlign: "center",
   position: "absolute",
-  top: "0%",
+
   left: " 0%",
   height: "200px",
   backgroundColor: "#121c30",
@@ -223,7 +224,7 @@ const PropertyPage = () => {
               ×
             </button>
             <img src={IconImage} className="iconImage" />
-            <h2>Do you want to login or signup?</h2>
+            <h2>Do you want to Login or Signup?</h2>
             <div className="choice-buttons">
               <Link
                 to="/login"
@@ -250,6 +251,7 @@ const PropertyPage = () => {
         </div>
       )}
       <div>
+        <Navbar isLoggedIn={isLoggedIn} />
         <UpperPart>
           <SubText>
             <h1
@@ -289,7 +291,13 @@ const PropertyPage = () => {
 
         <Box>
           {activeButton === "available" && (
-            <Box sx={{ flexGrow: 1, height: "20px", marginTop: "10px" }}>
+            <Box
+              sx={{
+                flexGrow: 1,
+                height: "20px",
+                marginTop: "10px",
+              }}
+            >
               <div
                 style={{
                   display: "flex",
@@ -302,6 +310,7 @@ const PropertyPage = () => {
                   container
                   spacing={{ xs: 2, md: 3 }}
                   columns={{ xs: 1, sm: 4, md: 12 }}
+                  style={{}}
                 >
                   {/* .filter((listing) => listing.main_heading === "New Listing") */}
 
@@ -326,9 +335,11 @@ const PropertyPage = () => {
                           to={
                             isLoggedIn
                               ? `/dashboard/properties/view/${listing._id}`
-                              : `/demoproperty/${listing._id}`
+                              : `/unauthorized/${listing._id}`
                           }
-                          style={{ textDecoration: "none" }}
+                          style={{
+                            textDecoration: "none",
+                          }}
                         >
                           <Property sx={{ maxWidth: 365 }}>
                             <CardActionArea>
@@ -478,7 +489,7 @@ const PropertyPage = () => {
                                       to={
                                         isLoggedIn
                                           ? `/dashboard/properties/view/${listing._id}`
-                                          : `/demoproperty/${listing._id}`
+                                          : `/unauthorized/${listing._id}`
                                       }
                                       style={{ textDecoration: "none" }}
                                     >
@@ -498,7 +509,7 @@ const PropertyPage = () => {
                                           to={
                                             isLoggedIn
                                               ? `/dashboard/properties/view/${listing._id}`
-                                              : `/demoproperty/${listing._id}`
+                                              : `/unauthorized/${listing._id}`
                                           }
                                           style={{ textDecoration: "none" }}
                                         >
@@ -538,7 +549,7 @@ const PropertyPage = () => {
                                                 to={
                                                   isLoggedIn
                                                     ? `/dashboard/properties/view/${listing._id}`
-                                                    : `/demoproperty/${listing._id}`
+                                                    : `/unauthorized/${listing._id}`
                                                 }
                                                 style={{
                                                   textDecoration: "none",
@@ -558,7 +569,7 @@ const PropertyPage = () => {
                                                 to={
                                                   isLoggedIn
                                                     ? `/dashboard/properties/view/${listing._id}`
-                                                    : `/demoproperty/${listing._id}`
+                                                    : `/unauthorized/${listing._id}`
                                                 }
                                               >
                                                 Login
@@ -645,10 +656,19 @@ const PropertyPage = () => {
                     .map((filteredListing) => (
                       <Grid key={filteredListing._id} item xs={2} sm={4} md={4}>
                         <Link
-                          to={`/dashboard/properties/view/${filteredListing._id}`}
+                          // funded property
+
+                          to={
+                            isLoggedIn
+                              ? `/dashboard/properties/view/${filteredListing._id}`
+                              : ""
+                          }
                           style={{ textDecoration: "none" }}
                         >
-                          <Property sx={{ maxWidth: 365 }}>
+                          <Property
+                            sx={{ maxWidth: 365 }}
+                            onClick={handleLoginPopup}
+                          >
                             <CardActionArea>
                               <CardMedia>
                                 <Carousel
@@ -841,125 +861,6 @@ const PropertyPage = () => {
               </div>
             </Box>
           )}
-
-          {/* {activeButton === "exited" && (
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-               columns={{ xs: 1, sm: 4, md: 12 }} */}
-          {/* //  .filter((listing) => listing.main_heading === "Sold")
-            > */}
-          {/* {listings.map((listing) => (
-                  <Grid key={listing._id} item xs={2} sm={4} md={4}>
-                    <Link
-                      to={`/dashboard/PropertyPage/view/${listing._id}`}
-                      style={{ textDecoration: "none"}}
-                    >
-                      <Property sx={{ maxWidth: 345 }}>
-                      <CardActionArea>
-                          <CardMedia>
-                            <Category>Luxury Property</Category>
-
-                            <Carousel showThumbs={false}>
-                              {listing.images.map((image, index) => (
-                                <div key={index}>
-                                  <img src={image}  alt={`image-${index}`} />
-                                </div>
-                              ))}
-                            </Carousel>
-                          
-                          </CardMedia>
-                          <Subheader>
-                            <Box>India</Box>
-                            <Box>Rented</Box>
-                          </Subheader>
-
-                          <Header gutterBottom variant="h5" component="div">
-                            {listing.properyheading}
-                            
-                          </Header> */}
-          {/* {isLoggedIn && 
-                          <CardContent>
-                         
-                          <PriceBox>
-                            <Box
-                              style={{
-                                color: "#0170dc",
-                                fontSize: "18px",
-                                fontWeight: 600,
-                                fontFamily: "Inter",
-                              }}
-                            >
-                              INR {listing.propertyprice}
-                            </Box>
-                            <Box></Box>
-                          </PriceBox> */}
-          {/* <progress
-                            style={{
-                              width: "100%",
-                              margin: "5px 0 10px 0",
-                              height: "20px",
-                            }}
-                            max={1500000}
-                            value={1239000}
-                          /> */}
-
-          {/* <ReturnsBox>
-                            <Box>
-                              <Box>Fuding Date</Box> */}
-          {/* {`${listing.annualizedreturn}`} */}
-          {/* <Box
-                                style={{ color: "black", fontWeight: "bold" }}
-                              >{listing.fundingdate}</Box>
-                            </Box> */}
-          {/* <Box>
-                              <Box>Min. Investment</Box>
-                              {/* {`${listing.annualizedreturn}`} */}
-          {/* <Box
-                                style={{ color: "black", fontWeight: "bold" }}
-                              >{listing.mininvestment}</Box>
-                            </Box> */}
-
-          {/* <Box>
-                              <Box>Annual Appreciation</Box>
-                              <Box
-                                style={{ color: "black", fontWeight: "bold" }}
-                              >{`${listing.annualappreciation}`}</Box>
-                            </Box>
-
-                            <Box>
-                              <Box>Projected gross yield</Box>
-                              <Box
-                                style={{ color: "black", fontWeight: "bold" }}
-                              >{`${listing.grossyield}`}</Box>
-                            </Box>
-
-                            <Box>
-                              <Box>Projected net yield</Box>
-                              <Box
-                                style={{ color: "black", fontWeight: "bold" }}
-                              >{`${listing.netyield}`}</Box>
-                            </Box> */}
-          {/* </ReturnsBox>
-                        </CardContent>}
-                        {!isLoggedIn && <div>
-                          <Text onClick={()=>{
-                            navigate("/signup");
-                          }}>Signup</Text> or
-                          <Text onClick={()=>{
-                            navigate("/login");
-                          }}>Login</Text> to view the property
-            </div> */}
-          {/* }
-                        </CardActionArea>
-                      </Property>
-                    </Link>
-                  </Grid>
-                ))}
-            </Grid>
-          </Box>
-        )} */}
         </Box>
       </div>
     </>

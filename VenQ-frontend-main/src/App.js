@@ -109,7 +109,7 @@ function App() {
           {/* </Route> */}
           <Route path="/allinterests/view" element={<Allinterests />} />
           <Route path="/properties" element={<PropertyPage />} />
-          <Route path="/demoproperty/:id" element={<DemoPropertyPage />} />
+          <Route path="/unauthorized/:id" element={<DemoPropertyPage />} />
 
           <Route path="dashboard/*" element={<Dashboard />}>
             <Route

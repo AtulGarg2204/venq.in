@@ -22,6 +22,7 @@ import DocumentUploader from "../listings/DocumentUploader";
 
 import "./multistep.css";
 import "./profile.css";
+import KycSteps from "./KycSteps";
 function UserInfoItem({ userName, lastSeen, role }) {
   return (
     <div className="user-info">
@@ -268,7 +269,7 @@ function Dashboard() {
   };
 
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-
+  const [activeTab, setActiveTab] = useState("details");
   const newOtp = [...otp];
 
   // handle changes while entering OTP
@@ -1057,33 +1058,9 @@ function Dashboard() {
                         marginBottom: "10px",
                       }}
                     />
-
-                    {/* <input id="aadharverification" type='text' autoFocus value={aad}  style={{
-                    border:'1.5px solid #F9C847',
-                    backgroundColor:'#E1E7EA',
-                    height:'8px',
-                    fontSize:'14px',
-                    width:isMobile?'40%':'40%'
-                  }} placeholder='Aadhar number' /> */}
                   </div>
 
                   <ToastContainer />
-                  {/* <div className="action-buttons">
-        <button
-          id="prev"
-          disabled={currentStep === 1}
-          onClick={() => handleButtonClick(currentStep - 1)}
-        >
-          Prev
-        </button>
-        <button
-          id="next"
-          disabled={currentStep === 4}
-          onClick={() => handleButtonClick(currentStep + 1)}
-        >
-          Next
-        </button>
-      </div>   */}
 
                   {!otpss && (
                     <button
@@ -1464,159 +1441,204 @@ function Dashboard() {
             <article className="main-content">
               <header className="user-header">
                 <h1 className="user-name">Profile</h1>
-                {/* <h2 className="user-last-seen">Last seen 3 hours ago</h2> */}
               </header>
               <nav className="tab-navigation">
                 <ul>
-                  <li className="nav-item">Details</li>
-                  <li className="nav-item1">Transactions</li>
-                  <li className="nav-item1">Documents </li>
+                  <li
+                    className={`nav-item ${
+                      activeTab === "details" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("details")}
+                  >
+                    Details
+                  </li>
+                  <li
+                    className={`nav-item ${
+                      activeTab === "transactions" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("transactions")}
+                  >
+                    Transactions
+                  </li>
+                  <li
+                    className={`nav-item ${
+                      activeTab === "documents" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("documents")}
+                  >
+                    Documents
+                  </li>
                 </ul>
               </nav>
-
-              {/* information section  */}
-              {/* <section className="personal-information">
-                <h3 className="sub-heading">Personal Information</h3>
-                <div className="form-item">
-                  <label htmlFor="firstName" className="form-label">
-                    First Name:{" "}
-                  </label>
-                  <p id="firstName" className="form-data">
-                    {token.name.split(" ")[0]}
-                  </p>
-                </div>
-
-                <div className="form-item">
-                  <label htmlFor="lastName" className="form-label">
-                    Last Name
-                  </label>
-                  <p id="lastName" className="form-data">
-                    {token.name.split(" ")[arr.length - 1]}
-                  </p>
-                </div>
-
-                <div className="form-item">
-                  <label htmlFor="email" className="form-label">
-                    Email:{" "}
-                  </label>
-                  <p id="email" className="form-data">
-                    {token.email}
-                  </p>
-                </div>
-
-                <div className="form-item">
-                  <label htmlFor="phone" className="form-label">
-                    Phone:{" "}
-                  </label>
-                  <p id="phone" className="form-data">
-                    {token.phone}
-                  </p>
-                </div>
-              </section> */}
-              <div className="contact-info">
-                <div className="info-block">
-                  <p className="label">Name:</p>
-                  <p className="value"> {token.name.split(" ")[0]}</p>
-                </div>
-                <div className="info-block">
-                  <p className="label">Email:</p>
-                  <p className="value"> {token.email}</p>
-                </div>
-                <div className="info-block">
-                  <p className="label">Phone:</p>
-                  <p className="value">{token.phone}</p>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                {onbcomp == 0 && (
-                  <button
-                    style={{
-                      fontWeight: "bold",
-                      // font-weight:bold;
-                      padding: "10px 20px",
-
-                      // padding: 10px 20px;
-                      borderRadius: "5px",
-                      margin: "10px 0px",
-                    }}
-                    onClick={() => {
-                      setVisible(true);
-                    }}
-                  >
-                    Complete kyc
-                  </button>
-                )}
-                {onbcomp == 1 && (
-                  <button
-                    style={{
-                      backgroundColor: "yellow",
-                      fontWeight: "bold",
-                      // font-weight:bold;
-                      padding: "10px 20px",
-
-                      // padding: 10px 20px;
-                      borderRadius: "5px",
-                      margin: "10px 0px",
-                    }}
-                    onClick={() => {
-                      setVisible(true);
-                    }}
-                  >
-                    KYC Pending
-                  </button>
-                )}
-                {onbcomp == 2 && (
-                  <button
-                    style={{
-                      backgroundColor: "#5ECE8F",
-                      fontWeight: "bold",
-                      // font-weight:bold;
-                      padding: "10px 20px",
-
-                      // padding: 10px 20px;
-                      borderRadius: "5px",
-                      margin: "10px 0px",
-                    }}
-                    onClick={() => {
-                      setVisible(true);
-                    }}
-                  >
-                    View Details
-                  </button>
-                )}
-
-                <button
-                  className="edit-btn"
-                  style={{
-                    backgroundColor: "#e9ecef",
-                  }}
-                >
-                  Edit Profile
-                </button>
-              </div>
-              <div className="required-documents">
-                <h2>Required Documents</h2>
-                <div className="document-info">
-                  <div className="doc-label">
-                    <p className="es-sign">E-sign required:</p>
+              {activeTab === "details" && (
+                <>
+                  <div className="contact-info">
+                    <div className="info-block">
+                      <p className="label">Name:</p>
+                      <p className="value"> {token.name.split(" ")[0]}</p>
+                    </div>
+                    <div className="info-block">
+                      <p className="label">Email:</p>
+                      <p className="value"> {token.email}</p>
+                    </div>
+                    <div className="info-block">
+                      <p className="label">Phone:</p>
+                      <p className="value">{token.phone}</p>
+                    </div>
                   </div>
-                  <div className="doc-value">
-                    <p>Property Document</p>
 
-                    <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.DUREJEAlIulzOwB5WuTNzQHaHa&pid=Api&P=0&h=180"
-                      alt="Download Icon"
-                      className="download-icon"
-                    />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    {onbcomp == 0 && (
+                      <button
+                        style={{
+                          fontWeight: "bold",
+                          // font-weight:bold;
+                          padding: "10px 20px",
+
+                          // padding: 10px 20px;
+                          borderRadius: "5px",
+                          margin: "10px 0px",
+                        }}
+                        onClick={() => {
+                          setVisible(true);
+                        }}
+                      >
+                        Complete kyc
+                      </button>
+                    )}
+                    {onbcomp == 1 && (
+                      <button
+                        style={{
+                          backgroundColor: "yellow",
+                          fontWeight: "bold",
+                          // font-weight:bold;
+                          padding: "10px 20px",
+
+                          // padding: 10px 20px;
+                          borderRadius: "5px",
+                          margin: "10px 0px",
+                        }}
+                        onClick={() => {
+                          setVisible(true);
+                        }}
+                      >
+                        KYC Pending
+                      </button>
+                    )}
+                    {onbcomp == 2 && (
+                      <button
+                        style={{
+                          backgroundColor: "#5ECE8F",
+                          fontWeight: "bold",
+                          // font-weight:bold;
+                          padding: "10px 20px",
+
+                          // padding: 10px 20px;
+                          borderRadius: "5px",
+                          margin: "10px 0px",
+                        }}
+                        onClick={() => {
+                          setVisible(true);
+                        }}
+                      >
+                        View Details
+                      </button>
+                    )}
+
+                    <button
+                      className="edit-btn"
+                      style={{
+                        backgroundColor: "#e9ecef",
+                      }}
+                    >
+                      Edit Profile
+                    </button>
+                  </div>
+                  <div className="required-documents">
+                    <h2>Required Documents</h2>
+                    <div className="document-info">
+                      <div className="doc-label">
+                        <p className="es-sign">E-sign required:</p>
+                      </div>
+                      <div className="doc-value">
+                        <p>Property Document</p>
+
+                        <img
+                          src="https://tse3.mm.bing.net/th?id=OIP.DUREJEAlIulzOwB5WuTNzQHaHa&pid=Api&P=0&h=180"
+                          alt="Download Icon"
+                          className="download-icon"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <KycSteps />
+                </>
+              )}
+              {activeTab === "transactions" && (
+                <div>There is no transactions yet</div>
+              )}
+              {activeTab === "documents" && (
+                <div style={{ marginTop: "20px" }}>
+                  {/* KYC Documents Box */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "10px",
+                      border: "1px solid lightgray",
+                      borderRadius: "5px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <p style={{ margin: 0 }}>KYC Documents</p>
+                    <button
+                      style={{
+                        padding: "5px 10px",
+                        borderRadius: "3px",
+                        backgroundColor: "#007bff",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      View
+                    </button>
+                  </div>
+
+                  {/* Property Documents Box */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "10px",
+                      border: "1px solid lightgray",
+                      borderRadius: "5px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <p style={{ margin: 0 }}>Property Documents</p>
+                    <button
+                      style={{
+                        padding: "5px 10px",
+                        borderRadius: "3px",
+                        backgroundColor: "#007bff",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      View
+                    </button>
                   </div>
                 </div>
-              </div>
+              )}
             </article>
           </div>
         </div>
