@@ -1590,22 +1590,44 @@ function Dashboard() {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      padding: "10px",
-                      border: "1px solid lightgray",
-                      borderRadius: "5px",
-                      marginBottom: "10px",
+                      padding: "15px",
+                      border: "1px solid #d1d1d1",
+                      borderRadius: "8px",
+                      marginBottom: "15px",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      backgroundColor: "#f9f9f9",
                     }}
                   >
-                    <p style={{ margin: 0 }}>KYC Documents</p>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        color: "#333",
+                        fontFamily: "Arial, sans-serif",
+                      }}
+                    >
+                      KYC Documents
+                    </p>
                     <button
                       style={{
-                        padding: "5px 10px",
-                        borderRadius: "3px",
+                        padding: "8px 16px",
+                        borderRadius: "5px",
                         backgroundColor: "#007bff",
                         color: "white",
                         border: "none",
                         cursor: "pointer",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        fontFamily: "Arial, sans-serif",
+                        transition: "background-color 0.3s ease",
                       }}
+                      onMouseOver={(e) =>
+                        (e.target.style.backgroundColor = "#0056b3")
+                      }
+                      onMouseOut={(e) =>
+                        (e.target.style.backgroundColor = "#007bff")
+                      }
                     >
                       View
                     </button>
@@ -1617,22 +1639,44 @@ function Dashboard() {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      padding: "10px",
-                      border: "1px solid lightgray",
-                      borderRadius: "5px",
-                      marginBottom: "10px",
+                      padding: "15px",
+                      border: "1px solid #d1d1d1",
+                      borderRadius: "8px",
+                      marginBottom: "15px",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      backgroundColor: "#f9f9f9",
                     }}
                   >
-                    <p style={{ margin: 0 }}>Property Documents</p>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "18px",
+                        fontWeight: "600",
+                        color: "#333",
+                        fontFamily: "Arial, sans-serif",
+                      }}
+                    >
+                      Property Documents
+                    </p>
                     <button
                       style={{
-                        padding: "5px 10px",
-                        borderRadius: "3px",
+                        padding: "8px 16px",
+                        borderRadius: "5px",
                         backgroundColor: "#007bff",
                         color: "white",
                         border: "none",
                         cursor: "pointer",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        fontFamily: "Arial, sans-serif",
+                        transition: "background-color 0.3s ease",
                       }}
+                      onMouseOver={(e) =>
+                        (e.target.style.backgroundColor = "#0056b3")
+                      }
+                      onMouseOut={(e) =>
+                        (e.target.style.backgroundColor = "#007bff")
+                      }
                     >
                       View
                     </button>

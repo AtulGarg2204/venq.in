@@ -513,8 +513,8 @@ const Navbar = (props) => {
                   <Link to="/">
                     {" "}
                     <img
-                      src="images/VENQ_BOLD_small.png"
-                      alt="logo"
+                      src="http://res.cloudinary.com/dos2aqlca/image/upload/v1723364817/ramimg/yobqyvnhejpzu7vvxchj.png"
+                      alt="logoof mobile"
                       width="80"
                     />
                   </Link>

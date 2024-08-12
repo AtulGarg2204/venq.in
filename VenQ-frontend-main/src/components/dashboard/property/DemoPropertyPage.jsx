@@ -63,6 +63,7 @@ import ReturnCalculator from "../../NewHome/HomeComponents/ReturnCalculator";
 import Return_cal from "./Return_cal";
 import Navbar from "../../navbar/Navbar";
 import MainScreen from "./MainScreen";
+import { Nav } from "react-bootstrap";
 
 const Options = styled(Link)`
   padding: 10px;
@@ -819,6 +820,8 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
   const [shouldTruncate, setShouldtruncate] = useState(false);
   const [couponInput, setCouponInput] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
   const [totalAmount, setTotalAmount] = useState(totalStock.totalAmt);
   const maxWords = 50;
   const { setData } = useContext(DataContext);
@@ -842,7 +845,9 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
       }
     };
     setAdmin(false);
-
+    if (token) {
+      setLoggedIn(true);
+    }
     const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
     setTotalAmount(numericAmount);
 
@@ -1120,131 +1125,175 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
           </div>
         </div>
       )}
-      <Navbar />
+
       {!isSmallScreen ? (
-        <MainScreen />
+        <>
+          <Navbar isLoggedIn={isLoggedIn} />
+          <MainScreen />
+        </>
       ) : (
-        <div
-          style={{
-            opacity: openinv ? "0.25" : "1.0",
-            backgroundColor: "white",
-            paddingLeft: "1%",
-            paddingRight: "1%",
-          }}
-        >
-          <Box style={{ padding: "20px" }}>
-            <Box
-              style={{
-                display: "flex",
-                left: "0%",
+        <>
+          <Navbar isLoggedIn={isLoggedIn} />
+          <div
+            style={{
+              opacity: openinv ? "0.25" : "1.0",
+              backgroundColor: "white",
+              paddingLeft: "1%",
+              paddingRight: "1%",
+            }}
+          >
+            <Box style={{ padding: "20px" }}>
+              <Box
+                style={{
+                  display: "flex",
+                  left: "0%",
 
-                justifyContent: "space-between",
-                alignItems: "center",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box style={{ display: "flex" }}>
+                  <PropertyLink to="/properties">
+                    <Typography
+                      style={{
+                        fontFamily: "Inter",
+                        fontSize: "15px",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Properties
+                    </Typography>
+                  </PropertyLink>
 
-                width: "76%",
-              }}
-            >
-              <Box style={{ display: "flex" }}>
-                <PropertyLink to="/properties">
+                  {arrow}
                   <Typography
                     style={{
+                      color: "#a3abba",
+                      marginLeft: "10px",
                       fontFamily: "Inter",
                       fontSize: "15px",
-                      fontWeight: "600",
-                      color: "white",
                     }}
                   >
-                    Properties
+                    {listing.properyheading}
                   </Typography>
-                </PropertyLink>
-
-                {arrow}
-                <Typography
-                  style={{
-                    color: "#a3abba",
-                    marginLeft: "10px",
-                    fontFamily: "Inter",
-                    fontSize: "15px",
-                    color: "white",
-                  }}
-                >
-                  {listing.properyheading}
-                </Typography>
+                </Box>
               </Box>
-            </Box>
-
-            <Box
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                alignContent: "center",
-                flexDirection: "column",
-                position: "relative",
-                marginTop: "20px",
-                borderRadius: "20px",
-              }}
-            >
-              {isSmallScreen ? (
-                <Grid item xs={2} sm={4} md={4}>
-                  <Property sx={{ maxWidth: 345 }}>
-                    <CardActionArea>
-                      <CardMedia>
-                        <Carousel showIndicators={false} showThumbs={false}>
-                          {listing.images &&
-                            listing.images
-                              .slice(0, 4)
-                              .map((item, index) => (
-                                <img src={item} alt="image" height={200} />
-                              ))}
-                        </Carousel>
-                      </CardMedia>
-                    </CardActionArea>
-                  </Property>
-                </Grid>
-              ) : (
-                <ImageList
-                  sx={{ width: "100%", height: 520 }}
-                  variant="quilted"
-                  cols={10}
-                >
-                  {listing.images &&
-                    listing.images.slice(0, 4).map((item, index) => (
-                      <ImageListItem
-                        key={index}
-                        cols={colarr[index]}
-                        rows={rowarr[index]}
-                      >
-                        <img
-                          // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                          style={{ borderRadius: "10px" }}
-                          src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                          alt={"my image"}
-                          loading="lazy"
-                        />
-                      </ImageListItem>
-                    ))}
-                </ImageList>
-              )}
 
               <Box
                 style={{
-                  backgroundColor: "white",
                   display: "flex",
+                  alignItems: "center",
                   justifyContent: "center",
-                  margin: "10px 0",
-                  borderRadius: "50px",
-                  position: "absolute",
-                  bottom: -25,
-                  right: 20,
-                  border: "0.2px solid #e9e9eb",
+                  alignContent: "center",
+                  flexDirection: "column",
+                  position: "relative",
+                  marginTop: "20px",
+                  borderRadius: "20px",
                 }}
               >
-                <PhotoLink>
-                  <SmallBoxes
-                    style={{ margin: "0 15px" }}
-                    onClick={handleLoginPopup}
+                {isSmallScreen ? (
+                  <Grid item xs={2} sm={4} md={4}>
+                    <Property sx={{ maxWidth: 345 }}>
+                      <CardActionArea>
+                        <CardMedia>
+                          <Carousel showIndicators={false} showThumbs={false}>
+                            {listing.images &&
+                              listing.images
+                                .slice(0, 4)
+                                .map((item, index) => (
+                                  <img src={item} alt="image" height={200} />
+                                ))}
+                          </Carousel>
+                        </CardMedia>
+                      </CardActionArea>
+                    </Property>
+                  </Grid>
+                ) : (
+                  <ImageList
+                    sx={{ width: "100%", height: 520 }}
+                    variant="quilted"
+                    cols={10}
                   >
+                    {listing.images &&
+                      listing.images.slice(0, 4).map((item, index) => (
+                        <ImageListItem
+                          key={index}
+                          cols={colarr[index]}
+                          rows={rowarr[index]}
+                        >
+                          <img
+                            // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                            style={{ borderRadius: "10px" }}
+                            src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                            alt={"my image"}
+                            loading="lazy"
+                          />
+                        </ImageListItem>
+                      ))}
+                  </ImageList>
+                )}
+
+                <Box
+                  style={{
+                    backgroundColor: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "10px 0",
+                    borderRadius: "50px",
+                    position: "absolute",
+                    bottom: -25,
+                    right: 20,
+                    border: "0.2px solid #e9e9eb",
+                  }}
+                >
+                  <PhotoLink>
+                    <SmallBoxes
+                      style={{ margin: "0 15px" }}
+                      onClick={handleLoginPopup}
+                    >
+                      <Box
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          padding: "7px",
+                        }}
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          focusable="false"
+                          class="chakra-icon css-pawapt"
+                          aria-label="gallery"
+                        >
+                          <g
+                            fill="none"
+                            fill-rule="nonzero"
+                            stroke="#0170dc"
+                            stroke-width="1.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M19.9969 21H4.00293C2.89793 21 2.00293 20.105 2.00293 19V5C2.00293 3.895 2.89793 3 4.00293 3H19.9969C21.1019 3 21.9969 3.895 21.9969 5V19C21.9969 20.105 21.1009 21 19.9969 21Z M9.41422 7.58579C10.1953 8.36684 10.1953 9.63317 9.41422 10.4142C8.63317 11.1953 7.36684 11.1953 6.58579 10.4142C5.80474 9.63317 5.80474 8.36684 6.58579 7.58579C7.36684 6.80474 8.63317 6.80474 9.41422 7.58579 M22 15.9999L17.781 12.6249C17.35 12.2799 16.72 12.3499 16.375 12.7809L13.039 16.9509C12.694 17.3819 12.065 17.4519 11.633 17.1069L9.765 15.6119C9.34 15.2719 8.721 15.3339 8.372 15.7529L4 20.9999"></path>
+                          </g>
+                        </svg>
+                      </Box>
+
+                      <Extra>
+                        {listing.images != undefined
+                          ? listing.images.length
+                          : 8}{" "}
+                        photos
+                      </Extra>
+                    </SmallBoxes>
+                  </PhotoLink>
+
+                  <Divider
+                    orientation="vertical"
+                    style={{ backgroundColor: "rgb(112,111,111)" }}
+                    flexItem
+                    variant="middle"
+                  />
+
+                  <SmallBoxes style={{ margin: "0 15px 0 5px" }}>
                     <Box
                       style={{ width: "40px", height: "40px", padding: "7px" }}
                     >
@@ -1252,7 +1301,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                         viewBox="0 0 24 24"
                         focusable="false"
                         class="chakra-icon css-pawapt"
-                        aria-label="gallery"
+                        aria-label="virtual-tour"
                       >
                         <g
                           fill="none"
@@ -1262,1802 +1311,260 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                           stroke-linecap="round"
                           stroke-linejoin="round"
                         >
-                          <path d="M19.9969 21H4.00293C2.89793 21 2.00293 20.105 2.00293 19V5C2.00293 3.895 2.89793 3 4.00293 3H19.9969C21.1019 3 21.9969 3.895 21.9969 5V19C21.9969 20.105 21.1009 21 19.9969 21Z M9.41422 7.58579C10.1953 8.36684 10.1953 9.63317 9.41422 10.4142C8.63317 11.1953 7.36684 11.1953 6.58579 10.4142C5.80474 9.63317 5.80474 8.36684 6.58579 7.58579C7.36684 6.80474 8.63317 6.80474 9.41422 7.58579 M22 15.9999L17.781 12.6249C17.35 12.2799 16.72 12.3499 16.375 12.7809L13.039 16.9509C12.694 17.3819 12.065 17.4519 11.633 17.1069L9.765 15.6119C9.34 15.2719 8.721 15.3339 8.372 15.7529L4 20.9999"></path>
+                          <path d="M21 16.0412V7.95921C21 7.24421 20.619 6.58421 20 6.22721L13 2.18621C12.381 1.82921 11.619 1.82921 11 2.18621L4 6.22621C3.381 6.58421 3 7.24421 3 7.95921V16.0422C3 16.7572 3.381 17.4172 4 17.7742L11 21.8152C11.619 22.1722 12.381 22.1722 13 21.8152L20 17.7742C20.619 17.4162 21 16.7562 21 16.0412Z M12 22.08V12 M12 12L20.73 6.95996 M3.26953 6.95996L11.9995 12"></path>
                         </g>
                       </svg>
                     </Box>
 
-                    <Extra>
-                      {listing.images != undefined ? listing.images.length : 8}{" "}
-                      photos
+                    <Extra
+                      onClick={() => {
+                        window.location.href = listing.tourlink;
+                      }}
+                    >
+                      Virtual tour
                     </Extra>
                   </SmallBoxes>
-                </PhotoLink>
-
-                <Divider
-                  orientation="vertical"
-                  style={{ backgroundColor: "rgb(112,111,111)" }}
-                  flexItem
-                  variant="middle"
-                />
-
-                <SmallBoxes style={{ margin: "0 15px 0 5px" }}>
-                  <Box
-                    style={{ width: "40px", height: "40px", padding: "7px" }}
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      focusable="false"
-                      class="chakra-icon css-pawapt"
-                      aria-label="virtual-tour"
-                    >
-                      <g
-                        fill="none"
-                        fill-rule="nonzero"
-                        stroke="#0170dc"
-                        stroke-width="1.2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M21 16.0412V7.95921C21 7.24421 20.619 6.58421 20 6.22721L13 2.18621C12.381 1.82921 11.619 1.82921 11 2.18621L4 6.22621C3.381 6.58421 3 7.24421 3 7.95921V16.0422C3 16.7572 3.381 17.4172 4 17.7742L11 21.8152C11.619 22.1722 12.381 22.1722 13 21.8152L20 17.7742C20.619 17.4162 21 16.7562 21 16.0412Z M12 22.08V12 M12 12L20.73 6.95996 M3.26953 6.95996L11.9995 12"></path>
-                      </g>
-                    </svg>
-                  </Box>
-
-                  <Extra
-                    onClick={() => {
-                      window.location.href = listing.tourlink;
-                    }}
-                  >
-                    Virtual tour
-                  </Extra>
-                </SmallBoxes>
+                </Box>
               </Box>
-            </Box>
 
-            {isSmallScreen && (
-              <Grid
-                item
-                xs={12}
-                style={{ position: "relative", marginTop: "20px" }}
-              >
-                <Pricing>
-                  <Box
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "20px",
-                      marginTop: "10px",
-                      padding: "8px",
-                    }}
-                  >
-                    <Box style={{ textAlign: "center", paddingBottom: "10px" }}>
-                      <Typography
-                        style={{
-                          fontSize: "18px",
-                          color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        Property price
-                      </Typography>
-                      <Typography
-                        style={{
-                          fontSize: "24px",
-                          color: "#44475b",
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        INR{" "}
-                        <b style={{ fontSize: "32px" }}>
-                          {listing.propertyprice}
-                        </b>
-                      </Typography>
-                    </Box>
-
+              {isSmallScreen && (
+                <Grid
+                  item
+                  xs={12}
+                  style={{ position: "relative", marginTop: "20px" }}
+                >
+                  <Pricing>
                     <Box
                       style={{
-                        backgroundColor: "#f6f7f9",
-                        padding: "10px",
+                        backgroundColor: "white",
                         borderRadius: "20px",
+                        marginTop: "10px",
+                        padding: "8px",
                       }}
                     >
                       <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "10px 0",
-                          paddingTop: "5px",
-                          paddingBottom: "5px",
-                        }}
+                        style={{ textAlign: "center", paddingBottom: "10px" }}
                       >
                         <Typography
-                          style={{ fontSize: "14px", fontFamily: "Inter" }}
+                          style={{
+                            fontSize: "18px",
+                            color: "rgb(112,111,111)",
+                            fontFamily: "Inter",
+                          }}
                         >
-                          Funding Date
+                          Property price
                         </Typography>
                         <Typography
                           style={{
-                            fontWeight: 600,
+                            fontSize: "24px",
+                            color: "#44475b",
                             fontFamily: "Inter",
-                            fontSize: "14px",
                           }}
                         >
-                          {listing.fundingdate}
+                          INR{" "}
+                          <b style={{ fontSize: "32px" }}>
+                            {listing.propertyprice}
+                          </b>
                         </Typography>
                       </Box>
 
                       <Box
                         style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          margin: "10px 0",
+                          backgroundColor: "#f6f7f9",
+                          padding: "10px",
+                          borderRadius: "20px",
                         }}
                       >
-                        <Typography
-                          style={{
-                            fontSize: "14px",
-                            padding: "3px",
-                            fontFamily: "Inter",
-                          }}
-                        >
-                          Min. Investment
-                        </Typography>
-                        <Typography
-                          style={{
-                            fontWeight: 600,
-                            fontFamily: "Inter",
-                            fontSize: "14px",
-                          }}
-                        >
-                          {listing.mininvestment}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Box>
-                </Pricing>
-              </Grid>
-            )}
-
-            <Box style={{ padding: "10px 0", margin: "10px 0" }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={8}>
-                  {/* this is the new work */}
-                  <Details>
-                    <Box>
-                      {" "}
-                      <Typography
-                        style={{
-                          fontFamily: "Inter",
-                          fontWeight: 700,
-                          color: "rgb(70, 59, 59)",
-                          // color:"white",
-                          fontSize: "25px",
-                          width: "100%",
-                          paddingBottom: "10px",
-                        }}
-                      >
-                        {listing.properyheading}
-                      </Typography>
-                    </Box>
-                    <Box
-                      style={{
-                        display: "flex",
-                        paddingBottom: "30px",
-                      }}
-                    >
-                      {listing.propertydescription ? (
-                        listing.propertydescription
-                          .split("|")
-                          .map((part, index) => (
-                            <Box key={index} style={{ margin: "0 10px" }}>
-                              <SubTitle>{part.trim()}</SubTitle>
-                            </Box>
-                          ))
-                      ) : (
-                        <SubTitle>No property description available</SubTitle>
-                      )}
-                    </Box>
-                    <Box
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-around",
-                        // marginBottom: "20px",
-                      }}
-                    >
-                      <Button
-                        onClick={() => setActiveTab("overview")}
-                        style={{
-                          width: "50%",
-                          borderBottom:
-                            activeTab === "overview"
-                              ? "2px solid black"
-                              : "none",
-                          marginRight: "10px",
-                        }}
-                      >
-                        Property Overview
-                      </Button>
-                      <Button
-                        style={{
-                          width: "50%",
-                          borderBottom:
-                            activeTab === "financial"
-                              ? "2px solid black"
-                              : "none",
-                        }}
-                        onClick={handleLoginPopup}
-                      >
-                        Property Financial
-                      </Button>
-                    </Box>
-                    <Divider />
-                    {activeTab === "overview" && !isSmallScreen && (
-                      <>
-                        <Box style={{ padding: "10px 0" }}>
-                          {listing && listing.specs && (
-                            <Box style={{ display: "flex", flexWrap: "wrap" }}>
-                              {listing.specs.map((listing_content, index) => (
-                                <Box
-                                  key={index}
-                                  style={{
-                                    flex: "0 0 50%",
-                                    boxSizing: "border-box",
-                                    padding: "10px",
-                                  }}
-                                >
-                                  <PropertyDetails>
-                                    <Logo>
-                                      <img
-                                        src={listing_content.specsimage}
-                                        alt=""
-                                        style={{
-                                          height: "35px",
-                                          borderRadius: "50%",
-                                        }}
-                                      />
-                                    </Logo>
-                                    <Box>
-                                      <PropertyHeadingSmall>
-                                        {listing_content.specstitle}
-                                      </PropertyHeadingSmall>
-                                      <PropertySubHeading>
-                                        {listing_content.specssubtitle}
-                                      </PropertySubHeading>
-                                    </Box>
-                                  </PropertyDetails>
-                                </Box>
-                              ))}
-                            </Box>
-                          )}
-                        </Box>
-                        <Divider />
                         <Box
-                          style={{ paddingBottom: "20px", marginTop: "15px" }}
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            margin: "10px 0",
+                            paddingTop: "5px",
+                            paddingBottom: "5px",
+                          }}
                         >
                           <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                            }}
+                            style={{ fontSize: "14px", fontFamily: "Inter" }}
                           >
-                            Property Overview
+                            Funding Date
                           </Typography>
-
                           <Typography
                             style={{
+                              fontWeight: 600,
                               fontFamily: "Inter",
                               fontSize: "14px",
-                              color: "rgb(112,111,111)",
                             }}
                           >
-                            {listing &&
-                              listing.propertyoverview &&
-                              listing.propertyoverview.length > maxWords && (
-                                <div>
-                                  {listing.propertyoverview
-                                    .split(" ")
-                                    .slice(0, maxWords)
-                                    .join(" ")}
-                                  <div hidden={!showFullContent}>
-                                    {listing.propertyoverview
-                                      .split(" ")
-                                      .slice(
-                                        51,
-                                        listing.propertyoverview.length
-                                      )
-                                      .join(" ")}
-                                  </div>
-                                </div>
-                              )}
-                            <MoreButton
-                              onClick={() => {
-                                setShowFullContent(!showFullContent);
-                              }}
-                            >
-                              {showFullContent ? "Show less" : "Show more"}
-                            </MoreButton>
+                            {listing.fundingdate}
                           </Typography>
                         </Box>
-                        <Box style={{ paddingBottom: "40px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              color: "#44475b",
-                              paddingBottom: "20px",
-                            }}
-                          >
-                            Amenities
-                          </Typography>
-                          <Box style={{ padding: "1px 0" }}>
-                            {listing && listing.amenities && (
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: isSmallScreen
-                                    ? "column"
-                                    : "row",
-                                  flexWrap: "wrap",
-                                }}
-                              >
-                                {listing.amenities.map(
-                                  (listing_content, index) => (
-                                    <Box
-                                      key={index}
-                                      style={{
-                                        flex: "0 0 50%",
-                                        boxSizing: "border-box",
-                                      }}
-                                    >
-                                      <PropertyDetails
-                                        style={{
-                                          display: "flex",
-                                        }}
-                                      >
-                                        <Logo>
-                                          <img
-                                            src={listing_content.alink}
-                                            alt=""
-                                            style={{
-                                              height: "35px",
-                                              borderRadius: "50%",
-                                              backgroundColor: "black",
-                                            }}
-                                          />
-                                        </Logo>
 
-                                        <PropertyHeadingSmall
-                                          style={{
-                                            color: "rgb(112,111,111)",
-                                          }}
-                                        >
-                                          {listing_content.aname}
-                                        </PropertyHeadingSmall>
-                                      </PropertyDetails>
-                                    </Box>
-                                  )
-                                )}
-                              </Box>
-                            )}
-                          </Box>
-                        </Box>
-
-                        <Box style={{ paddingBottom: "40px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              padding: "10px 0",
-                              color: "#44475b",
-                            }}
-                          >
-                            Documents ({listing.documents?.length})
-                          </Typography>
-                          {listing &&
-                            listing.documents &&
-                            listing.documents.map((document) => (
-                              <Box>
-                                <DownloadBox
-                                  onClick={() =>
-                                    handleDownload(
-                                      document.dlink,
-                                      document.dname
-                                    )
-                                  }
-                                >
-                                  <TitleBox>
-                                    <IconBox>
-                                      <svg
-                                        viewBox="0 0 24 24"
-                                        focusable="false"
-                                        class="chakra-icon css-768dc"
-                                        aria-label="file-excel"
-                                      >
-                                        <g
-                                          fill="none"
-                                          fill-rule="nonzero"
-                                          stroke="currentColor"
-                                          stroke-width="1.5"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                        >
-                                          <g>
-                                            <path d="M18.414 6.414L15.586 3.586C15.211 3.211 14.702 3 14.172 3H7C5.895 3 5 3.895 5 5V19C5 20.105 5.895 21 7 21H17C18.105 21 19 20.105 19 19V7.828C19 7.298 18.789 6.789 18.414 6.414V6.414Z"></path>
-                                            <path d="M9 12H15C15.552 12 16 12.448 16 13V17C16 17.552 15.552 18 15 18H9C8.448 18 8 17.552 8 17V13C8 12.448 8.448 12 9 12Z"></path>
-                                            <path d="M16 15H8 M13 12V18 M19 8H15C14.448 8 14 7.552 14 7V3"></path>
-                                          </g>
-                                        </g>
-                                      </svg>
-                                    </IconBox>
-
-                                    <Typography>{document.dname}</Typography>
-                                  </TitleBox>
-
-                                  <DownloadIcon>
-                                    <FileDownloadOutlinedIcon
-                                      style={{ color: "#0170dc" }}
-                                    />
-                                  </DownloadIcon>
-                                </DownloadBox>
-                              </Box>
-                            ))}
-                        </Box>
-                        <Box style={{ paddingBottom: "20px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              padding: "20px 0",
-                              color: "#44475b",
-                            }}
-                          >
-                            Layout
-                          </Typography>
-
-                          <Box
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-
-                              justifyContent: "space-around",
-                            }}
-                          >
-                            {isSmallScreen && (
-                              <div
-                                style={isFullscreen ? fullscreenStyle : null}
-                              >
-                                <img
-                                  src={
-                                    listing.images
-                                      ? listing.images[
-                                          listing.images.length - 1
-                                        ]
-                                      : ""
-                                  }
-                                  alt="display"
-                                  style={
-                                    isFullscreen
-                                      ? fullscreenImageStyle
-                                      : mapstylesmall
-                                  }
-                                  loading="lazy"
-                                  onClick={handleImageClick}
-                                ></img>
-                              </div>
-                            )}
-                            {!isSmallScreen && (
-                              <div
-                                style={isFullscreen ? fullscreenStyle : null}
-                              >
-                                <img
-                                  src={
-                                    listing.images
-                                      ? listing.images[
-                                          listing.images.length - 1
-                                        ]
-                                      : ""
-                                  }
-                                  alt="display"
-                                  style={hoverStyle1}
-                                  loading="lazy"
-                                  onClick={handleImageClick}
-                                  onMouseEnter={() => setIsHovered1(true)}
-                                  onMouseLeave={() => setIsHovered1(false)}
-                                ></img>
-                                <img
-                                  src={
-                                    listing.images
-                                      ? listing.images[
-                                          listing.images.length - 2
-                                        ]
-                                      : ""
-                                  }
-                                  alt="display"
-                                  style={hoverStyle2}
-                                  loading="lazy"
-                                  onClick={handleImageClick}
-                                  onMouseEnter={() => setIsHovered2(true)}
-                                  onMouseLeave={() => setIsHovered2(false)}
-                                ></img>
-                              </div>
-                            )}
-                          </Box>
-                        </Box>
-                        <Box style={{ paddingBottom: "20px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              padding: "20px 0",
-                              color: "#44475b",
-                            }}
-                          >
-                            Location
-                          </Typography>
-
-                          <Box
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "flex-start",
-                              padding: "0 0 10px 0",
-                            }}
-                          >
-                            <PlaceOutlinedIcon style={{ color: "#0170dc" }} />
-                            <LocationName
-                              style={{
-                                fontFamily: "Inter",
-                                fontSize: "18px",
-                                fontWeight: 600,
-                                color: "rgb(112,111,111)",
-                              }}
-                              onClick={handleLocation}
-                            >
-                              The location is displayed below in the map
-                            </LocationName>
-                          </Box>
-
-                          <Box>
-                            {isSmallScreen && (
-                              <iframe
-                                src={listing.locationlink}
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"
-                                style={mapstylesmall}
-                              ></iframe>
-                            )}
-                            {!isSmallScreen && (
-                              <iframe
-                                src={listing.locationlink}
-                                allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"
-                                style={mapstylebig}
-                              ></iframe>
-                            )}
-                          </Box>
-
-                          <Typography
-                            style={{
-                              fontFamily: "Inter",
-                              fontSize: "16px",
-                              padding: "20px 0",
-                              color: "rgb(112,111,111)",
-                            }}
-                          >
-                            {listing.locationdescription}
-                          </Typography>
-                        </Box>
-                        <Box style={{ paddingBottom: "30px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              padding: "20px 0",
-                              color: "#44475b",
-                            }}
-                          >
-                            Have more questions about this property?
-                          </Typography>
-
-                          <Box style={{ display: "flex", height: "15vh" }}>
-                            <Box
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-around",
-                              }}
-                            >
-                              <Typography
-                                style={{
-                                  fontFamily: "Inter",
-                                  fontSize: "17px",
-                                }}
-                              >
-                                Contact our real estate experts
-                              </Typography>
-
-                              <MessageButton>
-                                <Box style={{ width: "25px", height: "25px" }}>
-                                  <svg
-                                    viewBox="0 0 24 24"
-                                    focusable="false"
-                                    class="chakra-icon css-pawapt"
-                                    aria-label="chat-bubble"
-                                    aria-hidden="true"
-                                  >
-                                    <g
-                                      fill="none"
-                                      fill-rule="nonzero"
-                                      stroke="#0170dc"
-                                      stroke-width="2.4000000000000004"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    >
-                                      <path d="M10.25 19.206L6.599 21.013V17.716C4.42 16.227 3 13.865 3 11.182C3 6.643 7.048 3 12 3C16.952 3 21 6.643 21 11.182C21 15.721 16.952 19.364 12 19.364C11.401 19.364 10.817 19.308 10.25 19.206Z"></path>
-                                    </g>
-                                  </svg>
-                                </Box>
-
-                                <Typography
-                                  style={{
-                                    fontFamily: "Inter",
-                                    fontSize: "17px",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Message us
-                                </Typography>
-                              </MessageButton>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </>
-                    )}
-                    {activeTab === "financial" && !isSmallScreen && (
-                      <>
                         <Box
                           style={{
                             display: "flex",
+                            justifyContent: "space-between",
                             alignItems: "center",
-                            gap: "8px",
-                            justifyContent: "start",
-                            marginTop: "20px",
+                            margin: "10px 0",
                           }}
                         >
-                          <p
+                          <Typography
                             style={{
+                              fontSize: "14px",
+                              padding: "3px",
                               fontFamily: "Inter",
-                              fontWeight: 700,
-                              color: "#44575B",
-                              fontSize: "25px",
                             }}
                           >
-                            33.16%
-                          </p>
-                          <p
+                            Min. Investment
+                          </Typography>
+                          <Typography
                             style={{
-                              fontFamily: "Inter",
                               fontWeight: 600,
-                              color: "#a1a3ad",
-                              fontSize: "13px",
+                              fontFamily: "Inter",
+                              fontSize: "14px",
                             }}
                           >
-                            3Y annualised
-                          </p>
+                            {listing.mininvestment}
+                          </Typography>
                         </Box>
-                        <Box
+                      </Box>
+                    </Box>
+                  </Pricing>
+                </Grid>
+              )}
+
+              <Box style={{ padding: "10px 0", margin: "10px 0" }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={8}>
+                    {/* this is the new work */}
+                    <Details>
+                      <Box>
+                        {" "}
+                        <Typography
                           style={{
-                            display: "flex",
-                            gap: "5px",
+                            fontFamily: "Inter",
+                            fontWeight: 700,
+                            color: "rgb(70, 59, 59)",
+                            // color:"white",
+                            fontSize: "25px",
+                            width: "100%",
+                            paddingBottom: "10px",
                           }}
                         >
-                          <p
-                            style={{
-                              fontFamily: "Inter",
-                              fontWeight: 600,
-                              color: "#50B487",
-                              fontSize: "13px",
-                            }}
-                          >
-                            +0.45%
-                          </p>
-                          <p
-                            style={{
-                              fontFamily: "Inter",
-                              fontWeight: 600,
-                              color: "#a1a3ad",
-                              fontSize: "13px",
-                            }}
-                          >
-                            1M
-                          </p>
-                        </Box>
-                        <Box>
-                          <LineChart />
-                          <Divider />
-                          <SubTitle
-                            style={{
-                              width: "28px",
-                              alignItems: "center",
-                              textAlign: "center",
-                              marginLeft: "46%",
-                              marginTop: "10px",
-                            }}
-                          >
-                            3Y
-                          </SubTitle>
-                          <Box
-                            style={{
-                              marginTop: "30px",
-                              marginBottom: "30px",
-                              paddingTop: "30px",
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              border: "0.2px solid #e9e9eb",
-                              borderRadius: "10px",
-                            }}
-                          >
-                            <Typography
-                              style={{
-                                fontSize: "24px",
-                                fontWeight: 600,
-                                fontFamily: "Inter",
-                                padding: "5px 0",
-                                marginBottom: "5vh",
-                                textAlign: "start",
-                                marginLeft: "-21vw",
-                              }}
-                            >
-                              {" "}
-                              Return Calculator
-                            </Typography>
-                            <Return_cal />
-                          </Box>
-
-                          <Box
-                            style={{
-                              backgroundColor: "#f6f7f9",
-                              padding: "10px",
-                              borderRadius: "10px",
-                              margin: "0 30px 40px 30px",
-                            }}
-                          >
-                            <ThemeProvider theme={theme}>
-                              <Typography
-                                style={{
-                                  fontSize: "14px",
-                                  fontFamily: "Inter",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                Default values are based on property numbers
-                                <Tooltip title={info1} placement="top">
-                                  <Typography
-                                    style={{
-                                      border: "1px solid rgb(112,111,111)",
-                                      color: "rgb(112,111,111)",
-                                      display: "inline",
-                                      cursor: "pointer",
-                                      padding: "0px 6px",
-                                      marginLeft: "5px",
-                                      borderRadius: "50%",
-                                      fontSize: "10px",
-                                    }}
-                                  >
-                                    i
-                                  </Typography>
-                                </Tooltip>
-                              </Typography>
-                            </ThemeProvider>
-                          </Box>
-                        </Box>
-                        {isSmallScreen ? (
-                          <Box style={{ paddingBottom: "20px" }}>
-                            <Typography
-                              style={{
-                                fontSize: "24px",
-                                fontWeight: 600,
-                                fontFamily: "Inter",
-                                padding: "5px 0",
-                              }}
-                            >
-                              Financials
-                            </Typography>
-
-                            <Grid container spacing={5}>
-                              <Grid item xs={12} md={6}>
-                                <Box style={{ padding: "10px 0" }}>
-                                  <FinanceHeading>Property cost</FinanceHeading>
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Property price
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.propertyprice}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "5px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Transaction costs
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.transactioncost}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Govt. Fees
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        {listing.venqfee}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Divider />
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "5px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Investment cost
-                                      </FinanceSubHeading>
-                                      <FinanceAmount
-                                        style={{ color: "#0170dc" }}
-                                      >
-                                        INR {listing.propertyprice}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                              </Grid>
-
-                              <Grid item xs={12} md={6}>
-                                <Box style={{ padding: "10px 0" }}>
-                                  <FinanceHeading>
-                                    Rental income (Year 1)
-                                  </FinanceHeading>
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Projected gross rent
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.projectedgrossrent}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Service charges
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        (INR {listing.servicecharges})
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Mgmt. and maintenance
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        (INR {listing.maintainencefee})
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Divider />
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Annual net income
-                                      </FinanceSubHeading>
-                                      <FinanceAmount
-                                        style={{ color: "#0170dc" }}
-                                      >
-                                        INR {listing.annualnetincome}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Box
-                                    style={{
-                                      backgroundColor: "#f6f7f9",
-                                      padding: "10px",
-                                      borderRadius: "10px",
-                                    }}
-                                  >
-                                    <ThemeProvider theme={theme}>
-                                      <Typography
-                                        style={{
-                                          fontSize: "13px",
-                                          fontFamily: "Inter",
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                        }}
-                                      >
-                                        This is an estimate for the 1st year of
-                                        ownership
-                                        <Tooltip title={info1} placement="top">
-                                          <Typography
-                                            style={{
-                                              border:
-                                                "1px solid rgb(112,111,111)",
-                                              color: "rgb(112,111,111)",
-                                              display: "inline",
-                                              cursor: "pointer",
-                                              padding: "0px 6px",
-                                              marginLeft: "5px",
-                                              borderRadius: "50%",
-                                              fontSize: "10px",
-                                            }}
-                                          >
-                                            i
-                                          </Typography>
-                                        </Tooltip>
-                                      </Typography>
-                                    </ThemeProvider>
-                                  </Box>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                          </Box>
+                          {listing.properyheading}
+                        </Typography>
+                      </Box>
+                      <Box
+                        style={{
+                          display: "flex",
+                          paddingBottom: "30px",
+                        }}
+                      >
+                        {listing.propertydescription ? (
+                          listing.propertydescription
+                            .split("|")
+                            .map((part, index) => (
+                              <Box key={index} style={{ margin: "0 10px" }}>
+                                <SubTitle>{part.trim()}</SubTitle>
+                              </Box>
+                            ))
                         ) : (
-                          <Box style={{ paddingBottom: "20px" }}>
+                          <SubTitle>No property description available</SubTitle>
+                        )}
+                      </Box>
+                      <Box
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                          // marginBottom: "20px",
+                        }}
+                      >
+                        <Button
+                          onClick={() => setActiveTab("overview")}
+                          style={{
+                            width: "50%",
+                            borderBottom:
+                              activeTab === "overview"
+                                ? "2px solid black"
+                                : "none",
+                            marginRight: "10px",
+                          }}
+                        >
+                          Property Overview
+                        </Button>
+                        <Button
+                          style={{
+                            width: "50%",
+                            borderBottom:
+                              activeTab === "financial"
+                                ? "2px solid black"
+                                : "none",
+                          }}
+                          onClick={handleLoginPopup}
+                        >
+                          Property Financial
+                        </Button>
+                      </Box>
+                      <Divider />
+                      {activeTab === "overview" && !isSmallScreen && (
+                        <>
+                          <Box style={{ padding: "10px 0" }}>
+                            {listing && listing.specs && (
+                              <Box
+                                style={{ display: "flex", flexWrap: "wrap" }}
+                              >
+                                {listing.specs.map((listing_content, index) => (
+                                  <Box
+                                    key={index}
+                                    style={{
+                                      flex: "0 0 50%",
+                                      boxSizing: "border-box",
+                                      padding: "10px",
+                                    }}
+                                  >
+                                    <PropertyDetails>
+                                      <Logo>
+                                        <img
+                                          src={listing_content.specsimage}
+                                          alt=""
+                                          style={{
+                                            height: "35px",
+                                            borderRadius: "50%",
+                                          }}
+                                        />
+                                      </Logo>
+                                      <Box>
+                                        <PropertyHeadingSmall>
+                                          {listing_content.specstitle}
+                                        </PropertyHeadingSmall>
+                                        <PropertySubHeading>
+                                          {listing_content.specssubtitle}
+                                        </PropertySubHeading>
+                                      </Box>
+                                    </PropertyDetails>
+                                  </Box>
+                                ))}
+                              </Box>
+                            )}
+                          </Box>
+                          <Divider />
+                          <Box
+                            style={{ paddingBottom: "20px", marginTop: "15px" }}
+                          >
                             <Typography
                               style={{
                                 fontSize: "24px",
                                 fontWeight: 600,
+                                color: "#44475b",
                                 fontFamily: "Inter",
-                                padding: "5px 0",
+                                paddingBottom: "20px",
                               }}
                             >
-                              Financials
+                              Property Overview
                             </Typography>
 
-                            <Grid container spacing={5}>
-                              <Grid item xs={6}>
-                                <Box style={{ padding: "10px 0" }}>
-                                  <FinanceHeading>Property cost</FinanceHeading>
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Property price
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.propertypricen}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Transaction costs
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.transactioncost}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Govt. Fees
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        {listing.venqfee}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Divider />
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Investment cost
-                                      </FinanceSubHeading>
-                                      <FinanceAmount
-                                        style={{ color: "#0170dc" }}
-                                      >
-                                        INR {listing.propertyprice}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                              </Grid>
-
-                              <Grid item xs={6}>
-                                <Box style={{ padding: "10px 0" }}>
-                                  <FinanceHeading>
-                                    Rental income (Year 1)
-                                  </FinanceHeading>
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Projected gross rent
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.projectedgrossrent}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Service charges
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        (INR {listing.servicecharges})
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Mgmt. and maintenance
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        (INR {listing.maintainencefee})
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Divider />
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Annual net income
-                                      </FinanceSubHeading>
-                                      <FinanceAmount
-                                        style={{ color: "#0170dc" }}
-                                      >
-                                        INR {listing.annualnetincome}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Box
-                                    style={{
-                                      backgroundColor: "#f6f7f9",
-                                      padding: "10px",
-                                      borderRadius: "10px",
-                                    }}
-                                  >
-                                    <ThemeProvider theme={theme}>
-                                      <Typography
-                                        style={{
-                                          fontSize: "13px",
-                                          fontFamily: "Inter",
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                        }}
-                                      >
-                                        This is an estimate for the 1st year of
-                                        ownership
-                                        <Tooltip title={info1} placement="top">
-                                          <Typography
-                                            style={{
-                                              border:
-                                                "1px solid rgb(112,111,111)",
-                                              color: "rgb(112,111,111)",
-                                              display: "inline",
-                                              cursor: "pointer",
-                                              padding: "0px 6px",
-                                              marginLeft: "5px",
-                                              borderRadius: "50%",
-                                              fontSize: "10px",
-                                            }}
-                                          >
-                                            i
-                                          </Typography>
-                                        </Tooltip>
-                                      </Typography>
-                                    </ThemeProvider>
-                                  </Box>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                          </Box>
-                        )}
-                        {listing.fundtimeline && (
-                          <Box style={{ paddingBottom: "20px" }}>
-                            <Typography
-                              style={{
-                                fontSize: "24px",
-                                fontWeight: 600,
-                                fontFamily: "Inter",
-                                padding: "20px 0",
-                              }}
-                            >
-                              Funding timeline
-                            </Typography>
-
-                            <Box
-                              style={{
-                                backgroundColor: "#f6f7f9",
-                                padding: "10px 20px",
-                                borderRadius: "10px",
-                                width: "fit-content",
-                              }}
-                            >
-                              <Typography
-                                style={{
-                                  fontSize: "12px",
-                                  fontFamily: "Inter",
-                                }}
-                              >
-                                Each step may occur earlier than the dates below
-                              </Typography>
-                            </Box>
-                            <Period />
-                          </Box>
-                        )}
-                      </>
-                    )}
-                    {activeTab === "financial" && isSmallScreen && (
-                      <>
-                        <Box
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            justifyContent: "start",
-                            marginTop: "20px",
-                          }}
-                        >
-                          <p
-                            style={{
-                              fontFamily: "Inter",
-                              fontWeight: 700,
-                              color: "#44575B",
-                              fontSize: "25px",
-                            }}
-                          >
-                            33.16%
-                          </p>
-                          <p
-                            style={{
-                              fontFamily: "Inter",
-                              fontWeight: 600,
-                              color: "#a1a3ad",
-                              fontSize: "13px",
-                            }}
-                          >
-                            3Y annualised
-                          </p>
-                        </Box>
-                        <Box
-                          style={{
-                            display: "flex",
-                            gap: "5px",
-                          }}
-                        >
-                          <p
-                            style={{
-                              fontFamily: "Inter",
-                              fontWeight: 600,
-                              color: "#50B487",
-                              fontSize: "13px",
-                            }}
-                          >
-                            +0.45%
-                          </p>
-                          <p
-                            style={{
-                              fontFamily: "Inter",
-                              fontWeight: 600,
-                              color: "#a1a3ad",
-                              fontSize: "13px",
-                            }}
-                          >
-                            1M
-                          </p>
-                        </Box>
-                        <Box>
-                          <LineChart />
-                          <Divider />
-                          <SubTitle
-                            style={{
-                              width: "28px",
-                              alignItems: "center",
-                              textAlign: "center",
-                              marginLeft: "46%",
-                              marginTop: "10px",
-                            }}
-                          >
-                            3Y
-                          </SubTitle>
-                        </Box>
-                        <Box onClick={() => setCalculator(!calculator)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Return Calculator
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {calculator && (
-                          <>
-                            <Box
-                              style={{
-                                // backgroundColor: "red",
-                                marginTop: "30px",
-                                marginBottom: "30px",
-                                paddingTop: "30px",
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                border: "0.2px solid #e9e9eb",
-                                borderRadius: "10px",
-                              }}
-                            >
-                              <Return_cal />
-                            </Box>
-
-                            <Box
-                              style={{
-                                backgroundColor: "#f6f7f9",
-                                padding: "10px",
-                                borderRadius: "10px",
-                                margin: "0 30px 40px 30px",
-                              }}
-                            >
-                              <ThemeProvider theme={theme}>
-                                <Typography
-                                  style={{
-                                    fontSize: "14px",
-                                    fontFamily: "Inter",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                  }}
-                                >
-                                  Default values are based on property numbers
-                                  <Tooltip title={info1} placement="top">
-                                    <Typography
-                                      style={{
-                                        border: "1px solid rgb(112,111,111)",
-                                        color: "rgb(112,111,111)",
-                                        display: "inline",
-                                        cursor: "pointer",
-                                        padding: "0px 6px",
-                                        marginLeft: "5px",
-                                        borderRadius: "50%",
-                                        fontSize: "10px",
-                                      }}
-                                    >
-                                      i
-                                    </Typography>
-                                  </Tooltip>
-                                </Typography>
-                              </ThemeProvider>
-                            </Box>
-                          </>
-                        )}
-                        <Box onClick={() => setFinancial(!financial)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Financial
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {financial && (
-                          <Box style={{ paddingBottom: "20px" }}>
-                            <Grid container spacing={5}>
-                              <Grid item xs={12} md={6}>
-                                <Box style={{ padding: "10px 0" }}>
-                                  <FinanceHeading>Property cost</FinanceHeading>
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Property price
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.propertyprice}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "5px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Transaction costs
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.transactioncost}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Govt. Fees
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        {listing.venqfee}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Divider />
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "5px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Investment cost
-                                      </FinanceSubHeading>
-                                      <FinanceAmount
-                                        style={{ color: "#0170dc" }}
-                                      >
-                                        INR {listing.propertyprice}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-                                </Box>
-                              </Grid>
-
-                              <Grid item xs={12} md={6}>
-                                <Box style={{ padding: "10px 0" }}>
-                                  <FinanceHeading>
-                                    Rental income (Year 1)
-                                  </FinanceHeading>
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Projected gross rent
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        INR {listing.projectedgrossrent}
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Service charges
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        (INR {listing.servicecharges})
-                                      </FinanceAmount>
-                                    </Box>
-
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Mgmt. and maintenance
-                                      </FinanceSubHeading>
-                                      <FinanceAmount>
-                                        (INR {listing.maintainencefee})
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Divider />
-
-                                  <Box>
-                                    <Box
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center",
-                                        padding: "10px 0",
-                                      }}
-                                    >
-                                      <FinanceSubHeading>
-                                        Annual net income
-                                      </FinanceSubHeading>
-                                      <FinanceAmount
-                                        style={{ color: "#0170dc" }}
-                                      >
-                                        INR {listing.annualnetincome}
-                                      </FinanceAmount>
-                                    </Box>
-                                  </Box>
-
-                                  <Box
-                                    style={{
-                                      backgroundColor: "#f6f7f9",
-                                      padding: "10px",
-                                      borderRadius: "10px",
-                                    }}
-                                  >
-                                    <ThemeProvider theme={theme}>
-                                      <Typography
-                                        style={{
-                                          fontSize: "13px",
-                                          fontFamily: "Inter",
-                                          display: "flex",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                        }}
-                                      >
-                                        This is an estimate for the 1st year of
-                                        ownership
-                                        <Tooltip title={info1} placement="top">
-                                          <Typography
-                                            style={{
-                                              border:
-                                                "1px solid rgb(112,111,111)",
-                                              color: "rgb(112,111,111)",
-                                              display: "inline",
-                                              cursor: "pointer",
-                                              padding: "0px 6px",
-                                              marginLeft: "5px",
-                                              borderRadius: "50%",
-                                              fontSize: "10px",
-                                            }}
-                                          >
-                                            i
-                                          </Typography>
-                                        </Tooltip>
-                                      </Typography>
-                                    </ThemeProvider>
-                                  </Box>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                          </Box>
-                        )}
-                        {/* //this is the working for phone screen new  */}
-                        <Box onClick={() => setTimeline(!timeline)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Funding Timeline
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {timeline && (
-                          <Box style={{ paddingBottom: "20px" }}>
-                            <Box
-                              style={{
-                                backgroundColor: "#f6f7f9",
-                                padding: "10px 20px",
-                                borderRadius: "10px",
-                                width: "fit-content",
-                              }}
-                            >
-                              <Typography
-                                style={{
-                                  fontSize: "12px",
-                                  fontFamily: "Inter",
-                                }}
-                              >
-                                Each step may occur earlier than the dates below
-                              </Typography>
-                            </Box>
-                            <Period />
-                          </Box>
-                        )}
-                        <Box style={{ paddingBottom: "30px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              padding: "20px 0",
-                              color: "#44475b",
-                            }}
-                          >
-                            Have more questions about this property?
-                          </Typography>
-
-                          <Box style={{ display: "flex", height: "15vh" }}>
-                            <Box
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-around",
-                              }}
-                            >
-                              <Typography
-                                style={{
-                                  fontFamily: "Inter",
-                                  fontSize: "17px",
-                                }}
-                              >
-                                Contact our real estate experts
-                              </Typography>
-
-                              <MessageButton>
-                                <Box style={{ width: "25px", height: "25px" }}>
-                                  <svg
-                                    viewBox="0 0 24 24"
-                                    focusable="false"
-                                    class="chakra-icon css-pawapt"
-                                    aria-label="chat-bubble"
-                                    aria-hidden="true"
-                                  >
-                                    <g
-                                      fill="none"
-                                      fill-rule="nonzero"
-                                      stroke="#0170dc"
-                                      stroke-width="2.4000000000000004"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    >
-                                      <path d="M10.25 19.206L6.599 21.013V17.716C4.42 16.227 3 13.865 3 11.182C3 6.643 7.048 3 12 3C16.952 3 21 6.643 21 11.182C21 15.721 16.952 19.364 12 19.364C11.401 19.364 10.817 19.308 10.25 19.206Z"></path>
-                                    </g>
-                                  </svg>
-                                </Box>
-
-                                <Typography
-                                  style={{
-                                    fontFamily: "Inter",
-                                    fontSize: "17px",
-                                    paddingLeft: "10px",
-                                  }}
-                                >
-                                  Message us
-                                </Typography>
-                              </MessageButton>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </>
-                    )}
-                    {activeTab === "overview" && isSmallScreen && (
-                      <>
-                        <Box style={{ padding: "10px 0" }}>
-                          {listing && listing.specs && (
-                            <Box style={{ display: "flex", flexWrap: "wrap" }}>
-                              {listing.specs.map((listing_content, index) => (
-                                <Box
-                                  key={index}
-                                  style={{
-                                    boxSizing: "border-box",
-                                    padding: "10px",
-                                    width: "50%", // Adjust this to make two items per row
-                                  }}
-                                >
-                                  <PropertyDetails>
-                                    <Logo>
-                                      <img
-                                        src={listing_content.specsimage}
-                                        alt=""
-                                        style={{
-                                          height: "35px",
-                                          borderRadius: "50%",
-                                        }}
-                                      />
-                                    </Logo>
-                                    <Box>
-                                      <PropertyHeadingSmall>
-                                        {listing_content.specstitle}
-                                      </PropertyHeadingSmall>
-                                      <PropertySubHeading>
-                                        {listing_content.specssubtitle}
-                                      </PropertySubHeading>
-                                    </Box>
-                                  </PropertyDetails>
-                                </Box>
-                              ))}
-                            </Box>
-                          )}
-                        </Box>
-                        <Divider />
-                        <Box onClick={() => setOverview(!overview)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Property Overview
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {overview && (
-                          <Box>
                             <Typography
                               style={{
                                 fontFamily: "Inter",
@@ -3068,97 +1575,108 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                               {listing &&
                                 listing.propertyoverview &&
                                 listing.propertyoverview.length > maxWords && (
-                                  <div>{listing.propertyoverview}</div>
+                                  <div>
+                                    {listing.propertyoverview
+                                      .split(" ")
+                                      .slice(0, maxWords)
+                                      .join(" ")}
+                                    <div hidden={!showFullContent}>
+                                      {listing.propertyoverview
+                                        .split(" ")
+                                        .slice(
+                                          51,
+                                          listing.propertyoverview.length
+                                        )
+                                        .join(" ")}
+                                    </div>
+                                  </div>
                                 )}
-                            </Typography>
-                          </Box>
-                        )}
-                        <Box onClick={() => setAmenities(!amenities)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Amenities
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {amenities && (
-                          <Box style={{ padding: "1px 0" }}>
-                            {listing && listing.amenities && (
-                              <Box
-                                style={{
-                                  display: "flex",
-                                  flexDirection: isSmallScreen
-                                    ? "column"
-                                    : "row",
-                                  flexWrap: "wrap",
+                              <MoreButton
+                                onClick={() => {
+                                  setShowFullContent(!showFullContent);
                                 }}
                               >
-                                {listing.amenities.map(
-                                  (listing_content, index) => (
-                                    <Box
-                                      key={index}
-                                      style={{
-                                        flex: "0 0 50%",
-                                        boxSizing: "border-box",
-                                      }}
-                                    >
-                                      <PropertyDetails
+                                {showFullContent ? "Show less" : "Show more"}
+                              </MoreButton>
+                            </Typography>
+                          </Box>
+                          <Box style={{ paddingBottom: "40px" }}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                color: "#44475b",
+                                paddingBottom: "20px",
+                              }}
+                            >
+                              Amenities
+                            </Typography>
+                            <Box style={{ padding: "1px 0" }}>
+                              {listing && listing.amenities && (
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: isSmallScreen
+                                      ? "column"
+                                      : "row",
+                                    flexWrap: "wrap",
+                                  }}
+                                >
+                                  {listing.amenities.map(
+                                    (listing_content, index) => (
+                                      <Box
+                                        key={index}
                                         style={{
-                                          display: "flex",
+                                          flex: "0 0 50%",
+                                          boxSizing: "border-box",
                                         }}
                                       >
-                                        <Logo>
-                                          <img
-                                            src={listing_content.alink}
-                                            alt=""
-                                            style={{
-                                              height: "35px",
-                                              borderRadius: "50%",
-                                              backgroundColor: "black",
-                                            }}
-                                          />
-                                        </Logo>
-
-                                        <PropertyHeadingSmall
+                                        <PropertyDetails
                                           style={{
-                                            color: "rgb(112,111,111)",
+                                            display: "flex",
                                           }}
                                         >
-                                          {listing_content.aname}
-                                        </PropertyHeadingSmall>
-                                      </PropertyDetails>
-                                    </Box>
-                                  )
-                                )}
-                              </Box>
-                            )}
-                          </Box>
-                        )}
+                                          <Logo>
+                                            <img
+                                              src={listing_content.alink}
+                                              alt=""
+                                              style={{
+                                                height: "35px",
+                                                borderRadius: "50%",
+                                                backgroundColor: "black",
+                                              }}
+                                            />
+                                          </Logo>
 
-                        <Box onClick={() => setShowdocument(!showdocument)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Documents ({listing.documents?.length})
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {showdocument && (
-                          <Box>
+                                          <PropertyHeadingSmall
+                                            style={{
+                                              color: "rgb(112,111,111)",
+                                            }}
+                                          >
+                                            {listing_content.aname}
+                                          </PropertyHeadingSmall>
+                                        </PropertyDetails>
+                                      </Box>
+                                    )
+                                  )}
+                                </Box>
+                              )}
+                            </Box>
+                          </Box>
+
+                          <Box style={{ paddingBottom: "40px" }}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                padding: "10px 0",
+                                color: "#44475b",
+                              }}
+                            >
+                              Documents ({listing.documents?.length})
+                            </Typography>
                             {listing &&
                               listing.documents &&
                               listing.documents.map((document) => (
@@ -3208,67 +1726,101 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                 </Box>
                               ))}
                           </Box>
-                        )}
-                        <Box onClick={() => setLayout(!layout)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Layout
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {layout && (
-                          <Box
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-
-                              justifyContent: "space-around",
-                            }}
-                          >
-                            <div style={isFullscreen ? fullscreenStyle : null}>
-                              <img
-                                src={
-                                  listing.images
-                                    ? listing.images[listing.images.length - 1]
-                                    : ""
-                                }
-                                alt="display"
-                                style={
-                                  isFullscreen
-                                    ? fullscreenImageStyle
-                                    : mapstylesmall
-                                }
-                                loading="lazy"
-                                onClick={handleImageClick}
-                              ></img>
-                            </div>
-                          </Box>
-                        )}
-                        <Box onClick={() => setShowlocation(!showlocation)}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              color: "#44475b",
-                              fontFamily: "Inter",
-                              paddingBottom: "20px",
-                              paddingTop: "20px",
-                            }}
-                          >
-                            Location
-                          </Typography>
-                          <Divider />
-                        </Box>
-                        {showlocation && (
                           <Box style={{ paddingBottom: "20px" }}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                padding: "20px 0",
+                                color: "#44475b",
+                              }}
+                            >
+                              Layout
+                            </Typography>
+
+                            <Box
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              {isSmallScreen && (
+                                <div
+                                  style={isFullscreen ? fullscreenStyle : null}
+                                >
+                                  <img
+                                    src={
+                                      listing.images
+                                        ? listing.images[
+                                            listing.images.length - 1
+                                          ]
+                                        : ""
+                                    }
+                                    alt="display"
+                                    style={
+                                      isFullscreen
+                                        ? fullscreenImageStyle
+                                        : mapstylesmall
+                                    }
+                                    loading="lazy"
+                                    onClick={handleImageClick}
+                                  ></img>
+                                </div>
+                              )}
+                              {!isSmallScreen && (
+                                <div
+                                  style={isFullscreen ? fullscreenStyle : null}
+                                >
+                                  <img
+                                    src={
+                                      listing.images
+                                        ? listing.images[
+                                            listing.images.length - 1
+                                          ]
+                                        : ""
+                                    }
+                                    alt="display"
+                                    style={hoverStyle1}
+                                    loading="lazy"
+                                    onClick={handleImageClick}
+                                    onMouseEnter={() => setIsHovered1(true)}
+                                    onMouseLeave={() => setIsHovered1(false)}
+                                  ></img>
+                                  <img
+                                    src={
+                                      listing.images
+                                        ? listing.images[
+                                            listing.images.length - 2
+                                          ]
+                                        : ""
+                                    }
+                                    alt="display"
+                                    style={hoverStyle2}
+                                    loading="lazy"
+                                    onClick={handleImageClick}
+                                    onMouseEnter={() => setIsHovered2(true)}
+                                    onMouseLeave={() => setIsHovered2(false)}
+                                  ></img>
+                                </div>
+                              )}
+                            </Box>
+                          </Box>
+                          <Box style={{ paddingBottom: "20px" }}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                padding: "20px 0",
+                                color: "#44475b",
+                              }}
+                            >
+                              Location
+                            </Typography>
+
                             <Box
                               style={{
                                 display: "flex",
@@ -3323,886 +1875,1803 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                               {listing.locationdescription}
                             </Typography>
                           </Box>
-                        )}
-                        <Box style={{ paddingBottom: "30px" }}>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              fontWeight: 600,
-                              fontFamily: "Inter",
-                              padding: "20px 0",
-                              color: "#44475b",
-                            }}
-                          >
-                            Have more questions about this property?
-                          </Typography>
-
-                          <Box style={{ display: "flex", height: "15vh" }}>
-                            <Box
+                          <Box style={{ paddingBottom: "30px" }}>
+                            <Typography
                               style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-around",
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                padding: "20px 0",
+                                color: "#44475b",
                               }}
                             >
-                              <Typography
+                              Have more questions about this property?
+                            </Typography>
+
+                            <Box style={{ display: "flex", height: "15vh" }}>
+                              <Box
                                 style={{
-                                  fontFamily: "Inter",
-                                  fontSize: "17px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "space-around",
                                 }}
                               >
-                                Contact our real estate experts
-                              </Typography>
-
-                              <MessageButton>
-                                <Box style={{ width: "25px", height: "25px" }}>
-                                  <svg
-                                    viewBox="0 0 24 24"
-                                    focusable="false"
-                                    class="chakra-icon css-pawapt"
-                                    aria-label="chat-bubble"
-                                    aria-hidden="true"
-                                  >
-                                    <g
-                                      fill="none"
-                                      fill-rule="nonzero"
-                                      stroke="#0170dc"
-                                      stroke-width="2.4000000000000004"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                    >
-                                      <path d="M10.25 19.206L6.599 21.013V17.716C4.42 16.227 3 13.865 3 11.182C3 6.643 7.048 3 12 3C16.952 3 21 6.643 21 11.182C21 15.721 16.952 19.364 12 19.364C11.401 19.364 10.817 19.308 10.25 19.206Z"></path>
-                                    </g>
-                                  </svg>
-                                </Box>
-
                                 <Typography
                                   style={{
                                     fontFamily: "Inter",
                                     fontSize: "17px",
-                                    paddingLeft: "10px",
                                   }}
                                 >
-                                  Message us
+                                  Contact our real estate experts
                                 </Typography>
-                              </MessageButton>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </>
-                    )}
-                  </Details>
-                </Grid>
 
-                {!isSmallScreen && listing?.islive == 3 && (
-                  <Grid item xs={4} style={{ position: "relative" }}>
-                    <Pricing>
-                      <Box
-                        style={{
-                          backgroundColor: "white",
-                          border: "0.2px solid #e9e9eb",
-                          borderRadius: "10px",
+                                <MessageButton>
+                                  <Box
+                                    style={{ width: "25px", height: "25px" }}
+                                  >
+                                    <svg
+                                      viewBox="0 0 24 24"
+                                      focusable="false"
+                                      class="chakra-icon css-pawapt"
+                                      aria-label="chat-bubble"
+                                      aria-hidden="true"
+                                    >
+                                      <g
+                                        fill="none"
+                                        fill-rule="nonzero"
+                                        stroke="#0170dc"
+                                        stroke-width="2.4000000000000004"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M10.25 19.206L6.599 21.013V17.716C4.42 16.227 3 13.865 3 11.182C3 6.643 7.048 3 12 3C16.952 3 21 6.643 21 11.182C21 15.721 16.952 19.364 12 19.364C11.401 19.364 10.817 19.308 10.25 19.206Z"></path>
+                                      </g>
+                                    </svg>
+                                  </Box>
 
-                          padding: "10px",
-                        }}
-                      >
-                        <Box
-                          style={{ textAlign: "center", paddingBottom: "10px" }}
-                        >
-                          <Typography
-                            style={{
-                              fontSize: "18px",
-                              color: "rgb(112,111,111)",
-                              fontFamily: "Inter",
-                            }}
-                          >
-                            Property price
-                          </Typography>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              color: "#0170dc",
-                              fontFamily: "Inter",
-                            }}
-                          >
-                            INR{" "}
-                            <b style={{ fontSize: "32px" }}>
-                              {listing.propertyprice}
-                            </b>
-                          </Typography>
-                        </Box>
-
-                        <div>
-                          <ProgressBar
-                            completed={100}
-                            customLabel=""
-                            className="wrapper"
-                            bgColor="#50B487"
-                            labelColor="#50B487"
-                            height="0.6rem"
-                            // labelClassName="label"
-                          />
-                          <Typography
-                            style={{
-                              fontSize: "14px",
-                              color: "black",
-                              fontFamily: "Inter",
-                              marginLeft: "5px",
-                            }}
-                          >
-                            100% funded
-                          </Typography>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            margin: "1.5rem 0",
-                          }}
-                        >
-                          <div></div>
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            <img
-                              src={clock}
-                              style={{ marginRight: "1rem" }}
-                            ></img>
-                            <span style={{ color: "red" }}>
-                              {" "}
-                              Closed on Mar 31,2024
-                            </span>
-                          </div>
-                        </div>
-
-                        <Box
-                          style={{
-                            backgroundColor: "#f6f7f9",
-                            padding: "1px",
-                            borderRadius: "15px",
-                          }}
-                        >
-                          <Box
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              margin: "1rem 2rem",
-                            }}
-                          >
-                            <span>Yearly investment return</span>
-                            <span style={{ fontWeight: 800 }}>9.8%</span>
-                          </Box>
-
-                          <Box
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              margin: "1rem 2rem",
-                            }}
-                          >
-                            <span>Funded date</span>
-                            <span style={{ fontWeight: 800 }}>
-                              {listing.fundingdate}
-                            </span>
-                          </Box>
-
-                          <Box
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              margin: "1rem 2rem",
-                            }}
-                          >
-                            <span>Minimum Investment</span>
-                            <span style={{ fontWeight: 800 }}>
-                              {listing.mininvestment}
-                            </span>
-                          </Box>
-                        </Box>
-
-                        {listing.islive == 2 && (
-                          <Box
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-around",
-                              marginTop: "20px",
-                              // backgroundColor:'red',
-                              padding: "1px",
-                            }}
-                          >
-                            <button
-                              onClick={() => {
-                                window.location.href =
-                                  "https://calendly.com/venqtech/15min";
-                              }}
-                              style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                color: "#50B487",
-                                backgroundColor: "#EBF9F5",
-                                borderRadius: "5px",
-                              }}
-                            >
-                              Schedule an E-meet
-                            </button>
-                            <button
-                              onClick={() => setOpen((o) => !o)}
-                              style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#00b386",
-                                borderRadius: "5px",
-                                padding: "10px",
-                              }}
-                            >
-                              I'm Interested
-                            </button>
-                          </Box>
-                        )}
-                        {listing.islive == 1 && (
-                          <Box
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-around",
-                              marginTop: "20px",
-                              // backgroundColor:'red',
-                              padding: "1px",
-                            }}
-                          >
-                            <button
-                              onClick={() => {
-                                window.location.href =
-                                  "https://calendly.com/venqtech/15min";
-                              }}
-                              style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                color: "#50B487",
-                                backgroundColor: "#EBF9F5",
-                                borderRadius: "5px",
-                              }}
-                            >
-                              Schedule an E-meet
-                            </button>
-                            <button
-                              // onClick={() => setOpen((o) => !o)}
-                              style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#00b386",
-                                borderRadius: "5px",
-                                padding: "10px",
-                              }}
-                            >
-                              Invest 1
-                            </button>
-                          </Box>
-                        )}
-
-                        {listing.islive == 3 && (
-                          <Button
-                            sx={{
-                              paddingLeft: "65px",
-                              paddingRight: "65px",
-                              marginLeft: "10px",
-                              marginTop: "10px",
-                              width: "90%",
-                              backgroundColor: "rgb(222, 154, 154)",
-                              color: "red",
-                            }}
-                          >
-                            Closed
-                          </Button>
-                        )}
-
-                        <StyledPopup
-                          open={open}
-                          closeOnDocumentClick
-                          onClose={closeModal}
-                        >
-                          <div className="modal">
-                            <a
-                              className="close"
-                              onClick={closeModal}
-                              style={{
-                                cursor: "pointer",
-                              }}
-                            >
-                              &times;
-                            </a>
-
-                            <form onSubmit={handleInterest}>
-                              <Box>
-                                <Label>
-                                  <LabelName>
-                                    Select Amount to invest:
-                                  </LabelName>
-                                </Label>
-
-                                <Label>
-                                  <LabelAmount>
-                                    INR {interestamount}
-                                  </LabelAmount>
-                                </Label>
-
-                                <LabelSlider
-                                  type="range"
-                                  min="50000"
-                                  max="300000"
-                                  step="500"
-                                  value={interestamount}
-                                  onChange={handleInterestChange}
-                                />
-                              </Box>
-                              <Button
-                                type="submit"
-                                variant="contained"
-                                style={{ margin: "8px 0" }}
-                                color="primary"
-                                fullWidth
-                                onClick={handleInterest}
-                              >
-                                Show Interest
-                              </Button>
-                            </form>
-                          </div>
-                        </StyledPopup>
-                        {/* bada version  */}
-
-                        <StyledPopupinv
-                          open={openinv}
-                          closeOnDocumentClick
-                          onClose={closeModalinv}
-                        >
-                          <div
-                            className="modal"
-                            style={{
-                              height: "100%",
-                              // backgroundColor:'red',
-                              margin: "0px",
-                              marginTop: "-10px",
-                              paddingLeft: "18px",
-                              paddingRight: "18px",
-                            }}
-                          >
-                            <a
-                              className="close"
-                              onClick={closeModalinv}
-                              style={{
-                                cursor: "pointer",
-                              }}
-                            >
-                              &times;
-                            </a>
-
-                            <form
-                              style={{
-                                height: "450px",
-                              }}
-                              onSubmit={handleInterest}
-                            >
-                              <Box>
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-evenly",
-                                  }}
-                                >
-                                  {/* <div style={{
-        display:'flex',
-        justifyContent:'space-evenly'
-      }}> */}
-                                  <nav
+                                  <Typography
                                     style={{
-                                      width: "100%",
+                                      fontFamily: "Inter",
+                                      fontSize: "17px",
+                                      paddingLeft: "10px",
                                     }}
                                   >
-                                    <ul
-                                      style={{
-                                        display: "flex",
-                                        listStyle: "none",
-                                        paddingInlineStart: "0px",
-                                        borderBottom: "1px solid #e9e9eb",
-                                        gap: "20px",
-                                      }}
-                                    >
-                                      <li
-                                        style={{
-                                          fontWeight: "bold",
-                                          borderBottom:
-                                            invtype == 0
-                                              ? "2px solid #00b386"
-                                              : "none",
-                                          marginRight: "12px",
-                                          color:
-                                            invtype == 0 ? "#00b386" : "gray",
-                                          cursor: "pointer",
-                                          fontSize: "16px",
-                                          fontFamily: "Inter",
-                                        }}
-                                        onClick={() => {
-                                          {
-                                            !listing.properyheading.includes(
-                                              "Dholera"
-                                            ) && setinvtype(0);
-                                          }
-                                        }}
-                                      >
-                                        Allotment
-                                      </li>
-                                      <li
-                                        style={{
-                                          fontWeight: "bold",
-                                          borderBottom:
-                                            invtype == 1
-                                              ? "2px solid #00b386"
-                                              : "none",
-                                          color:
-                                            invtype == 1 ? "#00b386" : "gray",
-                                          marginRight: "12px",
-                                          cursor: "pointer",
-                                          fontSize: "16px",
-                                          fontFamily: "Inter",
-                                        }}
-                                        // onClick={() => {
-                                        //   setinvtype(1);
-                                        // }}
-                                      >
-                                        Invest 2
-                                      </li>
-                                    </ul>
-                                  </nav>
-                                </div>
-
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                  }}
-                                >
-                                  <Label>
-                                    <LabelName
-                                      sx={{
-                                        fontSize: "14px",
-                                        marginTop: "14px",
-                                      }}
-                                    >
-                                      Investment Amount :
-                                    </LabelName>
-                                  </Label>
-                                  {invtype == 0 && (
-                                    <input
-                                      type="text"
-                                      value={userinvest}
-                                      onChange={(event) => {
-                                        setUserInvest(event.target.value);
-                                      }}
-                                      style={{
-                                        width: "40%",
-                                        fontSize: "14px",
-                                        backgroundColor: "#EBF9F5",
-                                        color: "#50B487",
-                                      }}
-                                    />
-                                  )}
-                                  {invtype == 1 && (
-                                    <input
-                                      type="text"
-                                      value={userinvestone}
-                                      onChange={(event) => {
-                                        setUserInvest(event.target.value);
-                                      }}
-                                      style={{
-                                        width: "40%",
-                                        fontSize: "14px",
-                                        backgroundColor: "#EBF9F5",
-                                        color: "#50B487",
-                                      }}
-                                    />
-                                  )}
-                                </div>
-                                {invtype == 0 && (
-                                  <>
-                                    <Box
-                                      sx={{
-                                        width: "90%",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        marginLeft: "16px",
-                                      }}
-                                    >
-                                      <Slider
-                                        aria-label="Temperature"
-                                        defaultValue={5000}
-                                        getAriaValueText={valuetext}
-                                        min={5000}
-                                        max={305000}
-                                        step={30000}
-                                        marks={marks}
-                                        onChange={handleUserInvestChange}
-                                      />
-                                    </Box>
-                                  </>
-                                )}
-                                {invtype == 1 && (
-                                  <>
-                                    <Box
-                                      sx={{
-                                        width: "90%",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        marginLeft: "16px",
-                                      }}
-                                    >
-                                      <Slider
-                                        aria-label="Temperature"
-                                        defaultValue={5000}
-                                        getAriaValueText={valuetext}
-                                        min={5000}
-                                        max={310000}
-                                        step={50000}
-                                        marks={marks}
-                                        onChange={handleUserInvestChangeOne}
-                                      />
-                                    </Box>
-                                  </>
-                                )}
+                                    Message us
+                                  </Typography>
+                                </MessageButton>
                               </Box>
-                              {invtype == 0 && (
-                                <div
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                  }}
-                                >
-                                  <Label>
-                                    <LabelName
-                                      sx={{
-                                        marginTop: "14px",
-                                        fontSize: "14px",
-                                      }}
-                                    >
-                                      Allotment Fees:
-                                    </LabelName>
-                                  </Label>
-                                  <input
-                                    type="text"
-                                    value={`₹ ` + userinvest * 0.05}
-                                    style={{
-                                      width: "40%",
-                                      fontSize: "14px",
-                                      backgroundColor: "#EBF9F5",
-                                      color: "#50B487",
-                                    }}
-                                  />
-                                </div>
-                              )}
-
-                              <div
+                            </Box>
+                          </Box>
+                        </>
+                      )}
+                      {activeTab === "financial" && !isSmallScreen && (
+                        <>
+                          <Box
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                              justifyContent: "start",
+                              marginTop: "20px",
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 700,
+                                color: "#44575B",
+                                fontSize: "25px",
+                              }}
+                            >
+                              33.16%
+                            </p>
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 600,
+                                color: "#a1a3ad",
+                                fontSize: "13px",
+                              }}
+                            >
+                              3Y annualised
+                            </p>
+                          </Box>
+                          <Box
+                            style={{
+                              display: "flex",
+                              gap: "5px",
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 600,
+                                color: "#50B487",
+                                fontSize: "13px",
+                              }}
+                            >
+                              +0.45%
+                            </p>
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 600,
+                                color: "#a1a3ad",
+                                fontSize: "13px",
+                              }}
+                            >
+                              1M
+                            </p>
+                          </Box>
+                          <Box>
+                            <LineChart />
+                            <Divider />
+                            <SubTitle
+                              style={{
+                                width: "28px",
+                                alignItems: "center",
+                                textAlign: "center",
+                                marginLeft: "46%",
+                                marginTop: "10px",
+                              }}
+                            >
+                              3Y
+                            </SubTitle>
+                            <Box
+                              style={{
+                                marginTop: "30px",
+                                marginBottom: "30px",
+                                paddingTop: "30px",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                border: "0.2px solid #e9e9eb",
+                                borderRadius: "10px",
+                              }}
+                            >
+                              <Typography
                                 style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
+                                  fontSize: "24px",
+                                  fontWeight: 600,
+                                  fontFamily: "Inter",
+                                  padding: "5px 0",
+                                  marginBottom: "5vh",
+                                  textAlign: "start",
+                                  marginLeft: "-21vw",
                                 }}
                               >
-                                {invtype == 0 && (
-                                  <>
-                                    <Label>
-                                      <LabelName
-                                        sx={{
-                                          marginTop: "14px",
-                                          fontSize: "14px",
-                                        }}
-                                      >
-                                        Allotment date:
-                                      </LabelName>
-                                    </Label>
-                                    <input
-                                      type="text"
-                                      value={`1 Mar`}
-                                      style={{
-                                        width: "40%",
-                                        fontSize: "14px",
-                                        backgroundColor: "#EBF9F5",
-                                        color: "#50B487",
-                                      }}
-                                    />
-                                  </>
-                                )}
-                              </div>
-                              {invtype == 0 && (
-                                <Label
+                                {" "}
+                                Return Calculator
+                              </Typography>
+                              <Return_cal />
+                            </Box>
+
+                            <Box
+                              style={{
+                                backgroundColor: "#f6f7f9",
+                                padding: "10px",
+                                borderRadius: "10px",
+                                margin: "0 30px 40px 30px",
+                              }}
+                            >
+                              <ThemeProvider theme={theme}>
+                                <Typography
                                   style={{
-                                    textAlign: "center",
-                                  }}
-                                  sx={{
-                                    textAlign: "center",
+                                    fontSize: "14px",
+                                    fontFamily: "Inter",
+                                    display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    marginTop: "50px",
                                   }}
                                 >
-                                  <LabelName
-                                    sx={{
-                                      textAlign: "center",
-                                      fontSize: "8px",
-                                      color: "#7c7e8c",
-                                    }}
-                                  >
-                                    This 5% application fees is a reservation
-                                    only. You will have to pay the whole amount
-                                    on the date of allotment to know more
-                                    checkout{" "}
-                                    <a href="https://www.venq.in/investing">
-                                      venq.in/investing
-                                    </a>
-                                  </LabelName>
-                                </Label>
-                              )}
-                              <div
+                                  Default values are based on property numbers
+                                  <Tooltip title={info1} placement="top">
+                                    <Typography
+                                      style={{
+                                        border: "1px solid rgb(112,111,111)",
+                                        color: "rgb(112,111,111)",
+                                        display: "inline",
+                                        cursor: "pointer",
+                                        padding: "0px 6px",
+                                        marginLeft: "5px",
+                                        borderRadius: "50%",
+                                        fontSize: "10px",
+                                      }}
+                                    >
+                                      i
+                                    </Typography>
+                                  </Tooltip>
+                                </Typography>
+                              </ThemeProvider>
+                            </Box>
+                          </Box>
+                          {isSmallScreen ? (
+                            <Box style={{ paddingBottom: "20px" }}>
+                              <Typography
                                 style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                  gap: "30px",
-                                  marginTop: invtype == 1 ? "205px" : "0px",
+                                  fontSize: "24px",
+                                  fontWeight: 600,
+                                  fontFamily: "Inter",
+                                  padding: "5px 0",
                                 }}
                               >
-                                <Button
-                                  type="submit"
-                                  variant="contained"
+                                Financials
+                              </Typography>
+
+                              <Grid container spacing={5}>
+                                <Grid item xs={12} md={6}>
+                                  <Box style={{ padding: "10px 0" }}>
+                                    <FinanceHeading>
+                                      Property cost
+                                    </FinanceHeading>
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Property price
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.propertyprice}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "5px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Transaction costs
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.transactioncost}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Govt. Fees
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          {listing.venqfee}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "5px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Investment cost
+                                        </FinanceSubHeading>
+                                        <FinanceAmount
+                                          style={{ color: "#0170dc" }}
+                                        >
+                                          INR {listing.propertyprice}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+                                  </Box>
+                                </Grid>
+
+                                <Grid item xs={12} md={6}>
+                                  <Box style={{ padding: "10px 0" }}>
+                                    <FinanceHeading>
+                                      Rental income (Year 1)
+                                    </FinanceHeading>
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Projected gross rent
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.projectedgrossrent}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Service charges
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          (INR {listing.servicecharges})
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Mgmt. and maintenance
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          (INR {listing.maintainencefee})
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Annual net income
+                                        </FinanceSubHeading>
+                                        <FinanceAmount
+                                          style={{ color: "#0170dc" }}
+                                        >
+                                          INR {listing.annualnetincome}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Box
+                                      style={{
+                                        backgroundColor: "#f6f7f9",
+                                        padding: "10px",
+                                        borderRadius: "10px",
+                                      }}
+                                    >
+                                      <ThemeProvider theme={theme}>
+                                        <Typography
+                                          style={{
+                                            fontSize: "13px",
+                                            fontFamily: "Inter",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          This is an estimate for the 1st year
+                                          of ownership
+                                          <Tooltip
+                                            title={info1}
+                                            placement="top"
+                                          >
+                                            <Typography
+                                              style={{
+                                                border:
+                                                  "1px solid rgb(112,111,111)",
+                                                color: "rgb(112,111,111)",
+                                                display: "inline",
+                                                cursor: "pointer",
+                                                padding: "0px 6px",
+                                                marginLeft: "5px",
+                                                borderRadius: "50%",
+                                                fontSize: "10px",
+                                              }}
+                                            >
+                                              i
+                                            </Typography>
+                                          </Tooltip>
+                                        </Typography>
+                                      </ThemeProvider>
+                                    </Box>
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          ) : (
+                            <Box style={{ paddingBottom: "20px" }}>
+                              <Typography
+                                style={{
+                                  fontSize: "24px",
+                                  fontWeight: 600,
+                                  fontFamily: "Inter",
+                                  padding: "5px 0",
+                                }}
+                              >
+                                Financials
+                              </Typography>
+
+                              <Grid container spacing={5}>
+                                <Grid item xs={6}>
+                                  <Box style={{ padding: "10px 0" }}>
+                                    <FinanceHeading>
+                                      Property cost
+                                    </FinanceHeading>
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Property price
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.propertypricen}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Transaction costs
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.transactioncost}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Govt. Fees
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          {listing.venqfee}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Investment cost
+                                        </FinanceSubHeading>
+                                        <FinanceAmount
+                                          style={{ color: "#0170dc" }}
+                                        >
+                                          INR {listing.propertyprice}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+                                  </Box>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                  <Box style={{ padding: "10px 0" }}>
+                                    <FinanceHeading>
+                                      Rental income (Year 1)
+                                    </FinanceHeading>
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Projected gross rent
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.projectedgrossrent}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Service charges
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          (INR {listing.servicecharges})
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Mgmt. and maintenance
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          (INR {listing.maintainencefee})
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Annual net income
+                                        </FinanceSubHeading>
+                                        <FinanceAmount
+                                          style={{ color: "#0170dc" }}
+                                        >
+                                          INR {listing.annualnetincome}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Box
+                                      style={{
+                                        backgroundColor: "#f6f7f9",
+                                        padding: "10px",
+                                        borderRadius: "10px",
+                                      }}
+                                    >
+                                      <ThemeProvider theme={theme}>
+                                        <Typography
+                                          style={{
+                                            fontSize: "13px",
+                                            fontFamily: "Inter",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          This is an estimate for the 1st year
+                                          of ownership
+                                          <Tooltip
+                                            title={info1}
+                                            placement="top"
+                                          >
+                                            <Typography
+                                              style={{
+                                                border:
+                                                  "1px solid rgb(112,111,111)",
+                                                color: "rgb(112,111,111)",
+                                                display: "inline",
+                                                cursor: "pointer",
+                                                padding: "0px 6px",
+                                                marginLeft: "5px",
+                                                borderRadius: "50%",
+                                                fontSize: "10px",
+                                              }}
+                                            >
+                                              i
+                                            </Typography>
+                                          </Tooltip>
+                                        </Typography>
+                                      </ThemeProvider>
+                                    </Box>
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          )}
+                          {listing.fundtimeline && (
+                            <Box style={{ paddingBottom: "20px" }}>
+                              <Typography
+                                style={{
+                                  fontSize: "24px",
+                                  fontWeight: 600,
+                                  fontFamily: "Inter",
+                                  padding: "20px 0",
+                                }}
+                              >
+                                Funding timeline
+                              </Typography>
+
+                              <Box
+                                style={{
+                                  backgroundColor: "#f6f7f9",
+                                  padding: "10px 20px",
+                                  borderRadius: "10px",
+                                  width: "fit-content",
+                                }}
+                              >
+                                <Typography
                                   style={{
-                                    margin: "8px 0",
-                                    width: "50%",
-                                    paddingTop: "10px",
-                                    paddingBottom: "10px",
-                                    backgroundColor: "#EBF9F5",
-                                    borderRadius: "8px",
-                                    color: "#50B487",
+                                    fontSize: "12px",
+                                    fontFamily: "Inter",
                                   }}
-                                  color="primary"
-                                  fullWidth
-                                  onClick={() => {
-                                    handleRequest(0);
-                                  }}
-                                  // disabled={selectedValue==""}
                                 >
-                                  ADD TO CART
-                                </Button>
-                                {invtype == 0 && (
-                                  <Button
-                                    type="submit"
-                                    variant="contained"
-                                    style={{
-                                      margin: "8px 0",
-                                      width: "50%",
-                                      backgroundColor: "#00b386",
-                                      borderRadius: "8px",
-                                    }}
-                                    color="primary"
-                                    fullWidth
-                                    onClick={() => {
-                                      handleRequest(1);
-                                    }}
-                                    // disabled={selectedValue==""}
-                                  >
-                                    APPLY
-                                  </Button>
-                                )}
-                                {invtype == 1 && (
-                                  <Button
-                                    type="submit"
-                                    variant="contained"
-                                    style={{
-                                      margin: "8px 0",
-                                      width: "50%",
-                                      backgroundColor: "#00b386",
-                                      borderRadius: "8px",
-                                    }}
-                                    color="primary"
-                                    fullWidth
-                                    // onClick={handleRequest}
-                                    // disabled={selectedValue==""}
-                                  >
-                                    INVEST 3
-                                  </Button>
-                                )}
-                              </div>
-                            </form>
-                          </div>
-                        </StyledPopupinv>
-                      </Box>
-                      <div style={{}}>
-                        <div
-                          style={{
-                            marginTop: "20px",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        ></div>
-                      </div>
-                      <ToastContainer />
-
-                      <Typography
-                        style={{
-                          fontFamily: "Inter",
-                          textAlign: "center",
-                          fontSize: "14px",
-                          marginTop: "16px",
-                        }}
-                      >
-                        You won't be charged yet
-                      </Typography>
-
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          margin: "20px",
-                          color: "grey",
-                          padding: "10px",
-                        }}
-                      >
-                        <AutoAwesomeOutlinedIcon />
-                        <Typography
-                          style={{
-                            fontFamily: "Inter",
-                            paddingLeft: "10px",
-                            fontSize: "14px",
-                          }}
-                        >
-                          3,987 people viewed this property
-                        </Typography>
-                      </Box>
-                    </Pricing>
-                  </Grid>
-                )}
-
-                {!isSmallScreen && listing?.islive == 2 && (
-                  <Grid item xs={4} style={{ position: "relative" }}>
-                    <Pricing>
-                      <Box
-                        style={{
-                          backgroundColor: "white",
-                          border: "0.2px solid #e9e9eb",
-                          borderRadius: "10px",
-                          borderRadius: "20px",
-                          padding: "10px",
-                        }}
-                      >
-                        <Box
-                          style={{ textAlign: "center", paddingBottom: "10px" }}
-                        >
-                          <Typography
-                            style={{
-                              fontSize: "18px",
-                              color: "rgb(112,111,111)",
-                              fontFamily: "Inter",
-                            }}
-                          >
-                            Property price
-                          </Typography>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              color: "#0170dc",
-                              fontFamily: "Inter",
-                            }}
-                          >
-                            INR{" "}
-                            <b style={{ fontSize: "32px" }}>
-                              {listing.propertyprice}
-                            </b>
-                          </Typography>
-                        </Box>
-
-                        <Box
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            margin: "1rem 2rem",
-                          }}
-                        ></Box>
-
-                        <ReturnsBox style={{ marginTop: "1rem" }}>
-                          <Box>
-                            <Box>Investment starts</Box>
-                            {/* {`${listing.annualizedreturn}`} */}
-                            <Box style={{ color: "black", fontWeight: "bold" }}>
-                              {listing.fundingdate}
+                                  Each step may occur earlier than the dates
+                                  below
+                                </Typography>
+                              </Box>
+                              <Period />
                             </Box>
-                          </Box>
-                          <Box>
-                            <Box>Min. Investment</Box>
-                            {/* {`${listing.annualizedreturn}`} */}
-                            <Box style={{ color: "black", fontWeight: "bold" }}>
-                              {listing.mininvestment}
-                            </Box>
-                          </Box>
-                        </ReturnsBox>
-
-                        <Box
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-around",
-                            marginTop: "20px",
-                            // backgroundColor:'red',
-                            padding: "1px",
-                          }}
-                        >
-                          <button
-                            onClick={() => {
-                              window.location.href =
-                                "https://calendly.com/venqtech/15min";
-                            }}
+                          )}
+                        </>
+                      )}
+                      {activeTab === "financial" && isSmallScreen && (
+                        <>
+                          <Box
                             style={{
-                              alignContent: "center",
+                              display: "flex",
                               alignItems: "center",
-                              color: "#50B487",
-                              backgroundColor: "#EBF9F5",
-                              borderRadius: "5px",
+                              gap: "8px",
+                              justifyContent: "start",
+                              marginTop: "20px",
                             }}
                           >
-                            Schedule an E-meet
-                          </button>
-                          {listing.islive == 2 && (
-                            <button
-                              onClick={() => setOpen((o) => !o)}
+                            <p
                               style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#00b386",
-                                borderRadius: "5px",
-                                padding: "10px",
+                                fontFamily: "Inter",
+                                fontWeight: 700,
+                                color: "#44575B",
+                                fontSize: "25px",
                               }}
                             >
-                              I'm Interested
-                            </button>
+                              33.16%
+                            </p>
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 600,
+                                color: "#a1a3ad",
+                                fontSize: "13px",
+                              }}
+                            >
+                              3Y annualised
+                            </p>
+                          </Box>
+                          <Box
+                            style={{
+                              display: "flex",
+                              gap: "5px",
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 600,
+                                color: "#50B487",
+                                fontSize: "13px",
+                              }}
+                            >
+                              +0.45%
+                            </p>
+                            <p
+                              style={{
+                                fontFamily: "Inter",
+                                fontWeight: 600,
+                                color: "#a1a3ad",
+                                fontSize: "13px",
+                              }}
+                            >
+                              1M
+                            </p>
+                          </Box>
+                          <Box>
+                            <LineChart />
+                            <Divider />
+                            <SubTitle
+                              style={{
+                                width: "28px",
+                                alignItems: "center",
+                                textAlign: "center",
+                                marginLeft: "46%",
+                                marginTop: "10px",
+                              }}
+                            >
+                              3Y
+                            </SubTitle>
+                          </Box>
+                          <Box onClick={() => setCalculator(!calculator)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Return Calculator
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {calculator && (
+                            <>
+                              <Box
+                                style={{
+                                  // backgroundColor: "red",
+                                  marginTop: "30px",
+                                  marginBottom: "30px",
+                                  paddingTop: "30px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  border: "0.2px solid #e9e9eb",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                <Return_cal />
+                              </Box>
+
+                              <Box
+                                style={{
+                                  backgroundColor: "#f6f7f9",
+                                  padding: "10px",
+                                  borderRadius: "10px",
+                                  margin: "0 30px 40px 30px",
+                                }}
+                              >
+                                <ThemeProvider theme={theme}>
+                                  <Typography
+                                    style={{
+                                      fontSize: "14px",
+                                      fontFamily: "Inter",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    Default values are based on property numbers
+                                    <Tooltip title={info1} placement="top">
+                                      <Typography
+                                        style={{
+                                          border: "1px solid rgb(112,111,111)",
+                                          color: "rgb(112,111,111)",
+                                          display: "inline",
+                                          cursor: "pointer",
+                                          padding: "0px 6px",
+                                          marginLeft: "5px",
+                                          borderRadius: "50%",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        i
+                                      </Typography>
+                                    </Tooltip>
+                                  </Typography>
+                                </ThemeProvider>
+                              </Box>
+                            </>
+                          )}
+                          <Box onClick={() => setFinancial(!financial)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Financial
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {financial && (
+                            <Box style={{ paddingBottom: "20px" }}>
+                              <Grid container spacing={5}>
+                                <Grid item xs={12} md={6}>
+                                  <Box style={{ padding: "10px 0" }}>
+                                    <FinanceHeading>
+                                      Property cost
+                                    </FinanceHeading>
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Property price
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.propertyprice}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "5px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Transaction costs
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.transactioncost}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Govt. Fees
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          {listing.venqfee}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "5px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Investment cost
+                                        </FinanceSubHeading>
+                                        <FinanceAmount
+                                          style={{ color: "#0170dc" }}
+                                        >
+                                          INR {listing.propertyprice}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+                                  </Box>
+                                </Grid>
+
+                                <Grid item xs={12} md={6}>
+                                  <Box style={{ padding: "10px 0" }}>
+                                    <FinanceHeading>
+                                      Rental income (Year 1)
+                                    </FinanceHeading>
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Projected gross rent
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          INR {listing.projectedgrossrent}
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Service charges
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          (INR {listing.servicecharges})
+                                        </FinanceAmount>
+                                      </Box>
+
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Mgmt. and maintenance
+                                        </FinanceSubHeading>
+                                        <FinanceAmount>
+                                          (INR {listing.maintainencefee})
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Divider />
+
+                                    <Box>
+                                      <Box
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          padding: "10px 0",
+                                        }}
+                                      >
+                                        <FinanceSubHeading>
+                                          Annual net income
+                                        </FinanceSubHeading>
+                                        <FinanceAmount
+                                          style={{ color: "#0170dc" }}
+                                        >
+                                          INR {listing.annualnetincome}
+                                        </FinanceAmount>
+                                      </Box>
+                                    </Box>
+
+                                    <Box
+                                      style={{
+                                        backgroundColor: "#f6f7f9",
+                                        padding: "10px",
+                                        borderRadius: "10px",
+                                      }}
+                                    >
+                                      <ThemeProvider theme={theme}>
+                                        <Typography
+                                          style={{
+                                            fontSize: "13px",
+                                            fontFamily: "Inter",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          This is an estimate for the 1st year
+                                          of ownership
+                                          <Tooltip
+                                            title={info1}
+                                            placement="top"
+                                          >
+                                            <Typography
+                                              style={{
+                                                border:
+                                                  "1px solid rgb(112,111,111)",
+                                                color: "rgb(112,111,111)",
+                                                display: "inline",
+                                                cursor: "pointer",
+                                                padding: "0px 6px",
+                                                marginLeft: "5px",
+                                                borderRadius: "50%",
+                                                fontSize: "10px",
+                                              }}
+                                            >
+                                              i
+                                            </Typography>
+                                          </Tooltip>
+                                        </Typography>
+                                      </ThemeProvider>
+                                    </Box>
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          )}
+                          {/* //this is the working for phone screen new  */}
+                          <Box onClick={() => setTimeline(!timeline)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Funding Timeline
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {timeline && (
+                            <Box style={{ paddingBottom: "20px" }}>
+                              <Box
+                                style={{
+                                  backgroundColor: "#f6f7f9",
+                                  padding: "10px 20px",
+                                  borderRadius: "10px",
+                                  width: "fit-content",
+                                }}
+                              >
+                                <Typography
+                                  style={{
+                                    fontSize: "12px",
+                                    fontFamily: "Inter",
+                                  }}
+                                >
+                                  Each step may occur earlier than the dates
+                                  below
+                                </Typography>
+                              </Box>
+                              <Period />
+                            </Box>
+                          )}
+                          <Box style={{ paddingBottom: "30px" }}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                padding: "20px 0",
+                                color: "#44475b",
+                              }}
+                            >
+                              Have more questions about this property?
+                            </Typography>
+
+                            <Box style={{ display: "flex", height: "15vh" }}>
+                              <Box
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "space-around",
+                                }}
+                              >
+                                <Typography
+                                  style={{
+                                    fontFamily: "Inter",
+                                    fontSize: "17px",
+                                  }}
+                                >
+                                  Contact our real estate experts
+                                </Typography>
+
+                                <MessageButton>
+                                  <Box
+                                    style={{ width: "25px", height: "25px" }}
+                                  >
+                                    <svg
+                                      viewBox="0 0 24 24"
+                                      focusable="false"
+                                      class="chakra-icon css-pawapt"
+                                      aria-label="chat-bubble"
+                                      aria-hidden="true"
+                                    >
+                                      <g
+                                        fill="none"
+                                        fill-rule="nonzero"
+                                        stroke="#0170dc"
+                                        stroke-width="2.4000000000000004"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M10.25 19.206L6.599 21.013V17.716C4.42 16.227 3 13.865 3 11.182C3 6.643 7.048 3 12 3C16.952 3 21 6.643 21 11.182C21 15.721 16.952 19.364 12 19.364C11.401 19.364 10.817 19.308 10.25 19.206Z"></path>
+                                      </g>
+                                    </svg>
+                                  </Box>
+
+                                  <Typography
+                                    style={{
+                                      fontFamily: "Inter",
+                                      fontSize: "17px",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Message us
+                                  </Typography>
+                                </MessageButton>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </>
+                      )}
+                      {activeTab === "overview" && isSmallScreen && (
+                        <>
+                          <Box style={{ padding: "10px 0" }}>
+                            {listing && listing.specs && (
+                              <Box
+                                style={{ display: "flex", flexWrap: "wrap" }}
+                              >
+                                {listing.specs.map((listing_content, index) => (
+                                  <Box
+                                    key={index}
+                                    style={{
+                                      boxSizing: "border-box",
+                                      padding: "10px",
+                                      width: "50%", // Adjust this to make two items per row
+                                    }}
+                                  >
+                                    <PropertyDetails>
+                                      <Logo>
+                                        <img
+                                          src={listing_content.specsimage}
+                                          alt=""
+                                          style={{
+                                            height: "35px",
+                                            borderRadius: "50%",
+                                          }}
+                                        />
+                                      </Logo>
+                                      <Box>
+                                        <PropertyHeadingSmall>
+                                          {listing_content.specstitle}
+                                        </PropertyHeadingSmall>
+                                        <PropertySubHeading>
+                                          {listing_content.specssubtitle}
+                                        </PropertySubHeading>
+                                      </Box>
+                                    </PropertyDetails>
+                                  </Box>
+                                ))}
+                              </Box>
+                            )}
+                          </Box>
+                          <Divider />
+                          <Box onClick={() => setOverview(!overview)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Property Overview
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {overview && (
+                            <Box>
+                              <Typography
+                                style={{
+                                  fontFamily: "Inter",
+                                  fontSize: "14px",
+                                  color: "rgb(112,111,111)",
+                                }}
+                              >
+                                {listing &&
+                                  listing.propertyoverview &&
+                                  listing.propertyoverview.length >
+                                    maxWords && (
+                                    <div>{listing.propertyoverview}</div>
+                                  )}
+                              </Typography>
+                            </Box>
+                          )}
+                          <Box onClick={() => setAmenities(!amenities)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Amenities
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {amenities && (
+                            <Box style={{ padding: "1px 0" }}>
+                              {listing && listing.amenities && (
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: isSmallScreen
+                                      ? "column"
+                                      : "row",
+                                    flexWrap: "wrap",
+                                  }}
+                                >
+                                  {listing.amenities.map(
+                                    (listing_content, index) => (
+                                      <Box
+                                        key={index}
+                                        style={{
+                                          flex: "0 0 50%",
+                                          boxSizing: "border-box",
+                                        }}
+                                      >
+                                        <PropertyDetails
+                                          style={{
+                                            display: "flex",
+                                          }}
+                                        >
+                                          <Logo>
+                                            <img
+                                              src={listing_content.alink}
+                                              alt=""
+                                              style={{
+                                                height: "35px",
+                                                borderRadius: "50%",
+                                                backgroundColor: "black",
+                                              }}
+                                            />
+                                          </Logo>
+
+                                          <PropertyHeadingSmall
+                                            style={{
+                                              color: "rgb(112,111,111)",
+                                            }}
+                                          >
+                                            {listing_content.aname}
+                                          </PropertyHeadingSmall>
+                                        </PropertyDetails>
+                                      </Box>
+                                    )
+                                  )}
+                                </Box>
+                              )}
+                            </Box>
                           )}
 
-                          {listing.islive == 1 && (
-                            <button
-                              // onClick={() => setOpenInv((o) => !o)}
+                          <Box onClick={() => setShowdocument(!showdocument)}>
+                            <Typography
                               style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#00b386",
-                                borderRadius: "5px",
-                                paddingTop: "8px",
-                                paddingBottom: "8px",
-                                paddingLeft: "11%",
-                                paddingRight: "11%",
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
                               }}
                             >
-                              Invest 4{" "}
-                            </button>
+                              Documents ({listing.documents?.length})
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {showdocument && (
+                            <Box>
+                              {listing &&
+                                listing.documents &&
+                                listing.documents.map((document) => (
+                                  <Box>
+                                    <DownloadBox
+                                      onClick={() =>
+                                        handleDownload(
+                                          document.dlink,
+                                          document.dname
+                                        )
+                                      }
+                                    >
+                                      <TitleBox>
+                                        <IconBox>
+                                          <svg
+                                            viewBox="0 0 24 24"
+                                            focusable="false"
+                                            class="chakra-icon css-768dc"
+                                            aria-label="file-excel"
+                                          >
+                                            <g
+                                              fill="none"
+                                              fill-rule="nonzero"
+                                              stroke="currentColor"
+                                              stroke-width="1.5"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                            >
+                                              <g>
+                                                <path d="M18.414 6.414L15.586 3.586C15.211 3.211 14.702 3 14.172 3H7C5.895 3 5 3.895 5 5V19C5 20.105 5.895 21 7 21H17C18.105 21 19 20.105 19 19V7.828C19 7.298 18.789 6.789 18.414 6.414V6.414Z"></path>
+                                                <path d="M9 12H15C15.552 12 16 12.448 16 13V17C16 17.552 15.552 18 15 18H9C8.448 18 8 17.552 8 17V13C8 12.448 8.448 12 9 12Z"></path>
+                                                <path d="M16 15H8 M13 12V18 M19 8H15C14.448 8 14 7.552 14 7V3"></path>
+                                              </g>
+                                            </g>
+                                          </svg>
+                                        </IconBox>
+
+                                        <Typography>
+                                          {document.dname}
+                                        </Typography>
+                                      </TitleBox>
+
+                                      <DownloadIcon>
+                                        <FileDownloadOutlinedIcon
+                                          style={{ color: "#0170dc" }}
+                                        />
+                                      </DownloadIcon>
+                                    </DownloadBox>
+                                  </Box>
+                                ))}
+                            </Box>
+                          )}
+                          <Box onClick={() => setLayout(!layout)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Layout
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {layout && (
+                            <Box
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+
+                                justifyContent: "space-around",
+                              }}
+                            >
+                              <div
+                                style={isFullscreen ? fullscreenStyle : null}
+                              >
+                                <img
+                                  src={
+                                    listing.images
+                                      ? listing.images[
+                                          listing.images.length - 1
+                                        ]
+                                      : ""
+                                  }
+                                  alt="display"
+                                  style={
+                                    isFullscreen
+                                      ? fullscreenImageStyle
+                                      : mapstylesmall
+                                  }
+                                  loading="lazy"
+                                  onClick={handleImageClick}
+                                ></img>
+                              </div>
+                            </Box>
+                          )}
+                          <Box onClick={() => setShowlocation(!showlocation)}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                color: "#44475b",
+                                fontFamily: "Inter",
+                                paddingBottom: "20px",
+                                paddingTop: "20px",
+                              }}
+                            >
+                              Location
+                            </Typography>
+                            <Divider />
+                          </Box>
+                          {showlocation && (
+                            <Box style={{ paddingBottom: "20px" }}>
+                              <Box
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "flex-start",
+                                  padding: "0 0 10px 0",
+                                }}
+                              >
+                                <PlaceOutlinedIcon
+                                  style={{ color: "#0170dc" }}
+                                />
+                                <LocationName
+                                  style={{
+                                    fontFamily: "Inter",
+                                    fontSize: "18px",
+                                    fontWeight: 600,
+                                    color: "rgb(112,111,111)",
+                                  }}
+                                  onClick={handleLocation}
+                                >
+                                  The location is displayed below in the map
+                                </LocationName>
+                              </Box>
+
+                              <Box>
+                                {isSmallScreen && (
+                                  <iframe
+                                    src={listing.locationlink}
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    style={mapstylesmall}
+                                  ></iframe>
+                                )}
+                                {!isSmallScreen && (
+                                  <iframe
+                                    src={listing.locationlink}
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    style={mapstylebig}
+                                  ></iframe>
+                                )}
+                              </Box>
+
+                              <Typography
+                                style={{
+                                  fontFamily: "Inter",
+                                  fontSize: "16px",
+                                  padding: "20px 0",
+                                  color: "rgb(112,111,111)",
+                                }}
+                              >
+                                {listing.locationdescription}
+                              </Typography>
+                            </Box>
+                          )}
+                          <Box style={{ paddingBottom: "30px" }}>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                fontWeight: 600,
+                                fontFamily: "Inter",
+                                padding: "20px 0",
+                                color: "#44475b",
+                              }}
+                            >
+                              Have more questions about this property?
+                            </Typography>
+
+                            <Box style={{ display: "flex", height: "15vh" }}>
+                              <Box
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "space-around",
+                                }}
+                              >
+                                <Typography
+                                  style={{
+                                    fontFamily: "Inter",
+                                    fontSize: "17px",
+                                  }}
+                                >
+                                  Contact our real estate experts
+                                </Typography>
+
+                                <MessageButton>
+                                  <Box
+                                    style={{ width: "25px", height: "25px" }}
+                                  >
+                                    <svg
+                                      viewBox="0 0 24 24"
+                                      focusable="false"
+                                      class="chakra-icon css-pawapt"
+                                      aria-label="chat-bubble"
+                                      aria-hidden="true"
+                                    >
+                                      <g
+                                        fill="none"
+                                        fill-rule="nonzero"
+                                        stroke="#0170dc"
+                                        stroke-width="2.4000000000000004"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M10.25 19.206L6.599 21.013V17.716C4.42 16.227 3 13.865 3 11.182C3 6.643 7.048 3 12 3C16.952 3 21 6.643 21 11.182C21 15.721 16.952 19.364 12 19.364C11.401 19.364 10.817 19.308 10.25 19.206Z"></path>
+                                      </g>
+                                    </svg>
+                                  </Box>
+
+                                  <Typography
+                                    style={{
+                                      fontFamily: "Inter",
+                                      fontSize: "17px",
+                                      paddingLeft: "10px",
+                                    }}
+                                  >
+                                    Message us
+                                  </Typography>
+                                </MessageButton>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </>
+                      )}
+                    </Details>
+                  </Grid>
+
+                  {!isSmallScreen && listing?.islive == 3 && (
+                    <Grid item xs={4} style={{ position: "relative" }}>
+                      <Pricing>
+                        <Box
+                          style={{
+                            backgroundColor: "white",
+                            border: "0.2px solid #e9e9eb",
+                            borderRadius: "10px",
+
+                            padding: "10px",
+                          }}
+                        >
+                          <Box
+                            style={{
+                              textAlign: "center",
+                              paddingBottom: "10px",
+                            }}
+                          >
+                            <Typography
+                              style={{
+                                fontSize: "18px",
+                                color: "rgb(112,111,111)",
+                                fontFamily: "Inter",
+                              }}
+                            >
+                              Property price
+                            </Typography>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                color: "#0170dc",
+                                fontFamily: "Inter",
+                              }}
+                            >
+                              INR{" "}
+                              <b style={{ fontSize: "32px" }}>
+                                {listing.propertyprice}
+                              </b>
+                            </Typography>
+                          </Box>
+
+                          <div>
+                            <ProgressBar
+                              completed={100}
+                              customLabel=""
+                              className="wrapper"
+                              bgColor="#50B487"
+                              labelColor="#50B487"
+                              height="0.6rem"
+                              // labelClassName="label"
+                            />
+                            <Typography
+                              style={{
+                                fontSize: "14px",
+                                color: "black",
+                                fontFamily: "Inter",
+                                marginLeft: "5px",
+                              }}
+                            >
+                              100% funded
+                            </Typography>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              margin: "1.5rem 0",
+                            }}
+                          >
+                            <div></div>
+                            <div
+                              style={{ display: "flex", alignItems: "center" }}
+                            >
+                              <img
+                                src={clock}
+                                style={{ marginRight: "1rem" }}
+                              ></img>
+                              <span style={{ color: "red" }}>
+                                {" "}
+                                Closed on Mar 31,2024
+                              </span>
+                            </div>
+                          </div>
+
+                          <Box
+                            style={{
+                              backgroundColor: "#f6f7f9",
+                              padding: "1px",
+                              borderRadius: "15px",
+                            }}
+                          >
+                            <Box
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                margin: "1rem 2rem",
+                              }}
+                            >
+                              <span>Yearly investment return</span>
+                              <span style={{ fontWeight: 800 }}>9.8%</span>
+                            </Box>
+
+                            <Box
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                margin: "1rem 2rem",
+                              }}
+                            >
+                              <span>Funded date</span>
+                              <span style={{ fontWeight: 800 }}>
+                                {listing.fundingdate}
+                              </span>
+                            </Box>
+
+                            <Box
+                              style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                margin: "1rem 2rem",
+                              }}
+                            >
+                              <span>Minimum Investment</span>
+                              <span style={{ fontWeight: 800 }}>
+                                {listing.mininvestment}
+                              </span>
+                            </Box>
+                          </Box>
+
+                          {listing.islive == 2 && (
+                            <Box
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-around",
+                                marginTop: "20px",
+                                // backgroundColor:'red',
+                                padding: "1px",
+                              }}
+                            >
+                              <button
+                                onClick={() => {
+                                  window.location.href =
+                                    "https://calendly.com/venqtech/15min";
+                                }}
+                                style={{
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  color: "#50B487",
+                                  backgroundColor: "#EBF9F5",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                Schedule an E-meet
+                              </button>
+                              <button
+                                onClick={() => setOpen((o) => !o)}
+                                style={{
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#00b386",
+                                  borderRadius: "5px",
+                                  padding: "10px",
+                                }}
+                              >
+                                I'm Interested
+                              </button>
+                            </Box>
+                          )}
+                          {listing.islive == 1 && (
+                            <Box
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-around",
+                                marginTop: "20px",
+                                // backgroundColor:'red',
+                                padding: "1px",
+                              }}
+                            >
+                              <button
+                                onClick={() => {
+                                  window.location.href =
+                                    "https://calendly.com/venqtech/15min";
+                                }}
+                                style={{
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  color: "#50B487",
+                                  backgroundColor: "#EBF9F5",
+                                  borderRadius: "5px",
+                                }}
+                              >
+                                Schedule an E-meet
+                              </button>
+                              <button
+                                // onClick={() => setOpen((o) => !o)}
+                                style={{
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#00b386",
+                                  borderRadius: "5px",
+                                  padding: "10px",
+                                }}
+                              >
+                                Invest 1
+                              </button>
+                            </Box>
+                          )}
+
+                          {listing.islive == 3 && (
+                            <Button
+                              sx={{
+                                paddingLeft: "65px",
+                                paddingRight: "65px",
+                                marginLeft: "10px",
+                                marginTop: "10px",
+                                width: "90%",
+                                backgroundColor: "rgb(222, 154, 154)",
+                                color: "red",
+                              }}
+                            >
+                              Closed
+                            </Button>
                           )}
 
                           <StyledPopup
@@ -4298,6 +3767,10 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                       justifyContent: "space-evenly",
                                     }}
                                   >
+                                    {/* <div style={{
+        display:'flex',
+        justifyContent:'space-evenly'
+      }}> */}
                                     <nav
                                       style={{
                                         width: "100%",
@@ -4354,7 +3827,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                           //   setinvtype(1);
                                           // }}
                                         >
-                                          Invest 5
+                                          Invest 2
                                         </li>
                                       </ul>
                                     </nav>
@@ -4608,7 +4081,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                       // onClick={handleRequest}
                                       // disabled={selectedValue==""}
                                     >
-                                      INVEST 6
+                                      INVEST 3
                                     </Button>
                                   )}
                                 </div>
@@ -4637,216 +4110,225 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                         >
                           You won't be charged yet
                         </Typography>
-                      </Box>
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          margin: "20px",
-                          color: "grey",
-                          padding: "10px",
-                        }}
-                      >
-                        <AutoAwesomeOutlinedIcon />
-                        <Typography
+
+                        <Box
                           style={{
-                            fontFamily: "Inter",
-                            paddingLeft: "10px",
-                            fontSize: "14px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "20px",
+                            color: "grey",
+                            padding: "10px",
                           }}
                         >
-                          3,987 people viewed this property
-                        </Typography>
-                      </Box>
-                    </Pricing>
-                  </Grid>
-                )}
-                {!isSmallScreen && listing?.islive == 1 && (
-                  <Grid item xs={4} style={{ position: "relative" }}>
-                    <Pricing>
-                      <Box
-                        style={{
-                          backgroundColor: "white",
-                          border: "0.2px solid #e9e9eb",
-                          borderRadius: "10px",
-                          padding: "10px",
-                        }}
-                      >
-                        <Box
-                          style={{ textAlign: "center", paddingBottom: "10px" }}
-                        >
+                          <AutoAwesomeOutlinedIcon />
                           <Typography
                             style={{
-                              fontSize: "18px",
-                              color: "rgb(112,111,111)",
                               fontFamily: "Inter",
+                              paddingLeft: "10px",
+                              fontSize: "14px",
                             }}
                           >
-                            Property price
-                          </Typography>
-                          <Typography
-                            style={{
-                              fontSize: "24px",
-                              color: "#0170dc",
-                              fontFamily: "Inter",
-                            }}
-                          >
-                            INR{" "}
-                            <b style={{ fontSize: "32px" }}>
-                              {listing.propertyprice}
-                            </b>
+                            3,987 people viewed this property
                           </Typography>
                         </Box>
+                      </Pricing>
+                    </Grid>
+                  )}
 
+                  {!isSmallScreen && listing?.islive == 2 && (
+                    <Grid item xs={4} style={{ position: "relative" }}>
+                      <Pricing>
                         <Box
                           style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            margin: "1rem 2rem",
-                          }}
-                        ></Box>
-
-                        <ReturnsBox style={{ marginTop: "1rem" }}>
-                          <Box>
-                            <Box>Investment starts</Box>
-                            {/* {`${listing.annualizedreturn}`} */}
-                            <Box style={{ color: "black", fontWeight: "bold" }}>
-                              {listing.fundingdate}
-                            </Box>
-                          </Box>
-                          <Box>
-                            <Box>Min. Investment</Box>
-                            {/* {`${listing.annualizedreturn}`} */}
-                            <Box style={{ color: "black", fontWeight: "bold" }}>
-                              {listing.mininvestment}
-                            </Box>
-                          </Box>
-                        </ReturnsBox>
-
-                        <Box
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-around",
-                            marginTop: "20px",
-                            // backgroundColor:'red',
-                            padding: "1px",
+                            backgroundColor: "white",
+                            border: "0.2px solid #e9e9eb",
+                            borderRadius: "10px",
+                            borderRadius: "20px",
+                            padding: "10px",
                           }}
                         >
-                          <button
-                            onClick={() => {
-                              window.location.href =
-                                "https://calendly.com/venqtech/15min";
-                            }}
+                          <Box
                             style={{
-                              alignContent: "center",
-                              alignItems: "center",
-                              color: "#50B487",
-                              backgroundColor: "#EBF9F5",
-                              borderRadius: "5px",
+                              textAlign: "center",
+                              paddingBottom: "10px",
                             }}
                           >
-                            Schedule an E-meet
-                          </button>
-                          {listing.islive == 2 && (
-                            <button
-                              onClick={() => setOpen((o) => !o)}
+                            <Typography
                               style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#00b386",
-                                borderRadius: "5px",
-                                padding: "10px",
+                                fontSize: "18px",
+                                color: "rgb(112,111,111)",
+                                fontFamily: "Inter",
                               }}
                             >
-                              I'm Interested
-                            </button>
-                          )}
-
-                          {listing.islive == 1 && (
-                            <button
+                              Property price
+                            </Typography>
+                            <Typography
                               style={{
-                                alignContent: "center",
-                                alignItems: "center",
-                                backgroundColor: "#00b386",
-                                borderRadius: "5px",
-                                paddingTop: "8px",
-                                paddingBottom: "8px",
-                                paddingLeft: "11%",
-                                paddingRight: "11%",
+                                fontSize: "24px",
+                                color: "#0170dc",
+                                fontFamily: "Inter",
                               }}
-                              onClick={handleLoginPopup}
                             >
-                              Invest {/* invest button here  */}
-                            </button>
-                          )}
+                              INR{" "}
+                              <b style={{ fontSize: "32px" }}>
+                                {listing.propertyprice}
+                              </b>
+                            </Typography>
+                          </Box>
 
-                          <StyledPopup
-                            open={open}
-                            closeOnDocumentClick
-                            onClose={closeModal}
+                          <Box
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              margin: "1rem 2rem",
+                            }}
+                          ></Box>
+
+                          <ReturnsBox style={{ marginTop: "1rem" }}>
+                            <Box>
+                              <Box>Investment starts</Box>
+                              {/* {`${listing.annualizedreturn}`} */}
+                              <Box
+                                style={{ color: "black", fontWeight: "bold" }}
+                              >
+                                {listing.fundingdate}
+                              </Box>
+                            </Box>
+                            <Box>
+                              <Box>Min. Investment</Box>
+                              {/* {`${listing.annualizedreturn}`} */}
+                              <Box
+                                style={{ color: "black", fontWeight: "bold" }}
+                              >
+                                {listing.mininvestment}
+                              </Box>
+                            </Box>
+                          </ReturnsBox>
+
+                          <Box
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-around",
+                              marginTop: "20px",
+                              // backgroundColor:'red',
+                              padding: "1px",
+                            }}
                           >
-                            <div className="modal">
-                              <a
-                                className="close"
-                                onClick={closeModal}
+                            <button
+                              onClick={() => {
+                                window.location.href =
+                                  "https://calendly.com/venqtech/15min";
+                              }}
+                              style={{
+                                alignContent: "center",
+                                alignItems: "center",
+                                color: "#50B487",
+                                backgroundColor: "#EBF9F5",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              Schedule an E-meet
+                            </button>
+                            {listing.islive == 2 && (
+                              <button
+                                onClick={() => setOpen((o) => !o)}
                                 style={{
-                                  cursor: "pointer",
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#00b386",
+                                  borderRadius: "5px",
+                                  padding: "10px",
                                 }}
                               >
-                                &times;
-                              </a>
+                                I'm Interested
+                              </button>
+                            )}
 
-                              <form onSubmit={handleInterest}>
-                                <Box>
-                                  <Label>
-                                    <LabelName>
-                                      Select Amount to invest:
-                                    </LabelName>
-                                  </Label>
+                            {listing.islive == 1 && (
+                              <button
+                                // onClick={() => setOpenInv((o) => !o)}
+                                style={{
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#00b386",
+                                  borderRadius: "5px",
+                                  paddingTop: "8px",
+                                  paddingBottom: "8px",
+                                  paddingLeft: "11%",
+                                  paddingRight: "11%",
+                                }}
+                              >
+                                Invest 4{" "}
+                              </button>
+                            )}
 
-                                  <Label>
-                                    <LabelAmount>
-                                      INR {interestamount}
-                                    </LabelAmount>
-                                  </Label>
-
-                                  <LabelSlider
-                                    type="range"
-                                    min="50000"
-                                    max="300000"
-                                    step="500"
-                                    value={interestamount}
-                                    onChange={handleInterestChange}
-                                  />
-                                </Box>
-                                <Button
-                                  type="submit"
-                                  variant="contained"
-                                  style={{ margin: "8px 0" }}
-                                  color="primary"
-                                  fullWidth
-                                  onClick={handleInterest}
+                            <StyledPopup
+                              open={open}
+                              closeOnDocumentClick
+                              onClose={closeModal}
+                            >
+                              <div className="modal">
+                                <a
+                                  className="close"
+                                  onClick={closeModal}
+                                  style={{
+                                    cursor: "pointer",
+                                  }}
                                 >
-                                  Show Interest
-                                </Button>
-                              </form>
-                            </div>
-                          </StyledPopup>
+                                  &times;
+                                </a>
 
-                          <StyledPopupinv
-                            open={openinv}
-                            closeOnDocumentClick
-                            onClose={closeModalinv}
-                          >
-                            {showInvestComponent ? (
-                              <Terms userinvestone={totalAmount} />
-                            ) : (
+                                <form onSubmit={handleInterest}>
+                                  <Box>
+                                    <Label>
+                                      <LabelName>
+                                        Select Amount to invest:
+                                      </LabelName>
+                                    </Label>
+
+                                    <Label>
+                                      <LabelAmount>
+                                        INR {interestamount}
+                                      </LabelAmount>
+                                    </Label>
+
+                                    <LabelSlider
+                                      type="range"
+                                      min="50000"
+                                      max="300000"
+                                      step="500"
+                                      value={interestamount}
+                                      onChange={handleInterestChange}
+                                    />
+                                  </Box>
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{ margin: "8px 0" }}
+                                    color="primary"
+                                    fullWidth
+                                    onClick={handleInterest}
+                                  >
+                                    Show Interest
+                                  </Button>
+                                </form>
+                              </div>
+                            </StyledPopup>
+                            {/* bada version  */}
+
+                            <StyledPopupinv
+                              open={openinv}
+                              closeOnDocumentClick
+                              onClose={closeModalinv}
+                            >
                               <div
+                                className="modal"
                                 style={{
                                   height: "100%",
+                                  // backgroundColor:'red',
                                   margin: "0px",
                                   marginTop: "-10px",
                                   paddingLeft: "18px",
@@ -4898,7 +4380,6 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                                   ? "2px solid #00b386"
                                                   : "none",
                                               marginRight: "12px",
-                                              marginTop: "10px",
                                               color:
                                                 invtype == 0
                                                   ? "#00b386"
@@ -4929,16 +4410,15 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                                   ? "#00b386"
                                                   : "gray",
                                               marginRight: "12px",
-                                              marginTop: "10px",
                                               cursor: "pointer",
                                               fontSize: "16px",
                                               fontFamily: "Inter",
                                             }}
-                                            onClick={() => {
-                                              setinvtype(1);
-                                            }}
+                                            // onClick={() => {
+                                            //   setinvtype(1);
+                                            // }}
                                           >
-                                            Invest test
+                                            Invest 5
                                           </li>
                                         </ul>
                                       </nav>
@@ -4950,6 +4430,16 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                         justifyContent: "space-between",
                                       }}
                                     >
+                                      <Label>
+                                        <LabelName
+                                          sx={{
+                                            fontSize: "14px",
+                                            marginTop: "14px",
+                                          }}
+                                        >
+                                          Investment Amount :
+                                        </LabelName>
+                                      </Label>
                                       {invtype == 0 && (
                                         <input
                                           type="text"
@@ -4966,188 +4456,19 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                         />
                                       )}
                                       {invtype == 1 && (
-                                        <>
-                                          <div class="invest-main-container">
-                                            <div className="top-heading gray s-mb-10">
-                                              No. of units
-                                            </div>
-                                            <div
-                                              style={{
-                                                width: "100%",
-                                              }}
-                                              className="input-button-container"
-                                            >
-                                              <button
-                                                className="des"
-                                                onClick={stockHandlerDec}
-                                              >
-                                                -
-                                              </button>
-                                              <input
-                                                style={{
-                                                  fontSize: "1.4rem",
-                                                  backgroundColor: "#EBF9F5",
-                                                  marginTop: "0",
-                                                  maxWidth: "120px",
-                                                  fontWeight: "600",
-                                                }}
-                                                className="stk-quantity"
-                                                type="text"
-                                                value={totalStock.stockQun}
-                                                id="stock-quantity"
-                                              />
-                                              <button
-                                                className="asc"
-                                                onClick={stockHandlerInc}
-                                              >
-                                                +
-                                              </button>
-                                            </div>
-                                            <div className="unit-value">
-                                              <div className="gray">
-                                                Unit Value
-                                              </div>
-                                              <div className="price-input-container">
-                                                <input
-                                                  style={{
-                                                    outline: "none",
-                                                    border: "none",
-                                                  }}
-                                                  className="unit-value-in"
-                                                  type="text"
-                                                  value={listing.mininvestment}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="unit-value">
-                                              <div className="gray">
-                                                Subscription Value
-                                              </div>
-                                              <div className="price-input-container">
-                                                <input
-                                                  style={{
-                                                    outline: "none",
-                                                    border: "none",
-                                                  }}
-                                                  className="unit-value-in"
-                                                  type="text"
-                                                  value={
-                                                    totalStock.totalCurrency
-                                                  }
-                                                />
-                                              </div>
-                                            </div>
-                                            <div className="unit-value transaction-fee">
-                                              <div className="gray">
-                                                Transaction Fees
-                                              </div>
-                                              <div className="price-input-container">
-                                                <input
-                                                  style={{
-                                                    outline: "none",
-                                                    border: "none",
-                                                  }}
-                                                  className="unit-value-in"
-                                                  type="text"
-                                                  value={totalStock.transPer}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div
-                                              className="couponInput"
-                                              style={{
-                                                width: "99%",
-                                                margin: "auto",
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                borderRadius: "5px",
-                                                marginBottom: "15px",
-                                              }}
-                                            >
-                                              <input
-                                                style={{
-                                                  width: "53%",
-                                                  height: "15px",
-                                                  marginLeft: "-3px",
-                                                  border:
-                                                    "1px solid rgb(0, 179, 134)",
-                                                }}
-                                                type="text"
-                                                placeholder="Enter Coupon Code"
-                                                value={couponInput}
-                                                onChange={handleCouponChange}
-                                              />
-                                              <button
-                                                style={{
-                                                  backgroundColor:
-                                                    "rgb(0, 179, 134)",
-                                                  display: "flex",
-                                                  alignItems: "center",
-                                                  justifyContent: "center",
-                                                  cursor: "pointer",
-                                                }}
-                                                onClick={applyCoupon}
-                                              >
-                                                Apply Coupon
-                                              </button>
-                                            </div>
-                                            <div className="unit-value total-fee">
-                                              <div>Total</div>
-                                              <div className="price-input-container">
-                                                <input
-                                                  style={{
-                                                    outline: "none",
-                                                    border: "none",
-                                                  }}
-                                                  className="unit-value-in"
-                                                  type="text"
-                                                  value={
-                                                    "₹" + totalAmount + ".00"
-                                                  }
-                                                />
-                                              </div>
-                                            </div>
-                                            <div
-                                              style={{
-                                                display: "flex",
-                                                gap: "30px",
-                                              }}
-                                            >
-                                              {/* <Button
-                                          type="submit"
-                                          variant="contained"
+                                        <input
+                                          type="text"
+                                          value={userinvestone}
+                                          onChange={(event) => {
+                                            setUserInvest(event.target.value);
+                                          }}
                                           style={{
-                                            margin: "8px 0",
-                                            width: "50%",
+                                            width: "40%",
+                                            fontSize: "14px",
                                             backgroundColor: "#EBF9F5",
-                                            borderRadius: "8px",
                                             color: "#50B487",
                                           }}
-                                          color="primary"
-                                          fullWidth
-                                          onClick={() => {
-                                            handleRequest(0);
-                                          }}
-                                        >
-                                          ADD TO CART disable
-                                        </Button> */}
-                                              <Button
-                                                type="submit"
-                                                variant="contained"
-                                                style={{
-                                                  margin: "8px 0",
-                                                  width: "100%",
-                                                  backgroundColor: "#00b386",
-                                                  borderRadius: "8px",
-                                                }}
-                                                color="primary"
-                                                fullWidth
-                                              >
-                                                INVEST 8
-                                              </Button>
-                                            </div>
-                                          </div>
-                                        </>
+                                        />
                                       )}
                                     </div>
                                     {invtype == 0 && (
@@ -5169,6 +4490,29 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                             step={30000}
                                             marks={marks}
                                             onChange={handleUserInvestChange}
+                                          />
+                                        </Box>
+                                      </>
+                                    )}
+                                    {invtype == 1 && (
+                                      <>
+                                        <Box
+                                          sx={{
+                                            width: "90%",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            marginLeft: "16px",
+                                          }}
+                                        >
+                                          <Slider
+                                            aria-label="Temperature"
+                                            defaultValue={5000}
+                                            getAriaValueText={valuetext}
+                                            min={5000}
+                                            max={310000}
+                                            step={50000}
+                                            marks={marks}
+                                            onChange={handleUserInvestChangeOne}
                                           />
                                         </Box>
                                       </>
@@ -5252,7 +4596,6 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                           textAlign: "center",
                                           fontSize: "8px",
                                           color: "#7c7e8c",
-                                          marginTop: "50px",
                                         }}
                                       >
                                         This 5% application fees is a
@@ -5265,557 +4608,1292 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                       </LabelName>
                                     </Label>
                                   )}
-                                </form>
-                              </div>
-                            )}
-                          </StyledPopupinv>
-                        </Box>
-                        <div style={{}}>
-                          <div
-                            style={{
-                              marginTop: "20px",
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          ></div>
-                        </div>
-                        <ToastContainer />
-
-                        <Typography
-                          style={{
-                            fontFamily: "Inter",
-                            textAlign: "center",
-                            fontSize: "14px",
-                            marginTop: "16px",
-                          }}
-                        >
-                          You won't be charged yet
-                        </Typography>
-                      </Box>
-                      <Box
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          margin: "20px",
-                          color: "grey",
-                          padding: "10px",
-                        }}
-                      >
-                        <AutoAwesomeOutlinedIcon />
-                        <Typography
-                          style={{
-                            fontFamily: "Inter",
-                            paddingLeft: "10px",
-                            fontSize: "14px",
-                          }}
-                        >
-                          3,987 people viewed this property
-                        </Typography>
-                      </Box>
-                    </Pricing>
-                  </Grid>
-                )}
-              </Grid>
-            </Box>
-            {isSmallScreen && (
-              <Box
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  margin: "20px",
-                  color: "grey",
-                  padding: "10px",
-                }}
-              >
-                <AutoAwesomeOutlinedIcon />
-                <Typography
-                  style={{
-                    fontFamily: "Inter",
-                    paddingLeft: "10px",
-                    fontSize: "14px",
-                  }}
-                >
-                  3,987 people viewed this property
-                </Typography>
-              </Box>
-            )}
-
-            {!isEditMode && isAdmin && (
-              <button onClick={handleEditClick}>Edit</button>
-            )}
-            <Box>
-              {isSmallScreen && (
-                <Options style={{ marginTop: "30px" }}>
-                  <HelpIcon />
-                  <Heading>Help and Support</Heading>
-                </Options>
-              )}
-            </Box>
-            {isSmallScreen && (
-              <div
-                style={{
-                  position: "fixed",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  width: "100%",
-                  paddingTop: "10px",
-                  paddingBottom: "10px",
-                  backgroundColor: "white", // Customize the background color
-                  borderTop: "1px solid grey",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                >
-                  <button
-                    onClick={() => {
-                      window.location.href =
-                        "https://calendly.com/venqtech/15min";
-                    }}
-                    style={{
-                      alignContent: "center",
-                      alignItems: "center",
-                      color: "#50B487",
-                      backgroundColor: "#EBF9F5",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    Schedule an E-meet
-                  </button>
-                  {listing.islive == 2 && (
-                    <button
-                      onClick={() => setOpen((o) => !o)}
-                      style={{
-                        alignContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "#00b386",
-                        borderRadius: "5px",
-                        padding: "10px",
-                      }}
-                    >
-                      I'm Interested
-                    </button>
-                  )}
-
-                  {listing.islive == 1 && (
-                    <button
-                      style={{
-                        alignContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "#00b386",
-                        borderRadius: "5px",
-                        paddingTop: "8px",
-                        paddingBottom: "8px",
-                        paddingLeft: "11%",
-                        paddingRight: "11%",
-                      }}
-                    >
-                      Invest{" "}
-                    </button>
-                  )}
-                  <StyledPopup
-                    open={open}
-                    closeOnDocumentClick
-                    onClose={closeModal}
-                  >
-                    <div className="modal">
-                      <div>
-                        <a className="close" onClick={closeModal}>
-                          &times;
-                        </a>
-                      </div>
-
-                      <form onSubmit={handleInterest}>
-                        <Box>
-                          <Label>
-                            <LabelName>Select Amount to invest:</LabelName>
-                          </Label>
-                          <Label>
-                            <LabelAmount>INR {interestamount}</LabelAmount>
-                          </Label>
-
-                          <LabelSlider
-                            type="range"
-                            min="50000"
-                            max="300000"
-                            step="500"
-                            value={interestamount}
-                            onChange={handleInterestChange}
-                          />
-                        </Box>
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          style={{ margin: "8px 0" }}
-                          color="primary"
-                          fullWidth
-                          onClick={handleInterest}
-                        >
-                          Show Interest
-                        </Button>
-                      </form>
-                    </div>
-                  </StyledPopup>
-
-                  {/* chota version */}
-                  <StyledPopupinvSmall
-                    open={openinv}
-                    closeOnDocumentClick
-                    onClose={closeModalinv}
-                  >
-                    <div
-                      className="modal"
-                      style={{
-                        height: "100%",
-                        // backgroundColor:'red',1
-
-                        margin: "0px",
-                        marginTop: "-10px",
-                        paddingLeft: "18px",
-                        paddingRight: "18px",
-                      }}
-                    >
-                      <a
-                        className="close"
-                        onClick={closeModalinv}
-                        style={{
-                          cursor: "pointer",
-                        }}
-                      >
-                        &times;
-                      </a>
-
-                      <form
-                        style={{
-                          height: "450px",
-                        }}
-                        onSubmit={handleInterest}
-                      >
-                        <Box>
-                          {!showInvestComponent ? (
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-evenly",
-                              }}
-                            >
-                              <nav
-                                style={{
-                                  width: "100%",
-                                }}
-                              >
-                                <ul
-                                  style={{
-                                    display: "flex",
-                                    listStyle: "none",
-                                    paddingInlineStart: "0px",
-                                    borderBottom: "1px solid #e9e9eb",
-                                    gap: "20px",
-                                  }}
-                                >
-                                  <li
+                                  <div
                                     style={{
-                                      fontWeight: "bold",
-                                      borderBottom:
-                                        invtype == 0
-                                          ? "2px solid #00b386"
-                                          : "none",
-                                      marginRight: "12px",
-                                      color: invtype == 0 ? "#00b386" : "gray",
-                                      cursor: "pointer",
-                                      fontSize: "16px",
-                                      fontFamily: "Inter",
-                                    }}
-                                    onClick={() => {}}
-                                  >
-                                    Allotment
-                                  </li>
-                                  <li
-                                    style={{
-                                      fontWeight: "bold",
-                                      borderBottom:
-                                        invtype == 1
-                                          ? "2px solid #00b386"
-                                          : "none",
-                                      color: invtype == 1 ? "#00b386" : "gray",
-                                      marginRight: "12px",
-                                      cursor: "pointer",
-                                      fontSize: "16px",
-                                      fontFamily: "Inter",
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      gap: "30px",
+                                      marginTop: invtype == 1 ? "205px" : "0px",
                                     }}
                                   >
-                                    Invest 10
-                                  </li>
-                                </ul>
-                              </nav>
-                            </div>
-                          ) : (
-                            <></>
-                          )}
-
-                          {showInvestComponent ? (
-                            <Terms userinvestone={totalAmount} />
-                          ) : (
-                            <div
-                              style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                              }}
-                            >
-                              <Label>
-                                <LabelName
-                                  sx={{
-                                    fontSize: "14px",
-                                    marginTop: "14px",
-                                  }}
-                                ></LabelName>
-                              </Label>
-                              {invtype == 0 && (
-                                <input
-                                  type="text"
-                                  value={userinvest}
-                                  onChange={(event) => {
-                                    setUserInvest(event.target.value);
-                                  }}
-                                  style={{
-                                    width: "40%",
-                                    fontSize: "14px",
-                                    backgroundColor: "#EBF9F5",
-                                    color: "#50B487",
-                                  }}
-                                />
-                              )}
-                              {invtype == 1 && (
-                                <>
-                                  <div class="invest-main-container">
-                                    <div className="top-heading gray s-mb-10">
-                                      No. of units
-                                    </div>
-                                    <div
+                                    <Button
+                                      type="submit"
+                                      variant="contained"
                                       style={{
-                                        width: "100%",
+                                        margin: "8px 0",
+                                        width: "50%",
+                                        paddingTop: "10px",
+                                        paddingBottom: "10px",
+                                        backgroundColor: "#EBF9F5",
+                                        borderRadius: "8px",
+                                        color: "#50B487",
                                       }}
-                                      className="input-button-container"
-                                    >
-                                      <button
-                                        className="des"
-                                        onClick={stockHandlerDec}
-                                      >
-                                        -
-                                      </button>
-                                      <input
-                                        style={{
-                                          fontSize: "1.4rem",
-                                          backgroundColor: "#EBF9F5",
-                                          marginTop: "0",
-                                          maxWidth: "120px",
-                                          fontWeight: "600",
-                                        }}
-                                        className="stk-quantity"
-                                        type="text"
-                                        value={totalStock.stockQun}
-                                        id="stock-quantity"
-                                      />
-                                      <button
-                                        className="asc"
-                                        onClick={stockHandlerInc}
-                                      >
-                                        +
-                                      </button>
-                                    </div>
-                                    <div className="unit-value">
-                                      <div className="gray">Unit Value</div>
-                                      <div className="price-input-container">
-                                        <input
-                                          style={{
-                                            outline: "none",
-                                            border: "none",
-                                          }}
-                                          className="unit-value-in"
-                                          type="text"
-                                          value={unitPrice}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="unit-value">
-                                      <div className="gray">
-                                        Subscription Value
-                                      </div>
-                                      <div className="price-input-container">
-                                        <input
-                                          style={{
-                                            outline: "none",
-                                            border: "none",
-                                          }}
-                                          className="unit-value-in"
-                                          type="text"
-                                          value={totalStock.totalCurrency}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="unit-value transaction-fee">
-                                      <div className="gray">
-                                        Transaction Fees
-                                      </div>
-                                      <div className="price-input-container">
-                                        <input
-                                          style={{
-                                            outline: "none",
-                                            border: "none",
-                                          }}
-                                          className="unit-value-in"
-                                          type="text"
-                                          value={totalStock.transPer}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div
-                                      className="couponInput"
-                                      style={{
-                                        width: "99%",
-                                        margin: "auto",
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        borderRadius: "5px",
-                                        marginBottom: "15px",
+                                      color="primary"
+                                      fullWidth
+                                      onClick={() => {
+                                        handleRequest(0);
                                       }}
+                                      // disabled={selectedValue==""}
                                     >
-                                      <input
-                                        style={{
-                                          width: "50%",
-                                          height: "15px",
-                                          marginLeft: "-3px",
-                                          border: "1px solid rgb(0, 179, 134)",
-                                        }}
-                                        type="text"
-                                        placeholder="Enter Coupon Code"
-                                        value={couponInput}
-                                        onChange={handleCouponChange}
-                                      />
-
-                                      <button
-                                        style={{
-                                          backgroundColor: "rgb(0, 179, 134)",
-                                          display: "flex",
-                                          width: "30%",
-                                          alignItems: "center",
-                                          justifyContent: "center",
-                                          cursor: "pointer",
-                                        }}
-                                        onClick={applyCoupon}
-                                      >
-                                        Apply
-                                      </button>
-                                    </div>
-                                    <div className="unit-value total-fee">
-                                      <div>Total</div>
-                                      <div className="price-input-container">
-                                        <input
-                                          style={{
-                                            outline: "none",
-                                            border: "none",
-                                          }}
-                                          className="unit-value-in"
-                                          type="text"
-                                          value={"₹" + totalAmount + ".00"}
-                                          // value={totalStock.totalAmt}
-                                          // value="9999"
-                                        />
-                                      </div>
-                                    </div>
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        gap: "30px",
-                                      }}
-                                    >
-                                      <Button
-                                        type="submit"
-                                        variant="contained"
-                                        style={{
-                                          margin: "8px 0",
-                                          width: "70%",
-                                          height: "5vh",
-                                          backgroundColor: "#EBF9F5",
-                                          borderRadius: "8px",
-                                          color: "#50B487",
-                                        }}
-                                        color="primary"
-                                        fullWidth
-                                        onClick={() => {
-                                          handleRequest(0);
-                                        }}
-                                        // disabled={selectedValue==""}
-                                      >
-                                        ADD TO CART
-                                      </Button>
+                                      ADD TO CART
+                                    </Button>
+                                    {invtype == 0 && (
                                       <Button
                                         type="submit"
                                         variant="contained"
                                         style={{
                                           margin: "8px 0",
                                           width: "50%",
-                                          height: "5vh",
                                           backgroundColor: "#00b386",
                                           borderRadius: "8px",
                                         }}
                                         color="primary"
                                         fullWidth
-
+                                        onClick={() => {
+                                          handleRequest(1);
+                                        }}
                                         // disabled={selectedValue==""}
                                       >
-                                        INVEST
+                                        APPLY
                                       </Button>
-                                    </div>
+                                    )}
+                                    {invtype == 1 && (
+                                      <Button
+                                        type="submit"
+                                        variant="contained"
+                                        style={{
+                                          margin: "8px 0",
+                                          width: "50%",
+                                          backgroundColor: "#00b386",
+                                          borderRadius: "8px",
+                                        }}
+                                        color="primary"
+                                        fullWidth
+                                        // onClick={handleRequest}
+                                        // disabled={selectedValue==""}
+                                      >
+                                        INVEST 6
+                                      </Button>
+                                    )}
                                   </div>
-                                </>
-                              )}
-                            </div>
-                          )}
-                          {invtype == 0 && !showInvestComponent && (
-                            <>
+                                </form>
+                              </div>
+                            </StyledPopupinv>
+                          </Box>
+                          <div style={{}}>
+                            <div
+                              style={{
+                                marginTop: "20px",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            ></div>
+                          </div>
+                          <ToastContainer />
+
+                          <Typography
+                            style={{
+                              fontFamily: "Inter",
+                              textAlign: "center",
+                              fontSize: "14px",
+                              marginTop: "16px",
+                            }}
+                          >
+                            You won't be charged yet
+                          </Typography>
+                        </Box>
+                        <Box
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "20px",
+                            color: "grey",
+                            padding: "10px",
+                          }}
+                        >
+                          <AutoAwesomeOutlinedIcon />
+                          <Typography
+                            style={{
+                              fontFamily: "Inter",
+                              paddingLeft: "10px",
+                              fontSize: "14px",
+                            }}
+                          >
+                            3,987 people viewed this property
+                          </Typography>
+                        </Box>
+                      </Pricing>
+                    </Grid>
+                  )}
+                  {!isSmallScreen && listing?.islive == 1 && (
+                    <Grid item xs={4} style={{ position: "relative" }}>
+                      <Pricing>
+                        <Box
+                          style={{
+                            backgroundColor: "white",
+                            border: "0.2px solid #e9e9eb",
+                            borderRadius: "10px",
+                            padding: "10px",
+                          }}
+                        >
+                          <Box
+                            style={{
+                              textAlign: "center",
+                              paddingBottom: "10px",
+                            }}
+                          >
+                            <Typography
+                              style={{
+                                fontSize: "18px",
+                                color: "rgb(112,111,111)",
+                                fontFamily: "Inter",
+                              }}
+                            >
+                              Property price
+                            </Typography>
+                            <Typography
+                              style={{
+                                fontSize: "24px",
+                                color: "#0170dc",
+                                fontFamily: "Inter",
+                              }}
+                            >
+                              INR{" "}
+                              <b style={{ fontSize: "32px" }}>
+                                {listing.propertyprice}
+                              </b>
+                            </Typography>
+                          </Box>
+
+                          <Box
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              margin: "1rem 2rem",
+                            }}
+                          ></Box>
+
+                          <ReturnsBox style={{ marginTop: "1rem" }}>
+                            <Box>
+                              <Box>Investment starts</Box>
+                              {/* {`${listing.annualizedreturn}`} */}
                               <Box
-                                sx={{
-                                  width: "90%",
+                                style={{ color: "black", fontWeight: "bold" }}
+                              >
+                                {listing.fundingdate}
+                              </Box>
+                            </Box>
+                            <Box>
+                              <Box>Min. Investment</Box>
+                              {/* {`${listing.annualizedreturn}`} */}
+                              <Box
+                                style={{ color: "black", fontWeight: "bold" }}
+                              >
+                                {listing.mininvestment}
+                              </Box>
+                            </Box>
+                          </ReturnsBox>
+
+                          <Box
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-around",
+                              marginTop: "20px",
+                              // backgroundColor:'red',
+                              padding: "1px",
+                            }}
+                          >
+                            <button
+                              onClick={() => {
+                                window.location.href =
+                                  "https://calendly.com/venqtech/15min";
+                              }}
+                              style={{
+                                alignContent: "center",
+                                alignItems: "center",
+                                color: "#50B487",
+                                backgroundColor: "#EBF9F5",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              Schedule an E-meet
+                            </button>
+                            {listing.islive == 2 && (
+                              <button
+                                onClick={() => setOpen((o) => !o)}
+                                style={{
+                                  alignContent: "center",
                                   alignItems: "center",
-                                  justifyContent: "center",
-                                  marginLeft: "16px",
+                                  backgroundColor: "#00b386",
+                                  borderRadius: "5px",
+                                  padding: "10px",
                                 }}
                               >
-                                <Slider
-                                  aria-label="Temperature"
-                                  defaultValue={5000}
-                                  getAriaValueText={valuetext}
-                                  min={5000}
-                                  max={305000}
-                                  step={30000}
-                                  marks={marks}
-                                  onChange={handleUserInvestChange}
-                                />
-                              </Box>
-                            </>
-                          )}
+                                I'm Interested
+                              </button>
+                            )}
+
+                            {listing.islive == 1 && (
+                              <button
+                                style={{
+                                  alignContent: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#00b386",
+                                  borderRadius: "5px",
+                                  paddingTop: "8px",
+                                  paddingBottom: "8px",
+                                  paddingLeft: "11%",
+                                  paddingRight: "11%",
+                                }}
+                                onClick={handleLoginPopup}
+                              >
+                                Invest {/* invest button here  */}
+                              </button>
+                            )}
+
+                            <StyledPopup
+                              open={open}
+                              closeOnDocumentClick
+                              onClose={closeModal}
+                            >
+                              <div className="modal">
+                                <a
+                                  className="close"
+                                  onClick={closeModal}
+                                  style={{
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  &times;
+                                </a>
+
+                                <form onSubmit={handleInterest}>
+                                  <Box>
+                                    <Label>
+                                      <LabelName>
+                                        Select Amount to invest:
+                                      </LabelName>
+                                    </Label>
+
+                                    <Label>
+                                      <LabelAmount>
+                                        INR {interestamount}
+                                      </LabelAmount>
+                                    </Label>
+
+                                    <LabelSlider
+                                      type="range"
+                                      min="50000"
+                                      max="300000"
+                                      step="500"
+                                      value={interestamount}
+                                      onChange={handleInterestChange}
+                                    />
+                                  </Box>
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{ margin: "8px 0" }}
+                                    color="primary"
+                                    fullWidth
+                                    onClick={handleInterest}
+                                  >
+                                    Show Interest
+                                  </Button>
+                                </form>
+                              </div>
+                            </StyledPopup>
+
+                            <StyledPopupinv
+                              open={openinv}
+                              closeOnDocumentClick
+                              onClose={closeModalinv}
+                            >
+                              {showInvestComponent ? (
+                                <Terms userinvestone={totalAmount} />
+                              ) : (
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    margin: "0px",
+                                    marginTop: "-10px",
+                                    paddingLeft: "18px",
+                                    paddingRight: "18px",
+                                  }}
+                                >
+                                  <a
+                                    className="close"
+                                    onClick={closeModalinv}
+                                    style={{
+                                      cursor: "pointer",
+                                    }}
+                                  >
+                                    &times;
+                                  </a>
+
+                                  <form
+                                    style={{
+                                      height: "450px",
+                                    }}
+                                    onSubmit={handleInterest}
+                                  >
+                                    <Box>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-evenly",
+                                        }}
+                                      >
+                                        <nav
+                                          style={{
+                                            width: "100%",
+                                          }}
+                                        >
+                                          <ul
+                                            style={{
+                                              display: "flex",
+                                              listStyle: "none",
+                                              paddingInlineStart: "0px",
+                                              borderBottom: "1px solid #e9e9eb",
+                                              gap: "20px",
+                                            }}
+                                          >
+                                            <li
+                                              style={{
+                                                fontWeight: "bold",
+                                                borderBottom:
+                                                  invtype == 0
+                                                    ? "2px solid #00b386"
+                                                    : "none",
+                                                marginRight: "12px",
+                                                marginTop: "10px",
+                                                color:
+                                                  invtype == 0
+                                                    ? "#00b386"
+                                                    : "gray",
+                                                cursor: "pointer",
+                                                fontSize: "16px",
+                                                fontFamily: "Inter",
+                                              }}
+                                              onClick={() => {
+                                                {
+                                                  !listing.properyheading.includes(
+                                                    "Dholera"
+                                                  ) && setinvtype(0);
+                                                }
+                                              }}
+                                            >
+                                              Allotment
+                                            </li>
+                                            <li
+                                              style={{
+                                                fontWeight: "bold",
+                                                borderBottom:
+                                                  invtype == 1
+                                                    ? "2px solid #00b386"
+                                                    : "none",
+                                                color:
+                                                  invtype == 1
+                                                    ? "#00b386"
+                                                    : "gray",
+                                                marginRight: "12px",
+                                                marginTop: "10px",
+                                                cursor: "pointer",
+                                                fontSize: "16px",
+                                                fontFamily: "Inter",
+                                              }}
+                                              onClick={() => {
+                                                setinvtype(1);
+                                              }}
+                                            >
+                                              Invest test
+                                            </li>
+                                          </ul>
+                                        </nav>
+                                      </div>
+
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                        }}
+                                      >
+                                        {invtype == 0 && (
+                                          <input
+                                            type="text"
+                                            value={userinvest}
+                                            onChange={(event) => {
+                                              setUserInvest(event.target.value);
+                                            }}
+                                            style={{
+                                              width: "40%",
+                                              fontSize: "14px",
+                                              backgroundColor: "#EBF9F5",
+                                              color: "#50B487",
+                                            }}
+                                          />
+                                        )}
+                                        {invtype == 1 && (
+                                          <>
+                                            <div class="invest-main-container">
+                                              <div className="top-heading gray s-mb-10">
+                                                No. of units
+                                              </div>
+                                              <div
+                                                style={{
+                                                  width: "100%",
+                                                }}
+                                                className="input-button-container"
+                                              >
+                                                <button
+                                                  className="des"
+                                                  onClick={stockHandlerDec}
+                                                >
+                                                  -
+                                                </button>
+                                                <input
+                                                  style={{
+                                                    fontSize: "1.4rem",
+                                                    backgroundColor: "#EBF9F5",
+                                                    marginTop: "0",
+                                                    maxWidth: "120px",
+                                                    fontWeight: "600",
+                                                  }}
+                                                  className="stk-quantity"
+                                                  type="text"
+                                                  value={totalStock.stockQun}
+                                                  id="stock-quantity"
+                                                />
+                                                <button
+                                                  className="asc"
+                                                  onClick={stockHandlerInc}
+                                                >
+                                                  +
+                                                </button>
+                                              </div>
+                                              <div className="unit-value">
+                                                <div className="gray">
+                                                  Unit Value
+                                                </div>
+                                                <div className="price-input-container">
+                                                  <input
+                                                    style={{
+                                                      outline: "none",
+                                                      border: "none",
+                                                    }}
+                                                    className="unit-value-in"
+                                                    type="text"
+                                                    value={
+                                                      listing.mininvestment
+                                                    }
+                                                  />
+                                                </div>
+                                              </div>
+                                              <div className="unit-value">
+                                                <div className="gray">
+                                                  Subscription Value
+                                                </div>
+                                                <div className="price-input-container">
+                                                  <input
+                                                    style={{
+                                                      outline: "none",
+                                                      border: "none",
+                                                    }}
+                                                    className="unit-value-in"
+                                                    type="text"
+                                                    value={
+                                                      totalStock.totalCurrency
+                                                    }
+                                                  />
+                                                </div>
+                                              </div>
+                                              <div className="unit-value transaction-fee">
+                                                <div className="gray">
+                                                  Transaction Fees
+                                                </div>
+                                                <div className="price-input-container">
+                                                  <input
+                                                    style={{
+                                                      outline: "none",
+                                                      border: "none",
+                                                    }}
+                                                    className="unit-value-in"
+                                                    type="text"
+                                                    value={totalStock.transPer}
+                                                  />
+                                                </div>
+                                              </div>
+                                              <div
+                                                className="couponInput"
+                                                style={{
+                                                  width: "99%",
+                                                  margin: "auto",
+                                                  display: "flex",
+                                                  justifyContent:
+                                                    "space-between",
+                                                  borderRadius: "5px",
+                                                  marginBottom: "15px",
+                                                }}
+                                              >
+                                                <input
+                                                  style={{
+                                                    width: "53%",
+                                                    height: "15px",
+                                                    marginLeft: "-3px",
+                                                    border:
+                                                      "1px solid rgb(0, 179, 134)",
+                                                  }}
+                                                  type="text"
+                                                  placeholder="Enter Coupon Code"
+                                                  value={couponInput}
+                                                  onChange={handleCouponChange}
+                                                />
+                                                <button
+                                                  style={{
+                                                    backgroundColor:
+                                                      "rgb(0, 179, 134)",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    cursor: "pointer",
+                                                  }}
+                                                  onClick={applyCoupon}
+                                                >
+                                                  Apply Coupon
+                                                </button>
+                                              </div>
+                                              <div className="unit-value total-fee">
+                                                <div>Total</div>
+                                                <div className="price-input-container">
+                                                  <input
+                                                    style={{
+                                                      outline: "none",
+                                                      border: "none",
+                                                    }}
+                                                    className="unit-value-in"
+                                                    type="text"
+                                                    value={
+                                                      "₹" + totalAmount + ".00"
+                                                    }
+                                                  />
+                                                </div>
+                                              </div>
+                                              <div
+                                                style={{
+                                                  display: "flex",
+                                                  gap: "30px",
+                                                }}
+                                              >
+                                                {/* <Button
+                                          type="submit"
+                                          variant="contained"
+                                          style={{
+                                            margin: "8px 0",
+                                            width: "50%",
+                                            backgroundColor: "#EBF9F5",
+                                            borderRadius: "8px",
+                                            color: "#50B487",
+                                          }}
+                                          color="primary"
+                                          fullWidth
+                                          onClick={() => {
+                                            handleRequest(0);
+                                          }}
+                                        >
+                                          ADD TO CART disable
+                                        </Button> */}
+                                                <Button
+                                                  type="submit"
+                                                  variant="contained"
+                                                  style={{
+                                                    margin: "8px 0",
+                                                    width: "100%",
+                                                    backgroundColor: "#00b386",
+                                                    borderRadius: "8px",
+                                                  }}
+                                                  color="primary"
+                                                  fullWidth
+                                                >
+                                                  INVEST 8
+                                                </Button>
+                                              </div>
+                                            </div>
+                                          </>
+                                        )}
+                                      </div>
+                                      {invtype == 0 && (
+                                        <>
+                                          <Box
+                                            sx={{
+                                              width: "90%",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              marginLeft: "16px",
+                                            }}
+                                          >
+                                            <Slider
+                                              aria-label="Temperature"
+                                              defaultValue={5000}
+                                              getAriaValueText={valuetext}
+                                              min={5000}
+                                              max={305000}
+                                              step={30000}
+                                              marks={marks}
+                                              onChange={handleUserInvestChange}
+                                            />
+                                          </Box>
+                                        </>
+                                      )}
+                                    </Box>
+                                    {invtype == 0 && (
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                        }}
+                                      >
+                                        <Label>
+                                          <LabelName
+                                            sx={{
+                                              marginTop: "14px",
+                                              fontSize: "14px",
+                                            }}
+                                          >
+                                            Allotment Fees:
+                                          </LabelName>
+                                        </Label>
+                                        <input
+                                          type="text"
+                                          value={`₹ ` + userinvest * 0.05}
+                                          style={{
+                                            width: "40%",
+                                            fontSize: "14px",
+                                            backgroundColor: "#EBF9F5",
+                                            color: "#50B487",
+                                          }}
+                                        />
+                                      </div>
+                                    )}
+
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                      }}
+                                    >
+                                      {invtype == 0 && (
+                                        <>
+                                          <Label>
+                                            <LabelName
+                                              sx={{
+                                                marginTop: "14px",
+                                                fontSize: "14px",
+                                              }}
+                                            >
+                                              Allotment date:
+                                            </LabelName>
+                                          </Label>
+                                          <input
+                                            type="text"
+                                            value={`1 Mar`}
+                                            style={{
+                                              width: "40%",
+                                              fontSize: "14px",
+                                              backgroundColor: "#EBF9F5",
+                                              color: "#50B487",
+                                            }}
+                                          />
+                                        </>
+                                      )}
+                                    </div>
+                                    {invtype == 0 && (
+                                      <Label
+                                        style={{
+                                          textAlign: "center",
+                                        }}
+                                        sx={{
+                                          textAlign: "center",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                          marginTop: "50px",
+                                        }}
+                                      >
+                                        <LabelName
+                                          sx={{
+                                            textAlign: "center",
+                                            fontSize: "8px",
+                                            color: "#7c7e8c",
+                                            marginTop: "50px",
+                                          }}
+                                        >
+                                          This 5% application fees is a
+                                          reservation only. You will have to pay
+                                          the whole amount on the date of
+                                          allotment to know more checkout{" "}
+                                          <a href="https://www.venq.in/investing">
+                                            venq.in/investing
+                                          </a>
+                                        </LabelName>
+                                      </Label>
+                                    )}
+                                  </form>
+                                </div>
+                              )}
+                            </StyledPopupinv>
+                          </Box>
+                          <div style={{}}>
+                            <div
+                              style={{
+                                marginTop: "20px",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            ></div>
+                          </div>
+                          <ToastContainer />
+
+                          <Typography
+                            style={{
+                              fontFamily: "Inter",
+                              textAlign: "center",
+                              fontSize: "14px",
+                              marginTop: "16px",
+                            }}
+                          >
+                            You won't be charged yet
+                          </Typography>
                         </Box>
-                      </form>
-                    </div>
-                  </StyledPopupinvSmall>
+                        <Box
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "20px",
+                            color: "grey",
+                            padding: "10px",
+                          }}
+                        >
+                          <AutoAwesomeOutlinedIcon />
+                          <Typography
+                            style={{
+                              fontFamily: "Inter",
+                              paddingLeft: "10px",
+                              fontSize: "14px",
+                            }}
+                          >
+                            3,987 people viewed this property
+                          </Typography>
+                        </Box>
+                      </Pricing>
+                    </Grid>
+                  )}
+                </Grid>
+              </Box>
+              {isSmallScreen && (
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: "20px",
+                    color: "grey",
+                    padding: "10px",
+                  }}
+                >
+                  <AutoAwesomeOutlinedIcon />
+                  <Typography
+                    style={{
+                      fontFamily: "Inter",
+                      paddingLeft: "10px",
+                      fontSize: "14px",
+                    }}
+                  >
+                    3,987 people viewed this property
+                  </Typography>
                 </Box>
-              </div>
-            )}
-          </Box>
-        </div>
+              )}
+
+              {!isEditMode && isAdmin && (
+                <button onClick={handleEditClick}>Edit</button>
+              )}
+              <Box>
+                {isSmallScreen && (
+                  <Options style={{ marginTop: "30px" }}>
+                    <HelpIcon />
+                    <Heading>Help and Support</Heading>
+                  </Options>
+                )}
+              </Box>
+              {isSmallScreen && (
+                <div
+                  style={{
+                    position: "fixed",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    width: "100%",
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
+                    backgroundColor: "white", // Customize the background color
+                    borderTop: "1px solid grey",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        window.location.href =
+                          "https://calendly.com/venqtech/15min";
+                      }}
+                      style={{
+                        alignContent: "center",
+                        alignItems: "center",
+                        color: "#50B487",
+                        backgroundColor: "#EBF9F5",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      Schedule an E-meet
+                    </button>
+                    {listing.islive == 2 && (
+                      <button
+                        onClick={() => setOpen((o) => !o)}
+                        style={{
+                          alignContent: "center",
+                          alignItems: "center",
+                          backgroundColor: "#00b386",
+                          borderRadius: "5px",
+                          padding: "10px",
+                        }}
+                      >
+                        I'm Interested
+                      </button>
+                    )}
+
+                    {listing.islive == 1 && (
+                      <button
+                        style={{
+                          alignContent: "center",
+                          alignItems: "center",
+                          backgroundColor: "#00b386",
+                          borderRadius: "5px",
+                          paddingTop: "8px",
+                          paddingBottom: "8px",
+                          paddingLeft: "11%",
+                          paddingRight: "11%",
+                        }}
+                      >
+                        Invest{" "}
+                      </button>
+                    )}
+                    <StyledPopup
+                      open={open}
+                      closeOnDocumentClick
+                      onClose={closeModal}
+                    >
+                      <div className="modal">
+                        <div>
+                          <a className="close" onClick={closeModal}>
+                            &times;
+                          </a>
+                        </div>
+
+                        <form onSubmit={handleInterest}>
+                          <Box>
+                            <Label>
+                              <LabelName>Select Amount to invest:</LabelName>
+                            </Label>
+                            <Label>
+                              <LabelAmount>INR {interestamount}</LabelAmount>
+                            </Label>
+
+                            <LabelSlider
+                              type="range"
+                              min="50000"
+                              max="300000"
+                              step="500"
+                              value={interestamount}
+                              onChange={handleInterestChange}
+                            />
+                          </Box>
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            style={{ margin: "8px 0" }}
+                            color="primary"
+                            fullWidth
+                            onClick={handleInterest}
+                          >
+                            Show Interest
+                          </Button>
+                        </form>
+                      </div>
+                    </StyledPopup>
+
+                    {/* chota version */}
+                    <StyledPopupinvSmall
+                      open={openinv}
+                      closeOnDocumentClick
+                      onClose={closeModalinv}
+                    >
+                      <div
+                        className="modal"
+                        style={{
+                          height: "100%",
+                          // backgroundColor:'red',1
+
+                          margin: "0px",
+                          marginTop: "-10px",
+                          paddingLeft: "18px",
+                          paddingRight: "18px",
+                        }}
+                      >
+                        <a
+                          className="close"
+                          onClick={closeModalinv}
+                          style={{
+                            cursor: "pointer",
+                          }}
+                        >
+                          &times;
+                        </a>
+
+                        <form
+                          style={{
+                            height: "450px",
+                          }}
+                          onSubmit={handleInterest}
+                        >
+                          <Box>
+                            {!showInvestComponent ? (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-evenly",
+                                }}
+                              >
+                                <nav
+                                  style={{
+                                    width: "100%",
+                                  }}
+                                >
+                                  <ul
+                                    style={{
+                                      display: "flex",
+                                      listStyle: "none",
+                                      paddingInlineStart: "0px",
+                                      borderBottom: "1px solid #e9e9eb",
+                                      gap: "20px",
+                                    }}
+                                  >
+                                    <li
+                                      style={{
+                                        fontWeight: "bold",
+                                        borderBottom:
+                                          invtype == 0
+                                            ? "2px solid #00b386"
+                                            : "none",
+                                        marginRight: "12px",
+                                        color:
+                                          invtype == 0 ? "#00b386" : "gray",
+                                        cursor: "pointer",
+                                        fontSize: "16px",
+                                        fontFamily: "Inter",
+                                      }}
+                                      onClick={() => {}}
+                                    >
+                                      Allotment
+                                    </li>
+                                    <li
+                                      style={{
+                                        fontWeight: "bold",
+                                        borderBottom:
+                                          invtype == 1
+                                            ? "2px solid #00b386"
+                                            : "none",
+                                        color:
+                                          invtype == 1 ? "#00b386" : "gray",
+                                        marginRight: "12px",
+                                        cursor: "pointer",
+                                        fontSize: "16px",
+                                        fontFamily: "Inter",
+                                      }}
+                                    >
+                                      Invest 10
+                                    </li>
+                                  </ul>
+                                </nav>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+
+                            {showInvestComponent ? (
+                              <Terms userinvestone={totalAmount} />
+                            ) : (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                }}
+                              >
+                                <Label>
+                                  <LabelName
+                                    sx={{
+                                      fontSize: "14px",
+                                      marginTop: "14px",
+                                    }}
+                                  ></LabelName>
+                                </Label>
+                                {invtype == 0 && (
+                                  <input
+                                    type="text"
+                                    value={userinvest}
+                                    onChange={(event) => {
+                                      setUserInvest(event.target.value);
+                                    }}
+                                    style={{
+                                      width: "40%",
+                                      fontSize: "14px",
+                                      backgroundColor: "#EBF9F5",
+                                      color: "#50B487",
+                                    }}
+                                  />
+                                )}
+                                {invtype == 1 && (
+                                  <>
+                                    <div class="invest-main-container">
+                                      <div className="top-heading gray s-mb-10">
+                                        No. of units
+                                      </div>
+                                      <div
+                                        style={{
+                                          width: "100%",
+                                        }}
+                                        className="input-button-container"
+                                      >
+                                        <button
+                                          className="des"
+                                          onClick={stockHandlerDec}
+                                        >
+                                          -
+                                        </button>
+                                        <input
+                                          style={{
+                                            fontSize: "1.4rem",
+                                            backgroundColor: "#EBF9F5",
+                                            marginTop: "0",
+                                            maxWidth: "120px",
+                                            fontWeight: "600",
+                                          }}
+                                          className="stk-quantity"
+                                          type="text"
+                                          value={totalStock.stockQun}
+                                          id="stock-quantity"
+                                        />
+                                        <button
+                                          className="asc"
+                                          onClick={stockHandlerInc}
+                                        >
+                                          +
+                                        </button>
+                                      </div>
+                                      <div className="unit-value">
+                                        <div className="gray">Unit Value</div>
+                                        <div className="price-input-container">
+                                          <input
+                                            style={{
+                                              outline: "none",
+                                              border: "none",
+                                            }}
+                                            className="unit-value-in"
+                                            type="text"
+                                            value={unitPrice}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="unit-value">
+                                        <div className="gray">
+                                          Subscription Value
+                                        </div>
+                                        <div className="price-input-container">
+                                          <input
+                                            style={{
+                                              outline: "none",
+                                              border: "none",
+                                            }}
+                                            className="unit-value-in"
+                                            type="text"
+                                            value={totalStock.totalCurrency}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="unit-value transaction-fee">
+                                        <div className="gray">
+                                          Transaction Fees
+                                        </div>
+                                        <div className="price-input-container">
+                                          <input
+                                            style={{
+                                              outline: "none",
+                                              border: "none",
+                                            }}
+                                            className="unit-value-in"
+                                            type="text"
+                                            value={totalStock.transPer}
+                                          />
+                                        </div>
+                                      </div>
+                                      <div
+                                        className="couponInput"
+                                        style={{
+                                          width: "99%",
+                                          margin: "auto",
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                          borderRadius: "5px",
+                                          marginBottom: "15px",
+                                        }}
+                                      >
+                                        <input
+                                          style={{
+                                            width: "50%",
+                                            height: "15px",
+                                            marginLeft: "-3px",
+                                            border:
+                                              "1px solid rgb(0, 179, 134)",
+                                          }}
+                                          type="text"
+                                          placeholder="Enter Coupon Code"
+                                          value={couponInput}
+                                          onChange={handleCouponChange}
+                                        />
+
+                                        <button
+                                          style={{
+                                            backgroundColor: "rgb(0, 179, 134)",
+                                            display: "flex",
+                                            width: "30%",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            cursor: "pointer",
+                                          }}
+                                          onClick={applyCoupon}
+                                        >
+                                          Apply
+                                        </button>
+                                      </div>
+                                      <div className="unit-value total-fee">
+                                        <div>Total</div>
+                                        <div className="price-input-container">
+                                          <input
+                                            style={{
+                                              outline: "none",
+                                              border: "none",
+                                            }}
+                                            className="unit-value-in"
+                                            type="text"
+                                            value={"₹" + totalAmount + ".00"}
+                                            // value={totalStock.totalAmt}
+                                            // value="9999"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          gap: "30px",
+                                        }}
+                                      >
+                                        <Button
+                                          type="submit"
+                                          variant="contained"
+                                          style={{
+                                            margin: "8px 0",
+                                            width: "70%",
+                                            height: "5vh",
+                                            backgroundColor: "#EBF9F5",
+                                            borderRadius: "8px",
+                                            color: "#50B487",
+                                          }}
+                                          color="primary"
+                                          fullWidth
+                                          onClick={() => {
+                                            handleRequest(0);
+                                          }}
+                                          // disabled={selectedValue==""}
+                                        >
+                                          ADD TO CART
+                                        </Button>
+                                        <Button
+                                          type="submit"
+                                          variant="contained"
+                                          style={{
+                                            margin: "8px 0",
+                                            width: "50%",
+                                            height: "5vh",
+                                            backgroundColor: "#00b386",
+                                            borderRadius: "8px",
+                                          }}
+                                          color="primary"
+                                          fullWidth
+
+                                          // disabled={selectedValue==""}
+                                        >
+                                          INVEST
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            )}
+                            {invtype == 0 && !showInvestComponent && (
+                              <>
+                                <Box
+                                  sx={{
+                                    width: "90%",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginLeft: "16px",
+                                  }}
+                                >
+                                  <Slider
+                                    aria-label="Temperature"
+                                    defaultValue={5000}
+                                    getAriaValueText={valuetext}
+                                    min={5000}
+                                    max={305000}
+                                    step={30000}
+                                    marks={marks}
+                                    onChange={handleUserInvestChange}
+                                  />
+                                </Box>
+                              </>
+                            )}
+                          </Box>
+                        </form>
+                      </div>
+                    </StyledPopupinvSmall>
+                  </Box>
+                </div>
+              )}
+            </Box>
+          </div>
+        </>
       )}
     </>
   );

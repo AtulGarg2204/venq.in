@@ -7,19 +7,30 @@
   padding: 20px;
   box-sizing: border-box;
   flex-direction: row;
+  background-color: #f0f4f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rectangle-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .left-box {
-  width: 100px;
+  width: 120px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold; /* Makes the text bold */
-  font-size: 20px; /* Adjust size as needed */
+  font-weight: bold;
+  font-size: 22px;
+  color: #333;
   background-color: lightblue;
   clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
   margin-right: 20px;
+  font-family: "Arial", sans-serif;
 }
 
 .progress-container {
@@ -32,12 +43,27 @@
   justify-content: space-between;
   margin-bottom: 15px;
   font-size: 18px;
-  color: grey;
   gap: 145px;
 }
 
-.step-label.active {
-  color: #3b82f6;
+.step-label {
+  color: grey;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  transition: color 0.3s ease;
+}
+
+.step-label.active-not-started {
+  color: black;
+}
+
+.step-label.active-pending {
+  color: yellow;
+}
+
+.step-label.active-completed {
+  color: green;
 }
 
 .step-progress-bar {
@@ -99,6 +125,14 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.progress-button:hover {
+  background-color: #005bb5;
+  transform: translateY(-2px);
 }
 
 /* Responsive Styles */
