@@ -116,7 +116,7 @@
   background-color: grey;
   border-radius: 50%;
   position: absolute;
-  
+
   transform: translateY(-50%); /* Center circles vertically on the line */
   margin: 0; /* Remove margin to eliminate separation */
 }
@@ -157,11 +157,13 @@
 }
 
 /* Responsive Styles */
+/* Responsive Styles */
 @media screen and (max-width: 768px) {
   .rectangle-box {
     flex-direction: column;
     align-items: flex-start;
     padding: 15px;
+    margin-bottom: 30px; /* Increase bottom margin for better spacing */
     height: auto;
   }
 
@@ -169,7 +171,7 @@
     width: 100%;
     height: 50px;
     margin-right: 0;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     clip-path: none;
     border-radius: 5px;
   }
@@ -177,7 +179,7 @@
   .progress-container {
     width: 100%;
     margin-right: 0;
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Increase bottom margin for better spacing */
   }
 
   .step-labels {
@@ -203,6 +205,10 @@
 }
 
 @media screen and (max-width: 480px) {
+  .rectangle-box {
+    margin-bottom: 40px; /* Further increase bottom margin for very small screens */
+  }
+
   .step-labels {
     font-size: 14px;
     top: -25px; /* Further adjust position for very small screens */
@@ -224,6 +230,7 @@
   }
 
   .progress-container {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px; /* Add space at the top for very small screens */
   }
 }
