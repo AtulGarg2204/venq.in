@@ -174,16 +174,16 @@ const Terms = (props) => {
                 } else {
                   // Payment verification failed
                   console.error("Payment verification failed");
-                  window.location.href = "/dashboard/properties"; // Redirect or handle verification failure
+                  window.location.href = "/failed"; // Redirect or handle verification failure
                 }
               } else {
                 // Payment failed or was cancelled
                 console.error("Payment failed or cancelled:", response.error);
-                window.location.href = "/dashboard/properties"; // Redirect or handle payment failure
+                window.location.href = "/failed"; // Redirect or handle payment failure
               }
             } catch (error) {
               console.error("Error handling payment:", error);
-              window.location.href = "/dashboard/properties"; // Redirect or handle error
+              window.location.href = "/failed"; // Redirect or handle error
             }
           },
         };

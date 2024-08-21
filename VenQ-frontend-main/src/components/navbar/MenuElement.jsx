@@ -111,52 +111,54 @@ export default function AccountMenu({ name }) {
             <Link to="/dashboard/properties">
               <button className="dashboard-mobile-screen">Dashboard</button>
             </Link>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "start",
-                textAlign: "center",
-                flexDirection: isMobile ? "row" : "row",
-                border: "2px solid #5ECE8F",
-                paddingTop: "5px",
-                paddingBottom: "5px",
-                marginTop: "16px",
-                paddingLeft: "5px",
-                marginLeft: "16px",
-                width: "160px",
-                paddingRight: "20px",
-                borderRadius: "16px",
-                backgroundColor: "#E9FBF5",
-                gap: "3px",
-              }}
-            >
-              <img
-                style={{
-                  height: "20px",
-                  cursor: "pointer",
-                }}
-                src="images/document.png"
-                alt="notfound"
-              />
-              <Typography
+            <Link to="/dashboard/profile">
+              <Box
                 sx={{
-                  fontSize: "14px",
-                  width: "100PX",
-                  color: "#5ECE8F",
-                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "start",
+                  textAlign: "center",
+                  flexDirection: isMobile ? "row" : "row",
+                  border: "2px solid #5ECE8F",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  marginTop: "16px",
+                  paddingLeft: "5px",
+                  marginLeft: "16px",
+                  width: "160px",
+                  paddingRight: "20px",
+                  borderRadius: "16px",
+                  backgroundColor: "#E9FBF5",
+                  gap: "3px",
                 }}
               >
-                Complete KYC
-              </Typography>
-              <img
-                style={{
-                  height: "20px",
-                  cursor: "pointer",
-                }}
-                src="images/next.png"
-                alt="notfound"
-              />
-            </Box>
+                <img
+                  style={{
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
+                  src="images/document.png"
+                  alt="notfound"
+                />
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    width: "100PX",
+                    color: "#5ECE8F",
+                    cursor: "pointer",
+                  }}
+                >
+                  Complete KYC
+                </Typography>
+                <img
+                  style={{
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
+                  src="images/next.png"
+                  alt="notfound"
+                />
+              </Box>
+            </Link>
           </Box>
         )}
         {!isMobile && (

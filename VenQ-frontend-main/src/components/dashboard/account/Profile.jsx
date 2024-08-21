@@ -1563,7 +1563,7 @@ function Dashboard() {
                     <h2>Required Documents</h2>
                     <div className="document-info">
                       <div className="doc-label">
-                        <p className="es-sign">E-sign required:</p>
+                        <p className="es-sign">E-sign required: {onbcomp}</p>
                       </div>
                       <div className="doc-value">
                         <p>Property Document</p>
@@ -1576,7 +1576,7 @@ function Dashboard() {
                       </div>
                     </div>
                   </div>
-                  <KycSteps />
+                  <KycSteps onbcomp={onbcomp} />
                 </>
               )}
               {activeTab === "transactions" && (

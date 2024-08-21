@@ -7,6 +7,7 @@ import geekwire from "./articleImages/geekwire.png";
 import entrepreneur from "./articleImages/entrepreneur.png";
 import cnbc from "./articleImages/cnbc.png";
 import YoutubeButtom from "./YoutubeButtom";
+import { Link } from "react-router-dom";
 
 export default function WhyInvest() {
   return (
@@ -109,8 +110,12 @@ export default function WhyInvest() {
         </div>
       </div>
       <div className="button-container">
-        <YoutubeButtom navigate={"/learn"}>FAQ</YoutubeButtom>
-        <YoutubeButtom navigate={"/blogs"}>Blog</YoutubeButtom>
+        <Link to="/learn">
+          <YoutubeButtom navigate={"/learn"}>FAQ</YoutubeButtom>
+        </Link>
+        <Link to="/blog">
+          <YoutubeButtom navigate={"/blogs"}>Blog</YoutubeButtom>
+        </Link>
       </div>
     </div>
   );

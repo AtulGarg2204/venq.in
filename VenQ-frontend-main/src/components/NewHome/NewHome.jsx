@@ -40,10 +40,7 @@ function App() {
   const URL = config.URL;
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("userinfo"));
-  useEffect(() => {
-    if (token) {
-      setLoggedIn(true);
-    }
+  const addAisensyWidget = () => {
     const head = document.querySelector("head");
     const script = document.createElement("script");
 
@@ -55,13 +52,20 @@ function App() {
     script.setAttribute("id", "aisensy-wa-widget");
     script.setAttribute("widget-id", "LKoMcZ");
     head.appendChild(script);
-    console.log(script);
+    console.log("Aisensy widget script added:", script);
+  };
 
-    return () => {
-      head.removeChild(script);
-    };
-    
-  }, []);
+  // Call the function at the start of the component if the screen is not small
+  if (!isSmallScreen) {
+    addAisensyWidget();
+  }
+  useEffect(() => {
+    if (token) {
+      setLoggedIn(true);
+    }
+
+    // Only add the widget if not on a small screen
+  }, [token]);
   return (
     <div>
       <Navbar isLoggedIn={isLoggedIn} />

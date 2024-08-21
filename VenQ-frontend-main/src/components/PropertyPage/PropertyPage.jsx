@@ -335,7 +335,7 @@ const PropertyPage = () => {
                           to={
                             isLoggedIn
                               ? `/dashboard/properties/view/${listing._id}`
-                              : `/unauthorized/${listing._id}`
+                              : `/dholera/${listing._id}`
                           }
                           style={{
                             textDecoration: "none",
@@ -489,7 +489,7 @@ const PropertyPage = () => {
                                       to={
                                         isLoggedIn
                                           ? `/dashboard/properties/view/${listing._id}`
-                                          : `/unauthorized/${listing._id}`
+                                          : `/dholera/${listing._id}`
                                       }
                                       style={{ textDecoration: "none" }}
                                     >
@@ -509,7 +509,7 @@ const PropertyPage = () => {
                                           to={
                                             isLoggedIn
                                               ? `/dashboard/properties/view/${listing._id}`
-                                              : `/unauthorized/${listing._id}`
+                                              : `/dholera/${listing._id}`
                                           }
                                           style={{ textDecoration: "none" }}
                                         >
@@ -549,7 +549,7 @@ const PropertyPage = () => {
                                                 to={
                                                   isLoggedIn
                                                     ? `/dashboard/properties/view/${listing._id}`
-                                                    : `/unauthorized/${listing._id}`
+                                                    : `/dholera/${listing._id}`
                                                 }
                                                 style={{
                                                   textDecoration: "none",
@@ -569,7 +569,7 @@ const PropertyPage = () => {
                                                 to={
                                                   isLoggedIn
                                                     ? `/dashboard/properties/view/${listing._id}`
-                                                    : `/unauthorized/${listing._id}`
+                                                    : `/dholera/${listing._id}`
                                                 }
                                               >
                                                 Login
