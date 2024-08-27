@@ -2025,10 +2025,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   }}
                                 >
                                   <FinanceSubHeading>
-                                    Property price
+                                    Property price 
                                   </FinanceSubHeading>
                                   <FinanceAmount>
-                                    INR {listing.propertyprice}
+                                    INR {listing.propertypricen}
                                   </FinanceAmount>
                                 </Box>
 
@@ -2090,7 +2090,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Grid item xs={12} md={6}>
                             <Box style={{ padding: "10px 0" }}>
                               <FinanceHeading>
-                                Rental income (Year 1)
+                                Rental income (Year 1) 
                               </FinanceHeading>
 
                               <Box>
@@ -2629,7 +2629,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     Property price
                                   </FinanceSubHeading>
                                   <FinanceAmount>
-                                    INR {listing.propertyprice}
+                                    INR {listing.propertypricen}
+                                    
                                   </FinanceAmount>
                                 </Box>
 
