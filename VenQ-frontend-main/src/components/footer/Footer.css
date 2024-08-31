@@ -18,7 +18,6 @@
   margin-bottom: 10px;
   /* transform: rotate(-5deg); */
   margin-top: 50px;
-
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   letter-spacing: 5px;
   font-weight: 400;
@@ -34,7 +33,7 @@
 
 .rotated-invest-button,
 .rotated-sell-button {
-  padding: 10px 100px;
+  padding: 10px 10px;
   font-size: 18px;
   border: none;
   border-radius: 5px;
@@ -46,7 +45,7 @@
   border: 1px solid #30475e;
   color: #000000;
   font-weight: bold;
-  margin-right: 20px;
+  margin-right: 2px;
 }
 
 .rotated-sell-button {
@@ -58,6 +57,7 @@
   border: 1px solid #ccc;
   margin: 20px 0;
 }
+
 .footer-link {
   text-decoration: none;
   color: inherit;
@@ -70,36 +70,6 @@
 
 .footerLogo {
   width: 150px;
-}
-
-@media (max-width: 768px) {
-  .rotated-button-container {
-    height: auto;
-    margin-bottom: -45px;
-    transform: none;
-    background-color: transparent;
-  }
-
-  .rotated-heading {
-    font-size: 30px;
-    margin-top: 20px;
-    align-items: flex-start;
-    transform: none;
-  }
-
-  .rotated-buttons-container {
-    align-items: center;
-    margin-top: 10px;
-    transform: none;
-  }
-
-  .rotated-invest-button,
-  .rotated-sell-button {
-    margin: 5px 0;
-    width: 130px;
-    padding: 10px;
-    font-size: 18px;
-  }
 }
 
 /* Base Styles */
@@ -161,12 +131,11 @@
 .home_footer_socialIcons_main {
   width: 90%;
   margin: auto;
-
   text-align: center;
 }
 
 .home_footer_socialIcons_main > h1 {
-  margin-right: 58px;
+  margin-right: 20px;
   font-size: 24px;
 }
 
@@ -194,11 +163,13 @@
   grid-template-columns: repeat(2, 1fr);
   margin-top: 25px;
 }
+
 .copyright {
   color: rebeccapurple;
   font-size: 80px;
   margin-right: 100px;
 }
+
 .home_footer_allrights_container_one {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -216,7 +187,7 @@
 }
 
 .home_footer_allrights_container_two {
-  text-align: right;
+  text-align: center;
 }
 
 .home_footer_disclaimer_main {
@@ -230,7 +201,36 @@
   color: rgb(83, 83, 83);
 }
 
+/* Combined Mobile Styles */
 @media (max-width: 768px) {
+  .rotated-button-container {
+    height: auto;
+    margin-bottom: -45px;
+    transform: none;
+    background-color: red;
+  }
+
+  .rotated-heading {
+    font-size: 30px;
+    margin-top: 20px;
+    align-items: flex-start;
+    transform: none;
+  }
+
+  .rotated-buttons-container {
+    align-items: center;
+    margin-top: 10px;
+    transform: none;
+  }
+
+  .rotated-invest-button,
+  .rotated-sell-button {
+    margin: 5px 0;
+    width: 130px;
+    padding: 10px;
+    font-size: 18px;
+  }
+
   .home_footer_content_container_main {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -250,14 +250,17 @@
   .home_footer_socialIcons_main > h1 {
     margin-right: 0px;
   }
+
   .home_footer_allrights_main {
     grid-template-columns: 1fr;
     text-align: center;
     margin-top: 10px;
   }
+
   .home_footer_allrights_container_two {
     text-align: center;
   }
+
   .home_footer_disclaimer_main {
     text-align: center;
     margin-top: 20px;

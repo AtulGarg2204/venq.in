@@ -180,7 +180,7 @@ const Footer = (addTopMargin) => {
   let date = new Date();
   let year = date.getFullYear();
   return (
-    <div>
+    <div className="main_footer">
       <div className="rotated-button-container">
         <h2 className="rotated-heading">SO, WHAT ARE YOU WAITING FOR?</h2>
         <div className="rotated-buttons-container">
@@ -300,12 +300,9 @@ const Footer = (addTopMargin) => {
             </a>
           </div>
         </div>
-        <div className="home_footer_allrights_main">
-          <div className="home_footer_allrights_container_two">
-            <h2 className="copyright">
-              Copyright © 2024 | All Rights Reserved.
-            </h2>
-          </div>
+
+        <div className="home_footer_allrights_container_two">
+          <h2 className="copyright">Copyright © 2024 | All Rights Reserved.</h2>
         </div>
 
         <div className="home_footer_disclaimer_main">

@@ -67,15 +67,25 @@ function App() {
     // Only add the widget if not on a small screen
   }, [token]);
   return (
-    <div>
+    <div >
       <Navbar isLoggedIn={isLoggedIn} />
       <div className="new-home">
         <First />
         <Second />
         <Signupstep />
-        {/* {!isSmallScreen ? <Interstgraph /> : <></>} */}
         <Interstgraph />
-        {/* <NewHeroSection /> */}
+        <TextYoutube />
+        <OurCommitment />
+        <WhyInvest />
+        <PartnerSlider />
+        <FaQ />
+        <Footer />
+        {/* <First />
+        <Second />
+        <Signupstep />
+
+        <Interstgraph />
+
         <TextYoutube />
         <OurCommitment />
         <WhyInvest />
@@ -84,7 +94,7 @@ function App() {
           sliderContainerClassName="slider_container_for_try"
         />
         <FaQ />
-        <Footer />
+        */}
       </div>
     </div>
   );

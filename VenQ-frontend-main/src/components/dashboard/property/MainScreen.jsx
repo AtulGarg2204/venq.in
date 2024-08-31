@@ -1258,11 +1258,10 @@ const MainScreen = ({ handleCart, clicked, setClicked }) => {
                 }}
               >
                 <ProgressBar
-                  completed={60}
-                  customLabel=""
+                  completed={95}
+                  isLabelVisible={false}
                   className="wrapper"
                   bgColor="#0170dc"
-                  labelColor="#50B487"
                   height="0.6rem"
                   width="112%"
                   // labelClassName="label"
@@ -1277,15 +1276,25 @@ const MainScreen = ({ handleCart, clicked, setClicked }) => {
                     width: "112%",
                   }}
                 >
-                  <Typography style={{ marginRight: "30px" , fontSize: "16px",
-                
-                    fontFamily: "Inter", }}>
-                    <span style={{
-                      color:"#50B487",
-                      fontSize: "18px",
-                
-                    fontFamily: "Inter",
-                    }}>101</span> investors
+                  <Typography
+                    style={{
+                      marginRight: "30px",
+                      fontSize: "16px",
+
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: "#50B487",
+                        fontSize: "18px",
+
+                        fontFamily: "Inter",
+                      }}
+                    >
+                      46
+                    </span>{" "}
+                    investors
                   </Typography>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <img
@@ -1293,7 +1302,7 @@ const MainScreen = ({ handleCart, clicked, setClicked }) => {
                       style={{ marginRight: "1rem" }}
                       alt="clock"
                     />
-                    <span style={{ color: "red" }}>Closed on Aug 31, 2024</span>
+                    <span style={{ color: "red" }}>Closed on Sep 7, 2024</span>
                   </div>
                 </div>
               </div>

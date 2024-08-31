@@ -1238,11 +1238,11 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                     backgroundColor: "white",
                     display: "flex",
                     justifyContent: "center",
-                    margin: "10px 0",
+                    margin: "2px 0",
                     borderRadius: "50px",
                     position: "absolute",
                     bottom: -25,
-                    right: 20,
+                    right: 15,
                     border: "0.2px solid #e9e9eb",
                   }}
                 >
@@ -1434,12 +1434,27 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                 </Grid>
               )}
 
-              <Box style={{ padding: "10px 0", margin: "10px 0" }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={8}>
+              <Box style={{ margin: "5px 0" }}>
+                <Grid
+                  container
+                  spacing={1}
+                  style={{
+                    width: "100%",
+                  }}
+                >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    style={{
+                      width: "100%",
+
+                      marginLeft: "-5px",
+                    }}
+                  >
                     {/* this is the new work */}
                     <Details>
-                      <Box>
+                      <Box style={{}}>
                         {" "}
                         <Typography
                           style={{
@@ -1465,7 +1480,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                           listing.propertydescription
                             .split("|")
                             .map((part, index) => (
-                              <Box key={index} style={{ margin: "0 10px" }}>
+                              <Box key={index} style={{ margin: "10px 7px" }}>
                                 <SubTitle>{part.trim()}</SubTitle>
                               </Box>
                             ))
@@ -1510,7 +1525,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                       <Divider />
                       {activeTab === "overview" && !isSmallScreen && (
                         <>
-                          <Box style={{ padding: "10px 0" }}>
+                          <Box style={{ padding: "6px 0" }}>
                             {listing && listing.specs && (
                               <Box
                                 style={{ display: "flex", flexWrap: "wrap" }}
@@ -1521,7 +1536,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                     style={{
                                       flex: "0 0 50%",
                                       boxSizing: "border-box",
-                                      padding: "10px",
+                                      padding: "5px",
                                     }}
                                   >
                                     <PropertyDetails>
@@ -2565,6 +2580,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                             style={{
                               display: "flex",
                               alignItems: "center",
+                              backgroundColor: "red",
                               gap: "8px",
                               justifyContent: "start",
                               marginTop: "20px",
@@ -3040,7 +3056,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                       )}
                       {activeTab === "overview" && isSmallScreen && (
                         <>
-                          <Box style={{ padding: "10px 0" }}>
+                          <Box style={{ padding: "5px 0" }}>
                             {listing && listing.specs && (
                               <Box
                                 style={{ display: "flex", flexWrap: "wrap" }}
@@ -3653,7 +3669,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                   padding: "10px",
                                 }}
                               >
-                                Invest 1
+                              Invest 
                               </button>
                             </Box>
                           )}
@@ -5398,7 +5414,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    margin: "20px",
+                    margin: "5px",
                     color: "grey",
                     padding: "10px",
                   }}
@@ -5495,6 +5511,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                           paddingLeft: "11%",
                           paddingRight: "11%",
                         }}
+                        onClick={handleLoginPopup}
                       >
                         Invest{" "}
                       </button>
