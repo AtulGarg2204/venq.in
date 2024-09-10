@@ -1493,7 +1493,7 @@ function Dashboard() {
                       justifyContent: "space-between",
                     }}
                   >
-                    {onbcomp == 0 && (
+                    {/* {onbcomp == 0 && (
                       <button
                         style={{
                           fontWeight: "bold",
@@ -1548,21 +1548,138 @@ function Dashboard() {
                       >
                         View Details
                       </button>
-                    )}
+                    )} */}
 
                     <button
                       className="edit-btn"
                       style={{
                         backgroundColor: "#e9ecef",
+                        marginBottom: "20px",
                       }}
                     >
                       Edit Profile
                     </button>
                   </div>
+                  <div className="rectangle-box">
+                    <div className="left-box">KYC</div>
+                    <div className="progress-container">
+                      <div className="step-labels">
+                        <span
+                          className={`step-label ${
+                            onbcomp === 0 ? "active-not-started" : ""
+                          }`}
+                        >
+                          Not Started
+                        </span>
+                        <span
+                          className={`step-label ${
+                            onbcomp === 1 ? "active-pending" : ""
+                          }`}
+                        >
+                          Pending
+                        </span>
+                        <span
+                          className={`step-label ${
+                            onbcomp === 2 ? "active-completed" : ""
+                          }`}
+                        >
+                          Completed
+                        </span>
+                      </div>
+                      <div className="step-progress-bar">
+                        <div
+                          className={`progress-bar progress-${onbcomp}`}
+                        ></div>
+                        <div className="step-circles">
+                          <div
+                            className={`circle ${onbcomp >= 0 ? "active" : ""}`}
+                          ></div>
+                          <div
+                            className={`circle ${onbcomp >= 1 ? "active" : ""}`}
+                          ></div>
+                          <div
+                            className={`circle ${onbcomp >= 2 ? "active" : ""}`}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {onbcomp == 0 && (
+                        <button
+                          style={{
+                            fontWeight: "bold",
+                            // font-weight:bold;
+                            padding: "10px 20px",
+
+                            // padding: 10px 20px;
+                            borderRadius: "5px",
+                            margin: "10px 0px",
+                          }}
+                          onClick={() => {
+                            setVisible(true);
+                          }}
+                        >
+                          Complete kyc
+                        </button>
+                      )}
+                      {onbcomp == 1 && (
+                        <button
+                          style={{
+                            backgroundColor: "yellow",
+                            fontWeight: "bold",
+                            // font-weight:bold;
+                            padding: "10px 20px",
+
+                            // padding: 10px 20px;
+                            borderRadius: "5px",
+                            margin: "10px 0px",
+                          }}
+                          onClick={() => {
+                            setVisible(true);
+                          }}
+                        >
+                          KYC Pending
+                        </button>
+                      )}
+                      {onbcomp == 2 && (
+                        <button
+                          style={{
+                            backgroundColor: "#5ECE8F",
+                            fontWeight: "bold",
+                            // font-weight:bold;
+                            padding: "10px 20px",
+
+                            // padding: 10px 20px;
+                            borderRadius: "5px",
+                            margin: "10px 0px",
+                          }}
+                          onClick={() => {
+                            setVisible(true);
+                          }}
+                        >
+                          View Details
+                        </button>
+                      )}
+
+                      {/* <button
+          className="edit-btn"
+          style={{
+            backgroundColor: "#e9ecef",
+          }}
+        >
+          Edit Profile
+        </button> */}
+                    </div>
+                  </div>
                   <div className="required-documents">
-                    <h2>Required Documents</h2>
+                    <h2>E-Signing Portal</h2>
                     <div className="document-info">
-                      <div className="doc-label">
+                      {/* <div className="doc-label">
                         <p className="es-sign">E-sign required: </p>
                       </div>
                       <div className="doc-value">
@@ -1573,10 +1690,10 @@ function Dashboard() {
                           alt="Download Icon"
                           className="download-icon"
                         />
-                      </div>
+                      </div> */}
+                      No Documents Available for E-sign
                     </div>
                   </div>
-                  <KycSteps onbcomp={onbcomp} />
                 </>
               )}
               {activeTab === "transactions" && (
