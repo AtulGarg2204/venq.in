@@ -305,12 +305,12 @@ aside {
 
 .left-box {
   width: 120px;
-  height: 100%;
+  height: 110%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 32px;
   color: #333;
   background-color: lightblue;
   clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
@@ -357,7 +357,7 @@ aside {
 
 .step-progress-bar {
   width: 100%;
-  height: 6px; /* Decreased height to make it look like a thinner line */
+  height: 4px; /* Decreased height to make it look like a thinner line */
   background-color: #d3d3d3;
   position: relative;
   display: flex;
