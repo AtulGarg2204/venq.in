@@ -34,10 +34,7 @@ const SuccessPage = () => {
         const response = await axios.get(
           `${URL}/listing/byName/${encodeURIComponent(propertyName)}`
         );
-        console.log(
-          response.data.mininvestment,
-          "this is the minimum investment amount"
-        );
+        
         const minInvestmentString = response.data.mininvestment;
         const numericValue = minInvestmentString.replace(/\D/g, "");
         const minInvestment = parseInt(numericValue, 10);
