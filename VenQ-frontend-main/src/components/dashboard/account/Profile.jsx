@@ -99,7 +99,7 @@ function Dashboard() {
           `${URL}/auth/user/checkverify/${token.email}`
         );
         if (result) {
-          console.log(result);
+         
           setonbcomp(result.data.isVerified);
           // console.log(onbcomp);
           if (result.data.isVerified == 2) {
