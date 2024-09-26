@@ -4803,7 +4803,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           setinvtype(1);
                                         }}
                                       >
-                                        Invest test
+                                        Invest 
                                       </li>
                                     </ul>
                                   </nav>

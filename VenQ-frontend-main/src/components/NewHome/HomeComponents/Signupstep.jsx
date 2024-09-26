@@ -48,7 +48,7 @@ const Signupstep = () => {
           <div className="left-heading">
             <h5 className="heading">How To Subscribe?</h5>
             <p className="left-desc">
-              Enjoy the benefits of a completely online and <br /> seamless
+              Enjoy the benefits of a completely online and  seamless
               process
             </p>
           </div>
@@ -56,7 +56,7 @@ const Signupstep = () => {
             <span className="step-number">1</span>
             <h2
               className="step-heading1"
-              onMouseEnter={() =>
+              onClick={() =>
                 changeImage(
                   image2,
                   "Explore a diverse range of investment opportunities, from residential to commercial properties, tailored to your preferences.",
@@ -83,7 +83,7 @@ const Signupstep = () => {
             <span className="step-number">2</span>
             <h2
               className="step-heading1"
-              onMouseEnter={() =>
+              onClick={() =>
                 changeImage(
                   image3,
                   "Invest seamlessly by subscribing to fractional ownership in premium properties, with options starting from Rs 5,000.",
@@ -100,7 +100,7 @@ const Signupstep = () => {
             <span className="step-number">3</span>
             <h2
               className="step-heading1"
-              onMouseEnter={() =>
+              onClick={() =>
                 changeImage(
                   image4,
                   "Monitor your investments in real-time, track performance metrics, and stay updated on property developments through our user-friendly platform.",
@@ -117,7 +117,7 @@ const Signupstep = () => {
             <span className="step-number">4</span>
             <h2
               className="step-heading1"
-              onMouseEnter={() =>
+              onClick={() =>
                 changeImage(
                   image1,
                   "Enjoy flexible exit options with our platform, allowing you to liquidate investments or exit projects based on your investment strategy and financial goals.",

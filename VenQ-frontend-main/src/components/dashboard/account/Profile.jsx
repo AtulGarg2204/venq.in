@@ -66,12 +66,14 @@ function Dashboard() {
   const [kycdata, setkycdata] = useState({});
   const [onbcomp, setonbcomp] = useState(0);
   const [step, setStep] = useState(0);
+  const [info, setInfo] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(1);
 
   const updateSteps = (step) => {
     setCurrentStep(step);
   };
+  const URL = config.URL;
 
   const handleButtonClick = (step) => {
     updateSteps(step);
@@ -84,7 +86,7 @@ function Dashboard() {
   const prevStep = () => {
     setStep(step - 1);
   };
-  const URL = config.URL;
+
   if (token && token.name) {
     arr = token.name.split(" ");
   }
@@ -292,6 +294,9 @@ function Dashboard() {
   };
 
   // handle changes while pressing backspace and arrow key
+  const handleEsign = () => {
+    setInfo(!info);
+  };
   const handleKeyDown = (index, event) => {
     if (event.key === "Backspace" && index > 0 && otp[index] === "") {
       newOtp[index] = "";
@@ -331,6 +336,55 @@ function Dashboard() {
       });
 
       setOtp(newOtp);
+    }
+  };
+  const handleSurepass = async (name, email, phone) => {
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Phone:", phone);
+    const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
+    const url = `${URL}/surepass/initializeEsign`; // Your API URL
+
+    const payload = {
+      name: name,
+      email: email,
+      phone: trimmedPhone,
+    };
+
+    try {
+      // Make the POST request using axios
+      const response = await axios.post(url, payload);
+
+      // Handle the response
+      console.log("Response from Surepass:", response.data);
+      if (
+        response.data &&
+        response.data.data &&
+        response.data.data.data.url &&
+        response.data.data.data.client_id
+      ) {
+        const clientId = response.data.data.data.client_id;
+        const esignUrl = response.data.data.data.url;
+
+        // Open the e-sign URL in a new tab
+        window.open(esignUrl, "_blank");
+
+        // Make a new POST request after opening the link
+        const newPayload = {
+          client_id: clientId,
+          link: "https://res.cloudinary.com/dwhhchqvk/raw/upload/v1727366492/pdfs/nkr98dkninfwa2rmy5qu.pdf",
+        };
+
+        const newUrl = `${URL}/surepass/uploadPdf`; // Replace with your actual second API URL
+
+        const secondResponse = await axios.post(newUrl, newPayload);
+        console.log("Response from the second API:", secondResponse.data);
+      } else {
+        console.error("URL or client_id not found in the response.");
+      }
+    } catch (error) {
+      console.error("Error occurred while calling initializeEsign:", error);
+      // Handle errors (e.g., show an error message to the user)
     }
   };
 
@@ -914,8 +968,8 @@ function Dashboard() {
           <div
             className="main-otp-div popup"
             style={{
-              width: "70%",
               padding: "0 20px 30px",
+
               marginTop: "100px",
             }}
           >
@@ -947,7 +1001,7 @@ function Dashboard() {
               {/* progress bar chalu  */}
 
               <div className="containerone">
-                <div className="steps-containerone ">
+                <div className="steps-containerone">
                   {[1, 2, 3].map((stepNumber) => (
                     <div key={stepNumber}>
                       <div className="progress-container">
@@ -974,7 +1028,6 @@ function Dashboard() {
                         <div
                           style={{
                             fontFamily: "Gilroy-Bold",
-                            width: "60px",
                           }}
                         >
                           {stepNumber == 1
@@ -1493,63 +1546,6 @@ function Dashboard() {
                       justifyContent: "space-between",
                     }}
                   >
-                    {/* {onbcomp == 0 && (
-                      <button
-                        style={{
-                          fontWeight: "bold",
-                          // font-weight:bold;
-                          padding: "10px 20px",
-
-                          // padding: 10px 20px;
-                          borderRadius: "5px",
-                          margin: "10px 0px",
-                        }}
-                        onClick={() => {
-                          setVisible(true);
-                        }}
-                      >
-                        Complete kyc
-                      </button>
-                    )}
-                    {onbcomp == 1 && (
-                      <button
-                        style={{
-                          backgroundColor: "yellow",
-                          fontWeight: "bold",
-                          // font-weight:bold;
-                          padding: "10px 20px",
-
-                          // padding: 10px 20px;
-                          borderRadius: "5px",
-                          margin: "10px 0px",
-                        }}
-                        onClick={() => {
-                          setVisible(true);
-                        }}
-                      >
-                        KYC Pending
-                      </button>
-                    )}
-                    {onbcomp == 2 && (
-                      <button
-                        style={{
-                          backgroundColor: "#5ECE8F",
-                          fontWeight: "bold",
-                          // font-weight:bold;
-                          padding: "10px 20px",
-
-                          // padding: 10px 20px;
-                          borderRadius: "5px",
-                          margin: "10px 0px",
-                        }}
-                        onClick={() => {
-                          setVisible(true);
-                        }}
-                      >
-                        View Details
-                      </button>
-                    )} */}
-
                     <button
                       className="edit-btn"
                       style={{
@@ -1676,24 +1672,69 @@ function Dashboard() {
         </button> */}
                     </div>
                   </div>
-                  <div className="required-documents">
-                    <h2>E-Signing Portal</h2>
-                    <div className="document-info">
-                      {/* <div className="doc-label">
-                        <p className="es-sign">E-sign required: </p>
-                      </div>
-                      <div className="doc-value">
-                        <p>Property Document</p>
-
-                        <img
-                          src="https://tse3.mm.bing.net/th?id=OIP.DUREJEAlIulzOwB5WuTNzQHaHa&pid=Api&P=0&h=180"
-                          alt="Download Icon"
-                          className="download-icon"
-                        />
-                      </div> */}
+                  {onbcomp === 2 ? (
+                    <div className="required-documents">
+                      <h2>E-Signing Portal</h2>
+                      {/* <div className="document-info">
                       No Documents Available for E-sign
+                    </div> */}
+                      {!info ? (
+                        <button onClick={handleEsign}>Start Process</button>
+                      ) : (
+                        <div className="form-container">
+                          <form
+                            onSubmit={(event) => {
+                              event.preventDefault(); // Prevent the form from submitting and reloading the page
+                              handleSurepass(
+                                token.name,
+                                token.email,
+                                token.phone
+                              ); // Call handleSurepass function
+                            }}
+                          >
+                            <div className="form-group">
+                              <label htmlFor="aadhaar">Aadhaar Card</label>
+                              <input
+                                type="text"
+                                id="aadhaar"
+                                placeholder="Enter Aadhaar card number"
+                                value={kycdata.aadhaar_number}
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="pan">PAN Card</label>
+                              <input
+                                type="text"
+                                id="pan"
+                                placeholder="Enter PAN card number"
+                                value={kycdata.pan_number}
+                              />
+                            </div>
+                            <div className="form-group">
+                              <div className="label-container">
+                                <label htmlFor="fatherName">
+                                  Father's Name
+                                </label>
+                                <span className="error-message">
+                                  *Missing field
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                id="fatherName"
+                                placeholder="Enter father's name"
+                              />
+                            </div>
+                            <button type="submit" className="proceed-btn">
+                              Proceed
+                            </button>
+                          </form>
+                        </div>
+                      )}
                     </div>
-                  </div>
+                  ) : (
+                    <></>
+                  )}
                 </>
               )}
               {activeTab === "transactions" && (

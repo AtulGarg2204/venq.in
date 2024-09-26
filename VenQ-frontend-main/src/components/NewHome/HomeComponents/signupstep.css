@@ -1,10 +1,9 @@
 .signup-container {
-  padding-top: 25vh;
+  padding-top: 15vh;
   /* padding: 50px; */
   height: 90vh;
   width: 66%;
   margin: auto;
-  
 }
 
 .content {
@@ -31,9 +30,6 @@
 .right-image {
   height: fit-content;
   width: fit-content;
-  /* margin-left: 40px; */
-  /* background-color: #2a86f3; */
-  margin-top: -100px;
 }
 
 .step-image {
@@ -89,17 +85,18 @@
   cursor: pointer;
 }
 .left-heading h5 {
-  font-size: 24px;
-  font-family: "Plus Jakarta Sans";
-  margin-bottom: 20px;
+  /* color: "rgba(82, 191, 131, 1)",
+            fontSize: "24px",
+            fontWeight: "600",
+            fontFamily: "Plus Jakarta Sans",
+            paddingTop: "20px",
+            marginTop: "20px", */
   color: rgba(82, 191, 131, 1);
+  font-size: 24px;
   font-weight: 600;
-  /* style={{
-    fontSize: "24px",
-    fontFamily: "Plus Jakarta Sans",
-    paddingTop: "20px",
-    marginTop: "20px",
-  }} */
+  font-family: sans-serif;
+  padding-top: 20px;
+  margin-top: 20px;
 }
 .step-heading1:hover {
   margin-bottom: 20px;
@@ -118,7 +115,6 @@
   font-size: 40px;
   font-weight: 700;
   line-height: 38px;
-  text-align: left;
 }
 
 @media (max-width: 768px) {
@@ -140,8 +136,28 @@
     display: flex;
     flex-direction: column;
   }
-  .left-heading h5 {
-    margin-left: 50px;
+  .left-heading {
+    width: 100%;
+  }
+  .left-heading .left-desc {
+    font-size: 18px;
+    margin-top: 15px;
+    text-align: center;
+    line-height: 18px;
+  }
+  .left-heading .heading {
+    height: 100%;
+    width: 100%;
+
+    color: rgba(82, 191, 131, 1);
+    font-size: 30px;
+    font-weight: 600;
+    position: relative;
+    margin-right: 20px;
+    padding-right: 20px;
+    font-family: sans-serif;
+    left: 14px;
+    margin-top: 20px;
   }
   .left-step {
     width: 100%;
@@ -154,7 +170,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-
+    margin-left: 25px;
     height: auto;
     margin-top: 2px;
   }

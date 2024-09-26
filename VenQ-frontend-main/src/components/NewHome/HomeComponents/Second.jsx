@@ -47,7 +47,7 @@ export default function TextDiv({ sliderContainerClassName = "" }) {
             marginTop: "20px",
           }}
         >
-          Why VENQ?
+          Why VENQ? 
         </h5>
         <h1
           style={{

@@ -67,7 +67,7 @@ function App() {
     // Only add the widget if not on a small screen
   }, [token]);
   return (
-    <div >
+    <div>
       <Navbar isLoggedIn={isLoggedIn} />
       <div className="new-home">
         <First />

@@ -3669,7 +3669,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                   padding: "10px",
                                 }}
                               >
-                              Invest 
+                                Invest
                               </button>
                             </Box>
                           )}
@@ -5025,7 +5025,7 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
                                                 setinvtype(1);
                                               }}
                                             >
-                                              Invest test
+                                              Invest
                                             </li>
                                           </ul>
                                         </nav>

@@ -63,6 +63,7 @@ import Name from "./components/OtplessSignup/Name";
 import NewHome from "./components/NewHome/NewHome";
 import Kyc_details from "./components/dashboard/UserInterests/Kyc_details";
 import DemoPropertyPage from "./components/dashboard/property/DemoPropertyPage";
+import Fundraising from "./components/Fundraising";
 function App() {
   return (
     <DataProvider>
@@ -79,7 +80,7 @@ function App() {
           <Route path="form" element={<Form />} />
           <Route path=":id/edit" element={<FormEdit />} />
           <Route path="/terms" element={<Terms />} />
-
+          <Route path="/fundraising" element={<Fundraising />} />
           <Route path="risks" element={<Risks />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="refund" element={<Refund />} />
