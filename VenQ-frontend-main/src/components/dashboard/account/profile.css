@@ -470,7 +470,7 @@ aside {
 
   .step-labels {
     font-size: 16px;
-    top: -30px; /* Adjust position for smaller screens */
+    /* Adjust position for smaller screens */
   }
 
   .step-progress-bar {
@@ -497,7 +497,7 @@ aside {
 
   .step-labels {
     font-size: 14px;
-    top: -25px; /* Further adjust position for very small screens */
+     /* Further adjust position for very small screens */
   }
 
   .step-progress-bar {

@@ -67,7 +67,7 @@ function Dashboard() {
   const [onbcomp, setonbcomp] = useState(0);
   const [step, setStep] = useState(0);
   const [info, setInfo] = useState(false);
-
+  const [showPdf, setShowPdf] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
   const updateSteps = (step) => {
@@ -99,7 +99,6 @@ function Dashboard() {
           `${URL}/auth/user/checkverify/${token.email}`
         );
         if (result) {
-         
           setonbcomp(result.data.isVerified);
           // console.log(onbcomp);
           if (result.data.isVerified == 2) {
@@ -121,6 +120,7 @@ function Dashboard() {
       }
     };
     fetchkycstatus();
+    handleCheckSignedPdf();
   }, []);
 
   const savekyc = async () => {
@@ -366,6 +366,9 @@ function Dashboard() {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
 
+        // Save the client_id in localStorage
+        localStorage.setItem("client_id", clientId);
+
         // Open the e-sign URL in a new tab
         window.open(esignUrl, "_blank");
 
@@ -387,7 +390,44 @@ function Dashboard() {
       // Handle errors (e.g., show an error message to the user)
     }
   };
+  const handleCheckSignedPdf = async () => {
+    try {
+      // Retrieve the client_id from localStorage
+      const clientId = localStorage.getItem("client_id");
 
+      if (!clientId) {
+        console.error("Client ID not found in localStorage.");
+        return;
+      }
+
+      // Construct the GET request URL
+      const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
+
+      // Make the GET request using axios
+      const response = await axios.get(getUrl);
+
+      // Check the response data
+      console.log("Response from Surepass:", response.data);
+
+      if (response.data.success === false) {
+        console.error(
+          "Signed PDF not generated yet:",
+          response.data.error.message
+        );
+
+        // Set showPdf to false (you can replace this with your actual state management)
+      } else {
+        // Set showPdf to true (signed PDF is ready)
+        setShowPdf(true);
+        console.log("Show PDF:", showPdf);
+
+        // You can proceed with further actions, like displaying or downloading the PDF
+      }
+    } catch (error) {
+      console.error("Error occurred while checking for signed PDF:", error);
+      // Handle errors (e.g., show an error message to the user)
+    }
+  };
   // toast notifications
   const notifyResend = () => toast.success(`OTP sent`);
   //   console.log(otp);
@@ -1679,57 +1719,73 @@ function Dashboard() {
                       No Documents Available for E-sign
                     </div> */}
                       {!info ? (
-                        <button onClick={handleEsign}>Start Process</button>
-                      ) : (
-                        <div className="form-container">
-                          <form
-                            onSubmit={(event) => {
-                              event.preventDefault(); // Prevent the form from submitting and reloading the page
-                              handleSurepass(
-                                token.name,
-                                token.email,
-                                token.phone
-                              ); // Call handleSurepass function
-                            }}
-                          >
-                            <div className="form-group">
-                              <label htmlFor="aadhaar">Aadhaar Card</label>
-                              <input
-                                type="text"
-                                id="aadhaar"
-                                placeholder="Enter Aadhaar card number"
-                                value={kycdata.aadhaar_number}
-                              />
-                            </div>
-                            <div className="form-group">
-                              <label htmlFor="pan">PAN Card</label>
-                              <input
-                                type="text"
-                                id="pan"
-                                placeholder="Enter PAN card number"
-                                value={kycdata.pan_number}
-                              />
-                            </div>
-                            <div className="form-group">
-                              <div className="label-container">
-                                <label htmlFor="fatherName">
-                                  Father's Name
-                                </label>
-                                <span className="error-message">
-                                  *Missing field
-                                </span>
-                              </div>
-                              <input
-                                type="text"
-                                id="fatherName"
-                                placeholder="Enter father's name"
-                              />
-                            </div>
-                            <button type="submit" className="proceed-btn">
-                              Proceed
-                            </button>
-                          </form>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "30px",
+                          }}
+                        >
+                          <div>Property Management Agreement</div>
+                          <button onClick={handleEsign}>Start Process</button>
                         </div>
+                      ) : (
+                        <>
+                          {showPdf === true ? (
+                            <div>Process already completed.</div>
+                          ) : (
+                            <div className="form-container">
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault(); // Prevent the form from submitting and reloading the page
+                                  handleSurepass(
+                                    token.name,
+                                    token.email,
+                                    token.phone
+                                  ); // Call handleSurepass function
+                                }}
+                              >
+                                <div className="form-group">
+                                  <label htmlFor="aadhaar">Aadhaar Card</label>
+                                  <input
+                                    type="text"
+                                    id="aadhaar"
+                                    placeholder="Enter Aadhaar card number"
+                                    value={kycdata.aadhaar_number}
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label htmlFor="pan">PAN Card</label>
+                                  <input
+                                    type="text"
+                                    id="pan"
+                                    placeholder="Enter PAN card number"
+                                    value={kycdata.pan_number}
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <div className="label-container">
+                                    <label htmlFor="fatherName">
+                                      Father's Name
+                                    </label>
+                                    <span className="error-message">
+                                      *Missing field
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    id="fatherName"
+                                    placeholder="Enter father's name"
+                                  />
+                                </div>
+                                <button type="submit" className="proceed-btn">
+                                  Proceed
+                                </button>
+                              </form>
+                            </div>
+                          )}
+                        </>
                       )}
                     </div>
                   ) : (

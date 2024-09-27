@@ -38,17 +38,6 @@ const Addlisting = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   ;
-  // const [grossyield,setGrossYield]=useState("");
-  // const [netyield,setNetYield]=useState("");
-  // const [amenityname,setAmenityName]=useState("");
-  // const [amenitylink,setAmenityLink]=useState("");
-  // const [locationlink,setLocationLink]=useState("");
-  // const [documentName,setDocumentName]=useState("");
-  // const [documentlink,setDocumentLink]=useState("");
-  // const [tourlink,setTourlink]=useState("");
-  // const [specsimage,setSpecsImage]=useState("");
-  // const [specstitle,setSpecsTitle]=useState("");
-  // const [specssubtitle,setSpecsSubTitle]=useState("");
   const [im,setIm]=useState([]);
   const [sim,setSim]=useState([]);
   const [spo,setSpo]=useState([]);
@@ -95,7 +84,6 @@ const Addlisting = () => {
       fundingdescription:""
 
   })
-  
   const FormTitles = ["First Page", "Second Page", "ThirdPage","FourthPage","Fifth Page","Sixth Page"];
   const PageDisplay = () => {
     if (page === 0) {
@@ -112,7 +100,6 @@ const Addlisting = () => {
       return <FinalPage fd={formData} sfd={setformData} am={amneties} sam={setAmenities} dc={docs} sdc={setDocs} dl={dlink} sdl={setDlink} />;
     }
   };
- 
   const handleSubmit=async ()=>{
     try{
       const sobj={
@@ -152,8 +139,6 @@ const Addlisting = () => {
     }
   }
   return (
-   
-        
         <div className="myform">
       <div className="progressbar">
         <div
@@ -188,8 +173,6 @@ const Addlisting = () => {
         </div>
       </div>
     </div>
-    
   );
 };
-
 export default Addlisting;
