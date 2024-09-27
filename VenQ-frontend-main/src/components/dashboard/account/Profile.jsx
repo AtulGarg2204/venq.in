@@ -50,7 +50,7 @@ function Dashboard() {
   const [pan, setPan] = useState("");
 
   const acarr = ["Current", "Saving", "NRI", "Recurring Deposit"];
-
+  const [fatherName, setFatherName] = useState("");
   const [visible, setVisible] = useState(false);
   const [visibleone, setVisibleone] = useState(false);
   const [otpss, setotpss] = useState(false);
@@ -67,7 +67,7 @@ function Dashboard() {
   const [onbcomp, setonbcomp] = useState(0);
   const [step, setStep] = useState(0);
   const [info, setInfo] = useState(false);
-  const [showPdf, setShowPdf] = useState(false);
+  const [showPdf, setShowPdf] = useState();
   const [currentStep, setCurrentStep] = useState(1);
 
   const updateSteps = (step) => {
@@ -121,7 +121,7 @@ function Dashboard() {
     };
     fetchkycstatus();
     handleCheckSignedPdf();
-  }, []);
+  }, [showPdf]);
 
   const savekyc = async () => {
     try {
@@ -338,7 +338,7 @@ function Dashboard() {
       setOtp(newOtp);
     }
   };
-  const handleSurepass = async (name, email, phone) => {
+  const handleSurepass = async (name, email, phone, fatherName) => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Phone:", phone);
@@ -371,7 +371,15 @@ function Dashboard() {
 
         // Open the e-sign URL in a new tab
         window.open(esignUrl, "_blank");
-
+        const fatherDetails = {
+          clientId1: clientId, // Using clientId1 as per your request
+          fatherName: fatherName,
+          phoneNumber: trimmedPhone,
+          pdfUrl:"jkabdf",
+          email: email,
+        };
+        const url2 = `${URL}/esigndetails/surepassDetails`;
+        const detailsResponse = await axios.post(url2, fatherDetails);
         // Make a new POST request after opening the link
         const newPayload = {
           client_id: clientId,
@@ -409,17 +417,19 @@ function Dashboard() {
       // Check the response data
       console.log("Response from Surepass:", response.data);
 
-      if (response.data.success === false) {
-        console.error(
-          "Signed PDF not generated yet:",
-          response.data.error.message
-        );
+      if (response.data.data.success === true) {
+        setShowPdf(true);
+        console.log("Show PDF:", showPdf);
 
         // Set showPdf to false (you can replace this with your actual state management)
       } else {
         // Set showPdf to true (signed PDF is ready)
-        setShowPdf(true);
-        console.log("Show PDF:", showPdf);
+        setShowPdf(false);
+
+        console.error(
+          "Signed PDF not generated yet:",
+          response.data.error.message
+        );
 
         // You can proceed with further actions, like displaying or downloading the PDF
       }
@@ -1742,8 +1752,9 @@ function Dashboard() {
                                   handleSurepass(
                                     token.name,
                                     token.email,
-                                    token.phone
-                                  ); // Call handleSurepass function
+                                    token.phone,
+                                    fatherName // Pass father's name to handleSurepass
+                                  );
                                 }}
                               >
                                 <div className="form-group">
@@ -1753,6 +1764,7 @@ function Dashboard() {
                                     id="aadhaar"
                                     placeholder="Enter Aadhaar card number"
                                     value={kycdata.aadhaar_number}
+                                    readOnly // Assuming you don't want to edit Aadhaar number
                                   />
                                 </div>
                                 <div className="form-group">
@@ -1762,6 +1774,7 @@ function Dashboard() {
                                     id="pan"
                                     placeholder="Enter PAN card number"
                                     value={kycdata.pan_number}
+                                    readOnly // Assuming you don't want to edit PAN number
                                   />
                                 </div>
                                 <div className="form-group">
@@ -1777,6 +1790,11 @@ function Dashboard() {
                                     type="text"
                                     id="fatherName"
                                     placeholder="Enter father's name"
+                                    value={fatherName} // Set the value to the state
+                                    onChange={(e) =>
+                                      setFatherName(e.target.value)
+                                    } // Update state on change
+                                    required // Optionally make it required
                                   />
                                 </div>
                                 <button type="submit" className="proceed-btn">
