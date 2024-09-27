@@ -38,7 +38,7 @@ const SuccessPage = () => {
         const minInvestmentString = response.data.mininvestment;
         const numericValue = minInvestmentString.replace(/\D/g, "");
         const minInvestment = parseInt(numericValue, 10);
-        console.log(minInvestment, "this is the minimum investment amount");
+        
         setMinAmount(minInvestment); // Set minAmount here
         const userinfo = JSON.parse(localStorage.getItem("userinfo"));
         if (!userinfo || !userinfo._id) {
