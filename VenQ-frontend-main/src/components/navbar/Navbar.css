@@ -1,20 +1,22 @@
 .LinkContainer {
   display: flex;
   justify-content: space-evenly;
-  width: 300px;
+  width: 350px;
   font-family: "Gilroy-Bold";
+}
+.buttonContainer {
+  display: flex;
+  gap: 20px;
 }
 
 .loginButton {
-  border: 2px solid #4393c6;
+  border: 2px solid #0170dc;
   border-radius: 8px;
-  color: black;
+  color: #0170dc;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 24px;
   text-transform: none;
-  margin-bottom: 20px;
-  margin-left: 25px;
   background: transparent;
   padding: 5px 20px;
   cursor: pointer;
@@ -22,7 +24,6 @@
 }
 .loginButton a {
   text-decoration: none;
-  color: black;
   font-weight: bold;
   font-size: 20px;
   line-height: 24px;
@@ -30,29 +31,27 @@
 .loginButton:hover {
   background-color: #eee4;
   transform: scale(1.05);
+  transition-duration: 200ms;
 }
 .SignupButton:hover {
-  background-color: #1b527b;
+  background-color: #186baa;
   transform: scale(1.05);
+  border: 2px solid #186baa;
+  transition-duration: 200ms;
 }
-
 .SignupButton {
   border: 2px solid #0170dc;
   border-radius: 8px;
   background-color: #0170dc;
   color: white;
-
-  margin-bottom: 20px;
   text-transform: none;
-  margin: 10px;
-  padding: 6px 25px;
+  padding: 5px 20px;
   cursor: pointer;
   text-decoration: none;
-
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
-  line-height: 25px;
+  line-height: 24px;
   font-family: "Inter";
 }
 .SignupButton a {
@@ -97,10 +96,15 @@
   padding-top: 5%;
 }
 
-.mobileNavItems a {
+.mobileNavItems .loginButton a {
   text-decoration: none;
-  color: #fff;
+  color: #0170dc;
   cursor: pointer;
+}
+
+.mobileNavItems .buttonContainer {
+  padding: 2%;
+  padding-left: 7%;
 }
 
 .mobileItem {
@@ -120,8 +124,21 @@
 
 @media (max-width: 769px) {
   .imageContainer {
-    padding-left: 7%;
-    padding-right: 5%;
+    padding-inline: 1%;
+  }
+  .imageContainer img{
+    width: 100px;
+  }
+  .LinkContainer {
+    width: 260px;
+  }
+  .loginButton,
+  .SignupButton {
+    padding: 3px 18px;
+    font-size: 17px;
+  }
+  .buttonContainer{
+    gap: 15px;
   }
 }
 

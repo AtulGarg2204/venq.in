@@ -9,7 +9,6 @@ div {
 
 .hero-new-container {
   /* padding-right: 35px; */
-  
 }
 
 .hero-heading {
@@ -52,9 +51,11 @@ div {
   margin-bottom: 10px;
   border-radius: 10px;
   background-color: #0170dc;
+  box-shadow: 1px 2px 5px grey;
   border: none;
   font-size: 16px;
   font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .live-property {
