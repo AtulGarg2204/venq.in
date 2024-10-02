@@ -195,89 +195,11 @@ const Footer = (addTopMargin) => {
 
       <div className="home_footer_main">
         <div className="home_footer_logo">
-          <img src="images\VENQ_BOLD_Big.png" alt="" />
-        </div>
-        <div className="home_footer_content_container_main">
-          <div className="home_footer_content_container_partone">
-            <div className="home_footer_content_container_one">
-              <h1>INVESTORS</h1>
-              <Link to="/terms" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Terms & Conditions
-                </p>
-              </Link>
-              <Link to="/privacy" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Privacy Policy
-                </p>
-              </Link>
-              <Link to="/risks" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Risks Involved
-                </p>
-              </Link>
-              <Link to="/refund" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Refund Policy
-                </p>
-              </Link>
-            </div>
-            <div className="home_footer_content_container_two">
-              <h1>COMPANY</h1>
-              <Link to="/blog" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Blog
-                </p>
-              </Link>
-              <Link to="/contactUs" className="footer-link">
-                <p
-                  style={{
-                    color: "rgb(83, 83, 83)",
-                    fontWeight: "600",
-                  }}
-                >
-                  Contact Us
-                </p>
-              </Link>
-            </div>
-            <div className="home_footer_content_container_three">
-              <h1>DEVELOPERS</h1>
-              <Link to="" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  {/* Why Raise? */}
-                </p>
-              </Link>
-              <Link to="/learn" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Learn
-                </p>
-              </Link>
-              <a href="#instruments" className="footer-link">
-                <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
-                  Instruments
-                </p>
-              </a>
-            </div>
-          </div>
-
-          <div className="home_footer_content_container_parttwo">
-            <div className="home_footer_content_container_four">
-              <h1>CONTACT US</h1>
-              <p>team@venq.in</p>
-              <p>+91-92055 53696</p>
-            </div>
-            <div className="home_footer_content_container_five">
-              <h1>REGISTERED OFFICE</h1>
-              <p>
-                Bisht Bhawan Compound, Near Kirlani Cottage, Nainital,
-                Uttarakhand-263001
-              </p>
-            </div>
-          </div>
+          <img src="images\VENQ_BOLD_Big.png" alt="VENQ" />
         </div>
         <div className="home_footer_socialIcons_main">
           <h1>Follow Us</h1>
-          <div>
+          <div className="allSocialIcons">
             <a
               href="https://www.instagram.com/venq.in"
               target="_blank"
@@ -300,11 +222,79 @@ const Footer = (addTopMargin) => {
             </a>
           </div>
         </div>
-
-        <div className="home_footer_allrights_container_two">
-          <h2 className="copyright">Copyright © 2024 | All Rights Reserved.</h2>
+        <div className="home_footer_content_container">
+          <div className="home_footer_content_container_one">
+            <h1>INVESTORS</h1>
+            <Link to="/terms" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Terms & Conditions
+              </p>
+            </Link>
+            <Link to="/privacy" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Privacy Policy
+              </p>
+            </Link>
+            <Link to="/risks" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Risks Involved
+              </p>
+            </Link>
+            <Link to="/refund" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Refund Policy
+              </p>
+            </Link>
+          </div>
+          <div className="home_footer_content_container_two">
+            <h1>COMPANY</h1>
+            <Link to="/blog" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Blog
+              </p>
+            </Link>
+            <Link to="/contactUs" className="footer-link">
+              <p
+                style={{
+                  color: "rgb(83, 83, 83)",
+                  fontWeight: "600",
+                }}
+              >
+                Contact Us
+              </p>
+            </Link>
+          </div>
+          <div className="home_footer_content_container_three">
+            <h1>DEVELOPERS</h1>
+            <Link to="" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                {/* Why Raise? */}
+              </p>
+            </Link>
+            <Link to="/learn" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Learn
+              </p>
+            </Link>
+            <a href="#instruments" className="footer-link">
+              <p style={{ color: "rgb(83, 83, 83)", fontWeight: "600" }}>
+                Instruments
+              </p>
+            </a>
+          </div>
+          <div className="home_footer_content_container_four">
+            <h1>CONTACT US</h1>
+            <p>team@venq.in</p>
+            <p>+91-92055 53696</p>
+          </div>
+          <div className="home_footer_content_container_five">
+            <h1>REGISTERED OFFICE</h1>
+            <p>
+              Bisht Bhawan Compound, Near Kirlani Cottage, Nainital,
+              Uttarakhand-263001
+            </p>
+          </div>
         </div>
-
         <div className="home_footer_disclaimer_main">
           <h2>Disclaimer:</h2>
           <p>
@@ -324,6 +314,9 @@ const Footer = (addTopMargin) => {
             Technologies Pvt Ltd has not been authorized by the capital markets
             regulator to solicit investments.
           </p>
+        </div>
+        <div className="home_footer_allrights_container_two">
+          <h2 className="copyright">Copyright © 2024 | All Rights Reserved.</h2>
         </div>
       </div>
     </div>
