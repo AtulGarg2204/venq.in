@@ -75,7 +75,9 @@
 /* Base Styles */
 .home_footer_main {
   height: auto;
+  background-color: whitesmoke;
   margin-top: 150px;
+  padding-block: 25px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
@@ -90,21 +92,25 @@
   width: 180px;
 }
 
-.home_footer_content_container_main {
+.home_footer_content_container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
   width: 89%;
   margin: auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  margin-bottom: 30px;
+}
+.home_footer_content_container > div {
+  width: 20%;
 }
 
-.home_footer_content_container_partone > div > h1,
-.home_footer_content_container_parttwo > div > h1 {
+.home_footer_content_container > div > h1,
+.home_footer_content_container > div > h1 {
   font-size: 20px;
 }
 
-.home_footer_content_container_partone > div > p,
-.home_footer_content_container_parttwo > div > p {
+.home_footer_content_container > div > p,
+.home_footer_content_container > div > p {
   color: rgb(83, 83, 83);
   font-weight: 600;
 }
@@ -116,22 +122,13 @@
   cursor: pointer;
 }
 
-.home_footer_content_container_parttwo {
-  display: grid;
-  grid-template-columns: 40% 30%;
-  justify-content: end;
-}
-
-.home_footer_content_container_partone {
-  display: grid;
-  grid-template-columns: 30% 27% 30%;
-  justify-content: flex-start;
-}
-
 .home_footer_socialIcons_main {
-  width: 90%;
   margin: auto;
-  text-align: center;
+  width: 88%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .home_footer_socialIcons_main > h1 {
@@ -142,15 +139,16 @@
 .home_footer_socialIcons_main > div {
   margin-right: 40px;
 }
-
+.allSocialIcons {
+  display: flex;
+  gap: 20px;
+}
 .socialIcon {
-  color: black; /* Set the icon color to black */
-  margin: 0 10px; /* Optional: Add some margin to space out the icons */
-  font-size: 24px; /* Optional: Adjust the size of the icons */
+  color: black;
 }
 
 .socialIcon:hover {
-  color: #555; /* Optional: Change color on hover for better UX */
+  color: #186baa; /* Optional: Change color on hover for better UX */
 }
 
 .home_footer_allrights_main {
@@ -161,7 +159,6 @@
   text-align: center;
   margin-left: 15%;
   grid-template-columns: repeat(2, 1fr);
-  margin-top: 25px;
 }
 
 .copyright {
@@ -194,7 +191,7 @@
   width: 90%;
   margin: auto;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .home_footer_disclaimer_main > p {
@@ -230,19 +227,16 @@
     font-size: 18px;
   }
 
-  .home_footer_content_container_main {
-    grid-template-columns: 1fr;
+  .home_footer_content_container {
+    flex-direction: column;
     gap: 30px;
   }
-
-  .home_footer_content_container_partone,
-  .home_footer_content_container_parttwo {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .home_footer_content_container > div {
+    width: auto;
   }
 
   .home_footer_socialIcons_main {
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
   }
 

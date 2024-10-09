@@ -53,8 +53,8 @@ const Container = styled(Toolbar)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1.5%;
-  padding-left: 0;
+  padding-top: 2%;
+  padding-inline: 3%;
   // /* padding-right: 17%; */
 `;
 const NewContainer = styled(Toolbar)`
@@ -69,6 +69,9 @@ const Text = styled(Typography)`
   letter-spacing: 0em;
   text-align: left;
   cursor: pointer;
+   @media (max-width: 769px) {
+    font-size: 16px;
+  }
 `;
 const Options = styled(Link)`
   padding: 5px;
@@ -488,11 +491,9 @@ const Navbar = (props) => {
                     <>
                       <div className="buttonContainer">
                         <Link to="/login">
-                          {" "}
                           <button className="loginButton">Login</button>
                         </Link>
                         <Link to="/signup">
-                          {" "}
                           <button className="SignupButton">Signup</button>
                         </Link>
                       </div>
