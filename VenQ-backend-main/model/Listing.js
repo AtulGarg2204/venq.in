@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
 
+// Define the Funding Timeline Schema
+const FundingTimelineSchema = new mongoose.Schema({
+    date: {
+        type: String, // Example: 'June 15, 2024'
+    },
+    description: {
+        type: String, // Example: 'Expected closing date'
+    },
+    details: {
+        type: String, // Further information about this step
+    }
+});
+
+// Define other schemas
 const SpecsSchema = new mongoose.Schema({
     specsimage: {
         type: String,
@@ -15,31 +29,14 @@ const SpecsSchema = new mongoose.Schema({
     }
 });
 
-const FundingSchema = new mongoose.Schema({
-    fundingtitle: {
-        type: String,
-        trim: true,
-    },
-    fundingsubtitle: {
-        type: String,
-        trim: true,
-    },
-    fundingdescription: {
-        type: String,
-        trim: true,
-    }
-});
-
 const DocumentSchema = new mongoose.Schema({
     dname: {
         type: String,
         trim: true,
-        // required: true,
     },
     dlink: {
         type: String,
         trim: true,
-        // required: true,
     },
 });
 
@@ -47,31 +44,38 @@ const AmenitySchema = new mongoose.Schema({
     aname: {
         type: String,
         trim: true,
-        // required: true,
     },
     alink: {
         type: String,
         trim: true,
-        // required: true,
     },
 });
 
+const ChartDataSchema = new mongoose.Schema({
+    data: {
+        type: [Number], // Array for chart data values
+    },
+    labels: {
+        type: [String], // Array for chart data labels
+    }
+});
+
+// Define the Listing Schema
 const ListingSchema = new mongoose.Schema({
     images: {
-        type: Array,
-        // type:String
+        type: [String], // Changed to an array of strings for image URLs
     },
-    tourlink:{
-        type:String
+    tourlink: {
+        type: String,
     },
-    properyheading:{
-        type:String
+    properyheading: {
+        type: String,
     },
-    propertydescription:{
-        type:String
+    propertydescription: {
+        type: String,
     },
     specs: {
-        type:Array
+        type: [SpecsSchema],
     },
     propertyprice: {
         type: String,
@@ -117,10 +121,26 @@ const ListingSchema = new mongoose.Schema({
     annualnetincome: {
         type: String,
     },
-    fundtimeline:{
-        type:Array
+    fundtimeline: {
+        type: [FundingTimelineSchema], // Array of funding timeline objects
+        default: [
+            {
+                date: 'June 15, 2024',
+                description: 'Expected closing date',
+                details: 'This is a conservative estimate for the closing date of the property funding.'
+            },
+            {
+                date: 'July 22nd, 2024',
+                description: 'SPV formation and title deed distribution',
+                details: 'The SPV will be created and all investors will receive their title deeds within 2-3 weeks of the funding closing, to prove their ownership of the property.'
+            },
+            {
+                date: 'September 28th, 2024',
+                description: 'Expected first rental payment',
+                details: 'The first rental payment for this property is projected to be paid to investors by this date.'
+            }
+        ]
     },
-
     locationlink: {
         type: String,
         trim: true,
@@ -129,23 +149,35 @@ const ListingSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    amenities:{
-        type:Array
+    amenities: {
+        type: [AmenitySchema],
     },
-    documents:{
-        type:Array
+    documents: {
+        type: [DocumentSchema],
     },
-    fundingdate:{
-        type:String
+    fundingdate: {
+        type: String,
     },
-    mininvestment:{
-        type:String
+    mininvestment: {
+        type: String,
     },
-    islive:{
-        type:Number,
-        default:0
+    islive: {
+        type: Number,
+        default: 0,
+    },
+    propertyType: {
+        type: String, // New field for property type
+    },
+    chartData: {
+        type: ChartDataSchema, // New field for chart data with data and labels
+    },
+    minAmountToInvest: {
+        type: String, // New field for minimum amount to invest
+    },
+    monthlyChange: {
+        type: String, // Field for monthly change percentage
     }
-    
 });
 
+// Export the Listing model
 module.exports = mongoose.model('Listing', ListingSchema);

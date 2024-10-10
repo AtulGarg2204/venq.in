@@ -1,8 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
-import { InlineWidget } from "react-calendly";
+import { Slider as BaseSlider, sliderClasses } from "@mui/base/Slider";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import {
   Box,
   Button,
+  Card,
+  CardActionArea,
+  CardMedia,
   Divider,
   Grid,
   ImageList,
@@ -12,52 +19,28 @@ import {
   Typography,
   createTheme,
   styled,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  useMediaQuery,
-  TextField,
+  useMediaQuery
 } from "@mui/material";
+import { alpha, color, fontSize, width } from "@mui/system";
+import axios from "axios";
 import PropTypes from "prop-types";
-import { alpha, borderRadius, display, width } from "@mui/system";
-import { Slider as BaseSlider, sliderClasses } from "@mui/base/Slider";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { ToastContainer, toast } from "react-toastify";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import Popup from "reactjs-popup";
-import jwtDecode from "jwt-decode";
-import clock from "./clock.png";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import VerticalBarGraph from "./VerticalBarGraph";
-import Period from "./Period";
-import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import PoolIcon from "@mui/icons-material/Pool";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useState, useEffect, useReducer, useContext } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { DataContext } from "../../context/DataContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import Popup from "reactjs-popup";
 import config from "../../../config";
+import { DataContext } from "../../context/DataContext";
+import clock from "./clock.png";
+import Period from "./Period";
 // import Slider from "react-slick";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
-import ShowInterest from "./ShowInterest";
 // import { toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
 import Terms from "../../common/terms";
-import "./propertyitem.css";
 import LineChart from "./Linechart";
-import ReturnCalculator from "../../NewHome/HomeComponents/ReturnCalculator";
+import "./propertyitem.css";
 import Return_cal from "./Return_cal";
 
 const Options = styled(Link)`
@@ -73,7 +56,7 @@ const Options = styled(Link)`
   color: ${({ selected }) => (selected ? "black" : "rgb(112,111,111)")};
   &:hover {
     background-color: ${({ selected }) =>
-      selected ? "#cbe5ffb9" : "#cbe5ffb9"};
+    selected ? "#cbe5ffb9" : "#cbe5ffb9"};
     color: black;
   }
 `;
@@ -584,9 +567,8 @@ const Slider = styled(BaseSlider)(
       box-sizing: border-box;
       border-radius: 50%;
       outline: 0;
-      background-color: ${
-        theme.palette.mode === "light" ? blue[500] : blue[400]
-      };
+      background-color: ${theme.palette.mode === "light" ? blue[500] : blue[400]
+    };
       transition-property: box-shadow, transform;
       transition-timing-function: ease;
       transition-duration: 120ms;
@@ -594,24 +576,24 @@ const Slider = styled(BaseSlider)(
   
       &:hover {
         box-shadow: 0 0 0 6px ${alpha(
-          theme.palette.mode === "light" ? blue[200] : blue[300],
-          0.3
-        )};
+      theme.palette.mode === "light" ? blue[200] : blue[300],
+      0.3
+    )};
       }
   
       &.${sliderClasses.focusVisible} {
         box-shadow: 0 0 0 8px ${alpha(
-          theme.palette.mode === "light" ? blue[200] : blue[400],
-          0.5
-        )};
+      theme.palette.mode === "light" ? blue[200] : blue[400],
+      0.5
+    )};
         outline: none;
       }
   
       &.${sliderClasses.active} {
         box-shadow: 0 0 0 8px ${alpha(
-          theme.palette.mode === "light" ? blue[200] : blue[400],
-          0.5
-        )};
+      theme.palette.mode === "light" ? blue[200] : blue[400],
+      0.5
+    )};
         outline: none;
         transform: scale(1.2);
       }
@@ -622,16 +604,14 @@ const Slider = styled(BaseSlider)(
       width: 10px;
       height: 10px;
       border-radius: 99%;
-      background-color: ${
-        theme.palette.mode === "light" ? blue[200] : blue[900]
-      };
+      background-color: ${theme.palette.mode === "light" ? blue[200] : blue[900]
+    };
       transform: translateX(-50%);
     }
   
     & .${sliderClasses.markActive} {
-      background-color: ${
-        theme.palette.mode === "light" ? blue[500] : blue[400]
-      };
+      background-color: ${theme.palette.mode === "light" ? blue[500] : blue[400]
+    };
     }
   
     & .${sliderClasses.markLabel} {
@@ -817,6 +797,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const maxWords = 50;
   const { setData } = useContext(DataContext);
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const [propertyType, setPropertyType] = useState('');
+  const [minAmountToInvest, setMinAmountToInvest] = useState('');
+  const [fundTimeline, setFundTimeline] = useState([]);
+  const [chartData, setChartData] = useState(null);
+
   console.log(location);
   useEffect(() => {
     const fetchListing = async () => {
@@ -824,17 +810,34 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         const response = await axios.get(`${URL}/listing/${id}`);
         console.log(response.data);
         setListing(response.data);
-        setContent(listing.propertyoverview);
-        settruncatedcontent(content.split(" ").slice(0, maxWords).join(" "));
-        setShouldtruncate(content.split(" ").length > maxWords);
+
+        // Inside the try block after setting the listing state
+        const chartData = response.data.chartData;
+        setChartData(chartData); // Ensure you have defined setChartData with useState
+
+        // Use response.data directly
+        const propertyOverview = response.data.propertyoverview;
+        setContent(propertyOverview);
+
+        const propertyType = response.data.propertyType; // Ensure this property exists in your data
+        setPropertyType(propertyType);
+
+        const minAmountToInvest = response.data.minAmountToInvest;
+        setMinAmountToInvest(minAmountToInvest);
+
+        const fundTimeline = response.data.fundtimeline;
+        setFundTimeline(fundTimeline);
+
+        settruncatedcontent(propertyOverview.split(" ").slice(0, maxWords).join(" "));
+        setShouldtruncate(propertyOverview.split(" ").length > maxWords);
+
         console.log("listingData for date", response.data);
         localStorage.setItem("selectedId", id);
-        // listing.push(response.data);
-        // console.log(listing.images.length);
       } catch (error) {
         console.error("Error fetching listing:", error);
       }
     };
+
     setAdmin(token.isAdmin);
 
     const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
@@ -842,6 +845,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
     fetchListing();
   }, [id, totalStock.totalAmt, totalStock.stockQun]);
+
   const validCoupon = "VENQ500";
   const discountAmount = totalStock.stockQun * 500;
   const propertyParts = listing.propertydescription;
@@ -1077,6 +1081,55 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const closeInvestComponent = () => {
     setShowInvestComponent(false);
   };
+
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
+
+  const terms = [
+    {
+      label: "Security type: Common Stock shares",
+      description: "Common stock shares represent ownership in the company.",
+    },
+    {
+      label: "Price per share: $7.35",
+      description: "The current market price for one share of the stock.",
+    },
+    {
+      label: "Funding goal: $50K / $2.5M / $5M",
+      description: "The total amount of funding the project aims to raise.",
+    },
+    {
+      label: "Minimum investment: $500",
+      description: "The smallest amount of money you can invest in this deal.",
+    },
+    {
+      label: "Maximum investment: $124K",
+      description: "The largest amount of money you can invest in this deal.",
+    },
+    {
+      label: "Deadline: November 9, 2024",
+      description: "The last date to invest in this opportunity.",
+    },
+    {
+      label: "How it works",
+      description: "An overview of the investment process and terms.",
+    },
+  ];
+
+  const usdFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'INR',
+  });
+
+  const investmentAmount = 5000;
+
+  const handleToggle = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+
   return (
     <div
       style={{
@@ -1181,10 +1234,17 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     key={index}
                     cols={colarr[index]}
                     rows={rowarr[index]}
+                    sx={{ overflow: 'hidden' }}
+
                   >
                     <img
                       // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                      style={{ borderRadius: "10px" }}
+                      style={{
+                        borderRadius: "10px",
+                        objectFit: "cover",
+                        height: "100%",
+                        width: "100%",
+                      }}
                       src={`${item}?w=164&h=164&fit=crop&auto=format`}
                       alt={"my image"}
                       loading="lazy"
@@ -1874,7 +1934,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "25px",
                         }}
                       >
-                        33.16%
+                        {listing.annualizedreturn}
                       </p>
                       <p
                         style={{
@@ -1901,7 +1961,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "13px",
                         }}
                       >
-                        +0.45%
+                        {listing.monthlyChange}
                       </p>
                       <p
                         style={{
@@ -1914,9 +1974,22 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         1M
                       </p>
                     </Box>
-                    <Box>
-                      <LineChart />
-                      <Divider />
+
+                    <Box
+                      style={{
+                        marginTop: "20px",
+                      }}
+                    >
+                      <LineChart data={listing.chartData} />
+                      <Divider
+                        style={{
+                          margin: "20px 0", // Space above and below the divider
+                          backgroundColor: "#e0e0e0", // Color of the divider
+                          height: "1px", // Thickness of the divider
+                        }}
+                      />
+
+
                       <SubTitle
                         style={{
                           width: "28px",
@@ -1936,7 +2009,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
-                          justifyContent: "center",
+                          justifyContent: "start",
                           border: "0.2px solid #e9e9eb",
                           borderRadius: "10px",
                         }}
@@ -1949,13 +2022,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             padding: "5px 0",
                             marginBottom: "5vh",
                             textAlign: "start",
-                            marginLeft: "-21vw",
+                            marginLeft: "",
                           }}
                         >
                           {" "}
                           Return Calculator
                         </Typography>
-                        <Return_cal />
+                        <Return_cal minAmountToInvest={listing.minAmountToInvest} />
                       </Box>
 
                       <Box
@@ -2025,7 +2098,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   }}
                                 >
                                   <FinanceSubHeading>
-                                    Property price 
+                                    Property price
                                   </FinanceSubHeading>
                                   <FinanceAmount>
                                     INR {listing.propertypricen}
@@ -2090,7 +2163,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Grid item xs={12} md={6}>
                             <Box style={{ padding: "10px 0" }}>
                               <FinanceHeading>
-                                Rental income (Year 1) 
+                                Rental income (Year 1)
                               </FinanceHeading>
 
                               <Box>
@@ -2441,7 +2514,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             Each step may occur earlier than the dates below
                           </Typography>
                         </Box>
-                        <Period />
+                        <Period fundt={listing.fundtimeline} />
                       </Box>
                     )}
                   </>
@@ -2506,7 +2579,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                     </Box>
                     <Box>
-                      <LineChart />
+                      <LineChart data={listing.chartData} />
                       <Divider />
                       <SubTitle
                         style={{
@@ -2529,6 +2602,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontFamily: "Inter",
                           paddingBottom: "20px",
                           paddingTop: "20px",
+
                         }}
                       >
                         Return Calculator
@@ -2546,12 +2620,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            justifyContent: "center",
+                            justifyContent: "start",
                             border: "0.2px solid #e9e9eb",
                             borderRadius: "10px",
                           }}
                         >
-                          <Return_cal />
+                          <Return_cal minAmountToInvest={listing.minAmountToInvest} />
                         </Box>
 
                         <Box
@@ -2630,7 +2704,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   </FinanceSubHeading>
                                   <FinanceAmount>
                                     INR {listing.propertypricen}
-                                    
+
                                   </FinanceAmount>
                                 </Box>
 
@@ -3334,7 +3408,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         bgColor="#50B487"
                         labelColor="#50B487"
                         height="0.6rem"
-                        // labelClassName="label"
+                      // labelClassName="label"
                       />
                       <Typography
                         style={{
@@ -3871,7 +3945,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               onClick={() => {
                                 handleRequest(0);
                               }}
-                              // disabled={selectedValue==""}
+                            // disabled={selectedValue==""}
                             >
                               ADD TO CART
                             </Button>
@@ -3890,7 +3964,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 onClick={() => {
                                   handleRequest(1);
                                 }}
-                                // disabled={selectedValue==""}
+                              // disabled={selectedValue==""}
                               >
                                 APPLY
                               </Button>
@@ -3908,7 +3982,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 color="primary"
                                 fullWidth
                                 onClick={handleRequest}
-                                // disabled={selectedValue==""}
+                              // disabled={selectedValue==""}
                               >
                                 INVEST
                               </Button>
@@ -3974,7 +4048,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       border: "0.2px solid #e9e9eb",
                       borderRadius: "10px",
                       borderRadius: "20px",
-                      padding: "10px",
+                      padding: "20px",
                     }}
                   >
                     <Box style={{ textAlign: "center", paddingBottom: "10px" }}>
@@ -4444,7 +4518,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 onClick={() => {
                                   handleRequest(0);
                                 }}
-                                // disabled={selectedValue==""}
+                              // disabled={selectedValue==""}
                               >
                                 ADD TO CART
                               </Button>
@@ -4463,7 +4537,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   onClick={() => {
                                     handleRequest(1);
                                   }}
-                                  // disabled={selectedValue==""}
+                                // disabled={selectedValue==""}
                                 >
                                   APPLY
                                 </Button>
@@ -4481,7 +4555,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   color="primary"
                                   fullWidth
                                   onClick={handleRequest}
-                                  // disabled={selectedValue==""}
+                                // disabled={selectedValue==""}
                                 >
                                   INVEST
                                 </Button>
@@ -4534,7 +4608,143 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       3,987 people viewed this property
                     </Typography>
                   </Box>
+
+                  <Grid item xs={12}>
+                    <Box
+                      style={{
+
+                        margin: "20px",
+                        marginBottom: '50px',
+                        padding: "20px 40px",
+                        backgroundColor: "#ffffff",
+                        borderRadius: "22px",
+                        border: "0.2px solid #e9e9eb",
+                      }}
+                    >
+                      <Typography
+                        style={{
+                          fontFamily: "Inter",
+                          fontSize: "22px",
+                          fontWeight: 900,
+                          marginBottom: "30px",
+                          color: "#44475B",
+                        }}
+                      >
+                        Deal Terms
+                      </Typography>
+
+                      {terms.map((term, index) => (
+                        <div
+                          key={index}
+                          onMouseEnter={() => setExpandedIndex(index)}
+                          onMouseLeave={() => setExpandedIndex(null)}
+                          style={{ marginBottom: "20px" }} // Space between items
+                        >
+                          <Typography
+                            style={{
+                              fontFamily: "Inter",
+                              fontSize: "14px",
+                              cursor: "pointer",
+                              color: "black",
+                            }}
+                          >
+                            {term.label}
+                          </Typography>
+                          <Divider style={{ margin: "10px 0" }} />
+
+                          {expandedIndex === index && (
+                            <Box
+                              style={{
+                                maxHeight: expandedIndex === index ? '100px' : '0px', // Adjust height based on index
+                                overflow: 'hidden', // Hide overflow
+                                transition: 'max-height 0.4s ease', // Smooth transition
+                                padding: expandedIndex === index ? '10px 0' : '0 0', // Add padding when expanded
+                                backgroundColor: "white",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              <Typography
+                                style={{
+                                  fontFamily: "Inter",
+                                  fontSize: "12px",
+                                  color: "black",
+                                }}
+                              >
+                                {term.description}
+                              </Typography>
+                            </Box>
+                          )}
+                        </div>
+                      ))}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Box
+                      style={{
+                        margin: "20px",
+                        marginBottom: '50px',
+                        padding: "20px 50px",
+                        backgroundColor: "#ffffff",
+                        borderRadius: "22px",
+                        border: "0.2px solid #e9e9eb",
+                      }}
+                    >
+                      <Typography
+                        style={{
+                          fontFamily: "Inter",
+                          fontSize: "22px",
+                          fontWeight: 600,
+                          marginBottom: "15px",
+                          color: "#44475B",
+                        }}
+                      >
+                        Receive
+                      </Typography>
+
+                      <ul style={{ paddingLeft: '20px 10px', color: "#44475B", lineHeight:"50px", color:"black",fontFamily: "Inter", fontSize: "14px",}}>
+                        <li>Exclusive invite to zoom conversation with CEO and well-known conservative commentators</li>
+                        <li>25% off code to Coign Webstore</li>
+                        <li>Access to free, exclusive, investor-only merchandise.</li>
+                      </ul>
+
+                      <Typography
+                        style={{
+                          fontFamily: "Inter",
+                          fontSize: "14px",
+                          marginTop: "20px",
+                          color: "black",
+                          marginBottom:"25px",
+                        }}
+                      >
+                        Limited (88 left of 100)
+                      </Typography>
+                      {/* Investment Button */}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                          display:"flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                          backgroundColor: "#00b386",
+                          borderRadius: "8px",
+                          fontFamily: "Inter",
+                          fontSize: "18px",
+                          fontWeight: 900,
+                          marginBottom: "30px",
+                          backgroundColor: "#0170DC",
+                          padding: "10px 20px",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        Invest {usdFormatter.format(investmentAmount)}
+                      </Button>
+                    </Box>
+                  </Grid>
+
                 </Pricing>
+
               </Grid>
             )}
             {!isSmallScreen && listing?.islive == 1 && (
@@ -4803,7 +5013,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           setinvtype(1);
                                         }}
                                       >
-                                        Invest 
+                                        Invest
                                       </li>
                                     </ul>
                                   </nav>
@@ -5200,7 +5410,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               3,987 people viewed this property
             </Typography>
           </Box>
+
         )}
+
+
+
+
 
         {!isEditMode && isAdmin && (
           <button onClick={handleEditClick}>Edit</button>
@@ -5396,7 +5611,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   fontSize: "16px",
                                   fontFamily: "Inter",
                                 }}
-                                onClick={() => {}}
+                                onClick={() => { }}
                               >
                                 Allotment
                               </li>
@@ -5585,8 +5800,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       className="unit-value-in"
                                       type="text"
                                       value={"₹" + totalAmount + ".00"}
-                                      // value={totalStock.totalAmt}
-                                      // value="9999"
+                                    // value={totalStock.totalAmt}
+                                    // value="9999"
                                     />
                                   </div>
                                 </div>
@@ -5612,7 +5827,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     onClick={() => {
                                       handleRequest(0);
                                     }}
-                                    // disabled={selectedValue==""}
+                                  // disabled={selectedValue==""}
                                   >
                                     ADD TO CART
                                   </Button>
@@ -5629,7 +5844,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     color="primary"
                                     fullWidth
                                     onClick={handlePopopRequest}
-                                    // disabled={selectedValue==""}
+                                  // disabled={selectedValue==""}
                                   >
                                     INVEST
                                   </Button>

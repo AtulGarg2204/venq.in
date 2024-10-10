@@ -32,114 +32,53 @@ const Container = styled(TimelineItem)`
     content: none;
   }
 `;
+
+// Define colors for different statuses or indices
+const dotColors = [
+  "#0170dc", // Color for the first item
+  "#f50057", // Color for the second item
+  "#ff9800", // Color for the third item
+  "#4caf50", // Color for the fourth item
+  "#3f51b5", // Color for the fifth item
+];
+
 const Period = ({ fundt }) => {
   return (
     <div style={{ color: "black" }}>
       <Timeline style={{ padding: "20px 0" }}>
-        {/* <Container>
-          <Content>
-            <TimelineSeparator
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                margin: "0 10px",
-              }}
-            >
-              <TimelineDot style={{ width: "20px", height: "20px" }} />
-            </TimelineSeparator>
-
-            <TimelineContent>
-              <Date>sdate</Date>
-              <Heading>adf</Heading>
-              <Information>adf </Information>
-            </TimelineContent>
-          </Content>
-        </Container> */}
-
-        <Container style={{ position: "left" }}>
-          <Content>
-            <TimelineSeparator
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: " center",
-                margin: "0 7px",
-              }}
-            >
-              <TimelineDot
-                variant="outlined"
+        {fundt.map((item, index) => (
+          <Container key={index}>
+            <Content>
+              <TimelineSeparator
                 style={{
-                  border: "5px solid #0170dc",
-                  width: "25px",
-                  height: "25px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "0 10px",
                 }}
-              />
-              <TimelineConnector style={{ height: "50px" }} />
-            </TimelineSeparator>
+              >
+                <TimelineDot
+                  variant="outlined"
+                  style={{
+                    border: `5px solid ${dotColors[index % dotColors.length]}`, // Use color based on index
+                    width: "25px",
+                    height: "25px",
+                  }}
+                />
+                {index < fundt.length - 1 && (
+                  <TimelineConnector style={{ height: "50px" }} />
+                )}
+              </TimelineSeparator>
 
-            <TimelineContent>
-              <Date>June 15, 2024</Date>
-              <Heading>Expected closing date</Heading>
-              <Information>
-                This is a conservative estimate for the closing date of the
-                property funding
-              </Information>
-            </TimelineContent>
-          </Content>
-        </Container>
-
-        <Container>
-          <Content>
-            <TimelineSeparator
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: " center",
-                margin: "0 10px",
-              }}
-            >
-              <TimelineDot style={{ width: "20px", height: "20px" }} />
-              <TimelineConnector style={{ height: "70px" }} />
-            </TimelineSeparator>
-
-            <TimelineContent>
-              <Date>July 22nd, 2024</Date>
-              <Heading>SPV formation and title deed distribution</Heading>
-              <Information>
-                The SPV will be created and all investors will receive their
-                title deeds within 2-3 weeks of the funding closing, to prove
-                their ownership of the property
-              </Information>
-            </TimelineContent>
-          </Content>
-        </Container>
-
-        <Container>
-          <Content>
-            <TimelineSeparator
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                margin: "0 10px",
-              }}
-            >
-              <TimelineDot style={{ width: "20px", height: "20px" }} />
-            </TimelineSeparator>
-
-            <TimelineContent>
-              <Date>September 28th, 2024</Date>
-              <Heading>Expected first rental payment</Heading>
-              <Information>
-                The first rental payment for this property is projected to be
-                paid to investors by September 28th, 2023
-              </Information>
-            </TimelineContent>
-          </Content>
-        </Container>
+              <TimelineContent>
+                <Date>{item.date}</Date>
+                <Heading>{item.description}</Heading>
+                <Information>{item.details}</Information>
+              </TimelineContent>
+            </Content>
+          </Container>
+        ))}
       </Timeline>
     </div>
   );

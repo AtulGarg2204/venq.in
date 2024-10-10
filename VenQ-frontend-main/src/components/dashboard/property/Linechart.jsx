@@ -1,102 +1,122 @@
 import React, { useEffect, useRef } from "react";
-import Chart from "chart.js/auto";
+import { Chart } from "chart.js";
 
-const LineChart = () => {
+import {
+  Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Title,
+  Tooltip,
+  Legend,
+  LineController,
+} from 'chart.js';
+
+// Register necessary components
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, LineController);
+
+const LineChart = ({ data }) => {
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    if (chartContainer && chartContainer.current) {
+    if (chartContainer.current && data) {
+      const ctx = chartContainer.current.getContext("2d");
       if (chartInstance.current) {
-        // Destroy existing chart instance
         chartInstance.current.destroy();
       }
 
-      const ctx = chartContainer.current.getContext("2d");
       chartInstance.current = new Chart(ctx, {
         type: "line",
         data: {
-          labels: [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-          ],
+          labels: data.labels,
           datasets: [
             {
-              label: "", // Remove dataset label
-              data: [
-                65, 59, 80, 81, 56, 55, 34, 61, 68, 70, 74, 82, 90, 91, 93,
-              ],
-              borderColor: "rgb(75, 192, 192)",
-              tension: 0.1,
-              fill: false,
-              pointRadius: 0, // Remove point circles
+              label: "Property Value Over Time",
+              data: data.data,
+              borderColor: "blue", // Set the line color to blue
+              backgroundColor: "rgba(0, 0, 255, 0.2)", // Optional: Add a background color under the line
+              pointRadius: 5, // Point size
+              pointBackgroundColor: "rgb(255,255,255)", // Point color
+              tension: 0.4, // Smoothness of the line
+              fill: true, // Fill area under the line
             },
           ],
         },
         options: {
-          plugins: {
-            legend: {
-              display: false, // Remove chart legend
-            },
-            tooltip: {
-              enabled: true,
-              callbacks: {
-                label: function (context) {
-                  return "Value: " + context.raw;
-                },
-              },
-            },
-          },
-          interaction: {
-            mode: "nearest", // Tooltip mode
-            axis: "x", // Axis for finding the nearest item
-            intersect: false, // Display tooltip even if not intersecting a point
-          },
+          responsive: true,
+          maintainAspectRatio: false, // Maintain aspect ratio based on container size
           scales: {
             x: {
+              title: {
+                display: true,
+                text: "Time", // Label for X-axis
+                color: "#333",
+                font: {
+                  size: 16,
+                  weight: 'bold',
+                },
+              },
               grid: {
-                display: false, // Remove vertical grid lines
-              },
-              ticks: {
-                display: false, // Remove x-axis labels
-              },
-              border: {
-                display: false, // Remove x-axis line
+                color: "rgba(0, 0, 0, 0.1)", // Grid line color
+                lineWidth: 1, // Grid line width
               },
             },
             y: {
-              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Property Value (INR / SQFT)", // Label for Y-axis
+                color: "#333",
+                font: {
+                  size: 16,
+                  weight: 'bold',
+                },
+              },
               grid: {
-                display: false, // Remove horizontal grid lines
+                color: "rgba(0, 0, 0, 0.1)", // Grid line color
+                lineWidth: 1, // Grid line width
               },
-              ticks: {
-                display: false, // Remove y-axis labels
+              beginAtZero: true, // Start Y-axis at zero
+            },
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: "top", // Position of the legend
+              labels: {
+                color: "#333", // Legend label color
+                font: {
+                  size: 14,
+                  weight: 'bold',
+                },
               },
-              border: {
-                display: false, // Remove y-axis line
+            },
+            tooltip: {
+              backgroundColor: "rgba(0, 0, 0, 0.8)", // Tooltip background color
+              titleColor: "#fff", // Tooltip title color
+              bodyColor: "#fff", // Tooltip body color
+              borderColor: "rgba(75, 192, 192, 1)", // Tooltip border color
+              borderWidth: 1, // Tooltip border width
+              callbacks: {
+                label: function (tooltipItem) {
+                  return `${tooltipItem.dataset.label}: ₹${tooltipItem.raw.toLocaleString()}`;
+                },
               },
             },
           },
         },
       });
     }
-  }, []);
+  }, [data]);
 
   return (
-    <div style={{ width: "auto", height: "auto" }}>
+    <div style={{
+      width: "80%", // Adjust this value to reduce/increase width (e.g., "60%", "400px")
+      height: "400px",
+      margin: "0 auto", // Center the chart horizontally
+      backgroundColor: "#ffffff", // Set background to white
+    }}>
       <canvas ref={chartContainer}></canvas>
     </div>
   );

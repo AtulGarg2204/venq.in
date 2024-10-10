@@ -19,12 +19,31 @@ import {
   useMediaQuery,
   TextField,
 } from "@mui/material";
+
 const Return_cal = () => {
   const [initialInvestment, setInitialInvestment] = useState(20000);
-  const [finalInvestment, setFinalInvestment] = useState(
-    initialInvestment + initialInvestment * 0.3
-  );
+  const [finalInvestment, setFinalInvestment] = useState(initialInvestment + initialInvestment * 0.3);
   const [year, setYear] = useState(3);
+
+  // Function to calculate the final investment based on the selected years
+  const calculateFinalInvestment = (selectedYear) => {
+    let multiplier;
+    switch (selectedYear) {
+      case 3:
+        multiplier = 0.9;
+        break;
+      case 5:
+        multiplier = 1.5;
+        break;
+      case 7:
+        multiplier = 2.1;
+        break;
+      default:
+        multiplier = 0; // Default value
+    }
+    setFinalInvestment(initialInvestment + initialInvestment * multiplier);
+  };
+
   return (
     <div className="cal-image">
       <Typography
@@ -45,7 +64,12 @@ const Return_cal = () => {
         max="250000"
         step="500"
         value={initialInvestment}
-        onChange={(e) => setInitialInvestment(parseInt(e.target.value))}
+        onChange={(e) => {
+          const newInvestment = parseInt(e.target.value);
+          setInitialInvestment(newInvestment);
+          // Recalculate final investment when the initial investment changes
+          calculateFinalInvestment(year);
+        }}
         style={{
           marginTop: "25px",
           marginBottom: "60px",
@@ -70,14 +94,13 @@ const Return_cal = () => {
             height: "30px",
             borderRadius: "20px",
             marginRight: "10px",
-            // marginLeft: "-10px",
           }}
           onClick={() => {
             setYear(3);
-            setFinalInvestment(initialInvestment + initialInvestment * 0.9);
+            calculateFinalInvestment(3);
           }}
         >
-          3 year
+          3 years
         </button>
         <button
           style={{
@@ -90,10 +113,10 @@ const Return_cal = () => {
           }}
           onClick={() => {
             setYear(5);
-            setFinalInvestment(initialInvestment + initialInvestment * 1.5);
+            calculateFinalInvestment(5);
           }}
         >
-          5 years{" "}
+          5 years
         </button>
         <button
           style={{
@@ -107,7 +130,7 @@ const Return_cal = () => {
           }}
           onClick={() => {
             setYear(7);
-            setFinalInvestment(initialInvestment + initialInvestment * 2.1);
+            calculateFinalInvestment(7);
           }}
         >
           7 years
@@ -143,9 +166,7 @@ const Return_cal = () => {
             color: "#00B368",
           }}
         >
-          {year === 3 && initialInvestment + initialInvestment * 0.9}
-          {year === 5 && initialInvestment + initialInvestment * 1.5}
-          {year === 7 && initialInvestment + initialInvestment * 2.1}{" "}
+          {finalInvestment}
         </span>
       </Typography>
     </div>
