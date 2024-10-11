@@ -177,6 +177,10 @@ const Properties = () => {
         // console.log("Fetched data from server:", response.data);
         console.log(response.data);
         setListings(response.data);
+        response.data.forEach((listing) => {
+          console.log(listing.propertyType); // Access 'propertyType' for each listing
+        });
+
       })
       .catch((error) => {
         console.error(error);
@@ -226,7 +230,7 @@ const Properties = () => {
             onClick={() => handleButtonClick("available")}
             active={activeButton === "available"}
           >
-            Available 
+            Available
           </OptionName>
 
           <OptionName
@@ -327,12 +331,12 @@ const Properties = () => {
                             } */}
 
                                   <FixedBox>
-                                    {filteredListing.properyheading.includes(
-                                      "Plot"
-                                    )
+                                    {filteredListing?.propertyheading && filteredListing.propertyheading.includes("Plot")
                                       ? "Plot"
-                                      : "Luxury Property"}
+                                      : `${filteredListing.propertyType || "Luxury Property"}`}
                                   </FixedBox>
+
+
                                 </div>
                               ))}
                             </Carousel>
