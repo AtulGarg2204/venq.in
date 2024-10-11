@@ -383,7 +383,7 @@ function Dashboard() {
         // Make a new POST request after opening the link
         const newPayload = {
           client_id: clientId,
-          link: "https://res.cloudinary.com/dwhhchqvk/raw/upload/v1727366492/pdfs/nkr98dkninfwa2rmy5qu.pdf",
+          link: "https://res.cloudinary.com/dhrsf44wi/image/upload/v1728382382/Property_Manangement_Agreement_knymi3.pdf",
         };
 
         const newUrl = `${URL}/surepass/uploadPdf`; // Replace with your actual second API URL
