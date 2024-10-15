@@ -3,6 +3,8 @@ import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import {
   Box,
@@ -21,7 +23,7 @@ import {
   styled,
   useMediaQuery
 } from "@mui/material";
-import { alpha, color, fontSize, width } from "@mui/system";
+import { alpha, color, fontSize, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useReducer, useState } from "react";
@@ -765,6 +767,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   // console.log("hello");
   const [totalamount, settotalamount] = useState(0);
   const [count, setcount] = useState(0);
+  const [hoveredTerm, setHoveredTerm] = useState(null);
 
   const [quantity, setQuantity] = useState(2000);
   const [investment, setInvestment] = useState(50000);
@@ -789,8 +792,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [listing, setListing] = useState({});
   const token = JSON.parse(localStorage.getItem("userinfo"));
   const [content, setContent] = useState("");
-  const [truncatedContent, settruncatedcontent] = useState("");
-  const [shouldTruncate, setShouldtruncate] = useState(false);
+
   const [couponInput, setCouponInput] = useState("");
   const [message, setMessage] = useState("");
   const [totalAmount, setTotalAmount] = useState(totalStock.totalAmt);
@@ -803,6 +805,15 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [fundTimeline, setFundTimeline] = useState([]);
   const [chartData, setChartData] = useState(null);
 
+  const [timeShareDescription, setTimeShareDescription] = useState('');
+  const [timeShareOffers, setTimeShareOffers] = useState([]);
+  const [timeShareLimitedAvailability, setTimeShareLimitedAvailability] = useState('');
+  const [timeShareInvestmentAmount, setTimeShareInvestmentAmount] = useState(0);
+
+  const [truncatedContent, setTruncatedContent] = useState('');
+  const [shouldTruncate, setShouldTruncate] = useState(false);
+
+
   console.log(location);
   useEffect(() => {
     const fetchListing = async () => {
@@ -811,25 +822,15 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         console.log(response.data);
         setListing(response.data);
 
-        // Inside the try block after setting the listing state
-        const chartData = response.data.chartData;
-        setChartData(chartData); // Ensure you have defined setChartData with useState
+        // Destructure timeShare safely
 
-        // Use response.data directly
-        const propertyOverview = response.data.propertyoverview;
-        setContent(propertyOverview);
 
-        const propertyType = response.data.propertyType; // Ensure this property exists in your data
-        setPropertyType(propertyType);
+        // Set chart data
+        setChartData(chartData || null);
 
-        const minAmountToInvest = response.data.minAmountToInvest;
-        setMinAmountToInvest(minAmountToInvest);
 
-        const fundTimeline = response.data.fundtimeline;
-        setFundTimeline(fundTimeline);
 
-        settruncatedcontent(propertyOverview.split(" ").slice(0, maxWords).join(" "));
-        setShouldtruncate(propertyOverview.split(" ").length > maxWords);
+        // Truncate content logic
 
         console.log("listingData for date", response.data);
         localStorage.setItem("selectedId", id);
@@ -839,12 +840,17 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     };
 
     setAdmin(token.isAdmin);
-
     const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
     setTotalAmount(numericAmount);
 
     fetchListing();
-  }, [id, totalStock.totalAmt, totalStock.stockQun]);
+  }, [id, totalStock.totalAmt, totalStock.stockQun, token]);
+
+
+  const handleExpandClick = () => {
+    // Toggle between expanded (1) and collapsed (null) on click
+    setExpandedIndex(expandedIndex === 1 ? null : 1);
+  };
 
   const validCoupon = "VENQ500";
   const discountAmount = totalStock.stockQun * 500;
@@ -1085,6 +1091,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [activeBoxIndex, setActiveBoxIndex] = useState(null); // Track which box is expanded for the new component
 
 
   const terms = [
@@ -1123,12 +1130,23 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     currency: 'INR',
   });
 
+  if (!listing || !listing.timeShare) {
+    return <div>Loading...</div>; // Loading state if listing is not yet available
+  }
+
+  const offers = listing.timeShare.offers || []; // Default to an empty array
+
   const investmentAmount = 5000;
 
   const handleToggle = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+
+
+  const toggleBox = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index); // Toggle between open and closed
+  };
 
   return (
     <div
@@ -4046,7 +4064,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       backgroundColor: "white",
                       border: "0.2px solid #e9e9eb",
-                      borderRadius: "10px",
                       borderRadius: "20px",
                       padding: "20px",
                     }}
@@ -4085,21 +4102,51 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     ></Box>
 
                     <ReturnsBox style={{ marginTop: "1rem" }}>
-                      <Box>
-                        <Box>Investment starts</Box>
-                        {/* {`${listing.annualizedreturn}`} */}
-                        <Box style={{ color: "black", fontWeight: "bold" }}>
-                          {listing.fundingdate}
+                      <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
+                        {/* Tokens */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
                         </Box>
-                      </Box>
-                      <Box>
-                        <Box>Min. Investment</Box>
-                        {/* {`${listing.annualizedreturn}`} */}
-                        <Box style={{ color: "black", fontWeight: "bold" }}>
-                          {listing.mininvestment}
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                        {/* Est. Yields */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                        {/* Target APR */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                        {/* Potential Gain */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
                         </Box>
                       </Box>
                     </ReturnsBox>
+
+
 
                     <Box
                       style={{
@@ -4587,7 +4634,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       You won't be charged yet
                     </Typography>
                   </Box>
-                  <Box
+                  {/* <Box
                     style={{
                       display: "flex",
                       justifyContent: "center",
@@ -4607,141 +4654,226 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       3,987 people viewed this property
                     </Typography>
-                  </Box>
+                  </Box> */}
 
-                  <Grid item xs={12}>
-                    <Box
-                      style={{
-
-                        margin: "20px",
-                        marginBottom: '50px',
-                        padding: "20px 40px",
-                        backgroundColor: "#ffffff",
-                        borderRadius: "22px",
-                        border: "0.2px solid #e9e9eb",
-                      }}
-                    >
-                      <Typography
+                  <Grid>
+                    {/* Deal Terms Box */}
+                    <Grid item xs={12} style={{ padding: 0 }}>
+                      <Box
                         style={{
-                          fontFamily: "Inter",
-                          fontSize: "22px",
-                          fontWeight: 900,
-                          marginBottom: "30px",
-                          color: "#44475B",
+                          margin: "20px 0", // Keep only vertical margins
+                          padding: "20px 40px",
+                          backgroundColor: "#ffffff",
+                          borderRadius: "22px",
+                          border: "0.2px solid #e9e9eb",
+                          display: "flex",
+                          flexDirection: "column",
                         }}
+                        onClick={() => setExpandedIndex(expandedIndex === 0 ? null : 0)} // Toggle expand on click
                       >
-                        Deal Terms
-                      </Typography>
-
-                      {terms.map((term, index) => (
-                        <div
-                          key={index}
-                          onMouseEnter={() => setExpandedIndex(index)}
-                          onMouseLeave={() => setExpandedIndex(null)}
-                          style={{ marginBottom: "20px" }} // Space between items
-                        >
+                        <Box display="flex" alignItems="center">
                           <Typography
                             style={{
                               fontFamily: "Inter",
-                              fontSize: "14px",
-                              cursor: "pointer",
-                              color: "black",
+                              fontSize: "22px",
+                              fontWeight: 900,
+                              marginBottom: "10px", // Adjusted to prevent too much space
+                              color: "#44475B",
+                              cursor: "pointer", // Show it's clickable
+                              flexGrow: 1, // Allow the title to take available space
                             }}
                           >
-                            {term.label}
+                            Deal Terms
                           </Typography>
-                          <Divider style={{ margin: "10px 0" }} />
+                          <ExpandMoreIcon
+                            style={{
+                              color: "#44475B",
+                              cursor: "pointer", // Show it's clickable
+                              transform: expandedIndex === 0 ? 'rotate(180deg)' : 'rotate(0deg)', // Rotate icon based on expanded state
+                              transition: 'transform 0.3s ease', // Smooth rotation transition
+                            }}
+                          />
+                        </Box>
 
-                          {expandedIndex === index && (
-                            <Box
+                        {expandedIndex === 0 && (
+                          <Box
+                            style={{
+                              overflow: 'hidden', // Hide overflow
+                              transition: 'max-height 0.4s ease', // Smooth transition
+                              padding: '10px 0', // Padding when expanded
+                              backgroundColor: "white",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            {listing.dealTerms.map((term, index) => (
+                              <div
+                                key={index}
+                                style={{
+                                  marginBottom: "20px",
+                                  cursor: "pointer" // Make it obvious that it's hoverable
+                                }}
+                                onMouseEnter={() => setHoveredTerm(index)} // Track hovered term
+                                onMouseLeave={() => setHoveredTerm(null)}  // Reset hovered term on leave
+                              >
+                                <Typography
+                                  style={{
+                                    fontFamily: "Inter",
+                                    fontSize: "14px",
+                                    color: "black",
+                                  }}
+                                >
+                                  {term.label}
+                                </Typography>
+
+                                {hoveredTerm === index && ( // Show description on hover
+                                  <Box
+                                    style={{
+                                      padding: '10px 0', // Padding for the description box
+                                      transition: 'max-height 0.3s ease', // Smooth slide down
+                                      backgroundColor: "white",
+                                    }}
+                                  >
+                                    <Divider style={{ margin: "10px 0" }} />
+                                    <Typography
+                                      style={{
+                                        fontFamily: "Inter",
+                                        fontSize: "12px",
+                                        color: "black",
+                                      }}
+                                    >
+                                      {term.description}
+                                    </Typography>
+                                  </Box>
+                                )}
+                              </div>
+                            ))}
+                          </Box>
+                        )}
+                      </Box>
+                    </Grid>
+
+
+                    {/* Timeshare Box */}
+                    <Grid item xs={12} style={{ padding: 0 }}>
+                      <Box
+                        style={{
+                          margin: "20px 0",
+                          padding: "20px 40px",
+                          backgroundColor: "#ffffff",
+                          borderRadius: "22px",
+                          border: "0.2px solid #e9e9eb",
+                          display: "flex",
+                          flexDirection: "column",
+                          cursor: "pointer" // Add a pointer cursor to indicate it's clickable
+                        }}
+                        onClick={handleExpandClick} // Click to toggle expand/collapse
+                      >
+                        <Box display="flex" alignItems="center">
+                          <Typography
+                            style={{
+                              fontFamily: "Inter",
+                              fontSize: "22px",
+                              fontWeight: 600,
+                              marginBottom: "15px",
+                              color: "#44475B",
+                              cursor: "pointer", // Ensure cursor changes when hovering over the title
+                              flexGrow: 1,
+                            }}
+                          >
+                            TimeShare
+                          </Typography>
+                          <ExpandMoreIcon
+                            style={{
+                              color: "#44475B",
+                              cursor: "pointer",
+                              transform: expandedIndex === 1 ? 'rotate(180deg)' : 'rotate(0deg)',
+                              transition: 'transform 0.3s ease',
+                            }}
+                          />
+                        </Box>
+
+                        {expandedIndex === 1 && (
+                          <Box
+                            style={{
+                              overflow: 'hidden',
+                              transition: 'max-height 0.4s ease',
+                              padding: '10px 0',
+                              backgroundColor: "white",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            <ul
                               style={{
-                                maxHeight: expandedIndex === index ? '100px' : '0px', // Adjust height based on index
-                                overflow: 'hidden', // Hide overflow
-                                transition: 'max-height 0.4s ease', // Smooth transition
-                                padding: expandedIndex === index ? '10px 0' : '0 0', // Add padding when expanded
-                                backgroundColor: "white",
-                                borderRadius: "5px",
+                                paddingLeft: '20px',
+                                color: "#44475B",
+                                lineHeight: "30px",
+                                fontFamily: "Inter",
+                                fontSize: "14px",
                               }}
                             >
-                              <Typography
-                                style={{
-                                  fontFamily: "Inter",
-                                  fontSize: "12px",
-                                  color: "black",
-                                }}
-                              >
-                                {term.description}
-                              </Typography>
-                            </Box>
-                          )}
-                        </div>
-                      ))}
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Box
-                      style={{
-                        margin: "20px",
-                        marginBottom: '50px',
-                        padding: "20px 50px",
-                        backgroundColor: "#ffffff",
-                        borderRadius: "22px",
-                        border: "0.2px solid #e9e9eb",
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontFamily: "Inter",
-                          fontSize: "22px",
-                          fontWeight: 600,
-                          marginBottom: "15px",
-                          color: "#44475B",
-                        }}
-                      >
-                        Receive
-                      </Typography>
+                              {Array.isArray(listing?.timeShare) && listing.timeShare.length > 0 ? (
+                                listing.timeShare.map((timeShare, index) => (
+                                  <div key={index}>
+                                    {timeShare.label && timeShare.details ? (
+                                      <li>
+                                        <strong>{timeShare.label}: </strong>
+                                        {timeShare.details}
+                                      </li>
+                                    ) : (
+                                      <li>No offers available</li>
+                                    )}
 
-                      <ul style={{ paddingLeft: '20px 10px', color: "#44475B", lineHeight:"50px", color:"black",fontFamily: "Inter", fontSize: "14px",}}>
-                        <li>Exclusive invite to zoom conversation with CEO and well-known conservative commentators</li>
-                        <li>25% off code to Coign Webstore</li>
-                        <li>Access to free, exclusive, investor-only merchandise.</li>
-                      </ul>
+                                    <Typography
+                                      style={{
+                                        fontFamily: "Inter",
+                                        fontSize: "14px",
+                                        marginTop: "20px",
+                                        color: "black",
+                                        marginBottom: "25px",
+                                      }}
+                                    >
+                                      {timeShare.limitedAvailability || "No availability info"}
+                                    </Typography>
 
-                      <Typography
-                        style={{
-                          fontFamily: "Inter",
-                          fontSize: "14px",
-                          marginTop: "20px",
-                          color: "black",
-                          marginBottom:"25px",
-                        }}
-                      >
-                        Limited (88 left of 100)
-                      </Typography>
-                      {/* Investment Button */}
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        style={{
-                          display:"flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: "100%",
-                          backgroundColor: "#00b386",
-                          borderRadius: "8px",
-                          fontFamily: "Inter",
-                          fontSize: "18px",
-                          fontWeight: 900,
-                          marginBottom: "30px",
-                          backgroundColor: "#0170DC",
-                          padding: "10px 20px",
-                          borderRadius: "8px",
-                        }}
-                      >
-                        Invest {usdFormatter.format(investmentAmount)}
-                      </Button>
-                    </Box>
+                                    <Button
+                                      variant="contained"
+                                      color="primary"
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "100%",
+                                        borderRadius: "8px",
+                                        fontFamily: "Inter",
+                                        fontSize: "18px",
+                                        fontWeight: 900,
+                                        marginBottom: "30px",
+                                        backgroundColor: "#00B386",
+                                        padding: "10px 20px",
+                                      }}
+                                    >
+                                      Invest {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(timeShare.investmentAmount || 0)}
+                                    </Button>
+                                  </div>
+                                ))
+                              ) : (
+                                <li>No timeShare data available</li>
+                              )}
+                            </ul>
+                          </Box>
+                        )}
+                      </Box>
+                    </Grid>
+
+
+
+
+
                   </Grid>
+
+
+
+
 
                 </Pricing>
 
@@ -4792,21 +4924,50 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     ></Box>
 
                     <ReturnsBox style={{ marginTop: "1rem" }}>
-                      <Box>
-                        <Box>Investment starts</Box>
-                        {/* {`${listing.annualizedreturn}`} */}
-                        <Box style={{ color: "black", fontWeight: "bold" }}>
-                          {listing.fundingdate}
+                      <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
+                        {/* Tokens */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
                         </Box>
-                      </Box>
-                      <Box>
-                        <Box>Min. Investment</Box>
-                        {/* {`${listing.annualizedreturn}`} */}
-                        <Box style={{ color: "black", fontWeight: "bold" }}>
-                          {listing.mininvestment}
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                        {/* Est. Yields */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                        {/* Target APR */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                        {/* Potential Gain */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
                         </Box>
                       </Box>
                     </ReturnsBox>
+
 
                     <Box
                       style={{
@@ -5513,12 +5674,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   </div>
 
                   <form onSubmit={handleInterest}>
-                    <Box>
+                    <Box style={{ padding: "10px 40px" }}>
                       <Label>
                         <LabelName>Select Amount to invest:</LabelName>
                       </Label>
                       <Label>
-                        <LabelAmount>INR {interestamount}</LabelAmount>
+                        <LabelAmount>INR {listing.minAmountToInvest}</LabelAmount>
                       </Label>
 
                       <LabelSlider
