@@ -21,6 +21,7 @@ import axios from "axios";
 import config from "../../config";
 import IconImage from "./favicon.png";
 import "./LoginPopup.css";
+import { fontSize } from "@mui/system";
 const Property = styled(Card)`
   background-color: white;
   border-radius: 10px;
@@ -414,7 +415,7 @@ const PropertyPage = () => {
                                 </Carousel>
                               </CardMedia>
                               <Subheader>
-                                <Box>
+                                <Box style={{fontSize:"15px"}}>
                                   {listing.propertydescription.split(" | ")[0]}
                                 </Box>
                                 <Box>
@@ -732,7 +733,7 @@ const PropertyPage = () => {
                               </CardMedia>
 
                               <CardContent>
-                                <Subheader>
+                                <Subheader >
                                   <Box>
                                     {
                                       filteredListing.propertydescription.split(
