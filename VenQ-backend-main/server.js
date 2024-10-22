@@ -38,7 +38,7 @@ const razorpay = new Razorpay({
   // key_id: "rzp_test_qhajW6qJ3G4guZ",
   // key_secret: "DGr7QRTZVxpDZWTFP9HtJWCF",
 });
-// console.log(process.env.NODE_ENV);
+console.log(process.env.NODE_ENV);
 connectDB();
 app.use(cors());
 
