@@ -35,11 +35,11 @@ const LineChart = ({ data }) => {
             {
               label: "Property Value Over Time",
               data: data.data,
-              borderColor: "blue", // Set the line color to blue
-              backgroundColor: "rgba(0, 0, 255, 0.2)", // Optional: Add a background color under the line
-              pointRadius: 5, // Point size
+              borderColor: "blue", // Line color
+              backgroundColor: "rgba(0, 0, 255, 0.2)", // Optional background color
+              pointRadius: 2, // Reduced point size to minimize deflection impact
               pointBackgroundColor: "rgb(255,255,255)", // Point color
-              tension: 0.4, // Smoothness of the line
+              tension: 0.2, // Smoother line (adjusted tension)
               fill: true, // Fill area under the line
             },
           ],
@@ -78,6 +78,8 @@ const LineChart = ({ data }) => {
                 lineWidth: 1, // Grid line width
               },
               beginAtZero: true, // Start Y-axis at zero
+              min: 0, // Minimum Y-axis value
+              max: Math.max(...data.data) + 100, // Set max to a value slightly above the highest data point
             },
           },
           plugins: {
