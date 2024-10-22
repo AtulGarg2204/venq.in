@@ -166,7 +166,7 @@ const Properties = () => {
     
     head.appendChild(script);
     
-    axios.get(`${URL}/listings`)
+    axios.get(`${URL}/listing`)
         .then((response) => {
             console.log("data", response.data);
             setListings(response.data);
