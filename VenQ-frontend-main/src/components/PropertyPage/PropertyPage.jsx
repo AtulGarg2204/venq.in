@@ -202,7 +202,7 @@ const PropertyPage = () => {
       setLoggedIn(true);
     }
     axios
-      .get(`${URL}/listings`)
+      .get(`${URL}/listing`)
 
       .then((response) => {
         setListings(response.data);
