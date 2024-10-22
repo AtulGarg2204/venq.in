@@ -818,7 +818,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await axios.get(`${URL}/listings/${id}`);
+        const response = await axios.get(`${URL}/listing/${id}`);
         console.log(response.data);
         setListing(response.data);
   
