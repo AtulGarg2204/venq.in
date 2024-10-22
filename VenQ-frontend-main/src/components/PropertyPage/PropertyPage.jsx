@@ -10,18 +10,15 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import EventIcon from "@mui/icons-material/Event";
 import { Link, useNavigate } from "react-router-dom";
-import star from "./star.png";
-import Navbar from "../navbar/Navbar";
-import axios from "axios";
 import config from "../../config";
+import Navbar from "../navbar/Navbar";
 import IconImage from "./favicon.png";
 import "./LoginPopup.css";
-import { fontSize } from "@mui/system";
 const Property = styled(Card)`
   background-color: white;
   border-radius: 10px;
