@@ -176,7 +176,7 @@ const Properties = () => {
       .get(`${URL}/listing`)
       .then((response) => {
         // console.log("Fetched data from server:", response.data);
-        console.log(response.data);
+        console.log("data",response.data);
         setListings(response.data);
         response.data.forEach((listing) => {
           console.log(listing.propertyType); // Access 'propertyType' for each listing
@@ -188,7 +188,7 @@ const Properties = () => {
       });
 
     setAdmin(token.isAdmin);
-  }, []);
+  }, [token]);
 
   // const luxuryListings = listings.filter(
   //   (listing) => listing.main_heading === "Luxury Property"
