@@ -153,42 +153,39 @@ const Properties = () => {
   const URL = config.URL;
 
   useEffect(() => {
-
     if (token) {
-      setLoggedIn(true);
+        setLoggedIn(true);
     }
+    
     const head = document.querySelector("head");
     const script = document.createElement("script");
-
+    
     script.setAttribute("type", "text/javascript");
-    script.setAttribute(
-      "src",
-      "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
-    );
-    // script.setAttribute("id", "aisensy-wa-widget");
+    script.setAttribute("src", "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js");
     script.setAttribute("widget-id", "LKoMcZ");
+    
     head.appendChild(script);
-    console.log(script);
-
-
-
-    axios
-      .get(`${URL}/listing`)
-      .then((response) => {
-        // console.log("Fetched data from server:", response.data);
-        console.log("data",response.data);
-        setListings(response.data);
-        response.data.forEach((listing) => {
-          console.log(listing.propertyType); // Access 'propertyType' for each listing
+    
+    axios.get(`${URL}/listing`)
+        .then((response) => {
+            console.log("data", response.data);
+            setListings(response.data);
+            response.data.forEach((listing) => {
+                console.log(listing.propertyType); // Access 'propertyType' for each listing
+            });
+        })
+        .catch((error) => {
+            console.error(error);
         });
 
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
     setAdmin(token.isAdmin);
-  }, [token]);
+    
+    // Cleanup function to remove the script when the component unmounts
+    return () => {
+        head.removeChild(script);
+    };
+}, [token, setLoggedIn, setAdmin, setListings]);
+
 
   // const luxuryListings = listings.filter(
   //   (listing) => listing.main_heading === "Luxury Property"

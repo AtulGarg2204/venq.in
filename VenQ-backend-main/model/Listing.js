@@ -12,43 +12,6 @@ const FundingTimelineSchema = new mongoose.Schema({
         type: String, // Further information about this step
     }
 });
-const timeShareSchema = new mongoose.Schema({
-    description: {
-        type: String,
-        required: true, // Required field for the description
-    },
-    offers: [
-        {
-            title: {
-                type: String,
-                required: true, // Required field for offer title
-            },
-            details: {
-                type: String,
-                required: true, // Required field for offer details
-            },
-        },
-    ],
-    limitedAvailability: {
-        type: String,
-        required: true, // Required field for limited availability
-    },
-    investmentAmount: {
-        type: Number,
-        required: true, // Required field for investment amount
-    },
-});
-
-const DealTermsSchema = new mongoose.Schema({
-    label: {
-        type: String, // Example: 'Investment Amount'
-        required: true,
-    },
-    description: {
-        type: String, // Example: 'Minimum investment amount required'
-        required: true,
-    },
-});
 
 // Define other schemas
 const SpecsSchema = new mongoose.Schema({
@@ -101,12 +64,6 @@ const ChartDataSchema = new mongoose.Schema({
 const ListingSchema = new mongoose.Schema({
     images: {
         type: [String], // Changed to an array of strings for image URLs
-    },
-    dealTerms: {
-        type: [DealTermsSchema], // New field for deal terms
-    },
-    timeShare:{
-        type:[timeShareSchema],
     },
     tourlink: {
         type: String,
