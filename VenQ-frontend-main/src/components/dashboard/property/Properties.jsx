@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import star from "./star.png";
 import axios from "axios";
 import config from "../../../config";
+import { fontSize } from "@mui/system";
 
 const Property = styled(Card)`
   background-color: white;
@@ -381,7 +382,12 @@ const Properties = () => {
                               >
                                 INR {filteredListing.propertyprice}
                               </Box>
-                              <Box></Box>
+                              <Box
+                              style={{
+                                fontSize:"14px"
+                              }}>
+                                Min Investment
+                              </Box>
                             </PriceBox>
                             {/* <progress
                               style={{
@@ -393,46 +399,49 @@ const Properties = () => {
                               value={1239000}
                             /> */}
 
-                            <ReturnsBox>
-                              <Box>
-                                <Box>Investment starts</Box>
-                                {/* {`${listing.annualizedreturn}`} */}
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >
-                                  {filteredListing.fundingdate}
+                            <ReturnsBox style={{ marginTop: "1rem" }}>
+                              <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
+                                {/* Tokens */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.tokens || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Est. Yields */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Target APR */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Potential Gain */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
                                 </Box>
                               </Box>
-                              <Box>
-                                <Box>Min. Investment</Box>
-                                {/* {`${listing.annualizedreturn}`} */}
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >
-                                  {filteredListing.mininvestment}
-                                </Box>
-                              </Box>
-
-                              {/* <Box>
-                                <Box>Annual Appreciation</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.annualappreciation}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected gross yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.grossyield}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected net yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.netyield}`}</Box>
-                              </Box> */}
                             </ReturnsBox>
                           </CardContent>
                         </CardActionArea>

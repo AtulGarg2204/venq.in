@@ -821,30 +821,37 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         const response = await axios.get(`${URL}/listing/${id}`);
         console.log(response.data);
         setListing(response.data);
-
-        // Destructure timeShare safely
-
-
-        // Set chart data
-        setChartData(chartData || null);
-
-
-
-        // Truncate content logic
-
+  
+        // Safely destructure timeShare (ensure timeShare exists in response.data)
+        const { timeShare } = response.data || {};
+  
+        // Set chart data (assuming response.data contains relevant chart data)
+        const chartData = response.data?.chartData || null;
+        setChartData(chartData);
+  
+        // Truncate content logic here if needed
+  
         console.log("listingData for date", response.data);
         localStorage.setItem("selectedId", id);
       } catch (error) {
         console.error("Error fetching listing:", error);
       }
     };
-
-    setAdmin(token.isAdmin);
-    const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
-    setTotalAmount(numericAmount);
-
+  
+    // Ensure token exists before accessing token.isAdmin
+    if (token) {
+      setAdmin(token.isAdmin);
+    }
+  
+    // Safely process totalAmount if totalStock.totalAmt exists
+    if (totalStock.totalAmt) {
+      const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
+      setTotalAmount(numericAmount);
+    }
+  
     fetchListing();
-  }, [id, totalStock.totalAmt, totalStock.stockQun, token]);
+  }, [id, token]); // Removed totalStock.totalAmt and totalStock.stockQun if not needed
+  
 
 
   const handleExpandClick = () => {
