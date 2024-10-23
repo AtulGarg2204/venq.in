@@ -1,20 +1,21 @@
-import React, { useEffect, useRef } from "react";
 import { Chart } from "chart.js";
+import React, { useEffect, useRef } from "react";
 
 import {
+  CategoryScale,
   Chart as ChartJS,
+  Filler,
+  Legend,
+  LinearScale,
+  LineController,
   LineElement,
   PointElement,
-  LinearScale,
-  CategoryScale,
   Title,
   Tooltip,
-  Legend,
-  LineController,
 } from 'chart.js';
 
-// Register necessary components
-ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, LineController);
+// Register necessary components including Filler plugin
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, LineController, Filler);
 
 const LineChart = ({ data }) => {
   const chartContainer = useRef(null);

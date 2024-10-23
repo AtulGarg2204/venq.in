@@ -40,56 +40,51 @@ const PropertyInterests = () => {
   const closeModal = () => setOpen(false);
   const URL = config.URL;
   const [rows, setRows] = useState([]);
-  const [varr, setvarr] = useState([]);
-  const map1 = new Map();
+  const [varr, setVarr] = useState([]);
   const [listings, setListings] = useState([]);
-  const [totalamount, settotalamount] = useState(0);
-  const [count, setcount] = useState(0);
-  const [sp, setsp] = useState("");
-  const [currstatus, setcurrstatus] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [count, setCount] = useState(0);
+  const [sp, setSp] = useState("");
+  const [currStatus, setCurrStatus] = useState(0);
   const [propertyName, setPropertyName] = useState("");
 
   const changelistingstatus = (lid, ns) => {
     axios
-      .patch(`${URL}/listing/${lid}`, {
-        status: ns,
-      })
+      .patch(`${URL}/listing/${lid}`, { status: ns })
       .then((response) => {
         console.log(response);
-        console.log("status change sucess");
+        console.log("Status change successful");
         window.location.reload();
       })
       .catch((error) => {
         console.log(error);
-        console.log("failed status change");
+        console.log("Failed status change");
       });
   };
-  function createData(name, contactnumber, email, amount, view) {
-    return {
-      count,
-      totalamount,
-      view,
-    };
+
+  function createData(name, contactNumber, email, amount, view) {
+    return { name, contactNumber, email, amount, view };
   }
-  const [cruds, setCruds] = useState([]);
+
   const navigate = useNavigate();
-  useEffect(function () {
+
+  useEffect(() => {
     axios
       .get(`${URL}/listing`)
       .then((response) => {
-        // console.log("Fetched data from server:", response.data);
         console.log(response.data);
         setListings(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
+
     try {
-      let arr = JSON.parse(localStorage.getItem("interestusers1"));
-      setvarr(arr);
+      let arr = JSON.parse(localStorage.getItem("interestusers1")) || [];
+      setVarr(arr);
       console.log(arr);
-      console.log(arr);
-      arr.map((elem) => {
+
+      arr.forEach((elem) => {
         rows.push(
           createData(
             elem.contactnumber,
@@ -99,249 +94,123 @@ const PropertyInterests = () => {
               onClick={() => {
                 navigate(`/dashboard/properties/view/${elem.property}`);
               }}
-              sx={{
-                backgroundColor: "blue",
-                color: "white",
-              }}
+              sx={{ backgroundColor: "blue", color: "white" }}
             >
               View Property
             </Button>
           )
         );
       });
-      setCruds(arr);
+      setRows(rows); // Update rows state after pushing elements
     } catch (error) {
-      console.log("error", error);
+      console.log("Error parsing interestusers1 from localStorage:", error);
     }
   }, []);
-  // console.log(rows.length)
 
   return (
     <TableContainer
       component={Paper}
-      sx={{
-        marginTop: "18%",
-      }}
+      sx={{ marginTop: "18%" }}
     >
       <StyledPopup open={open} closeOnDocumentClick onClose={closeModal}>
         <div className="modal">
           <a
             className="close"
             onClick={closeModal}
-            style={{
-              cursor: "pointer",
-            }}
+            style={{ cursor: "pointer" }}
           >
             &times;
           </a>
-          <p
-            style={{
-              color: "black",
-            }}
-          >
-            {currstatus == 1
+          <p style={{ color: "black" }}>
+            {currStatus === 1
               ? "Live"
-              : currstatus == 2
+              : currStatus === 2
               ? "Show interest"
               : "Not live"}{" "}
             Property
           </p>
-          {currstatus == 1 && (
+          {currStatus === 1 && (
             <>
-              <button
-                onClick={() => {
-                  changelistingstatus(sp, 2);
-                }}
-              >
+              <button onClick={() => changelistingstatus(sp, 2)}>
                 Make it for interest
               </button>
-              <button
-                onClick={() => {
-                  changelistingstatus(sp, 0);
-                }}
-              >
+              <button onClick={() => changelistingstatus(sp, 0)}>
                 Make it unlive
               </button>
             </>
           )}
-          {currstatus == 2 && (
+          {currStatus === 2 && (
             <>
-              <button
-                onClick={() => {
-                  changelistingstatus(sp, 1);
-                }}
-              >
+              <button onClick={() => changelistingstatus(sp, 1)}>
                 Make it live
               </button>
-              <button
-                onClick={() => {
-                  changelistingstatus(sp, 0);
-                }}
-              >
+              <button onClick={() => changelistingstatus(sp, 0)}>
                 Make it unlive
               </button>
             </>
           )}
-          {currstatus == 0 && (
+          {currStatus === 0 && (
             <>
-              <button
-                onClick={() => {
-                  changelistingstatus(sp, 2);
-                }}
-              >
+              <button onClick={() => changelistingstatus(sp, 2)}>
                 Make it for interest
               </button>
-              <button
-                onClick={() => {
-                  changelistingstatus(sp, 1);
-                }}
-              >
+              <button onClick={() => changelistingstatus(sp, 1)}>
                 Make it live
               </button>
             </>
           )}
-          <p
-            style={{
-              color: "black",
-            }}
-          >
-            Number of investors : {count}
+          <p style={{ color: "black" }}>
+            Number of investors: {count}
           </p>
-          <p
-            style={{
-              color: "black",
-            }}
-          >
-            Total amount invested : {totalamount}
+          <p style={{ color: "black" }}>
+            Total amount invested: {totalAmount}
           </p>
-          <button
-            onClick={() => {
-              navigate(`userinterests/${propertyName}`);
-            }}
-          >
+          <button onClick={() => navigate(`userinterests/${propertyName}`)}>
             View more details
           </button>
         </div>
       </StyledPopup>
 
-      <Table
-        sx={{ minWidth: 650, fontFamily: "Work Sans" }}
-        aria-label="simple table"
-      >
-        <TableHead
-          sx={{
-            fontFamily: "Work Sans",
-          }}
-        >
+      <Table sx={{ minWidth: 650, fontFamily: "Work Sans" }} aria-label="simple table">
+        <TableHead sx={{ fontFamily: "Work Sans" }}>
           <TableRow>
-            <TableCell
-              sx={{
-                fontFamily: "Work Sans",
-                fontWeight: "bold",
-              }}
-            >
+            <TableCell sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Property Name
             </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                fontFamily: "Work Sans",
-                fontWeight: "bold",
-              }}
-            >
+            <TableCell align="left" sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Ticker Code
             </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                fontFamily: "Work Sans",
-                fontWeight: "bold",
-              }}
-            >
+            <TableCell align="left" sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Listing Date
             </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                fontFamily: "Work Sans",
-                fontWeight: "bold",
-              }}
-            >
-              List price
+            <TableCell align="left" sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
+              List Price
             </TableCell>
-            <TableCell
-              align="left"
-              sx={{
-                fontFamily: "Work Sans",
-                fontWeight: "bold",
-              }}
-            >
+            <TableCell align="left" sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Status
             </TableCell>
-            <TableCell
-              align="center"
-              sx={{
-                fontFamily: "Work Sans",
-                fontWeight: "bold",
-              }}
-            >
+            <TableCell align="center" sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Action
             </TableCell>
-
-            {/* <TableCell align="right">Amount</TableCell>
-            <TableCell align="right">View</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
           {listings.map((listing, index) => (
             <TableRow key={index}>
-              <TableCell
-                component="th"
-                scope="row"
-                sx={{
-                  fontFamily: "Work Sans",
-                }}
-              >
+              <TableCell component="th" scope="row" sx={{ fontFamily: "Work Sans" }}>
                 {listing.properyheading}
               </TableCell>
-              <TableCell
-                component="th"
-                scope="row"
-                sx={{
-                  fontFamily: "Work Sans",
-                }}
-              >
-                <p>helllo</p>
-              </TableCell>
-
-              <TableCell
-                component="th"
-                scope="row"
-                sx={{
-                  fontFamily: "Work Sans",
-                }}
-              >
+              <TableCell align="left" sx={{ fontFamily: "Work Sans" }}>
                 <p>hello</p>
               </TableCell>
-
-              <TableCell
-                component="th"
-                scope="row"
-                sx={{
-                  fontFamily: "Work Sans",
-                }}
-              >
+              <TableCell align="left" sx={{ fontFamily: "Work Sans" }}>
+                <p>hello</p>
+              </TableCell>
+              <TableCell align="left" sx={{ fontFamily: "Work Sans" }}>
                 <p>₹ {listing.propertyprice}</p>
               </TableCell>
-
-              <TableCell
-                component="th"
-                scope="row"
-                sx={{
-                  fontFamily: "Work Sans",
-                }}
-              >
-                <p>helllo</p>
+              <TableCell align="left" sx={{ fontFamily: "Work Sans" }}>
+                <p>hello</p>
               </TableCell>
               <TableCell align="right">
                 <button
@@ -350,27 +219,24 @@ const PropertyInterests = () => {
                     color: "black",
                     fontWeight: "bold",
                     borderRadius: "999em",
-                    padding: "0px 30px;",
+                    padding: "10px 30px",
                   }}
                   onClick={() => {
                     console.log(varr);
                     let cnt = 0,
                       total = 0;
-                    {
-                      varr.map((elem) => {
-                        console.log(elem);
-                        if (elem.property == listing._id) {
-                          cnt++;
-                          total += elem.amount;
-                        }
-                      });
-                    }
-                    setcount(cnt);
-                    settotalamount(total);
-                    setsp(listing._id);
-                    setcurrstatus(listing.islive);
+                    varr.forEach((elem) => {
+                      if (elem.property === listing._id) {
+                        cnt++;
+                        total += elem.amount;
+                      }
+                    });
+                    setCount(cnt);
+                    setTotalAmount(total);
+                    setSp(listing._id);
+                    setCurrStatus(listing.islive);
                     setPropertyName(listing.properyheading);
-                    setOpen((o) => !o);
+                    setOpen(true);
                   }}
                 >
                   Show Investment Details

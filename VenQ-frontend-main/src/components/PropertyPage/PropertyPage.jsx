@@ -446,32 +446,50 @@ const PropertyPage = () => {
                                     </Box>
                                   </PriceBox>
 
-                                  <ReturnsBox>
-                                    <Box>
-                                      <Box>Funding Date</Box>
+                                  <ReturnsBox style={{ marginTop: "1rem" }}>
+                              <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
+                                {/* Tokens */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
 
-                                      <Box
-                                        style={{
-                                          color: "black",
-                                          fontWeight: "bold",
-                                        }}
-                                      >
-                                        {listing.fundingdate}
-                                      </Box>
-                                    </Box>
-                                    <Box>
-                                      <Box>Min. Investment</Box>
-                                      {/* {`${listing.annualizedreturn}`} */}
-                                      <Box
-                                        style={{
-                                          color: "black",
-                                          fontWeight: "bold",
-                                        }}
-                                      >
-                                        {listing.mininvestment}
-                                      </Box>
-                                    </Box>
-                                  </ReturnsBox>
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Est. Yields */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Target APR */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Potential Gain */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+                              </Box>
+                            </ReturnsBox>
                                 </CardContent>
                               )}
                               {!isLoggedIn && (
