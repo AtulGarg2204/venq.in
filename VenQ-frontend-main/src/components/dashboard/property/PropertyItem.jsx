@@ -814,44 +814,44 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [shouldTruncate, setShouldTruncate] = useState(false);
 
 
-  console.log(location);
+  // console.log(location);
   useEffect(() => {
     const fetchListing = async () => {
       try {
         const response = await axios.get(`${URL}/listing/${id}`);
-        console.log(response.data);
+        // console.log(response.data);
         setListing(response.data);
-  
+
         // Safely destructure timeShare (ensure timeShare exists in response.data)
         const { timeShare } = response.data || {};
-  
+
         // Set chart data (assuming response.data contains relevant chart data)
         const chartData = response.data?.chartData || null;
         setChartData(chartData);
-  
+
         // Truncate content logic here if needed
-  
-        console.log("listingData for date", response.data);
+
+        // console.log("listingData for date", response.data);
         localStorage.setItem("selectedId", id);
       } catch (error) {
         console.error("Error fetching listing:", error);
       }
     };
-  
+
     // Ensure token exists before accessing token.isAdmin
     if (token) {
       setAdmin(token.isAdmin);
     }
-  
+
     // Safely process totalAmount if totalStock.totalAmt exists
     if (totalStock.totalAmt) {
       const numericAmount = Number(totalStock.totalAmt.replace(/[^0-9.-]+/g, ""));
       setTotalAmount(numericAmount);
     }
-  
+
     fetchListing();
   }, [id, token]); // Removed totalStock.totalAmt and totalStock.stockQun if not needed
-  
+
 
 
   const handleExpandClick = () => {
@@ -865,8 +865,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const handleCouponChange = (e) => {
     setCouponInput(e.target.value);
   };
-  console.log(totalAmount, "number");
-  console.log(totalStock.totalAmt, "str");
+  // console.log(totalAmount, "number");
+  // console.log(totalStock.totalAmt, "str");
   const applyCoupon = () => {
     if (couponInput === validCoupon) {
       // Number((totalStock.totalAmt - discountAmount).replace(/[^0-9.-]+/g, ""))
@@ -881,9 +881,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     }
   };
   const tableData = { ...listing };
-  console.log(tableData, "my");
-  console.log(userinvest, "myinvest");
-  console.log(userinvestone, "myinvestnew");
+  // console.log(tableData, "my");
+  // console.log(userinvest, "myinvest");
+  // console.log(userinvestone, "myinvestnew");
 
   const toggleContent = () => {
     setShowFullContent(!showFullContent);
@@ -1404,59 +1404,50 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     borderRadius: "20px",
                   }}
                 >
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      margin: "10px 0",
-                      paddingTop: "5px",
-                      paddingBottom: "5px",
-                    }}
-                  >
-                    <Typography
-                      style={{ fontSize: "14px", fontFamily: "Inter" }}
-                    >
-                      Funding Date
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {listing.fundingdate}
-                    </Typography>
-                  </Box>
+                  <ReturnsBox style={{ marginTop: "1rem" }}>
+                      <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
+                        {/* Tokens */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
 
-                  <Box
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      margin: "10px 0",
-                    }}
-                  >
-                    <Typography
-                      style={{
-                        fontSize: "14px",
-                        padding: "3px",
-                        fontFamily: "Inter",
-                      }}
-                    >
-                      Min. Investment
-                    </Typography>
-                    <Typography
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {listing.mininvestment}
-                    </Typography>
-                  </Box>
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                        {/* Est. Yields */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                        {/* Target APR */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+
+                        {/* Vertical Divider */}
+                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                        {/* Potential Gain */}
+                        <Box style={{ flex: 1, textAlign: "center" }}>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                            {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                          </Box>
+                        </Box>
+                      </Box>
+                    </ReturnsBox>
                 </Box>
               </Box>
             </Pricing>
@@ -1850,7 +1841,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             src={listing.locationlink}
                             allowfullscreen=""
                             loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
+                            referrerPolicy="no-referrer-when-downgrade"
                             style={mapstylesmall}
                           ></iframe>
                         )}
@@ -1859,7 +1850,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             src={listing.locationlink}
                             allowfullscreen=""
                             loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
+                            referrerPolicy="no-referrer-when-downgrade"
                             style={mapstylebig}
                           ></iframe>
                         )}
@@ -3295,7 +3286,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               src={listing.locationlink}
                               allowfullscreen=""
                               loading="lazy"
-                              referrerpolicy="no-referrer-when-downgrade"
+                              referrerPolicy="no-referrer-when-downgrade"
                               style={mapstylesmall}
                             ></iframe>
                           )}
@@ -3304,7 +3295,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               src={listing.locationlink}
                               allowfullscreen=""
                               loading="lazy"
-                              referrerpolicy="no-referrer-when-downgrade"
+                              referrerPolicy="no-referrer-when-downgrade"
                               style={mapstylebig}
                             ></iframe>
                           )}
@@ -4134,7 +4125,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Target APR */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Target ARR</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4145,15 +4136,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Potential Gain */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
+                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Est. Gain</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                           </Box>
                         </Box>
                       </Box>
                     </ReturnsBox>
-
-
 
                     <Box
                       style={{
