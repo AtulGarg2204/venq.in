@@ -203,14 +203,15 @@ const First = () => {
           </div>
 
           <div className="property_card_container">
-  <div className="blue_container">
+          <div className="blue_container">
     <h3 className="property_heading_label">Don't worry it's not too late</h3>
     <div className="property_card">
       {(() => {
         const liveProperties = listings.filter((listing) => listing.islive === 1);
         const fallbackProperties = listings.filter((listing) => listing.islive === 2);
 
-        const propertiesToShow = liveProperties.length > 0 ? liveProperties : fallbackProperties;
+        // Show live properties if available, otherwise show one fallback property
+        const propertiesToShow = liveProperties.length > 0 ? liveProperties : fallbackProperties.slice(0, 1);
 
         return propertiesToShow.map((listing) => (
           <Grid key={listing._id}>
@@ -264,7 +265,7 @@ const First = () => {
                             {listing.properyheading.includes("Plot") ? "Plot" : "Luxury Property"}
                           </FixedBox>
                         </div>
-                      ))}
+                      ))} 
                     </Carousel>
                   </CardMedia>
 
@@ -311,49 +312,49 @@ const First = () => {
                       </PriceBox>
 
                       <ReturnsBox style={{ marginTop: "1rem" }}>
-                      <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
-                        {/* Tokens */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                        <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
+                          {/* Tokens */}
+                          <Box style={{ flex: 1, textAlign: "center" }}>
+                            <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                            <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                              {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                            </Box>
+                          </Box>
+
+                          {/* Vertical Divider */}
+                          <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                          {/* Est. Yields */}
+                          <Box style={{ flex: 1, textAlign: "center" }}>
+                            <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                            <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                              {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                            </Box>
+                          </Box>
+
+                          {/* Vertical Divider */}
+                          <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                          {/* Target APR */}
+                          <Box style={{ flex: 1, textAlign: "center" }}>
+                            <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                            <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                              {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                            </Box>
+                          </Box>
+
+                          {/* Vertical Divider */}
+                          <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                          {/* Potential Gain */}
+                          <Box style={{ flex: 1, textAlign: "center" }}>
+                            <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                            <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                              {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                            </Box>
                           </Box>
                         </Box>
-
-                        {/* Vertical Divider */}
-                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                        {/* Est. Yields */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
-                        </Box>
-
-                        {/* Vertical Divider */}
-                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                        {/* Target APR */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
-                        </Box>
-
-                        {/* Vertical Divider */}
-                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                        {/* Potential Gain */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
-                        </Box>
-                      </Box>
-                    </ReturnsBox>
+                      </ReturnsBox>
                     </CardContent>
                   ) : (
                     <div
@@ -468,7 +469,8 @@ const First = () => {
         ));
       })()}
     </div>
-  </div>
+</div>
+
 </div>
 
         </div>
