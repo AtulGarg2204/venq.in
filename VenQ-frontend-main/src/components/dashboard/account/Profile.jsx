@@ -67,7 +67,9 @@ function Dashboard() {
   const [onbcomp, setonbcomp] = useState(0);
   const [step, setStep] = useState(0);
   const [info, setInfo] = useState(false);
+  const [infoPROS, setInfoPROS] = useState(false);
   const [showPdf, setShowPdf] = useState();
+  const [showPdfPROS, setShowPdfPROS] = useState();
   const [currentStep, setCurrentStep] = useState(1);
 
   const updateSteps = (step) => {
@@ -121,7 +123,7 @@ function Dashboard() {
     };
     fetchkycstatus();
     handleCheckSignedPdf();
-  }, [showPdf]);
+  }, [showPdf, showPdfPROS]);
 
   const savekyc = async () => {
     try {
@@ -297,6 +299,9 @@ function Dashboard() {
   const handleEsign = () => {
     setInfo(!info);
   };
+  const handleEsignPROS = () => {
+    setInfoPROS(!infoPROS);
+  };
   const handleKeyDown = (index, event) => {
     if (event.key === "Backspace" && index > 0 && otp[index] === "") {
       newOtp[index] = "";
@@ -383,7 +388,7 @@ function Dashboard() {
         // Make a new POST request after opening the link
         const newPayload = {
           client_id: clientId,
-          link: "https://res.cloudinary.com/dhrsf44wi/image/upload/v1728382382/Property_Manangement_Agreement_knymi3.pdf",
+          link: "https://res.cloudinary.com/duamtsgqf/raw/upload/v1729697301/pdfs/ck8henhu38qsqooaes8e.pdf",
         };
 
         const newUrl = `${URL}/surepass/uploadPdf`; // Replace with your actual second API URL
@@ -398,6 +403,77 @@ function Dashboard() {
       // Handle errors (e.g., show an error message to the user)
     }
   };
+  const handleSurepassPROS = async (name, email, phone, fatherName) => {
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Phone:", phone);
+    const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
+    const url = `${URL}/surepass/initializeEsignPROS`; // Your API URL
+  
+    const payload = {
+      name: name,
+      email: email,
+      phone: trimmedPhone,
+    };
+  
+    try {
+      // Fetch the PDF link based on the email first
+      const customerResponse = await axios.get(`${URL}/customers/byEmail`, {
+        params: { email },
+      });
+      
+      const pdfLink = customerResponse.data.pdfLink; // Extract the pdfLink
+  
+      // Make the POST request using axios
+      const response = await axios.post(url, payload);
+  
+      // Handle the response
+      console.log("Response from Surepass:", response.data);
+      if (
+        response.data &&
+        response.data.data &&
+        response.data.data.data.url &&
+        response.data.data.data.client_id
+      ) {
+        const clientId = response.data.data.data.client_id;
+        const esignUrl = response.data.data.data.url;
+  
+        // Save the client_id in localStorage
+        localStorage.setItem("client_id", clientId);
+  
+        // Open the e-sign URL in a new tab
+        window.open(esignUrl, "_blank");
+  
+        const fatherDetails = {
+          clientId1: clientId, // Using clientId1 as per your request
+          fatherName: fatherName,
+          phoneNumber: trimmedPhone,
+          pdfUrl: pdfLink || "default_pdf_link", // Use the fetched pdfLink
+          email: email,
+        };
+  
+        const url2 = `${URL}/esigndetails/surepassDetails`;
+        const detailsResponse = await axios.post(url2, fatherDetails);
+        
+        // Make a new POST request after opening the link
+        const newPayload = {
+          client_id: clientId,
+          link: pdfLink || "default_pdf_link", // Use the fetched pdfLink
+        };
+  
+        const newUrl = `${URL}/surepass/uploadPdf`; // Replace with your actual second API URL
+  
+        const secondResponse = await axios.post(newUrl, newPayload);
+        console.log("Response from the second API:", secondResponse.data);
+      } else {
+        console.error("URL or client_id not found in the response.");
+      }
+    } catch (error) {
+      console.error("Error occurred while calling initializeEsign:", error);
+      // Handle errors (e.g., show an error message to the user)
+    }
+  };
+  
   const handleCheckSignedPdf = async () => {
     try {
       // Retrieve the client_id from localStorage
@@ -425,6 +501,46 @@ function Dashboard() {
       } else {
         // Set showPdf to true (signed PDF is ready)
         setShowPdf(false);
+
+        console.error(
+          "Signed PDF not generated yet:",
+          response.data.error.message
+        );
+
+        // You can proceed with further actions, like displaying or downloading the PDF
+      }
+    } catch (error) {
+      console.error("Error occurred while checking for signed PDF:", error);
+      // Handle errors (e.g., show an error message to the user)
+    }
+  };
+  const handleCheckSignedPdfPROS = async () => {
+    try {
+      // Retrieve the client_id from localStorage
+      const clientId = localStorage.getItem("client_id");
+
+      if (!clientId) {
+        console.error("Client ID not found in localStorage.");
+        return;
+      }
+
+      // Construct the GET request URL
+      const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
+
+      // Make the GET request using axios
+      const response = await axios.get(getUrl);
+
+      // Check the response data
+      console.log("Response from Surepass:", response.data);
+
+      if (response.data.data.success === true) {
+        setShowPdfPROS(true);
+        console.log("Show PDF:", showPdfPROS);
+
+        // Set showPdf to false (you can replace this with your actual state management)
+      } else {
+        // Set showPdf to true (signed PDF is ready)
+        setShowPdfPROS(false);
 
         console.error(
           "Signed PDF not generated yet:",
@@ -1809,6 +1925,94 @@ function Dashboard() {
                   ) : (
                     <></>
                   )}
+                  {onbcomp === 2 ? (
+                    <div className="required-documents">
+                      <h2>E-Signing Portal</h2>
+                      {/* <div className="document-info">
+                      No Documents Available for E-sign
+                    </div> */}
+                      {!infoPROS ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: "30px",
+                          }}
+                        >
+                          <div>Property Management Agreement</div>
+                          <button onClick={handleEsignPROS}>Start Process</button>
+                        </div>
+                      ) : (
+                        <>
+                          {showPdfPROS === true ? (
+                            <div>Process already completed.</div>
+                          ) : (
+                            <div className="form-container">
+                              <form
+                                onSubmit={(event) => {
+                                  event.preventDefault(); // Prevent the form from submitting and reloading the page
+                                  handleSurepassPROS(
+                                    token.name,
+                                    token.email,
+                                    token.phone,
+                                    fatherName // Pass father's name to handleSurepass
+                                  );
+                                }}
+                              >
+                                <div className="form-group">
+                                  <label htmlFor="aadhaar">Aadhaar Card</label>
+                                  <input
+                                    type="text"
+                                    id="aadhaar"
+                                    placeholder="Enter Aadhaar card number"
+                                    value={kycdata.aadhaar_number}
+                                    readOnly // Assuming you don't want to edit Aadhaar number
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label htmlFor="pan">PAN Card</label>
+                                  <input
+                                    type="text"
+                                    id="pan"
+                                    placeholder="Enter PAN card number"
+                                    value={kycdata.pan_number}
+                                    readOnly // Assuming you don't want to edit PAN number
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <div className="label-container">
+                                    <label htmlFor="fatherName">
+                                      Father's Name
+                                    </label>
+                                    <span className="error-message">
+                                      *Missing field
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="text"
+                                    id="fatherName"
+                                    placeholder="Enter father's name"
+                                    value={fatherName} // Set the value to the state
+                                    onChange={(e) =>
+                                      setFatherName(e.target.value)
+                                    } // Update state on change
+                                    required // Optionally make it required
+                                  />
+                                </div>
+                                <button type="submit" className="proceed-btn">
+                                  Proceed
+                                </button>
+                              </form>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  
                 </>
               )}
               {activeTab === "transactions" && (

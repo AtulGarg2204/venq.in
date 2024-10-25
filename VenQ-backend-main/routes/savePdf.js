@@ -21,7 +21,7 @@ cloudinary.config({
 
 router.post("/", async (req, res) => {
   // Path to the existing "product_management.pdf" file
-  const pdfPath = path.join(__dirname, "output", "product_management.pdf");
+  const pdfPath = path.join(__dirname, "output", "1. Application Sambhav Sharma.pdf");
 
   console.log("PDF file path:", pdfPath);
   console.log("File exists:", fs.existsSync(pdfPath));
@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
     // Upload the existing PDF file to Cloudinary
     const uploadResult = await cloudinary.uploader.upload(pdfPath, {
       resource_type: "raw", // Use 'raw' for non-image files like PDFs
-      folder: "pdfs", // Optional: specify a folder in Cloudinary
+      folder: "", // Optional: specify a folder in Cloudinary
     });
 
     console.log("PDF uploaded to Cloudinary", uploadResult);
