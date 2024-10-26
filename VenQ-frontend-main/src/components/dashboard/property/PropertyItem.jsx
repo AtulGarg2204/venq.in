@@ -26,7 +26,7 @@ import {
 import { alpha, color, fontSize, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState, useMemo  } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -850,7 +850,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     }
 
     fetchListing();
-  }, [id, token]); // Removed totalStock.totalAmt and totalStock.stockQun if not needed
+  }, []); // Removed totalStock.totalAmt and totalStock.stockQun if not needed
 
 
 
@@ -891,6 +891,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const handleImageClick = () => {
     setIsFullscreen(!isFullscreen);
   };
+
+  const memoizedChartData = useMemo(() => {
+    return chartData ? { labels: chartData.labels, data: chartData.data } : null;
+  }, [chartData]);
 
   const mapstylebig = {
     border: 0,
@@ -1996,8 +2000,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         marginTop: "20px",
                       }}
                     >
-                      <LineChart data={listing.chartData} />
-                      <Divider
+<div>
+      {/* Other components or JSX here */}
+      {memoizedChartData && <LineChart data={memoizedChartData} />}
+    </div>                      <Divider
                         style={{
                           margin: "20px 0", // Space above and below the divider
                           backgroundColor: "#e0e0e0", // Color of the divider
@@ -2595,8 +2601,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                     </Box>
                     <Box>
-                      <LineChart data={listing.chartData} />
-                      <Divider />
+                    <div>
+      {/* Other components or JSX here */}
+      {memoizedChartData && <LineChart data={memoizedChartData} />}
+    </div>                      <Divider />
                       <SubTitle
                         style={{
                           width: "28px",
@@ -4776,7 +4784,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               flexGrow: 1,
                             }}
                           >
-                            TimeShare
+                            What is TimeShare ?
                           </Typography>
                           <ExpandMoreIcon
                             style={{

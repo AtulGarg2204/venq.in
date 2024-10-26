@@ -343,7 +343,7 @@ function Dashboard() {
       setOtp(newOtp);
     }
   };
-  const handleSurepass = async (name, email, phone, fatherName) => {
+  const handleSurepass = async (name, email, phone) => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Phone:", phone);
@@ -378,7 +378,6 @@ function Dashboard() {
         window.open(esignUrl, "_blank");
         const fatherDetails = {
           clientId1: clientId, // Using clientId1 as per your request
-          fatherName: fatherName,
           phoneNumber: trimmedPhone,
           pdfUrl:"jkabdf",
           email: email,
@@ -403,7 +402,7 @@ function Dashboard() {
       // Handle errors (e.g., show an error message to the user)
     }
   };
-  const handleSurepassPROS = async (name, email, phone, fatherName) => {
+  const handleSurepassPROS = async (name, email, phone) => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Phone:", phone);
@@ -446,7 +445,6 @@ function Dashboard() {
   
         const fatherDetails = {
           clientId1: clientId, // Using clientId1 as per your request
-          fatherName: fatherName,
           phoneNumber: trimmedPhone,
           pdfUrl: pdfLink || "default_pdf_link", // Use the fetched pdfLink
           email: email,
@@ -1869,20 +1867,19 @@ function Dashboard() {
                                     token.name,
                                     token.email,
                                     token.phone,
-                                    fatherName // Pass father's name to handleSurepass
                                   );
                                 }}
                               >
-                                <div className="form-group">
-                                  <label htmlFor="aadhaar">Aadhaar Card</label>
-                                  <input
-                                    type="text"
-                                    id="aadhaar"
-                                    placeholder="Enter Aadhaar card number"
-                                    value={kycdata.aadhaar_number}
-                                    readOnly // Assuming you don't want to edit Aadhaar number
-                                  />
-                                </div>
+                            {/* <div className="form-group">
+                              <label htmlFor="aadhaar">Aadhaar Card</label>
+                              <input
+                                type="text"
+                                id="aadhaar"
+                                placeholder="Enter Aadhaar card number"
+                                value={kycdata.aadhaar_number}
+                                readOnly
+                              />
+                            </div>
                                 <div className="form-group">
                                   <label htmlFor="pan">PAN Card</label>
                                   <input
@@ -1912,7 +1909,7 @@ function Dashboard() {
                                     } // Update state on change
                                     required // Optionally make it required
                                   />
-                                </div>
+                                </div> */}
                                 <button type="submit" className="proceed-btn">
                                   Proceed
                                 </button>
@@ -1940,7 +1937,7 @@ function Dashboard() {
                             gap: "30px",
                           }}
                         >
-                          <div>Property Management Agreement</div>
+                          <div>Private Placement Application</div>
                           <button onClick={handleEsignPROS}>Start Process</button>
                         </div>
                       ) : (
@@ -1956,50 +1953,9 @@ function Dashboard() {
                                     token.name,
                                     token.email,
                                     token.phone,
-                                    fatherName // Pass father's name to handleSurepass
                                   );
                                 }}
                               >
-                                <div className="form-group">
-                                  <label htmlFor="aadhaar">Aadhaar Card</label>
-                                  <input
-                                    type="text"
-                                    id="aadhaar"
-                                    placeholder="Enter Aadhaar card number"
-                                    value={kycdata.aadhaar_number}
-                                    readOnly // Assuming you don't want to edit Aadhaar number
-                                  />
-                                </div>
-                                <div className="form-group">
-                                  <label htmlFor="pan">PAN Card</label>
-                                  <input
-                                    type="text"
-                                    id="pan"
-                                    placeholder="Enter PAN card number"
-                                    value={kycdata.pan_number}
-                                    readOnly // Assuming you don't want to edit PAN number
-                                  />
-                                </div>
-                                <div className="form-group">
-                                  <div className="label-container">
-                                    <label htmlFor="fatherName">
-                                      Father's Name
-                                    </label>
-                                    <span className="error-message">
-                                      *Missing field
-                                    </span>
-                                  </div>
-                                  <input
-                                    type="text"
-                                    id="fatherName"
-                                    placeholder="Enter father's name"
-                                    value={fatherName} // Set the value to the state
-                                    onChange={(e) =>
-                                      setFatherName(e.target.value)
-                                    } // Update state on change
-                                    required // Optionally make it required
-                                  />
-                                </div>
                                 <button type="submit" className="proceed-btn">
                                   Proceed
                                 </button>
