@@ -248,9 +248,9 @@ const Dashboard = () => {
     const widget = document.getElementById("aisensy-wa-widget");
     if (widget) {
       widget.remove();
-      console.log("Aisensy widget removed.");
+      // console.log("Aisensy widget removed.");
     }
-    console.log("widget", widget);
+    // console.log("widget", widget);
     if (token && token.isAdmin) {
       setAdmin(true);
     }
