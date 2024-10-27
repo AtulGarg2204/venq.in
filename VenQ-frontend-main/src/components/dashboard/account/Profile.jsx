@@ -277,6 +277,22 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState("details");
   const newOtp = [...otp];
 
+
+  // State variables to track the status
+  const [surepassStatus, setSurepassStatus] = useState('');
+  const [surepassProsStatus, setSurepassProsStatus] = useState('');
+  const [purchasedId, setPurchasedId] = useState(''); // Set this to the actual purchase ID
+  const updatePurchaseStatus = async () => {
+    try {
+      const response = await axios.put(`${URL}/purchased/${purchasedId}`, {
+        surepassStatus,
+        surepassProsStatus,
+      });
+      console.log('Purchase status updated:', response.data);
+    } catch (error) {
+      console.error('Error updating purchase status:', error);
+    }
+  };
   // handle changes while entering OTP
   const handleChange = (index, value) => {
     if (value.length > 1) {
@@ -344,138 +360,75 @@ function Dashboard() {
       setOtp(newOtp);
     }
   };
-  const handleSurepass = async (name, email, phone) => {
+  const handleSurepass = async (name, email, phone, purchasedId) => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Phone:", phone);
     const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
-    const url = `${URL}/surepass/initializeEsign`; // Your API URL
-
-    const payload = {
-      name: name,
-      email: email,
-      phone: trimmedPhone,
-    };
-
+    const url = `${URL}/surepass/initializeEsign`;
+  
+    const payload = { name, email, phone: trimmedPhone };
+  
     try {
-      // Make the POST request using axios
       const response = await axios.post(url, payload);
-
-      // Handle the response
       console.log("Response from Surepass:", response.data);
-      if (
-        response.data &&
-        response.data.data &&
-        response.data.data.data.url &&
-        response.data.data.data.client_id
-      ) {
+  
+      if (response.data?.data?.data?.url && response.data?.data?.data?.client_id) {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
-
-        // Save the client_id in localStorage
         localStorage.setItem("client_id", clientId);
-
-        // Open the e-sign URL in a new tab
         window.open(esignUrl, "_blank");
-        const fatherDetails = {
-          clientId1: clientId, // Using clientId1 as per your request
-          phoneNumber: trimmedPhone,
-          pdfUrl:"jkabdf",
-          email: email,
-        };
-        const url2 = `${URL}/esigndetails/surepassDetails`;
-        const detailsResponse = await axios.post(url2, fatherDetails);
-        // Make a new POST request after opening the link
-        const newPayload = {
-          client_id: clientId,
-          link: "https://res.cloudinary.com/duamtsgqf/raw/upload/v1729697301/pdfs/ck8henhu38qsqooaes8e.pdf",
-        };
-
-        const newUrl = `${URL}/surepass/uploadPdf`; // Replace with your actual second API URL
-
-        const secondResponse = await axios.post(newUrl, newPayload);
-        console.log("Response from the second API:", secondResponse.data);
+  
+        // Update surepassStatus to "Completed" for this purchase via the backend API
+        // await axios.put(`${URL}/purchased/${purchasedId}`, {
+        //   surepassStatus: "Completed",
+        // });
       } else {
         console.error("URL or client_id not found in the response.");
       }
     } catch (error) {
       console.error("Error occurred while calling initializeEsign:", error);
-      // Handle errors (e.g., show an error message to the user)
     }
   };
-  const handleSurepassPROS = async (name, email, phone) => {
+  
+  const handleSurepassPROS = async (name, email, phone, purchasedId) => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Phone:", phone);
     const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
-    const url = `${URL}/surepass/initializeEsignPROS`; // Your API URL
+    const url = `${URL}/surepass/initializeEsignPROS`;
   
-    const payload = {
-      name: name,
-      email: email,
-      phone: trimmedPhone,
-    };
+    const payload = { name, email, phone: trimmedPhone };
   
     try {
-      // Fetch the PDF link based on the email first
-      const customerResponse = await axios.get(`${URL}/customers/byEmail`, {
-        params: { email },
-      });
-      
-      const pdfLink = customerResponse.data.pdfLink; // Extract the pdfLink
-  
-      // Make the POST request using axios
       const response = await axios.post(url, payload);
+      console.log("Response from SurepassPROS:", response.data);
   
-      // Handle the response
-      console.log("Response from Surepass:", response.data);
-      if (
-        response.data &&
-        response.data.data &&
-        response.data.data.data.url &&
-        response.data.data.data.client_id
-      ) {
+      if (response.data?.data?.data?.url && response.data?.data?.data?.client_id) {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
-  
-        // Save the client_id in localStorage
         localStorage.setItem("client_id", clientId);
-  
-        // Open the e-sign URL in a new tab
         window.open(esignUrl, "_blank");
   
-        const fatherDetails = {
-          clientId1: clientId, // Using clientId1 as per your request
-          phoneNumber: trimmedPhone,
-          pdfUrl: pdfLink || "default_pdf_link", // Use the fetched pdfLink
-          email: email,
-        };
-  
-        const url2 = `${URL}/esigndetails/surepassDetails`;
-        const detailsResponse = await axios.post(url2, fatherDetails);
-        
-        // Make a new POST request after opening the link
-        const newPayload = {
-          client_id: clientId,
-          link: pdfLink || "default_pdf_link", // Use the fetched pdfLink
-        };
-  
-        const newUrl = `${URL}/surepass/uploadPdf`; // Replace with your actual second API URL
-  
-        const secondResponse = await axios.post(newUrl, newPayload);
-        console.log("Response from the second API:", secondResponse.data);
+        // Update surepassProsStatus to "Completed" for this purchase via the backend API
+        // await axios.put(`${URL}/purchased/${purchasedId}`, {
+        //   surepassProsStatus: "Completed",
+        // });
       } else {
         console.error("URL or client_id not found in the response.");
       }
     } catch (error) {
-      console.error("Error occurred while calling initializeEsign:", error);
-      // Handle errors (e.g., show an error message to the user)
+      console.error("Error occurred while calling initializeEsignPROS:", error);
     }
   };
   
-  const handleCheckSignedPdf = async () => {
+  
+  
+  const [pdfCompletionStatus, setPdfCompletionStatus] = useState(''); // New state for completion status
+  const [pdfCompletionStatusPROS, setPdfCompletionStatusPROS] = useState(''); // New state for PROS
+
+  const handleCheckSignedPdf = async (purchasedId) => {
     try {
-      // Retrieve the client_id from localStorage
       const clientId = localStorage.getItem("client_id");
 
       if (!clientId) {
@@ -483,39 +436,32 @@ function Dashboard() {
         return;
       }
 
-      // Construct the GET request URL
       const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
-
-      // Make the GET request using axios
       const response = await axios.get(getUrl);
 
-      // Check the response data
       console.log("Response from Surepass:", response.data);
 
       if (response.data.data.success === true) {
         setShowPdf(true);
-        console.log("Show PDF:", showPdf);
+        setPdfCompletionStatus("Completed"); // Update completion status
 
-        // Set showPdf to false (you can replace this with your actual state management)
+        // Optionally, update the purchase record in your backend
+        await axios.put(`${URL}/purchased/${purchasedId}`, {
+          pdfStatus: "Completed",
+        });
       } else {
-        // Set showPdf to true (signed PDF is ready)
         setShowPdf(false);
+        setPdfCompletionStatus("Not Completed"); // Update completion status
 
-        console.error(
-          "Signed PDF not generated yet:",
-          response.data.error.message
-        );
-
-        // You can proceed with further actions, like displaying or downloading the PDF
+        console.error("Signed PDF not generated yet:", response.data.error.message);
       }
     } catch (error) {
       console.error("Error occurred while checking for signed PDF:", error);
-      // Handle errors (e.g., show an error message to the user)
     }
   };
-  const handleCheckSignedPdfPROS = async () => {
+
+  const handleCheckSignedPdfPROS = async (purchasedId) => {
     try {
-      // Retrieve the client_id from localStorage
       const clientId = localStorage.getItem("client_id");
 
       if (!clientId) {
@@ -523,34 +469,27 @@ function Dashboard() {
         return;
       }
 
-      // Construct the GET request URL
       const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
-
-      // Make the GET request using axios
       const response = await axios.get(getUrl);
 
-      // Check the response data
-      console.log("Response from Surepass:", response.data);
+      console.log("Response from SurepassPROS:", response.data);
 
       if (response.data.data.success === true) {
         setShowPdfPROS(true);
-        console.log("Show PDF:", showPdfPROS);
+        setPdfCompletionStatusPROS("Completed"); // Update completion status for PROS
 
-        // Set showPdf to false (you can replace this with your actual state management)
+        // Optionally, update the purchase record in your backend
+        await axios.put(`${URL}/purchased/${purchasedId}`, {
+          pdfProsStatus: "Completed",
+        });
       } else {
-        // Set showPdf to true (signed PDF is ready)
         setShowPdfPROS(false);
+        setPdfCompletionStatusPROS("Not Completed"); // Update completion status for PROS
 
-        console.error(
-          "Signed PDF not generated yet:",
-          response.data.error.message
-        );
-
-        // You can proceed with further actions, like displaying or downloading the PDF
+        console.error("Signed PDF not generated yet:", response.data.error.message);
       }
     } catch (error) {
       console.error("Error occurred while checking for signed PDF:", error);
-      // Handle errors (e.g., show an error message to the user)
     }
   };
   // toast notifications
