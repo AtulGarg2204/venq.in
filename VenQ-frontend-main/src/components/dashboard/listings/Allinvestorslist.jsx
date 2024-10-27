@@ -12,7 +12,10 @@ const Allinvestorslist = () => {
   const [displayType, setDisplayType] = useState("completed");
   const URL = config.URL;
   const [purchased, setPurchased] = useState([]);
+  const [checkboxes, setCheckboxes] = useState({}); // Track checkbox states
+
   useEffect(() => {
+    // Fetch investments
     axios
       .get(`${URL}/investment`)
       .then((response) => {
@@ -20,16 +23,28 @@ const Allinvestorslist = () => {
         setInvestments(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching investments:", error);
       });
+
+    // Fetch purchased investments with checkbox states
     axios
       .get(`${URL}/purchased/all/`)
       .then((response) => {
-        console.log(" purchased data ", response.data);
+        console.log("Purchased data:", response.data);
         setPurchased(response.data);
+
+        // Initialize checkboxes state from purchased data
+        const initialCheckboxes = {};
+        response.data.forEach((investor) => {
+          initialCheckboxes[investor._id] = {
+            esign1: investor.surepassStatus === "Not Completed",
+            esign2: investor.surepassProsStatus === "Not Completed",
+          };
+        });
+        setCheckboxes(initialCheckboxes);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching purchased data:", error);
       });
   }, []);
 
@@ -42,6 +57,42 @@ const Allinvestorslist = () => {
     setDisplayType(type);
   };
 
+  const handleCheckboxChange = (id, esignType) => {
+    // Check the current status
+    const currentStatus = checkboxes[id][esignType];
+
+    // Determine new status
+    const newStatus = !currentStatus;
+
+    // Update checkbox state
+    const updatedCheckboxes = {
+      ...checkboxes,
+      [id]: {
+        ...checkboxes[id],
+        [esignType]: newStatus, // Toggle the checkbox
+      },
+    };
+    setCheckboxes(updatedCheckboxes);
+
+    // Save to backend
+    updateCheckboxStatus(id, esignType, newStatus);
+  };
+
+  const updateCheckboxStatus = (id, esignType, newStatus) => {
+    const statusField = esignType === 'esign1' ? 'surepassStatus' : 'surepassProsStatus';
+    const updatedStatus = newStatus ? "Completed" : "Not Completed";
+
+    // Make API call to save checkbox state to your backend
+    axios
+      .post(`${URL}/purchased/update-status`, { id, statusType: statusField, status: updatedStatus })
+      .then((response) => {
+        console.log("Purchase status updated:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error updating purchase status:", error);
+      });
+  };
+
   const renderInvestorRows = (investors) => {
     return (
       <TableBody>
@@ -50,13 +101,31 @@ const Allinvestorslist = () => {
             <TableCell>{investor.name}</TableCell>
             <TableCell>{investor.phone}</TableCell>
             <TableCell>{investor.email}</TableCell>
-            <TableCell>{investor.property}</TableCell>
+            <TableCell>
+              {investor.surepassStatus === "Not Completed" && (
+                <input
+                  type="checkbox"
+                  checked={checkboxes[investor._id]?.esign1 || false}
+                  onChange={() => handleCheckboxChange(investor._id, 'esign1')}
+                />
+              )}
+            </TableCell>
+            <TableCell>
+              {investor.surepassProsStatus === "Not Completed" && (
+                <input
+                  type="checkbox"
+                  checked={checkboxes[investor._id]?.esign2 || false}
+                  onChange={() => handleCheckboxChange(investor._id, 'esign2')}
+                />
+              )}
+            </TableCell>
             <TableCell>{investor.amount}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     );
   };
+
   const renderCompletedRows = (purchased) => {
     return (
       <TableBody>
@@ -65,13 +134,31 @@ const Allinvestorslist = () => {
             <TableCell>{investor.customerId.name}</TableCell>
             <TableCell>{investor.customerId.phone}</TableCell>
             <TableCell>{investor.customerId.email}</TableCell>
-            <TableCell>{investor.propertyName}</TableCell>
+            <TableCell>
+              {investor.surepassStatus === "Not Completed" && (
+                <input
+                  type="checkbox"
+                  checked={checkboxes[investor._id]?.esign1 || false}
+                  onChange={() => handleCheckboxChange(investor._id, 'esign1')}
+                />
+              )}
+            </TableCell>
+            <TableCell>
+              {investor.surepassProsStatus === "Not Completed" && (
+                <input
+                  type="checkbox"
+                  checked={checkboxes[investor._id]?.esign2 || false}
+                  onChange={() => handleCheckboxChange(investor._id, 'esign2')}
+                />
+              )}
+            </TableCell>
             <TableCell>{investor.amount}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     );
   };
+
   return (
     <div style={{ maxWidth: "100%", overflowX: "auto" }}>
       <h1 style={{ textAlign: "center", fontFamily: "Gilroy-Bold" }}>
@@ -93,7 +180,7 @@ const Allinvestorslist = () => {
             fontWeight: displayType === "completed" ? "bold" : "normal",
           }}
         >
-          Investors
+          Completed Investors
         </button>
         <button
           onClick={() => handleDisplayTypeChange("interested")}
@@ -112,15 +199,13 @@ const Allinvestorslist = () => {
             <TableCell style={{ fontWeight: "bold" }}>Name</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Contact</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Email</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>Property Name</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>
-              Investment Amount
-            </TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Esign 1</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Esign 2</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Investment Amount</TableCell>
           </TableRow>
         </TableHead>
         {displayType === "completed" && renderCompletedRows(completedInvestors)}
-        {displayType === "interested" &&
-          renderInvestorRows(interestedInvestors)}
+        {displayType === "interested" && renderInvestorRows(interestedInvestors)}
       </Table>
     </div>
   );
