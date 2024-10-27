@@ -26,7 +26,7 @@ import {
 import { alpha, color, fontSize, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
-import React, { useContext, useEffect, useReducer, useState, useMemo  } from "react";
+import React, { useContext, useEffect, useReducer, useState, useMemo } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -966,33 +966,26 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const rows = [1];
   const handleInterest = async (e) => {
     e.preventDefault();
-    let interestusers = JSON.parse(
-      localStorage.getItem("interestusers1") || "[]"
-    );
-    interestusers.push({
-      name: token.name,
-      email: token.email,
-      amount: interestamount,
-      contactnumber: token.phone,
-      property: id,
-    });
-    localStorage.setItem("interestusers1", JSON.stringify(interestusers));
 
-    setOpen(false);
+    setOpen(false); // Close any modal if applicable
     try {
+      // Prepare the data to be sent to the backend
       const data = {
-        type: { selectedValue } == "allotment" ? 0 : 1,
+        type: selectedValue === "allotment" ? 0 : 1, // Adjust type based on selection
         name: token.name,
         email: token.email,
-
         phone: token.phone,
         property: listing.properyheading,
         image: listing.images[0],
         amount: interestamount,
       };
-      const ans = await axios.post(`${URL}/investment/add`, data);
+
+      // Send a POST request to add investment data to the backend
+      await axios.post(`${URL}/investment/add`, data);
+      console.log("Investment added successfully");
+
     } catch (error) {
-      console.log(error);
+      console.error("Error saving investment:", error);
     }
   };
   const handleRequest = async (tp) => {
@@ -1409,49 +1402,49 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   }}
                 >
                   <ReturnsBox style={{ marginTop: "1rem" }}>
-                      <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
-                        {/* Tokens */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.tokens || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
-                        </Box>
-
-                        {/* Vertical Divider */}
-                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                        {/* Est. Yields */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
-                        </Box>
-
-                        {/* Vertical Divider */}
-                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                        {/* Target APR */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
-                        </Box>
-
-                        {/* Vertical Divider */}
-                        <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                        {/* Potential Gain */}
-                        <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
-                          <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
-                            {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
-                          </Box>
+                    <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
+                      {/* Tokens */}
+                      <Box style={{ flex: 1, textAlign: "center" }}>
+                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                        <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                          {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                         </Box>
                       </Box>
-                    </ReturnsBox>
+
+                      {/* Vertical Divider */}
+                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                      {/* Est. Yields */}
+                      <Box style={{ flex: 1, textAlign: "center" }}>
+                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                        <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                          {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                        </Box>
+                      </Box>
+
+                      {/* Vertical Divider */}
+                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                      {/* Target APR */}
+                      <Box style={{ flex: 1, textAlign: "center" }}>
+                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                        <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                          {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                        </Box>
+                      </Box>
+
+                      {/* Vertical Divider */}
+                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                      {/* Potential Gain */}
+                      <Box style={{ flex: 1, textAlign: "center" }}>
+                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                        <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                          {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                        </Box>
+                      </Box>
+                    </Box>
+                  </ReturnsBox>
                 </Box>
               </Box>
             </Pricing>
@@ -2000,10 +1993,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         marginTop: "20px",
                       }}
                     >
-<div>
-      {/* Other components or JSX here */}
-      {memoizedChartData && <LineChart data={memoizedChartData} />}
-    </div>                      <Divider
+                      <div>
+                        {/* Other components or JSX here */}
+                        {memoizedChartData && <LineChart data={memoizedChartData} />}
+                      </div>                      <Divider
                         style={{
                           margin: "20px 0", // Space above and below the divider
                           backgroundColor: "#e0e0e0", // Color of the divider
@@ -2601,10 +2594,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                     </Box>
                     <Box>
-                    <div>
-      {/* Other components or JSX here */}
-      {memoizedChartData && <LineChart data={memoizedChartData} />}
-    </div>                      <Divider />
+                      <div>
+                        {/* Other components or JSX here */}
+                        {memoizedChartData && <LineChart data={memoizedChartData} />}
+                      </div>                      <Divider />
                       <SubTitle
                         style={{
                           width: "28px",
@@ -3624,8 +3617,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           &times;
                         </a>
 
-                        <form onSubmit={handleInterest}>
-                          <Box>
+                        <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
+                          <Box
+                            style={{
+                              padding: "20px 40px"
+                            }}>
                             <Label>
                               <LabelName>Select Amount to invest:</LabelName>
                             </Label>
@@ -3649,7 +3645,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             style={{ margin: "8px 0" }}
                             color="primary"
                             fullWidth
-                            onClick={handleInterest}
                           >
                             Show Interest
                           </Button>
@@ -4226,8 +4221,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             &times;
                           </a>
 
-                          <form onSubmit={handleInterest}>
-                            <Box>
+                          <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
+                            <Box
+                              style={{
+                                padding: "20px 40px"
+                              }}>
                               <Label>
                                 <LabelName>Select Amount to invest:</LabelName>
                               </Label>
@@ -4251,7 +4249,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               style={{ margin: "8px 0" }}
                               color="primary"
                               fullWidth
-                              onClick={handleInterest}
                             >
                               Show Interest
                             </Button>
@@ -4758,116 +4755,119 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
 
                     {/* Timeshare Box */}
-                    <Grid item xs={12} style={{ padding: 0 }}>
-                      <Box
-                        style={{
-                          margin: "20px 0",
-                          padding: "20px 40px",
-                          backgroundColor: "#ffffff",
-                          borderRadius: "22px",
-                          border: "0.2px solid #e9e9eb",
-                          display: "flex",
-                          flexDirection: "column",
-                          cursor: "pointer" // Add a pointer cursor to indicate it's clickable
-                        }}
-                        onClick={handleExpandClick} // Click to toggle expand/collapse
-                      >
-                        <Box display="flex" alignItems="center">
-                          <Typography
-                            style={{
-                              fontFamily: "Inter",
-                              fontSize: "22px",
-                              fontWeight: 600,
-                              marginBottom: "15px",
-                              color: "#44475B",
-                              cursor: "pointer", // Ensure cursor changes when hovering over the title
-                              flexGrow: 1,
-                            }}
-                          >
-                            What is TimeShare ?
-                          </Typography>
-                          <ExpandMoreIcon
-                            style={{
-                              color: "#44475B",
-                              cursor: "pointer",
-                              transform: expandedIndex === 1 ? 'rotate(180deg)' : 'rotate(0deg)',
-                              transition: 'transform 0.3s ease',
-                            }}
-                          />
-                        </Box>
-
-                        {expandedIndex === 1 && (
-                          <Box
-                            style={{
-                              overflow: 'hidden',
-                              transition: 'max-height 0.4s ease',
-                              padding: '10px 0',
-                              backgroundColor: "white",
-                              borderRadius: "5px",
-                            }}
-                          >
-                            <ul
+                    {listing.propertyType === "TimeShare" && (
+                      <Grid item xs={12} style={{ padding: 0 }}>
+                        <Box
+                          style={{
+                            margin: "20px 0",
+                            padding: "20px 40px",
+                            backgroundColor: "#ffffff",
+                            borderRadius: "22px",
+                            border: "0.2px solid #e9e9eb",
+                            display: "flex",
+                            flexDirection: "column",
+                            cursor: "pointer" // Add a pointer cursor to indicate it's clickable
+                          }}
+                          onClick={handleExpandClick} // Click to toggle expand/collapse
+                        >
+                          <Box display="flex" alignItems="center">
+                            <Typography
                               style={{
-                                paddingLeft: '20px',
-                                color: "#44475B",
-                                lineHeight: "30px",
                                 fontFamily: "Inter",
-                                fontSize: "14px",
+                                fontSize: "22px",
+                                fontWeight: 600,
+                                marginBottom: "15px",
+                                color: "#44475B",
+                                cursor: "pointer", // Ensure cursor changes when hovering over the title
+                                flexGrow: 1,
                               }}
                             >
-                              {Array.isArray(listing?.timeShare) && listing.timeShare.length > 0 ? (
-                                listing.timeShare.map((timeShare, index) => (
-                                  <div key={index}>
-                                    {timeShare.label && timeShare.details ? (
-                                      <li>
-                                        <strong>{timeShare.label}: </strong>
-                                        {timeShare.details}
-                                      </li>
-                                    ) : (
-                                      <li>No offers available</li>
-                                    )}
-
-                                    <Typography
-                                      style={{
-                                        fontFamily: "Inter",
-                                        fontSize: "14px",
-                                        marginTop: "20px",
-                                        color: "black",
-                                        marginBottom: "25px",
-                                      }}
-                                    >
-                                      {timeShare.limitedAvailability || "No availability info"}
-                                    </Typography>
-
-                                    <Button
-                                      variant="contained"
-                                      color="primary"
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        width: "100%",
-                                        borderRadius: "8px",
-                                        fontFamily: "Inter",
-                                        fontSize: "18px",
-                                        fontWeight: 900,
-                                        marginBottom: "30px",
-                                        backgroundColor: "#00B386",
-                                        padding: "10px 20px",
-                                      }}
-                                    >
-                                      Invest {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(timeShare.investmentAmount || 0)}
-                                    </Button>
-                                  </div>
-                                ))
-                              ) : (
-                                <li>No timeShare data available</li>
-                              )}
-                            </ul>
+                              What is TimeShare?
+                            </Typography>
+                            <ExpandMoreIcon
+                              style={{
+                                color: "#44475B",
+                                cursor: "pointer",
+                                transform: expandedIndex === 1 ? 'rotate(180deg)' : 'rotate(0deg)',
+                                transition: 'transform 0.3s ease',
+                              }}
+                            />
                           </Box>
-                        )}
-                      </Box>
-                    </Grid>
+
+                          {expandedIndex === 1 && (
+                            <Box
+                              style={{
+                                overflow: 'hidden',
+                                transition: 'max-height 0.4s ease',
+                                padding: '10px 0',
+                                backgroundColor: "white",
+                                borderRadius: "5px",
+                              }}
+                            >
+                              <ul
+                                style={{
+                                  paddingLeft: '20px',
+                                  color: "#44475B",
+                                  lineHeight: "30px",
+                                  fontFamily: "Inter",
+                                  fontSize: "14px",
+                                }}
+                              >
+                                {Array.isArray(listing?.timeShare) && listing.timeShare.length > 0 ? (
+                                  listing.timeShare.map((timeShare, index) => (
+                                    <div key={index}>
+                                      {timeShare.label && timeShare.details ? (
+                                        <li>
+                                          <strong>{timeShare.label}: </strong>
+                                          {timeShare.details}
+                                        </li>
+                                      ) : (
+                                        <li>No offers available</li>
+                                      )}
+
+                                      <Typography
+                                        style={{
+                                          fontFamily: "Inter",
+                                          fontSize: "14px",
+                                          marginTop: "20px",
+                                          color: "black",
+                                          marginBottom: "25px",
+                                        }}
+                                      >
+                                        {timeShare.limitedAvailability || "No availability info"}
+                                      </Typography>
+
+                                      <Button
+                                        variant="contained"
+                                        color="primary"
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          alignItems: "center",
+                                          width: "100%",
+                                          borderRadius: "8px",
+                                          fontFamily: "Inter",
+                                          fontSize: "18px",
+                                          fontWeight: 900,
+                                          marginBottom: "30px",
+                                          backgroundColor: "#00B386",
+                                          padding: "10px 20px",
+                                        }}
+                                      >
+                                        Invest {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(timeShare.investmentAmount || 0)}
+                                      </Button>
+                                    </div>
+                                  ))
+                                ) : (
+                                  <li>No timeShare data available</li>
+                                )}
+                              </ul>
+                            </Box>
+                          )}
+                        </Box>
+                      </Grid>
+                    )}
+
 
 
 
@@ -5047,9 +5047,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             &times;
                           </a>
 
-                          <form onSubmit={handleInterest}>
+                          <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
                             <Box>
-                              <Label>
+                              <Label
+                                style={{
+                                  padding: "20px 40px"
+                                }}>
                                 <LabelName>Select Amount to invest:</LabelName>
                               </Label>
 
@@ -5072,7 +5075,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               style={{ margin: "8px 0" }}
                               color="primary"
                               fullWidth
-                              onClick={handleInterest}
                             >
                               Show Interest
                             </Button>
@@ -5677,7 +5679,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     </a>
                   </div>
 
-                  <form onSubmit={handleInterest}>
+                  <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
                     <Box style={{ padding: "10px 40px" }}>
                       <Label>
                         <LabelName>Select Amount to invest:</LabelName>
@@ -5701,7 +5703,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       style={{ margin: "8px 0" }}
                       color="primary"
                       fullWidth
-                      onClick={handleInterest}
                     >
                       Show Interest
                     </Button>

@@ -123,6 +123,7 @@ function Dashboard() {
     };
     fetchkycstatus();
     handleCheckSignedPdf();
+    handleCheckSignedPdfPROS();
   }, [showPdf, showPdfPROS]);
 
   const savekyc = async () => {
