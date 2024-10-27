@@ -966,35 +966,28 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const rows = [1];
   const handleInterest = async (e) => {
     e.preventDefault();
-    let interestusers = JSON.parse(
-      localStorage.getItem("interestusers1") || "[]"
-    );
-    interestusers.push({
-      name: token.name,
-      email: token.email,
-      amount: interestamount,
-      contactnumber: token.phone,
-      property: id,
-    });
-    localStorage.setItem("interestusers1", JSON.stringify(interestusers));
-
-    setOpen(false);
+    
+    setOpen(false); // Close any modal if applicable
     try {
+      // Prepare the data to be sent to the backend
       const data = {
-        type: { selectedValue } == "allotment" ? 0 : 1,
+        type: selectedValue === "allotment" ? 0 : 1, // Adjust type based on selection
         name: token.name,
         email: token.email,
-
         phone: token.phone,
         property: listing.properyheading,
         image: listing.images[0],
         amount: interestamount,
       };
-      const ans = await axios.post(`${URL}/investment/add`, data);
+      
+      // Send a POST request to add investment data to the backend
+      await axios.post(`${URL}/investment/add`, data);
+      console.log("Investment added successfully");
+
     } catch (error) {
-      console.log(error);
+      console.error("Error saving investment:", error);
     }
-  };
+};
   const handleRequest = async (tp) => {
     try {
       const data = {
@@ -3624,8 +3617,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           &times;
                         </a>
 
-                        <form onSubmit={handleInterest}>
-                          <Box>
+                        <form style={{padding:"10px 20px"}} onSubmit={handleInterest}>
+                          <Box 
+                          style={{
+                            padding:"20px 40px"
+                          }}>
                             <Label>
                               <LabelName>Select Amount to invest:</LabelName>
                             </Label>
@@ -3649,7 +3645,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             style={{ margin: "8px 0" }}
                             color="primary"
                             fullWidth
-                            onClick={handleInterest}
                           >
                             Show Interest
                           </Button>
@@ -4226,8 +4221,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             &times;
                           </a>
 
-                          <form onSubmit={handleInterest}>
-                            <Box>
+                          <form style={{padding:"10px 20px"}} onSubmit={handleInterest}>
+                            <Box
+                            style={{
+                              padding:"20px 40px"
+                            }}>
                               <Label>
                                 <LabelName>Select Amount to invest:</LabelName>
                               </Label>
@@ -4251,7 +4249,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               style={{ margin: "8px 0" }}
                               color="primary"
                               fullWidth
-                              onClick={handleInterest}
                             >
                               Show Interest
                             </Button>
@@ -5047,9 +5044,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             &times;
                           </a>
 
-                          <form onSubmit={handleInterest}>
+                          <form style={{padding:"10px 20px"}} onSubmit={handleInterest}>
                             <Box>
-                              <Label>
+                              <Label
+                              style={{
+                            padding:"20px 40px"
+                          }}>
                                 <LabelName>Select Amount to invest:</LabelName>
                               </Label>
 
@@ -5072,7 +5072,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               style={{ margin: "8px 0" }}
                               color="primary"
                               fullWidth
-                              onClick={handleInterest}
                             >
                               Show Interest
                             </Button>
@@ -5677,7 +5676,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     </a>
                   </div>
 
-                  <form onSubmit={handleInterest}>
+                  <form style={{padding:"10px 20px"}} onSubmit={handleInterest}>
                     <Box style={{ padding: "10px 40px" }}>
                       <Label>
                         <LabelName>Select Amount to invest:</LabelName>
@@ -5701,7 +5700,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       style={{ margin: "8px 0" }}
                       color="primary"
                       fullWidth
-                      onClick={handleInterest}
                     >
                       Show Interest
                     </Button>
