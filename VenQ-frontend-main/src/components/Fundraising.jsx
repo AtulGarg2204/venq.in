@@ -5,7 +5,7 @@ const Fundraising = () => {
   const instruments = [
     {
       id: 1,
-      type: "Equity",
+      type: "Equity TYPE",
       name: "CCDs (Compulsory Convertible Debentures)",
       description:
         "With this instrument “CCDs”, investors purchase a fraction of a real estate property by subscribing to CCDs issued by an #SPV (Special Purpose Vehicle)#. This structure allows the property to be legally held under the SPV, ensuring that the investor has secure ownership. The CCDs offer a fixed return, and at the end of the investment term or upon the sale of the property, the CCDs are converted into equity, meaning the investor realizes the capital appreciation of the property",

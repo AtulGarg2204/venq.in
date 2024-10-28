@@ -493,7 +493,7 @@ function Dashboard() {
   
       const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
       const response = await axios.get(getUrl);
-  
+
       console.log("Response from Surepass:", response.data);
   
       if (response.data?.data?.success) {
