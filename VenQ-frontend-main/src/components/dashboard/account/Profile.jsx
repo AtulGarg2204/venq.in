@@ -71,6 +71,8 @@ function Dashboard() {
   const [showPdf, setShowPdf] = useState();
   const [showPdfPROS, setShowPdfPROS] = useState();
   const [currentStep, setCurrentStep] = useState(1);
+  const [purchased, setPurchased] = useState([]);
+
 
   const updateSteps = (step) => {
     setCurrentStep(step);
@@ -95,36 +97,89 @@ function Dashboard() {
   const theme = useTheme();
 
   useEffect(() => {
-    const fetchkycstatus = async () => {
+    console.log("Token Data", token._id);
+
+    const fetchKYCStatus = async () => {
       try {
-        const result = await axios.get(
-          `${URL}/auth/user/checkverify/${token.email}`
-        );
+        const result = await axios.get(`${URL}/auth/user/checkverify/${token.email}`);
         if (result) {
           setonbcomp(result.data.isVerified);
-          // console.log(onbcomp);
-          if (result.data.isVerified == 2) {
+
+          // If verified, fetch additional KYC details
+          if (result.data.isVerified === 2) {
             try {
               const getdet = await axios.get(`${URL}/kyc/${token.email}`);
               if (getdet) {
-                console.log(getdet.data);
+                console.log("KYC Data:", getdet.data);
                 setkycdata(getdet.data.data);
               }
             } catch (error) {
-              console.log(error);
+              console.error("Error fetching KYC details:", error);
             }
           }
         } else {
-          console.log("status hi nahi mila");
+          console.log("No verification status received.");
         }
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching KYC verification status:", error);
       }
     };
-    fetchkycstatus();
-    handleCheckSignedPdf();
-    handleCheckSignedPdfPROS();
-  }, [showPdf, showPdfPROS]);
+
+    const fetchPurchasedData = async () => {
+      try {
+        const customerId = token._id; // Ensure this is the correct ID
+    
+        if (!customerId) {
+          console.error("Customer ID is not available.");
+          return;
+        }
+    
+        const purchasedResponse = await axios.get(`${URL}/purchased/${customerId}/getDetails`);
+    
+        if (purchasedResponse && purchasedResponse.data && purchasedResponse.data.purchased) {
+          const purchasedData = purchasedResponse.data.purchased; // Get the purchased array
+    
+          console.log("Purchased Data:", purchasedData); // Log the entire purchased data
+    
+          // Ensure there is at least one purchase before accessing
+          if (purchasedData.length > 0) {
+            const firstPurchase = purchasedData[0]; // Access the first item
+    
+            // Set the state for surepassStatus and surepassProsStatus from the first item
+            setSurepassStatus(firstPurchase.surepassStatus || "Completed");
+            setSurepassProsStatus(firstPurchase.surepassProsStatus || "Completed");
+    
+            // Optionally set the purchased data
+            setPurchased(purchasedData);
+          } else {
+            console.log("No purchases found in the response.");
+          }
+        } else {
+          console.log("No purchased data received.");
+        }
+      } catch (error) {
+        console.error("Error fetching purchased data:", error.response?.data || error.message);
+      }
+    };
+    
+    const fetchSignedPdfStatuses = async () => {
+      try {
+        await handleCheckSignedPdf();
+        await handleCheckSignedPdfPROS();
+      } catch (error) {
+        console.error("Error checking signed PDF statuses:", error);
+      }
+    };
+
+    const fetchData = async () => {
+      await fetchKYCStatus();
+      await fetchPurchasedData();
+      await fetchSignedPdfStatuses();
+    };
+
+    fetchData();
+  }, []);
+
 
   const savekyc = async () => {
     try {
@@ -366,19 +421,19 @@ function Dashboard() {
     console.log("Phone:", phone);
     const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
     const url = `${URL}/surepass/initializeEsign`;
-  
+
     const payload = { name, email, phone: trimmedPhone };
-  
+
     try {
       const response = await axios.post(url, payload);
       console.log("Response from Surepass:", response.data);
-  
+
       if (response.data?.data?.data?.url && response.data?.data?.data?.client_id) {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
         localStorage.setItem("client_id", clientId);
         window.open(esignUrl, "_blank");
-  
+
         // Update surepassStatus to "Completed" for this purchase via the backend API
         // await axios.put(`${URL}/purchased/${purchasedId}`, {
         //   surepassStatus: "Completed",
@@ -390,26 +445,26 @@ function Dashboard() {
       console.error("Error occurred while calling initializeEsign:", error);
     }
   };
-  
+
   const handleSurepassPROS = async (name, email, phone, purchasedId) => {
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Phone:", phone);
     const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
     const url = `${URL}/surepass/initializeEsignPROS`;
-  
+
     const payload = { name, email, phone: trimmedPhone };
-  
+
     try {
       const response = await axios.post(url, payload);
       console.log("Response from SurepassPROS:", response.data);
-  
+
       if (response.data?.data?.data?.url && response.data?.data?.data?.client_id) {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
         localStorage.setItem("client_id", clientId);
         window.open(esignUrl, "_blank");
-  
+
         // Update surepassProsStatus to "Completed" for this purchase via the backend API
         // await axios.put(`${URL}/purchased/${purchasedId}`, {
         //   surepassProsStatus: "Completed",
@@ -421,9 +476,9 @@ function Dashboard() {
       console.error("Error occurred while calling initializeEsignPROS:", error);
     }
   };
-  
-  
-  
+
+
+
   const [pdfCompletionStatus, setPdfCompletionStatus] = useState(''); // New state for completion status
   const [pdfCompletionStatusPROS, setPdfCompletionStatusPROS] = useState(''); // New state for PROS
 
@@ -441,14 +496,16 @@ function Dashboard() {
 
       console.log("Response from Surepass:", response.data);
 
-      if (response.data.data.success === true) {
+      if (response.data.data && response.data.data.success) {
         setShowPdf(true);
         setPdfCompletionStatus("Completed"); // Update completion status
 
-        // Optionally, update the purchase record in your backend
-        await axios.put(`${URL}/purchased/${purchasedId}`, {
-          pdfStatus: "Completed",
-        });
+        // Update the purchase record in your backend if purchasedId is provided
+        if (purchasedId) {
+          await axios.put(`${URL}/purchased/${purchasedId}`, {
+            pdfStatus: "Completed",
+          });
+        }
       } else {
         setShowPdf(false);
         setPdfCompletionStatus("Not Completed"); // Update completion status
@@ -456,7 +513,7 @@ function Dashboard() {
         console.error("Signed PDF not generated yet:", response.data.error.message);
       }
     } catch (error) {
-      console.error("Error occurred while checking for signed PDF:", error);
+      console.error("Error occurred while checking for signed PDF:", error.response ? error.response.data : error.message);
     }
   };
 
@@ -474,14 +531,16 @@ function Dashboard() {
 
       console.log("Response from SurepassPROS:", response.data);
 
-      if (response.data.data.success === true) {
+      if (response.data.data && response.data.data.success) {
         setShowPdfPROS(true);
         setPdfCompletionStatusPROS("Completed"); // Update completion status for PROS
 
-        // Optionally, update the purchase record in your backend
-        await axios.put(`${URL}/purchased/${purchasedId}`, {
-          pdfProsStatus: "Completed",
-        });
+        // Update the purchase record in your backend if purchasedId is provided
+        if (purchasedId) {
+          await axios.put(`${URL}/purchased/${purchasedId}`, {
+            pdfProsStatus: "Completed",
+          });
+        }
       } else {
         setShowPdfPROS(false);
         setPdfCompletionStatusPROS("Not Completed"); // Update completion status for PROS
@@ -489,9 +548,10 @@ function Dashboard() {
         console.error("Signed PDF not generated yet:", response.data.error.message);
       }
     } catch (error) {
-      console.error("Error occurred while checking for signed PDF:", error);
+      console.error("Error occurred while checking for signed PDF:", error.response ? error.response.data : error.message);
     }
   };
+
   // toast notifications
   const notifyResend = () => toast.success(`OTP sent`);
   //   console.log(otp);
@@ -559,9 +619,8 @@ function Dashboard() {
                         <span>
                           {stepNumber > 1 && <div className="line"></div>}
                           <span
-                            className={`step-circle ${
-                              stepNumber <= currentStep ? "active" : ""
-                            }`}
+                            className={`step-circle ${stepNumber <= currentStep ? "active" : ""
+                              }`}
                           >
                             {stepNumber}
                           </span>
@@ -583,8 +642,8 @@ function Dashboard() {
                           {stepNumber == 1
                             ? "Aadhar"
                             : stepNumber == 2
-                            ? "PAN"
-                            : "Bank"}
+                              ? "PAN"
+                              : "Bank"}
                         </span>
                       </div>
 
@@ -607,12 +666,12 @@ function Dashboard() {
               <>
                 <div
                   className="aadhar_details_container"
-                  // style={{
-                  //   display: "flex",
-                  //   justifyContent: "flex-start",
-                  //   flexDirection: "column",
-                  //   width: "470px",
-                  // }}
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "flex-start",
+                //   flexDirection: "column",
+                //   width: "470px",
+                // }}
                 >
                   <div
                     style={{
@@ -782,12 +841,12 @@ function Dashboard() {
               <>
                 <div
                   className="aadhar_details_container pan_details_container"
-                  // style={{
-                  //   display: "flex",
-                  //   justifyContent: "flex-start",
-                  //   flexDirection: "column",
-                  //   width: "470px",
-                  // }}
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "flex-start",
+                //   flexDirection: "column",
+                //   width: "470px",
+                // }}
                 >
                   <div
                     style={{
@@ -821,11 +880,11 @@ function Dashboard() {
                       name="pan"
                       value={kycdata.pan_number}
                       autoFocus={true}
-                      // style={{
-                      //   width: "450px",
-                      //   marginTop: "0px",
-                      //   marginBottom: "10px",
-                      // }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <div
@@ -851,11 +910,11 @@ function Dashboard() {
                       name="pan"
                       value={kycdata.category}
                       autoFocus={true}
-                      // style={{
-                      //   width: "450px",
-                      //   marginTop: "0px",
-                      //   marginBottom: "10px",
-                      // }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
                   <div
@@ -881,11 +940,11 @@ function Dashboard() {
                       name="pan"
                       value={kycdata.gender}
                       autoFocus={true}
-                      // style={{
-                      //   width: "450px",
-                      //   marginTop: "0px",
-                      //   marginBottom: "10px",
-                      // }}
+                    // style={{
+                    //   width: "450px",
+                    //   marginTop: "0px",
+                    //   marginBottom: "10px",
+                    // }}
                     />
                   </div>
 
@@ -925,12 +984,12 @@ function Dashboard() {
               <>
                 <div
                   className="aadhar_details_container pan_details_container"
-                  // style={{
-                  //   display: "flex",
-                  //   justifyContent: "flex-start",
-                  //   flexDirection: "column",
-                  //   width: "470px",
-                  // }}
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "flex-start",
+                //   flexDirection: "column",
+                //   width: "470px",
+                // }}
                 >
                   <div
                     style={{
@@ -964,9 +1023,9 @@ function Dashboard() {
                       name="bankname"
                       value={kycdata.bankName}
                       autoFocus={true}
-                      // style={{
-                      //   width: "450px",
-                      // }}
+                    // style={{
+                    //   width: "450px",
+                    // }}
                     />
                   </div>
 
@@ -993,9 +1052,9 @@ function Dashboard() {
                       name="bankname"
                       value={acarr[Number(kycdata.ac_type)]}
                       autoFocus={true}
-                      // style={{
-                      //   width: "450px",
-                      // }}
+                    // style={{
+                    //   width: "450px",
+                    // }}
                     />
                   </div>
 
@@ -1022,9 +1081,9 @@ function Dashboard() {
                       name="ifsccode"
                       value={kycdata.ifsc_code}
                       autoFocus={true}
-                      // style={{
-                      //   width: "450px",
-                      // }}
+                    // style={{
+                    //   width: "450px",
+                    // }}
                     />
                   </div>
 
@@ -1122,9 +1181,8 @@ function Dashboard() {
                                 setStep(stepNumber - 1);
                               }
                             }}
-                            className={`step-circle ${
-                              stepNumber <= currentStep ? "active" : ""
-                            }`}
+                            className={`step-circle ${stepNumber <= currentStep ? "active" : ""
+                              }`}
                           >
                             {stepNumber}
                           </span>
@@ -1137,8 +1195,8 @@ function Dashboard() {
                           {stepNumber == 1
                             ? "Aadhar"
                             : stepNumber == 2
-                            ? "PAN"
-                            : "Bank"}
+                              ? "PAN"
+                              : "Bank"}
                         </div>
                       </div>
                       <div
@@ -1602,25 +1660,22 @@ function Dashboard() {
               <nav className="tab-navigation">
                 <ul>
                   <li
-                    className={`nav-item ${
-                      activeTab === "details" ? "active" : ""
-                    }`}
+                    className={`nav-item ${activeTab === "details" ? "active" : ""
+                      }`}
                     onClick={() => setActiveTab("details")}
                   >
                     Details
                   </li>
                   <li
-                    className={`nav-item ${
-                      activeTab === "transactions" ? "active" : ""
-                    }`}
+                    className={`nav-item ${activeTab === "transactions" ? "active" : ""
+                      }`}
                     onClick={() => setActiveTab("transactions")}
                   >
                     Transactions
                   </li>
                   <li
-                    className={`nav-item ${
-                      activeTab === "documents" ? "active" : ""
-                    }`}
+                    className={`nav-item ${activeTab === "documents" ? "active" : ""
+                      }`}
                     onClick={() => setActiveTab("documents")}
                   >
                     Documents
@@ -1665,23 +1720,20 @@ function Dashboard() {
                     <div className="progress-container">
                       <div className="step-labels">
                         <span
-                          className={`step-label ${
-                            onbcomp === 0 ? "active-not-started" : ""
-                          }`}
+                          className={`step-label ${onbcomp === 0 ? "active-not-started" : ""
+                            }`}
                         >
                           Not Started
                         </span>
                         <span
-                          className={`step-label ${
-                            onbcomp === 1 ? "active-pending" : ""
-                          }`}
+                          className={`step-label ${onbcomp === 1 ? "active-pending" : ""
+                            }`}
                         >
                           Pending
                         </span>
                         <span
-                          className={`step-label ${
-                            onbcomp === 2 ? "active-completed" : ""
-                          }`}
+                          className={`step-label ${onbcomp === 2 ? "active-completed" : ""
+                            }`}
                         >
                           Completed
                         </span>
@@ -1776,139 +1828,63 @@ function Dashboard() {
         </button> */}
                     </div>
                   </div>
-                  {onbcomp === 2 ? (
-                    <div className="required-documents">
-                      <h2>E-Signing Portal</h2>
-                      {/* <div className="document-info">
-                      No Documents Available for E-sign
-                    </div> */}
-                      {!info ? (
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "30px",
-                          }}
-                        >
-                          <div>Property Management Agreement</div>
-                          <button onClick={handleEsign}>Start Process</button>
-                        </div>
-                      ) : (
-                        <>
-                          {showPdf === true ? (
-                            <div>Process already completed.</div>
-                          ) : (
-                            <div className="form-container">
-                              <form
-                                onSubmit={(event) => {
-                                  event.preventDefault(); // Prevent the form from submitting and reloading the page
-                                  handleSurepass(
-                                    token.name,
-                                    token.email,
-                                    token.phone,
-                                  );
-                                }}
-                              >
-                            {/* <div className="form-group">
-                              <label htmlFor="aadhaar">Aadhaar Card</label>
-                              <input
-                                type="text"
-                                id="aadhaar"
-                                placeholder="Enter Aadhaar card number"
-                                value={kycdata.aadhaar_number}
-                                readOnly
-                              />
-                            </div>
-                                <div className="form-group">
-                                  <label htmlFor="pan">PAN Card</label>
-                                  <input
-                                    type="text"
-                                    id="pan"
-                                    placeholder="Enter PAN card number"
-                                    value={kycdata.pan_number}
-                                    readOnly // Assuming you don't want to edit PAN number
-                                  />
-                                </div>
-                                <div className="form-group">
-                                  <div className="label-container">
-                                    <label htmlFor="fatherName">
-                                      Father's Name
-                                    </label>
-                                    <span className="error-message">
-                                      *Missing field
-                                    </span>
-                                  </div>
-                                  <input
-                                    type="text"
-                                    id="fatherName"
-                                    placeholder="Enter father's name"
-                                    value={fatherName} // Set the value to the state
-                                    onChange={(e) =>
-                                      setFatherName(e.target.value)
-                                    } // Update state on change
-                                    required // Optionally make it required
-                                  />
-                                </div> */}
-                                <button type="submit" className="proceed-btn">
-                                  Proceed
-                                </button>
-                              </form>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                  {onbcomp === 2 ? (
-                    <div className="required-documents">
-                      <h2>E-Signing Portal</h2>
-                      {/* <div className="document-info">
-                      No Documents Available for E-sign
-                    </div> */}
-                      {!infoPROS ? (
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: "30px",
-                          }}
-                        >
-                          <div>Private Placement Application</div>
-                          <button onClick={handleEsignPROS}>Start Process</button>
-                        </div>
-                      ) : (
-                        <>
-                          {showPdfPROS === true ? (
-                            <div>Process already completed.</div>
-                          ) : (
-                            <div className="form-container">
-                              <form
-                                onSubmit={(event) => {
-                                  event.preventDefault(); // Prevent the form from submitting and reloading the page
-                                  handleSurepassPROS(
-                                    token.name,
-                                    token.email,
-                                    token.phone,
-                                  );
-                                }}
-                              >
-                                <button type="submit" className="proceed-btn">
-                                  Proceed
-                                </button>
-                              </form>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                  
+                  {onbcomp === 2 && purchased.length > 0 && purchased[0].surepassStatus !== "Completed" && (
+  <div className="required-documents">
+    <h2>E-Signing Portal</h2>
+    {!info ? (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "30px" }}>
+        <div>Property Management Agreement</div>
+        <button onClick={handleEsign}>Start Process</button>
+      </div>
+    ) : (
+      <>
+        {showPdf ? (
+          <div>Process already completed.</div>
+        ) : (
+          <div className="form-container">
+            <form onSubmit={(event) => {
+              event.preventDefault();
+              handleSurepass(token.name, token.email, token.phone);
+            }}>
+              <button type="submit" className="proceed-btn">Proceed</button>
+            </form>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+)}
+
+{onbcomp === 2 && purchased.length > 0 && purchased[0].surepassProsStatus !== "Completed" && (
+  <div className="required-documents">
+    <h2>E-Signing Portal</h2>
+    {!infoPROS ? (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "30px" }}>
+        <div>Private Placement Application</div>
+        <button onClick={handleEsignPROS}>Start Process</button>
+      </div>
+    ) : (
+      <>
+        {showPdfPROS ? (
+          <div>Process already completed.</div>
+        ) : (
+          <div className="form-container">
+            <form onSubmit={(event) => {
+              event.preventDefault();
+              handleSurepassPROS(token.name, token.email, token.phone);
+            }}>
+              <button type="submit" className="proceed-btn">Proceed</button>
+            </form>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+)}
+
+
+
+
                 </>
               )}
               {activeTab === "transactions" && (
