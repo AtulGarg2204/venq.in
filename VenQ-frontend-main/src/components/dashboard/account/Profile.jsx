@@ -166,6 +166,7 @@ function Dashboard() {
     const fetchData = async () => {
       await fetchKYCStatus();
       await fetchPurchasedData();
+
     };
 
     fetchData();
@@ -406,65 +407,136 @@ function Dashboard() {
       setOtp(newOtp);
     }
   };
-  const handleSurepass = async (name, email, phone, purchasedId) => {
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Phone:", phone);
+
+   // States for user input
+   const [name, setName] = useState('');
+   const [email, setEmail] = useState('');
+   const [phone, setPhone] = useState('');
+   
+   // States for API response and loading/error tracking
+   const [clientId, setClientId] = useState(null);
+   const [esignUrl, setEsignUrl] = useState(null);
+   const [pdfLink, setPdfLink] = useState(null);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
+  const handleSurepass = async (name, email, phone) => {
+    setLoading(true);
+    setError(null); // Reset errors on new request
+
     const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
     const url = `${URL}/surepass/initializeEsign`;
 
-    const payload = { name, email, phone: trimmedPhone };
+    const payload = {
+      name: name,
+      email: email,
+      phone: trimmedPhone,
+    };
 
     try {
       const response = await axios.post(url, payload);
-      console.log("Response from Surepass:", response.data);
 
-      if (response.data?.data?.data?.url && response.data?.data?.data?.client_id) {
+      if (response.data && response.data.data && response.data.data.data.url && response.data.data.data.client_id) {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
+
+        setClientId(clientId);
+        setEsignUrl(esignUrl);
+
         localStorage.setItem("client_id", clientId);
+
         window.open(esignUrl, "_blank");
 
-        // Update surepassStatus to "Completed" for this purchase via the backend API
-        // await axios.put(`${URL}/purchased/${purchasedId}`, {
-        //   surepassStatus: "Completed",
-        // });
+        const fatherDetails = {
+          clientId1: clientId,
+          fatherName: fatherName,
+          phoneNumber: trimmedPhone,
+          pdfUrl: "default_pdf_link", // Change this if necessary
+          email: email,
+        };
+
+        const url2 = `${URL}/esigndetails/surepassDetails`;
+        await axios.post(url2, fatherDetails);
+
+        const newPayload = {
+          client_id: clientId,
+          link: "https://res.cloudinary.com/duamtsgqf/raw/upload/v1729697301/pdfs/ck8henhu38qsqooaes8e.pdf",
+        };
+
+        const newUrl = `${URL}/surepass/uploadPdf`;
+        const secondResponse = await axios.post(newUrl, newPayload);
+        console.log("Response from the second API:", secondResponse.data);
       } else {
-        console.error("URL or client_id not found in the response.");
+        throw new Error("URL or client_id not found in the response.");
       }
     } catch (error) {
-      console.error("Error occurred while calling initializeEsign:", error);
+      setError("Error occurred while calling initializeEsign: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSurepassPROS = async (name, email, phone, purchasedId) => {
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Phone:", phone);
+  // State handler for Surepass PROS (second handler)
+  const handleSurepassPROS = async (name, email, phone) => {
+    setLoading(true);
+    setError(null); // Reset errors on new request
+
     const trimmedPhone = phone.startsWith("91") ? phone.slice(2) : phone;
     const url = `${URL}/surepass/initializeEsignPROS`;
 
-    const payload = { name, email, phone: trimmedPhone };
+    const payload = {
+      name: name,
+      email: email,
+      phone: trimmedPhone,
+    };
 
     try {
-      const response = await axios.post(url, payload);
-      console.log("Response from SurepassPROS:", response.data);
+      // Fetch the PDF link based on email
+      const customerResponse = await axios.get(`${URL}/customers/byEmail`, {
+        params: { email },
+      });
 
-      if (response.data?.data?.data?.url && response.data?.data?.data?.client_id) {
+      const pdfLink = customerResponse.data.pdfLink || "default_pdf_link";
+      setPdfLink(pdfLink); // Save pdfLink in state
+
+      const response = await axios.post(url, payload);
+
+      if (response.data && response.data.data && response.data.data.data.url && response.data.data.data.client_id) {
         const clientId = response.data.data.data.client_id;
         const esignUrl = response.data.data.data.url;
+
+        setClientId(clientId);
+        setEsignUrl(esignUrl);
+
         localStorage.setItem("client_id", clientId);
+
         window.open(esignUrl, "_blank");
 
-        // Update surepassProsStatus to "Completed" for this purchase via the backend API
-        // await axios.put(`${URL}/purchased/${purchasedId}`, {
-        //   surepassProsStatus: "Completed",
-        // });
+        const fatherDetails = {
+          clientId1: clientId,
+          fatherName: fatherName,
+          phoneNumber: trimmedPhone,
+          pdfUrl: pdfLink,
+          email: email,
+        };
+
+        const url2 = `${URL}/esigndetails/surepassDetails`;
+        await axios.post(url2, fatherDetails);
+
+        const newPayload = {
+          client_id: clientId,
+          link: pdfLink,
+        };
+
+        const newUrl = `${URL}/surepass/uploadPdf`;
+        const secondResponse = await axios.post(newUrl, newPayload);
+        console.log("Response from the second API:", secondResponse.data);
       } else {
-        console.error("URL or client_id not found in the response.");
+        throw new Error("URL or client_id not found in the response.");
       }
     } catch (error) {
-      console.error("Error occurred while calling initializeEsignPROS:", error);
+      setError("Error occurred while calling initializeEsign: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -472,6 +544,7 @@ function Dashboard() {
 
   const [pdfCompletionStatus, setPdfCompletionStatus] = useState(''); // New state for completion status
   const [pdfCompletionStatusPROS, setPdfCompletionStatusPROS] = useState(''); // New state for PROS
+
 
   
 
