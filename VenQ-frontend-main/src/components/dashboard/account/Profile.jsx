@@ -98,7 +98,7 @@ function Dashboard() {
 
   useEffect(() => {
     console.log("Token Data", token._id);
-
+    
     const fetchKYCStatus = async () => {
       try {
         const result = await axios.get(`${URL}/auth/user/checkverify/${token.email}`);
@@ -482,75 +482,66 @@ function Dashboard() {
   const [pdfCompletionStatus, setPdfCompletionStatus] = useState(''); // New state for completion status
   const [pdfCompletionStatusPROS, setPdfCompletionStatusPROS] = useState(''); // New state for PROS
 
-  const handleCheckSignedPdf = async (purchasedId) => {
+  const handleCheckSignedPdf = async () => {
     try {
       const clientId = localStorage.getItem("client_id");
-
+  
       if (!clientId) {
         console.error("Client ID not found in localStorage.");
         return;
       }
-
+  
       const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
       const response = await axios.get(getUrl);
-
+  
       console.log("Response from Surepass:", response.data);
-
-      if (response.data.data && response.data.data.success) {
+  
+      if (response.data?.data?.success) {
         setShowPdf(true);
-        setPdfCompletionStatus("Completed"); // Update completion status
-
-        // Update the purchase record in your backend if purchasedId is provided
-        if (purchasedId) {
-          await axios.put(`${URL}/purchased/${purchasedId}`, {
-            pdfStatus: "Completed",
-          });
-        }
+        setPdfCompletionStatus("Completed");
       } else {
         setShowPdf(false);
-        setPdfCompletionStatus("Not Completed"); // Update completion status
-
-        console.error("Signed PDF not generated yet:", response.data.error.message);
+        setPdfCompletionStatus("Not Completed");
+        console.error("Signed PDF not generated yet.");
       }
     } catch (error) {
-      console.error("Error occurred while checking for signed PDF:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error occurred while checking for signed PDF:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
-
-  const handleCheckSignedPdfPROS = async (purchasedId) => {
+  
+  const handleCheckSignedPdfPROS = async () => {
     try {
       const clientId = localStorage.getItem("client_id");
-
+  
       if (!clientId) {
         console.error("Client ID not found in localStorage.");
         return;
       }
-
+  
       const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
       const response = await axios.get(getUrl);
-
+  
       console.log("Response from SurepassPROS:", response.data);
-
-      if (response.data.data && response.data.data.success) {
+  
+      if (response.data?.data?.success) {
         setShowPdfPROS(true);
-        setPdfCompletionStatusPROS("Completed"); // Update completion status for PROS
-
-        // Update the purchase record in your backend if purchasedId is provided
-        if (purchasedId) {
-          await axios.put(`${URL}/purchased/${purchasedId}`, {
-            pdfProsStatus: "Completed",
-          });
-        }
+        setPdfCompletionStatusPROS("Completed");
       } else {
         setShowPdfPROS(false);
-        setPdfCompletionStatusPROS("Not Completed"); // Update completion status for PROS
-
-        console.error("Signed PDF not generated yet:", response.data.error.message);
+        setPdfCompletionStatusPROS("Not Completed");
+        console.error("Signed PDF not generated yet.");
       }
     } catch (error) {
-      console.error("Error occurred while checking for signed PDF:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error occurred while checking for signed PDF:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
+  
 
   // toast notifications
   const notifyResend = () => toast.success(`OTP sent`);
