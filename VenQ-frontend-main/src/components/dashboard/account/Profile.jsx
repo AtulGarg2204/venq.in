@@ -162,19 +162,19 @@ function Dashboard() {
       }
     };
     
-    // const fetchSignedPdfStatuses = async () => {
-    //   try {
-    //     await handleCheckSignedPdf();
-    //     await handleCheckSignedPdfPROS();
-    //   } catch (error) {
-    //     console.error("Error checking signed PDF statuses:", error);
-    //   }
-    // };
+    //const fetchSignedPdfStatuses = async () => {
+    //  try {
+    //    await handleCheckSignedPdf();
+    //    await handleCheckSignedPdfPROS();
+    //  } catch (error) {
+    //    console.error("Error checking signed PDF statuses:", error);
+    //  }
+    //};
 
     const fetchData = async () => {
       await fetchKYCStatus();
       await fetchPurchasedData();
-      // await fetchSignedPdfStatuses();
+      //await fetchSignedPdfStatuses();
     };
 
     fetchData();
@@ -449,6 +449,8 @@ function Dashboard() {
 
         setClientId(clientId);
         setEsignUrl(esignUrl);
+        console.log("eSign URL:", esignUrl);
+
 
         localStorage.setItem("client_id", clientId);
 
@@ -514,6 +516,7 @@ function Dashboard() {
 
         setClientId(clientId);
         setEsignUrl(esignUrl);
+        console.log("eSign URL:", esignUrl);
 
         localStorage.setItem("client_id", clientId);
 
@@ -553,66 +556,60 @@ function Dashboard() {
   const [pdfCompletionStatus, setPdfCompletionStatus] = useState(''); // New state for completion status
   const [pdfCompletionStatusPROS, setPdfCompletionStatusPROS] = useState(''); // New state for PROS
 
-  // const handleCheckSignedPdf = async () => {
-  //   try {
-  //     const clientId = localStorage.getItem("client_id");
+  //  const handleCheckSignedPdf = async () => {
+  //    try {
+  //      const clientId = localStorage.getItem("client_id");
+  //      if (!clientId) {
+  //        console.error("Client ID not found in localStorage.");
+  //        return;
+  //      }
+  //      const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
+  //      const response = await axios.get(getUrl);
+  //      console.log(getUrl);
   
-  //     if (!clientId) {
-  //       console.error("Client ID not found in localStorage.");
-  //       return;
-  //     }
-  
-  //     const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
-  //     const response = await axios.get(getUrl);
-  //     console.log(getUrl);
-      
-  //     console.log("Response from Surepass:", response.data);
-  
-  //     if (response.data?.data?.success) {
-  //       setShowPdf(true);
-  //       setPdfCompletionStatus("Completed");
-  //     } else {
-  //       setShowPdf(false);
-  //       setPdfCompletionStatus("Not Completed");
-  //       console.error("Signed PDF not generated yet.");
-  //     }
-  //   } catch (error) {
-  //     console.error(
-  //       "Error occurred while checking for signed PDF:",
-  //       error.response ? error.response.data : error.message
-  //     );
-  //   }
-  // };
-  
-  // const handleCheckSignedPdfPROS = async () => {
-  //   try {
-  //     const clientId = localStorage.getItem("client_id");
-  
-  //     if (!clientId) {
-  //       console.error("Client ID not found in localStorage.");
-  //       return;
-  //     }
-  
-  //     const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
-  //     const response = await axios.get(getUrl);
-  
-  //     console.log("Response from SurepassPROS:", response.data);
-  
-  //     if (response.data?.data?.success) {
-  //       setShowPdfPROS(true);
-  //       setPdfCompletionStatusPROS("Completed");
-  //     } else {
-  //       setShowPdfPROS(false);
-  //       setPdfCompletionStatusPROS("Not Completed");
-  //       console.error("Signed PDF not generated yet.");
-  //     }
-  //   } catch (error) {
-  //     console.error(
-  //       "Error occurred while checking for signed PDF:",
-  //       error.response ? error.response.data : error.message
-  //     );
-  //   }
-  // };
+  //      console.log("Response from Surepass:", response.data.data.data.url);
+  //      if (response.data?.data?.success) {
+  //        setShowPdf(true);
+  //        setPdfCompletionStatus("Completed");
+  //      } else {
+  //        setShowPdf(false);
+  //        setPdfCompletionStatus("Not Completed");
+  //        console.error("Signed PDF not generated yet.");
+  //      }
+  //    } catch (error) {
+  //      console.error(
+  //        "Error occurred while checking for signed PDF:",
+  //        error.response ? error.response.data : error.message
+  //      );
+  //    }
+  //  };
+
+   const handleCheckSignedPdfPROS = async () => {
+     try {
+       const clientId = localStorage.getItem("client_id");
+       if (!clientId) {
+         console.error("Client ID not found in localStorage.");
+         return;
+       }
+       const getUrl = `${URL}/surepass/getsignedPdf/${clientId}`;
+       const response = await axios.get(getUrl);
+       console.log("Response from SurepassPROS:", response.data);
+       if (response.data?.data?.success) {
+         setShowPdfPROS(true);
+         setPdfCompletionStatusPROS("Completed");
+
+       } else {
+         setShowPdfPROS(false);
+         setPdfCompletionStatusPROS("Not Completed");
+         console.error("Signed PDF not generated yet.");
+       }
+     } catch (error) {
+       console.error(
+         "Error occurred while checking for signed PDF:",
+         error.response ? error.response.data : error.message
+       );
+     }
+   };
   
 
   // toast notifications
