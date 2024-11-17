@@ -1,31 +1,27 @@
-import React, { useEffect, useRef } from "react";
 import { Chart } from "chart.js";
-
+import React, { useEffect, useRef } from "react";
 import {
+  CategoryScale,
   Chart as ChartJS,
+  Filler,
+  Legend,
+  LinearScale,
+  LineController,
   LineElement,
   PointElement,
-  LinearScale,
-  CategoryScale,
   Title,
   Tooltip,
-  Legend,
-  LineController,
-} from 'chart.js';
+} from "chart.js";
 
-// Register necessary components
-ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, LineController);
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, LineController, Filler);
 
 const LineChart = ({ data }) => {
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    if (chartContainer.current && data) {
+    if (chartContainer.current && data && !chartInstance.current) {
       const ctx = chartContainer.current.getContext("2d");
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-      }
 
       chartInstance.current = new Chart(ctx, {
         type: "line",
@@ -35,69 +31,71 @@ const LineChart = ({ data }) => {
             {
               label: "Property Value Over Time",
               data: data.data,
-              borderColor: "blue", // Set the line color to blue
-              backgroundColor: "rgba(0, 0, 255, 0.2)", // Optional: Add a background color under the line
-              pointRadius: 5, // Point size
-              pointBackgroundColor: "rgb(255,255,255)", // Point color
-              tension: 0.4, // Smoothness of the line
-              fill: true, // Fill area under the line
+              borderColor: "blue",
+              backgroundColor: "rgba(0, 0, 255, 0.2)",
+              pointRadius: 2,
+              pointBackgroundColor: "rgb(255,255,255)",
+              tension: 0.2,
+              fill: true,
             },
           ],
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false, // Maintain aspect ratio based on container size
+          maintainAspectRatio: false,
           scales: {
             x: {
               title: {
                 display: true,
-                text: "Time", // Label for X-axis
+                text: "Time",
                 color: "#333",
                 font: {
                   size: 16,
-                  weight: 'bold',
+                  weight: "bold",
                 },
               },
               grid: {
-                color: "rgba(0, 0, 0, 0.1)", // Grid line color
-                lineWidth: 1, // Grid line width
+                color: "rgba(0, 0, 0, 0.1)",
+                lineWidth: 1,
               },
             },
             y: {
               title: {
                 display: true,
-                text: "Property Value (INR / SQFT)", // Label for Y-axis
+                text: "Property Value (INR / SQFT)",
                 color: "#333",
                 font: {
                   size: 16,
-                  weight: 'bold',
+                  weight: "bold",
                 },
               },
               grid: {
-                color: "rgba(0, 0, 0, 0.1)", // Grid line color
-                lineWidth: 1, // Grid line width
+                color: "rgba(0, 0, 0, 0.1)",
+                lineWidth: 1,
               },
-              beginAtZero: true, // Start Y-axis at zero
+              beginAtZero: true,
+              min: 0,
+              max: Math.max(...data.data) + 100,
             },
           },
           plugins: {
             legend: {
               display: true,
-              position: "top", // Position of the legend
+              position: "top",
               labels: {
-                color: "#333", // Legend label color
+                color: "#333",
                 font: {
                   size: 14,
-                  weight: 'bold',
+                  weight: "bold",
                 },
               },
             },
             tooltip: {
-              backgroundColor: "rgba(0, 0, 0, 0.8)", // Tooltip background color
-              titleColor: "#fff", // Tooltip title color
-              bodyColor: "#fff", // Tooltip body color
-              borderColor: "rgba(75, 192, 192, 1)", // Tooltip border color
-              borderWidth: 1, // Tooltip border width
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              titleColor: "#fff",
+              bodyColor: "#fff",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
               callbacks: {
                 label: function (tooltipItem) {
                   return `${tooltipItem.dataset.label}: ₹${tooltipItem.raw.toLocaleString()}`;
@@ -107,16 +105,30 @@ const LineChart = ({ data }) => {
           },
         },
       });
+    } else if (chartInstance.current) {
+      // Update the chart with new data without re-instantiating
+      chartInstance.current.data = {
+        labels: data.labels,
+        datasets: [
+          {
+            ...chartInstance.current.data.datasets[0],
+            data: data.data,
+          },
+        ],
+      };
+      chartInstance.current.update();
     }
+
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+        chartInstance.current = null;
+      }
+    };
   }, [data]);
 
   return (
-    <div style={{
-      width: "80%", // Adjust this value to reduce/increase width (e.g., "60%", "400px")
-      height: "400px",
-      margin: "0 auto", // Center the chart horizontally
-      backgroundColor: "#ffffff", // Set background to white
-    }}>
+    <div style={{ width: "80%", height: "400px", margin: "0 auto", backgroundColor: "#ffffff" }}>
       <canvas ref={chartContainer}></canvas>
     </div>
   );

@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import star from "./star.png";
 import axios from "axios";
 import config from "../../../config";
+import { fontSize } from "@mui/system";
 
 const Property = styled(Card)`
   background-color: white;
@@ -152,42 +153,39 @@ const Properties = () => {
   const URL = config.URL;
 
   useEffect(() => {
-
     if (token) {
-      setLoggedIn(true);
+        setLoggedIn(true);
     }
+    
     const head = document.querySelector("head");
     const script = document.createElement("script");
-
+    
     script.setAttribute("type", "text/javascript");
-    script.setAttribute(
-      "src",
-      "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
-    );
-    // script.setAttribute("id", "aisensy-wa-widget");
+    script.setAttribute("src", "https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js");
     script.setAttribute("widget-id", "LKoMcZ");
+    
     head.appendChild(script);
-    console.log(script);
-
-
-
-    axios
-      .get(`${URL}/listing`)
-      .then((response) => {
-        // console.log("Fetched data from server:", response.data);
-        console.log(response.data);
-        setListings(response.data);
-        response.data.forEach((listing) => {
-          console.log(listing.propertyType); // Access 'propertyType' for each listing
+    
+    axios.get(`${URL}/listing`)
+        .then((response) => {
+            console.log("data", response.data);
+            setListings(response.data);
+            response.data.forEach((listing) => {
+                console.log(listing.propertyType); // Access 'propertyType' for each listing
+            });
+        })
+        .catch((error) => {
+            console.error(error);
         });
 
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
     setAdmin(token.isAdmin);
-  }, []);
+    
+    // Cleanup function to remove the script when the component unmounts
+    return () => {
+        head.removeChild(script);
+    };
+}, [token, setLoggedIn, setAdmin, setListings]);
+
 
   // const luxuryListings = listings.filter(
   //   (listing) => listing.main_heading === "Luxury Property"
@@ -381,7 +379,12 @@ const Properties = () => {
                               >
                                 INR {filteredListing.propertyprice}
                               </Box>
-                              <Box></Box>
+                              <Box
+                              style={{
+                                fontSize:"14px"
+                              }}>
+                                Min Investment
+                              </Box>
                             </PriceBox>
                             {/* <progress
                               style={{
@@ -393,46 +396,49 @@ const Properties = () => {
                               value={1239000}
                             /> */}
 
-                            <ReturnsBox>
-                              <Box>
-                                <Box>Investment starts</Box>
-                                {/* {`${listing.annualizedreturn}`} */}
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >
-                                  {filteredListing.fundingdate}
+                            <ReturnsBox style={{ marginTop: "1rem" }}>
+                              <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
+                                {/* Tokens */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.tokens || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Est. Yields */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Target APR */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Potential Gain */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {filteredListing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
                                 </Box>
                               </Box>
-                              <Box>
-                                <Box>Min. Investment</Box>
-                                {/* {`${listing.annualizedreturn}`} */}
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >
-                                  {filteredListing.mininvestment}
-                                </Box>
-                              </Box>
-
-                              {/* <Box>
-                                <Box>Annual Appreciation</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.annualappreciation}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected gross yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.grossyield}`}</Box>
-                              </Box>
-
-                              <Box>
-                                <Box>Projected net yield</Box>
-                                <Box
-                                  style={{ color: "black", fontWeight: "bold" }}
-                                >{`${listing.netyield}`}</Box>
-                              </Box> */}
                             </ReturnsBox>
                           </CardContent>
                         </CardActionArea>

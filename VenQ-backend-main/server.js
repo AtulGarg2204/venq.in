@@ -28,6 +28,7 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Purchased = require("./model/Purchased");
 require("dotenv").config();
+
 // -------------------------------
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -38,7 +39,7 @@ const razorpay = new Razorpay({
   // key_id: "rzp_test_qhajW6qJ3G4guZ",
   // key_secret: "DGr7QRTZVxpDZWTFP9HtJWCF",
 });
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 connectDB();
 app.use(cors());
 
@@ -77,19 +78,24 @@ app.use(express.static("public"));
 app.use("/listing", listingRoute);
 
 // Upload photo from device
-const photosMiddleware = multer({ storage: storage }).array("photos", 100);
+app.get('/customers/byEmail', async (req, res) => {
+  const { email } = req.query; // Get the email from query parameters
 
-const fileStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/docs"); //important this is a direct path fron our current file to storage location
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
+  try {
+    const customer = await Customer.findOne({ email });
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+    res.json(customer);
+  } catch (error) {
+    console.error('Error fetching customer:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
-const upload = multer({ storage: fileStorageEngine });
-
+const upload = multer({ storage });
+const userDocumentRoutes = require('./routes/userDocumentRoutes');
+app.use('/api', userDocumentRoutes);
 //Photo Upload by link
 app.post("/api/upload-by-link", async (req, res) => {
   const { link } = req.body;

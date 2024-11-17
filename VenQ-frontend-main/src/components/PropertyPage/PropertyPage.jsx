@@ -10,15 +10,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import EventIcon from "@mui/icons-material/Event";
 import { Link, useNavigate } from "react-router-dom";
-import star from "./star.png";
-import Navbar from "../navbar/Navbar";
-import axios from "axios";
 import config from "../../config";
+import Navbar from "../navbar/Navbar";
 import IconImage from "./favicon.png";
 import "./LoginPopup.css";
 const Property = styled(Card)`
@@ -414,7 +412,7 @@ const PropertyPage = () => {
                                 </Carousel>
                               </CardMedia>
                               <Subheader>
-                                <Box>
+                                <Box style={{fontSize:"15px"}}>
                                   {listing.propertydescription.split(" | ")[0]}
                                 </Box>
                                 <Box>
@@ -448,32 +446,50 @@ const PropertyPage = () => {
                                     </Box>
                                   </PriceBox>
 
-                                  <ReturnsBox>
-                                    <Box>
-                                      <Box>Funding Date</Box>
+                                  <ReturnsBox style={{ marginTop: "1rem" }}>
+                              <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
+                                {/* Tokens */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
 
-                                      <Box
-                                        style={{
-                                          color: "black",
-                                          fontWeight: "bold",
-                                        }}
-                                      >
-                                        {listing.fundingdate}
-                                      </Box>
-                                    </Box>
-                                    <Box>
-                                      <Box>Min. Investment</Box>
-                                      {/* {`${listing.annualizedreturn}`} */}
-                                      <Box
-                                        style={{
-                                          color: "black",
-                                          fontWeight: "bold",
-                                        }}
-                                      >
-                                        {listing.mininvestment}
-                                      </Box>
-                                    </Box>
-                                  </ReturnsBox>
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Est. Yields */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Target APR */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+
+                                {/* Vertical Divider */}
+                                <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
+
+                                {/* Potential Gain */}
+                                <Box style={{ flex: 1, textAlign: "center" }}>
+                                  <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                                  <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
+                                    {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                                  </Box>
+                                </Box>
+                              </Box>
+                            </ReturnsBox>
                                 </CardContent>
                               )}
                               {!isLoggedIn && (
@@ -732,7 +748,7 @@ const PropertyPage = () => {
                               </CardMedia>
 
                               <CardContent>
-                                <Subheader>
+                                <Subheader >
                                   <Box>
                                     {
                                       filteredListing.propertydescription.split(

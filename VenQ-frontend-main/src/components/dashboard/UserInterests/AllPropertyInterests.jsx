@@ -25,39 +25,57 @@ const UserInterests = () => {
 	}
     const [cruds, setCruds] = useState([]);
 	const navigate = useNavigate();
-	useEffect(function () {
-        axios
+	useEffect(() => {
+    axios
       .get(`${URL}/listing`)
-    
       .then((response) => {
         console.log("Fetched data from server:", response.data);
-        console.log(response.data);
         setListings(response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error fetching listings:", error);
       });
 
-		function getCruds() {
-			try {
-				let arr=JSON.parse(localStorage.getItem("interestusers"));
-				// })
-				// console.log(arr);
-				arr.map((elem)=>{
-					rows.push(createData(elem.name,elem.contactnumber,elem.email,elem.amount,<Button onClick={()=>{
-						navigate(`/dashboard/properties/view/${elem.property}`)
-					}} sx={{
-						backgroundColor:'blue',
-						color:'white'
-					}}>View Property</Button>));
-				});
-				setCruds(rows);
-			} catch (error) {
-				console.log("error", error);
-			}
-		}
-		getCruds();
-	}, []);
+    function getCruds() {
+      try {
+        // Get data from localStorage
+        let arr = JSON.parse(localStorage.getItem("interestusers"));
+        
+        // Log the retrieved array to check its value
+        console.log("Retrieved data from localStorage:", arr);
+
+        // Check if 'arr' is null or undefined before using map()
+        if (arr && Array.isArray(arr)) {
+          const tempRows = arr.map((elem) => 
+            createData(
+              elem.name,
+              elem.contactnumber,
+              elem.email,
+              elem.amount,
+              <Button 
+                onClick={() => {
+                  navigate(`/dashboard/properties/view/${elem.property}`);
+                }} 
+                sx={{ backgroundColor: 'blue', color: 'white' }}
+              >
+                View Property
+              </Button>
+            )
+          );
+          setCruds(tempRows);  // Set the rows
+        } else {
+          console.log("No valid data found in localStorage, setting cruds to empty array");
+          setCruds([]);  // Set cruds as empty array if no data found
+        }
+      } catch (error) {
+        console.log("Error parsing data from localStorage:", error);
+        setCruds([]);  // Handle the case of invalid JSON parsing
+      }
+    }
+
+    getCruds();
+}, [navigate, URL]);
+
 	// console.log(rows.length)
 
 
