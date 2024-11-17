@@ -1,0 +1,403 @@
+import React, { useEffect, useState, useRef } from 'react';
+import { FaCalendarAlt } from "react-icons/fa";
+import { Grid, Button, Typography, Box, Card, styled, CardActionArea, CardContent, CardMedia } from '@mui/material';
+import { Carousel } from 'react-responsive-carousel'; // Assuming you're using react-responsive-carousel
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
+import { SiTrustpilot } from "react-icons/si";
+import config from "../config";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styles
+import axios from "axios"; // Make sure axios is imported
+import AsSeenIn from '../components/NewHome/HomeComponents/AsSeenIn';
+const URL = config.URL;
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+const Property = styled(Card)`
+    background-color: white;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: translateY(-10px);
+    }
+  `;
+
+const SubheaderFixed = styled(Box)`
+    display: flex;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    gap: 10px;
+  `;
+
+const FixedBox = styled(Box)`
+    background-color: white;
+    color: black;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-family: "Inter";
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 5px;
+  `;
+
+const PriceBox = styled(Box)`
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0 14px 0;
+    margin-left: 4px;
+    align-items: center;
+  `;
+const ReturnsBox = styled(Box)`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f6f7f9;
+    font-family: "Inter";
+    color: grey;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      font-size: 15px;
+    }
+  `;
+
+const Subheader = styled(Box)`
+    display: flex;
+    gap: px;
+    margin-top: 2px;
+    margin-left: 16px;
+    & div {
+      // height:20px;
+      border: 1px solid lightgray;
+      padding: 4px 5px;
+      font-size: 11px;
+      font-weight: medium;
+      border-radius: 6px;
+    }
+  `;
+
+const Header = styled(Typography)`
+    font-size: 16px;
+    font-weight: 600;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-family: "Gilroy-Bold";
+    margin-top: 10px;
+    margin-left: 20px;
+  `;
+const DailyFinance = () => {
+    const [listings, setListings] = useState([]);
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0); // Track the current listing index
+    const marqueeRef = useRef(null);
+    const animationRef = useRef(null);
+
+    useEffect(() => {
+        const marqueeElement = marqueeRef.current;
+
+        gsap.fromTo(
+            marqueeElement,
+            { x: '100%' },
+            {
+                x: '-100%',
+                scrollTrigger: {
+                    trigger: marqueeElement,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    scrub: true,
+                    toggleActions: "play reverse play reverse",
+                },
+                ease: 'none',
+            }
+        );
+
+        // ---------------------for live div home----------------
+        if (JSON.parse(localStorage.getItem("userinfo"))) {
+            setLoggedIn(true);
+        }
+
+        axios
+            .get(`${URL}/listing`)
+            .then((response) => {
+                const filteredListings = response.data.filter((listing) => listing.islive === 1 || listing.islive === 2);
+                setListings(filteredListings);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        // ---------------------for live div home----------------
+    }, []);
+
+    const renderPropertyCard = (listing) => (
+        <Grid item key={listing._id}>
+            <Link to={isLoggedIn ? `/dashboard/properties/view/${listing._id}` : ""} style={{ textDecoration: "none" }}>
+                <Card sx={{ width: "320px" }}>
+                    <CardActionArea>
+                        <CardMedia>
+                            <Carousel showThumbs={false} statusFormatter={() => ""}>
+                                {listing.images.map((image, index) => (
+                                    <div key={index} style={{ height: "180px" }}>
+                                        <img
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "cover",
+                                            }}
+                                            src={image}
+                                            alt={`image-${index}`}
+                                        />
+                                        {listing.islive === 1 && (
+                                            <Box sx={{ position: "absolute", top: "10px", left: "10px", display: "flex", gap: "8px" }}>
+                                                <Box sx={{ backgroundColor: "#56C29C", color: "white", padding: "5px 10px", borderRadius: "5px" }}>
+                                                    Live
+                                                </Box>
+                                                <Box sx={{ backgroundColor: "white", color: "black", padding: "5px", borderRadius: "5px" }}>
+                                                    Reduced Pricing
+                                                </Box>
+                                            </Box>
+                                        )}
+                                        <Box sx={{ position: "absolute", bottom: "10px", right: "10px", backgroundColor: "white", color: "black", padding: "5px", borderRadius: "2px", fontSize: "12px", zIndex: "10" }}>
+                                            {listing.properyheading.includes("Plot") ? "Plot" : "Luxury Property"}
+                                        </Box>
+                                    </div>
+                                ))}
+                            </Carousel>
+                        </CardMedia>
+
+                        <CardContent    >
+                            <Subheader sx={{ display: "flex", justifyContent: "start", fontSize: "8px" }}>
+                                {listing.propertydescription.split(" | ").map((desc, index) => (
+                                    <Box key={index} sx={{ marginLeft: index > 0 ? "8px" : "-15px", fontSize: "8px" }}>
+                                        {desc}
+                                    </Box>
+                                ))}
+                            </Subheader>
+
+                            <Typography gutterBottom style={{ fontSize: "15px", fontWeight: "bold", marginTop: "8px" }} sx={{ textAlign: "start", fontSize: "10px", fontweight: "800", }}>
+                                {listing.properyheading}
+                            </Typography>
+
+                            {isLoggedIn ? (
+                                <>
+                                    <Box sx={{ marginTop: "4px" }}>
+                                        <Typography color="primary" sx={{ fontWeight: "600", fontSize: "18px" }}>
+                                            Rs {listing.propertyprice}
+                                        </Typography>
+                                    </Box>
+                                    <ReturnsBox style={{ marginTop: "1rem" }}>
+                                        <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
+                                            {/* Tokens */}
+                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
+                                                    {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                                                </Box>
+                                            </Box>
+
+                                            {/* Vertical Divider */}
+                                            <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                                            {/* Est. Yields */}
+                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
+                                                    {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                                                </Box>
+                                            </Box>
+
+                                            {/* Vertical Divider */}
+                                            <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                                            {/* Target APR */}
+                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
+                                                    {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                                                </Box>
+                                            </Box>
+
+                                            {/* Vertical Divider */}
+                                            <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+
+                                            {/* Potential Gain */}
+                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
+                                                    {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                    </ReturnsBox>
+                                </>
+                            ) : (
+                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "60px" }}>
+                                    <Link to="/login" style={{ color: "#2ab589", fontWeight: "bold" }}>
+                                        Login
+                                    </Link>{" "}
+                                    to view the property.
+                                </Box>
+                            )}
+                        </CardContent>
+                    </CardActionArea>
+
+                    {isLoggedIn && listing.islive === 1 && (
+                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "15px" }}>
+                            <Button sx={{ padding: "10px 30px", backgroundColor: "#0170dc", color: "white" }}>Invest</Button>
+                        </Box>
+                    )}
+
+                    {isLoggedIn && listing.islive === 2 && (
+                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "25px" }}>
+                            <Button sx={{ padding: "8px 25px", backgroundColor: "#2AB589", color: "white", fontSize: "13px" }}>I'm Interested</Button>
+                        </Box>
+                    )}
+                </Card>
+            </Link>
+        </Grid>
+    );
+
+    const handleNext = () => {
+        if (listings.length > 0) {
+            const nextIndex = (currentIndex + 1) % listings.length;
+
+            // Animate out
+            gsap.to(animationRef.current, {
+                x: "-100%",
+                duration: 0.5,
+                onComplete: () => {
+                    setCurrentIndex(nextIndex);
+
+                    // Animate in
+                    gsap.fromTo(
+                        animationRef.current,
+                        { x: "100%" },
+                        { x: "0%", duration: 0.5 }
+                    );
+                },
+            });
+        }
+    };
+
+    const handleBack = () => {
+        if (listings.length > 0) {
+            const prevIndex = (currentIndex - 1 + listings.length) % listings.length;
+
+            // Animate out
+            gsap.to(animationRef.current, {
+                x: "100%",
+                duration: 0.5,
+                onComplete: () => {
+                    setCurrentIndex(prevIndex);
+
+                    // Animate in
+                    gsap.fromTo(
+                        animationRef.current,
+                        { x: "-100%" },
+                        { x: "0%", duration: 0.5 }
+                    );
+                },
+            });
+        }
+    };
+
+    const getPreviousIndex = (index) => (index - 1 + listings.length) % listings.length;
+    const getNextIndex = (index) => (index + 1) % listings.length;
+
+    return (
+        <div className="w-full h-full bg-white md:mt-[12vw] 2xl:mt-[12vw]">
+
+            <div className="w-full font-raleway mt-[5vw] text-black h-full">
+                <div className="flex flex-col h-full justify-center items-center">
+                    <h1 className='2xl:text-xl md:text-[16px] font-medium text-zinc-400'>We've been featured in</h1>
+                    <div className="2xl:w-[40vw] w-full md:w-[40vw]  md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
+                        <AsSeenIn />
+                    </div>
+                    <div className="flex gap-[1vw] mt-[13vw] md:mt-[2vw] 2xl:mt-[1vw] text-[13px] font-lato justify-center items-center w-full h-full">
+                        <h1>4.7 Excellent</h1>
+                        <div className='flex gap-[2px]'>
+                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                                <SiTrustpilot />
+                            </div>
+                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                                <SiTrustpilot />
+                            </div>
+                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                                <SiTrustpilot />
+                            </div>
+                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                                <SiTrustpilot />
+                            </div>
+                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                                <SiTrustpilot />
+                            </div>
+                        </div>
+                        <div className="flex gap-2 justify-center items-center text-[#219653]">
+                            <SiTrustpilot size={14} />
+                            <h1 className='text-black'>Trustpilot</h1>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {/* Property Section */}
+            <div className="w-full hidden md:h-[40vw] 2xl:h-[35vw] mt-[5vw]">
+                <div className="main w-full h-full px-[10vw] gap-[1vw] flex justify-center items-center">
+                    <div className="left pr-[4vw] w-[40%] h-full flex flex-col justify-center items-start">
+                        <h1 className="px-4 py-2 bg-zinc-100 md:text-[16px] font-medium justify-center items-center gap-3 flex text-[#2ab589] rounded-xl">
+                            <FaCalendarAlt /> Secure
+                        </h1>
+                        <h1 className="2xl:text-[40px] md:text-[32px] font-medium font-raleway mt-5 leading-[2.4vw]">
+                            Real Estate Meets the <br /> Digital Age
+                        </h1>
+                        <h1 className="mt-4 text-zinc-400 font-regular">
+                            Blockchain-backed <span className="font-medium text-[#2ab589]">Equity-Tokens</span> unlock access to premium properties.
+                        </h1>
+                    </div>
+
+                    {/* Red and Green Cards with Listings */}
+                    <div className="right w-[40%] h-full flex flex-col justify-center items-center">
+                        <div className="w-full relative h-full rounded-3xl bg-zinc-100 flex justify-center items-start py-[2vw]">
+                            {/* Previous Card */}
+                            <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-start items-center opacity-40 absolute h-[60%] left-[2vw] rounded-3xl">
+                                {listings.length > 0 && renderPropertyCard(listings[getPreviousIndex(currentIndex)])}
+                            </div>
+
+                            {/* Next Card */}
+                            <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-end items-center opacity-40 absolute h-[60%] right-[2vw] rounded-3xl">
+                                {listings.length > 0 && renderPropertyCard(listings[getNextIndex(currentIndex)])}
+                            </div>
+
+                            {/* Main Content */}
+                            <div className="w-[65%] mt-[2vw] p-[2.5vw] flex justify-center bg- items-center absolute h-[70%] z-10 rounded-3xl overflow-hidden scale-110 transition-transform duration-300 ease-in-out">
+                                <div className="w-[100%] flex justify-center items-center h-[80%]">
+                                    {listings.length > 0 && renderPropertyCard(listings[currentIndex])}
+                                </div>
+                            </div>
+
+                            {/* Navigation Buttons */}
+                            <div className="flex absolute justify-between items-center bottom-9 px-[4vw] w-full">
+                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full" onClick={handleBack} variant="contained">
+                                    Back
+                                </button>
+                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full" onClick={handleNext}>
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default DailyFinance;

@@ -64,11 +64,13 @@ import NewHome from "./components/NewHome/NewHome";
 import Kyc_details from "./components/dashboard/UserInterests/Kyc_details";
 import DemoPropertyPage from "./components/dashboard/property/DemoPropertyPage";
 import Fundraising from "./components/Fundraising";
+import Herosection from "./Herosection";
 function App() {
   return (
     <DataProvider>
       <Router>
         <Routes>
+          <Route path="/NewLook" element={<Herosection />} />
           <Route path="login" element={<OtplessLogin />} />
           <Route path="signup/">
             <Route path="" element={<OptlessSignup />} />
