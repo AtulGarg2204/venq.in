@@ -89,15 +89,17 @@ const WorkTimeline = () => {
     <>
       {/* Marquee Section */}
       <div className="flex font-cambay overflow-hidden h-full w-full items-center flex-col">
-        <h1 ref={marqueeRef} className="md:text-[80px] 2xl:text-[100px] flex py-[2vw] whitespace-nowrap font-raleway text-[#2b2828] font-bold uppercase">
+        <h1 ref={marqueeRef} className="md:text-[80px] text-[60px] 2xl:text-[100px] flex py-[2vw] whitespace-nowrap font-raleway text-[#2b2828] font-bold uppercase">
           Welcome to India’s top{" "}
           <span className="ml-4 mr-4 text-[#2ab589]">fractional investment</span> platform.
         </h1>
       </div>
 
-      <div className="flex mt-[1vw] md:px-[8vw] 2xl:px-[15vw] w-full md:h-[57vw] 2xl:h-[40vw] bg-white font-raleway">
-        {/* Left Navigation */}
-        <div ref={leftNavRef} className="left border-l relative p-10 w-1/4 h-full">
+      <div className="flex flex-col md:flex-row mt-[1vw] md:px-[8vw] 2xl:px-[15vw] w-full bg-white font-raleway">
+        {/* Left Navigation - Desktop View */}
+        <div
+          ref={leftNavRef}
+          className="left hidden md:block border-l relative p-10 w-1/4 h-full">
           <div
             className="w-[2px] h-[30px] 2xl:-left-[1.4px] rounded-full absolute"
             style={{
@@ -117,8 +119,8 @@ const WorkTimeline = () => {
           ))}
         </div>
 
-        {/* Right Side Sections */}
-        <div className="right w-4/5 overflow-y-auto h-screen scrollbar-hide">
+        {/* Right Side Sections - Desktop View */}
+        <div className="right hidden md:block w-4/5 overflow-y-auto h-screen scrollbar-hide">
           {['Real Estate Meets the Digital Age', 'F.I.G. Your Property, Your Investors, Our Support', 'TimeShare. Invest, Stay, Earn', 'List, Tokenize, Profit', 'BrokerConnect | Join the Broker Network, Tap the Retail Investors'].map((title, index) => (
             <div
               key={index}
@@ -130,16 +132,7 @@ const WorkTimeline = () => {
                 <div className="w-10 h-10 rounded-full bg-[#D8DAE3]"></div>
                 <h1 className="text-[30px] font-bold">{title}</h1>
               </div>
-              <div
-                className="w-full relative h-[450px] flex justify-center items-center bg-white rounded-3xl mt-6"
-              >
-                {/* <div
-                  className="absolute w-[10rem] h-[10rem] inset-1 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(42, 181, 137, 0.5) 50%, white 100%)',
-                    zIndex: 1,
-                  }}
-                ></div> */}
+              <div className="w-full relative h-[450px] flex justify-center items-center bg-white rounded-3xl mt-6">
                 <img
                   src={
                     index === 0
@@ -166,7 +159,61 @@ const WorkTimeline = () => {
             </div>
           ))}
         </div>
+
+        {/* Mobile View */}
+        <div className="md:hidden px-4 py-2">
+          <h1 className="text-[32px] text-center font-semibold mb-8">Products</h1>
+          {['Real Estate Meets the Digital Age', 'Fractional Investment Group', 'TimeShare. Invest, Stay, Earn', 'List, Tokenize, Profit', 'BrokerConnect'].map((title, index) => (
+            <div
+              key={index}
+              className={`Multicurrency_Accounts mb-6 p-4 rounded-3xl bg-zinc-100`}
+            >
+              <div className="flex gap-[5vw] justify-between items-center">
+                <div className="flex justify-start md:gap-4 gap-[5vw] items-center">
+                  <div className="w-4 h-8 rounded-full bg-[#D8DAE3]"></div>
+                  <h1 className="text-[16px] font-semibold">{title}</h1>
+                </div>
+                <button
+                  onClick={() => setActiveSection(activeSection === index ? null : index)}
+                  className="text-[20px] rounded-full bg-black h-[30px] flex justify-center items-center font-medium text-white"
+                >
+                  {activeSection === index ? '-' : '+'}
+                </button>
+              </div>
+              {activeSection === index && (
+                <div className="mt-4">
+                  <div className="w-full relative  h-[250px] flex justify-center items-center bg-white rounded-3xl">
+                    <img
+                      src={
+                        index === 0
+                          ? img1
+                          : index === 1
+                            ? img2
+                            : index === 2
+                              ? img3
+                              : index === 3
+                                ? img4
+                                : img5
+                      }
+                      alt={`Section ${index + 1}`}
+                      className="w-full h-full object-contain scale-[] rounded-3xl"
+                    />
+                  </div>
+                  <h1 className="mt-4 text-[16px] font-medium text-black">
+                    {index === 0 && 'Blockchain-backed equity tokens unlock access to premium properties.'}
+                    {index === 1 && 'Add your assets and investors, we’ll manage everything.'}
+                    {index === 2 && 'Enjoy a villa getaway or earn rental income.'}
+                    {index === 3 && 'Sell or trade your tokenized property units.'}
+                    {index === 4 && 'Reach a broader market through our broker network.'}
+                  </h1>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
       </div>
+
     </>
   );
 };

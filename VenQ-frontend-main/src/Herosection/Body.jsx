@@ -76,7 +76,7 @@ const Body = () => {
               ))}
             </h1>
           </div>
-          <div ref={blackBgRef} className="black-bg md:mt-[0vw] mt-[15vw] 2xl:mt-[0vw]">
+          <div ref={blackBgRef} className="black-bg md:mt-[1px] mt-[15vw] 2xl:mt-[1px]]">
             <div className="black-bg-inner">
             <div className='w-full h-full'>
                 <div className="w-full font-raleway p-[2vw] h-full ">

@@ -6,7 +6,7 @@ import { FaApple } from "react-icons/fa";
 const Advantage = () => {
     return (
         <>
-            <div className='w-full h-full p-10 flex justify-center items-center bg-white'>
+            <div className='w-full h-full p-10 hidden md:flex  justify-center items-center bg-white'>
                 <div className="w-full h-[35vw] mt-[3vw]">
                     <div className="main w-full h-full px-[10vw] gap-[1vw] flex justify-center items-center">
                         <div className="left pr-[6vw] w-[40%] h-full flex flex-col justify-center items-start">
