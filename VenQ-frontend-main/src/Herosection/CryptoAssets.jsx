@@ -26,7 +26,7 @@ const CryptoAssets = () => {
                         <h1 className='md:text-[45px] text-[36px] 2xl:text-[60px] tracking-tight leading-[40px] md:leading-[50px] 2xl:leading-[70px] font-medium text-center font-raleway mt-5'>Unlock opportunities in properties you never <br /> knew you could own.</h1>
                         <h1 className='mt-5 md:text-[16px] 2xl:text-[18px] text-center text-zinc-400 font-medium'>Diversify your portfolio with a range of investment opportunities through <span className='text-zinc-600 font-semibold'>VENQ</span></h1>
 
-                        <div className="flex gap-[5vw] mt-[4vw] md:text-[18px] 2xl:text-[20px] font-semibold">
+                        <div className="flex gap-[5vw] mt-[4vw] text-[12px] md:text-[18px] 2xl:text-[20px] font-semibold">
                             <h1
                                 className={`cursor-pointer ${activeSection === 'Residential' ? 'border-b-2 border-black' : 'text-zinc-400'}`}
                                 onClick={() => handleSectionClick('Residential')}
