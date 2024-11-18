@@ -349,7 +349,7 @@ const DailyFinance = () => {
             </div>
 
             {/* Property Section */}
-            <div className="w-full hidden md:h-[40vw] 2xl:h-[35vw] mt-[5vw]">
+            <div className="w-full hidden md:block md:h-[40vw] 2xl:h-[35vw] mt-[5vw]">
                 <div className="main w-full h-full px-[10vw] gap-[1vw] flex justify-center items-center">
                     <div className="left pr-[4vw] w-[40%] h-full flex flex-col justify-center items-start">
                         <h1 className="px-4 py-2 bg-zinc-100 md:text-[16px] font-medium justify-center items-center gap-3 flex text-[#2ab589] rounded-xl">
