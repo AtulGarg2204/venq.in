@@ -20,8 +20,8 @@ const Prices = () => {
     };
     return (
         <>
-            <div className='w-full h-screen flex justify-center items-center'>
-                <div className="w-[90%] overflow-hidden h-[100%] p-3 md:p-0 md:h-[86%] bg-black rounded-3xl">
+            <div className='w-full h-full md:h-screen flex justify-center items-center'>
+                <div className="w-[90%] overflow-hidden  h-auto p-3 md:p-0 md:h-[86%] bg-black rounded-3xl">
                     <div className="flex font-raleway h-full w-full text-white items-center flex-col">
                         <h1 className='px-4 sticky py-2 mt-[5vw] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'
                             style={{
@@ -123,7 +123,7 @@ const Prices = () => {
                             </div>
                         </div>
                         {/* Mobile View */}
-                        <div className="flex flex-col h-full overflow-y-auto w-full items-center text-center md:hidden">
+                        <div className="flex flex-col h-full w-full items-center text-center md:hidden">
                             <h1 className="text-[25px] font-semibold">Tokenization Process</h1>
                             <p className="text-zinc-400 mt-2">
                                 Explore the steps to turn real estate into blockchain tokens.
