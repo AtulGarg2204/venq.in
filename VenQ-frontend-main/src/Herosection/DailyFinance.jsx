@@ -268,7 +268,7 @@ const DailyFinance = () => {
                                     </Box>
                                     <ReturnsBox style={{ marginTop: "1rem" }}>
                                         <Box
-                                            style={{
+                                            sx={{
                                                 display: "flex",
                                                 flexWrap: "wrap",
                                                 justifyContent: "space-between",
@@ -276,18 +276,18 @@ const DailyFinance = () => {
                                             }}
                                         >
                                             {/* Tokens */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         fontFamily: "Inter",
-                                                        fontSize: "11px",
+                                                        fontSize: "10px",
                                                         color: "#44475B",
                                                     }}
                                                 >
                                                     Tokens
                                                 </Box>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         color: "#00B386",
                                                         fontWeight: "bold",
                                                         fontSize: { xs: "14px", sm: "16px" },
@@ -300,7 +300,7 @@ const DailyFinance = () => {
 
                                             {/* Vertical Divider */}
                                             <Box
-                                                style={{
+                                                sx={{
                                                     width: "1px",
                                                     backgroundColor: "black",
                                                     height: "auto",
@@ -309,18 +309,18 @@ const DailyFinance = () => {
                                             />
 
                                             {/* Est. Yields */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         fontFamily: "Inter",
-                                                        fontSize: "11px",
+                                                        fontSize: "10px",
                                                         color: "#44475B",
                                                     }}
                                                 >
                                                     Est. Yields
                                                 </Box>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         color: "#00B386",
                                                         fontWeight: "bold",
                                                         fontSize: { xs: "14px", sm: "16px" },
@@ -333,7 +333,7 @@ const DailyFinance = () => {
 
                                             {/* Vertical Divider */}
                                             <Box
-                                                style={{
+                                                sx={{
                                                     width: "1px",
                                                     backgroundColor: "black",
                                                     height: "auto",
@@ -341,19 +341,19 @@ const DailyFinance = () => {
                                                 }}
                                             />
 
-                                            {/* Target APR */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                            {/* Target ARR */}
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         fontFamily: "Inter",
-                                                        fontSize: "11px",
+                                                        fontSize: "10px",
                                                         color: "#44475B",
                                                     }}
                                                 >
                                                     Target ARR
                                                 </Box>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         color: "#00B386",
                                                         fontWeight: "bold",
                                                         fontSize: { xs: "14px", sm: "16px" },
@@ -363,8 +363,42 @@ const DailyFinance = () => {
                                                     {listing.targetAPR || "N/A"}
                                                 </Box>
                                             </Box>
+
+                                            {/* Vertical Divider */}
+                                            <Box
+                                                sx={{
+                                                    width: "1px",
+                                                    backgroundColor: "black",
+                                                    height: "auto",
+                                                    margin: "0 5px",
+                                                }}
+                                            />
+
+                                            {/* New Box - Example Data */}
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
+                                                <Box
+                                                    sx={{
+                                                        fontFamily: "Inter",
+                                                        fontSize: "10px",
+                                                        color: "#44475B",
+                                                    }}
+                                                >
+                                                    Est. Gain
+                                                </Box>
+                                                <Box
+                                                    sx={{
+                                                        color: "#00B386",
+                                                        fontWeight: "bold",
+                                                        fontSize: { xs: "14px", sm: "16px" },
+                                                        marginTop: "4px",
+                                                    }}
+                                                >
+                                                    {listing.potentialGain  || "N/A"}
+                                                </Box>
+                                            </Box>
                                         </Box>
                                     </ReturnsBox>
+
                                 </>
                             ) : (
                                 <Box
