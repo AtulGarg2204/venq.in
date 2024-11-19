@@ -137,14 +137,17 @@ const DailyFinance = () => {
     }, []);
 
     const renderPropertyCard = (listing) => (
-        <Grid item key={listing._id}>
-            <Link to={isLoggedIn ? `/dashboard/properties/view/${listing._id}` : ""} style={{ textDecoration: "none" }}>
-                <Card sx={{ width: "320px" }}>
+        <Grid item key={listing._id} xs={12} sm={6} md={4} lg={3}>
+            <Link
+                to={isLoggedIn ? `/dashboard/properties/view/${listing._id}` : ""}
+                style={{ textDecoration: "none" }}
+            >
+                <Card sx={{ width: { xs: "100%", sm: "300px", md: "320px" } }}>
                     <CardActionArea>
                         <CardMedia>
                             <Carousel showThumbs={false} statusFormatter={() => ""}>
                                 {listing.images.map((image, index) => (
-                                    <div key={index} style={{ height: "180px" }}>
+                                    <div key={index} style={{ height: "180px", position: "relative" }}>
                                         <img
                                             style={{
                                                 width: "100%",
@@ -155,90 +158,223 @@ const DailyFinance = () => {
                                             alt={`image-${index}`}
                                         />
                                         {listing.islive === 1 && (
-                                            <Box sx={{ position: "absolute", top: "10px", left: "10px", display: "flex", gap: "8px" }}>
-                                                <Box sx={{ backgroundColor: "#56C29C", color: "white", padding: "5px 10px", borderRadius: "5px" }}>
+                                            <Box
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: "10px",
+                                                    left: "10px",
+                                                    display: "flex",
+                                                    gap: "8px",
+                                                    flexWrap: { xs: "wrap", sm: "nowrap" },
+                                                }}
+                                            >
+                                                <Box
+                                                    sx={{
+                                                        backgroundColor: "#56C29C",
+                                                        color: "white",
+                                                        padding: "5px 10px",
+                                                        borderRadius: "5px",
+                                                        fontSize: { xs: "10px", sm: "12px" },
+                                                    }}
+                                                >
                                                     Live
                                                 </Box>
-                                                <Box sx={{ backgroundColor: "white", color: "black", padding: "5px", borderRadius: "5px" }}>
+                                                <Box
+                                                    sx={{
+                                                        backgroundColor: "white",
+                                                        color: "black",
+                                                        padding: "5px",
+                                                        borderRadius: "5px",
+                                                        fontSize: { xs: "10px", sm: "12px" },
+                                                    }}
+                                                >
                                                     Reduced Pricing
                                                 </Box>
                                             </Box>
                                         )}
-                                        <Box sx={{ position: "absolute", bottom: "10px", right: "10px", backgroundColor: "white", color: "black", padding: "5px", borderRadius: "2px", fontSize: "12px", zIndex: "10" }}>
-                                            {listing.properyheading.includes("Plot") ? "Plot" : "Luxury Property"}
+                                        <Box
+                                            sx={{
+                                                position: "absolute",
+                                                bottom: "10px",
+                                                right: "10px",
+                                                backgroundColor: "white",
+                                                color: "black",
+                                                padding: "5px",
+                                                borderRadius: "2px",
+                                                fontSize: { xs: "10px", sm: "12px" },
+                                                zIndex: "10",
+                                            }}
+                                        >
+                                            {listing.properyheading.includes("Plot")
+                                                ? "Plot"
+                                                : "Luxury Property"}
                                         </Box>
                                     </div>
                                 ))}
                             </Carousel>
                         </CardMedia>
 
-                        <CardContent    >
-                            <Subheader sx={{ display: "flex", justifyContent: "start", fontSize: "8px" }}>
-                                {listing.propertydescription.split(" | ").map((desc, index) => (
-                                    <Box key={index} sx={{ marginLeft: index > 0 ? "8px" : "-15px", fontSize: "8px" }}>
-                                        {desc}
-                                    </Box>
-                                ))}
+                        <CardContent>
+                            <Subheader
+                                sx={{
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    fontSize: { xs: "8px", sm: "10px" },
+                                }}
+                            >
+                                {listing.propertydescription
+                                    .split(" | ")
+                                    .map((desc, index) => (
+                                        <Box
+                                            key={index}
+                                            sx={{
+                                                marginLeft: index > 0 ? "8px" : "-15px",
+                                                fontSize: "8px",
+                                            }}
+                                        >
+                                            {desc}
+                                        </Box>
+                                    ))}
                             </Subheader>
 
-                            <Typography gutterBottom style={{ fontSize: "15px", fontWeight: "bold", marginTop: "8px" }} sx={{ textAlign: "start", fontSize: "10px", fontweight: "800", }}>
+                            <Typography
+                                gutterBottom
+                                style={{
+                                    fontSize: "15px",
+                                    fontWeight: "bold",
+                                    marginTop: "8px",
+                                }}
+                                sx={{
+                                    textAlign: "start",
+                                    fontSize: { xs: "12px", sm: "15px" },
+                                    fontWeight: "800",
+                                }}
+                            >
                                 {listing.properyheading}
                             </Typography>
 
                             {isLoggedIn ? (
                                 <>
                                     <Box sx={{ marginTop: "4px" }}>
-                                        <Typography color="primary" sx={{ fontWeight: "600", fontSize: "18px" }}>
+                                        <Typography
+                                            color="primary"
+                                            sx={{
+                                                fontWeight: "600",
+                                                fontSize: { xs: "16px", sm: "18px" },
+                                            }}
+                                        >
                                             Rs {listing.propertyprice}
                                         </Typography>
                                     </Box>
                                     <ReturnsBox style={{ marginTop: "1rem" }}>
-                                        <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
+                                        <Box
+                                            style={{
+                                                display: "flex",
+                                                flexWrap: "wrap",
+                                                justifyContent: "space-between",
+                                                padding: "10px 0",
+                                            }}
+                                        >
                                             {/* Tokens */}
                                             <Box style={{ flex: 1, textAlign: "center" }}>
-                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
-                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
-                                                    {listing.tokens || "N/A"} {/* Fallback if data is missing */}
+                                                <Box
+                                                    style={{
+                                                        fontFamily: "Inter",
+                                                        fontSize: "11px",
+                                                        color: "#44475B",
+                                                    }}
+                                                >
+                                                    Tokens
+                                                </Box>
+                                                <Box
+                                                    style={{
+                                                        color: "#00B386",
+                                                        fontWeight: "bold",
+                                                        fontSize: { xs: "14px", sm: "16px" },
+                                                        marginTop: "4px",
+                                                    }}
+                                                >
+                                                    {listing.tokens || "N/A"}
                                                 </Box>
                                             </Box>
 
                                             {/* Vertical Divider */}
-                                            <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+                                            <Box
+                                                style={{
+                                                    width: "1px",
+                                                    backgroundColor: "black",
+                                                    height: "auto",
+                                                    margin: "0 5px",
+                                                }}
+                                            />
 
                                             {/* Est. Yields */}
                                             <Box style={{ flex: 1, textAlign: "center" }}>
-                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
-                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
-                                                    {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
+                                                <Box
+                                                    style={{
+                                                        fontFamily: "Inter",
+                                                        fontSize: "11px",
+                                                        color: "#44475B",
+                                                    }}
+                                                >
+                                                    Est. Yields
+                                                </Box>
+                                                <Box
+                                                    style={{
+                                                        color: "#00B386",
+                                                        fontWeight: "bold",
+                                                        fontSize: { xs: "14px", sm: "16px" },
+                                                        marginTop: "4px",
+                                                    }}
+                                                >
+                                                    {listing.estimatedYields || "N/A"}
                                                 </Box>
                                             </Box>
 
                                             {/* Vertical Divider */}
-                                            <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+                                            <Box
+                                                style={{
+                                                    width: "1px",
+                                                    backgroundColor: "black",
+                                                    height: "auto",
+                                                    margin: "0 5px",
+                                                }}
+                                            />
 
                                             {/* Target APR */}
                                             <Box style={{ flex: 1, textAlign: "center" }}>
-                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
-                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
-                                                    {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
+                                                <Box
+                                                    style={{
+                                                        fontFamily: "Inter",
+                                                        fontSize: "11px",
+                                                        color: "#44475B",
+                                                    }}
+                                                >
+                                                    Target ARR
                                                 </Box>
-                                            </Box>
-
-                                            {/* Vertical Divider */}
-                                            <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
-
-                                            {/* Potential Gain */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
-                                                <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
-                                                <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "4px" }}>
-                                                    {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
+                                                <Box
+                                                    style={{
+                                                        color: "#00B386",
+                                                        fontWeight: "bold",
+                                                        fontSize: { xs: "14px", sm: "16px" },
+                                                        marginTop: "4px",
+                                                    }}
+                                                >
+                                                    {listing.targetAPR || "N/A"}
                                                 </Box>
                                             </Box>
                                         </Box>
                                     </ReturnsBox>
                                 </>
                             ) : (
-                                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "60px" }}>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "60px",
+                                    }}
+                                >
                                     <Link to="/login" style={{ color: "#2ab589", fontWeight: "bold" }}>
                                         Login
                                     </Link>{" "}
@@ -247,22 +383,55 @@ const DailyFinance = () => {
                             )}
                         </CardContent>
                     </CardActionArea>
-
                     {isLoggedIn && listing.islive === 1 && (
-                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "15px" }}>
-                            <Button sx={{ padding: "10px 30px", backgroundColor: "#0170dc", color: "white" }}>Invest</Button>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginBottom: "15px",
+                            }}
+                        >
+                            <Button
+                                sx={{
+                                    padding: { xs: "8px 20px", sm: "10px 30px" }, // Adjust padding for mobile and larger screens
+                                    backgroundColor: "#0170dc",
+                                    color: "white",
+                                    fontSize: { xs: "14px", sm: "16px" }, // Adjust font size for mobile and larger screens
+                                }}
+                            >
+                                Invest
+                            </Button>
                         </Box>
                     )}
 
                     {isLoggedIn && listing.islive === 2 && (
-                        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "25px" }}>
-                            <Button sx={{ padding: "8px 25px", backgroundColor: "#2AB589", color: "white", fontSize: "13px" }}>I'm Interested</Button>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginBottom: { xs: "20px", sm: "25px" }, // Adjust margin for mobile and larger screens
+                            }}
+                        >
+                            <Button
+                                sx={{
+                                    padding: { xs: "6px 15px", sm: "8px 25px" }, // Adjust padding for mobile and larger screens
+                                    backgroundColor: "#2AB589",
+                                    color: "white",
+                                    fontSize: { xs: "12px", sm: "13px" }, // Adjust font size for mobile and larger screens
+                                }}
+                            >
+                                I'm Interested
+                            </Button>
                         </Box>
                     )}
+
                 </Card>
             </Link>
         </Grid>
     );
+
 
     const handleNext = () => {
         if (listings.length > 0) {
@@ -364,7 +533,7 @@ const DailyFinance = () => {
                     </div>
 
                     {/* Red and Green Cards with Listings */}
-                    <div className="right w-[40%] h-full flex flex-col justify-center items-center">
+                    <div className="right hidden w-[40%] h-full md:flex flex-col justify-center items-center">
                         <div className="w-full relative h-full rounded-3xl bg-zinc-100 flex justify-center items-start py-[2vw]">
                             {/* Previous Card */}
                             <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-start items-center opacity-40 absolute h-[60%] left-[2vw] rounded-3xl">
@@ -396,6 +565,46 @@ const DailyFinance = () => {
                     </div>
                 </div>
             </div>
+            <div className="w-full font-raleway h-auto px-6 mt-10 md:hidden flex flex-col justify-center items-center">
+                {/* Title and Description */}
+                <div className="w-full flex flex-col justify-center items-center mb-6">
+                    <h1 className='px-4 py-2 bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'>
+                        <FaCalendarAlt /> Secure
+                    </h1>
+                    <h1 className="text-[24px] text-center w-full font-medium font-raleway mt-4 leading-[1.5]">
+                        Real Estate Meets the Digital Age
+                    </h1>
+                    <h1 className="mt-3 text-center text-zinc-400 text-[14px]">
+                        Blockchain-backed <span className="font-medium text-[#2ab589]">Equity-Tokens</span> unlock access to premium properties.
+                    </h1>
+                </div>
+
+                {/* Card Carousel */}
+                <div className="w-full relative flex flex-col justify-center items-center">
+                    {/* Current Card */}
+                    <div className="w-full p-4 rounded-2xl bg-zinc-100 flex justify-center items-center overflow-hidden">
+                        {listings.length > 0 && renderPropertyCard(listings[currentIndex])}
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className="flex justify-center gap-5 items-center w-full mt-4">
+                        <button
+                            className="w-[20%] py-2 bg-black text-zinc-300 rounded-full text-center"
+                            onClick={handleBack}
+                            variant="contained"
+                        >
+                            Back
+                        </button>
+                        <button
+                            className="w-[20%] py-2 bg-black text-zinc-300 rounded-full text-center"
+                            onClick={handleNext}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     );
 };

@@ -7,10 +7,10 @@ import { FaApple } from "react-icons/fa";
 const CardFunction = () => {
     return (
         <>
-            <div className='w-full h-screen flex justify-center items-center'>
-                <div className="w-[90%] h-[100%] md:h-[86%] p-[5vw] md:p-[0vw] bg-black rounded-3xl">
+            <div className='w-full h-full md:h-screen flex md:p-0 p-[5vw] justify-center items-center'>
+                <div className="md:w-[90%] h-auto md:h-auto p-[5vw] md:p-[4vw] bg-black rounded-3xl">
                     <div className="flex font-raleway h-full w-full text-white items-center flex-col">
-                        <h1 className='px-4 py-2 mt-[5vw] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'
+                        <h1 className='px-4 py-2 mt-[2vw] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'
                             style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.8 )', // Semi-transparent black for a glossy effect
                                 boxShadow: '0 4px 20px rgba(255, 255, 255, 0.2)', // Soft white shadow
@@ -21,7 +21,7 @@ const CardFunction = () => {
                         </h1>
                         <h1 className='md:text-[40px] text-[40px] 2xl:text-[50px] leading-[45px] md:leading-[60px] text-center font-raleway mt-5'>How will you make money ?</h1>
                         <h1 className='mt-5 md:text-[16px] text-center 2xl:text-[18px] text-zinc-400 font-medium '>Discover multiple avenues to grow your wealth with VENQ’s fractional investments.</h1>
-                        <div className='w-full font-raleway h-[18vw] mt-[4.5vw] md:flex justify-center items-center  md:gap-[1.5vw]'>
+                        <div className='w-full font-raleway h-auto mt-[4.5vw] md:flex justify-center items-center  md:gap-[1.5vw]'>
                             <div className="2xl:w-[20vw] mb-5 md:mb-0 md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden">
                                 {/* Glowing Faded Border Effect */}
                                 <div className="absolute top-0 left-0 w-full h-full rounded-[20px] pointer-events-none"
