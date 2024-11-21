@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaCalendarAlt } from "react-icons/fa";
 import { Grid, Button, Typography, Box, Card, styled, CardActionArea, CardContent, CardMedia } from '@mui/material';
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { Carousel } from 'react-responsive-carousel'; // Assuming you're using react-responsive-carousel
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +13,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styl
 import axios from "axios"; // Make sure axios is imported
 import AsSeenIn from '../components/NewHome/HomeComponents/AsSeenIn';
 const URL = config.URL;
+
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -99,26 +103,43 @@ const DailyFinance = () => {
     const [currentIndex, setCurrentIndex] = useState(0); // Track the current listing index
     const marqueeRef = useRef(null);
     const animationRef = useRef(null);
+    const textRef = useRef(null);
 
     useEffect(() => {
         const marqueeElement = marqueeRef.current;
+        gsap.set(textRef.current, { y: 200, opacity: 0 });
 
-        gsap.fromTo(
-            marqueeElement,
-            { x: '100%' },
-            {
-                x: '-100%',
-                scrollTrigger: {
-                    trigger: marqueeElement,
-                    start: 'top 80%',
-                    end: 'bottom 20%',
-                    scrub: true,
-                    toggleActions: "play reverse play reverse",
-                },
-                ease: 'none',
-            }
-        );
+        // gsap.fromTo(
+        //     marqueeElement,
+        //     { x: '100%' },
+        //     {
+        //         x: '-100%',
+        //         scrollTrigger: {
+        //             trigger: marqueeElement,
+        //             start: 'top 80%',
+        //             end: 'bottom 20%',
+        //             scrub: true,
+        //             toggleActions: "play reverse play reverse",
+        //         },
+        //         ease: 'none',
+        //     }
+        // );
 
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: textRef.current,
+                start: 'top 90%',
+                toggleActions: "play none none none",
+                // markers: true,
+            },
+        });
+
+        tl.to(textRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.inOut', // Ensure a smooth easing curve
+        });
         // ---------------------for live div home----------------
         if (JSON.parse(localStorage.getItem("userinfo"))) {
             setLoggedIn(true);
@@ -558,7 +579,7 @@ const DailyFinance = () => {
                         <h1 className="px-4 py-2 bg-zinc-100 md:text-[16px] font-medium justify-center items-center gap-3 flex text-[#2ab589] rounded-xl">
                             <FaCalendarAlt /> Secure
                         </h1>
-                        <h1 className="2xl:text-[40px] md:text-[32px] font-medium font-raleway mt-5 leading-[2.4vw]">
+                        <h1 ref={textRef} className="2xl:text-[40px] overflow-hidden md:text-[32px] font-medium font-raleway mt-5 leading-[2.4vw]">
                             Real Estate Meets the <br /> Digital Age
                         </h1>
                         <h1 className="mt-4 text-zinc-400 font-regular">
@@ -610,13 +631,13 @@ const DailyFinance = () => {
             <div className="w-full font-raleway h-auto px-6 mt-10 md:hidden flex flex-col justify-center items-center">
                 {/* Title and Description */}
                 <div className="w-full flex flex-col justify-center items-center mb-6">
-                    <h1 className='px-4 py-2 bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'>
+                    {/* <h1 className='px-4 py-2 bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'>
                         <FaCalendarAlt /> Secure
+                    </h1> */}
+                    <h1 className="text-[26px] text-center font-semibold w-full font-raleway mt-4 leading-[1.1]">
+                        Real Estate Meets the <br /> Digital Age
                     </h1>
-                    <h1 className="text-[24px] text-center w-full font-medium font-raleway mt-4 leading-[1.5]">
-                        Real Estate Meets the Digital Age
-                    </h1>
-                    <h1 className="mt-3 text-center text-zinc-400 text-[14px]">
+                    <h1 className="mt-3 px-[2rem] text-center text-zinc-400 text-[12px]">
                         Blockchain-backed <span className="font-medium text-[#2ab589]">Equity-Tokens</span> unlock access to premium properties.
                     </h1>
                 </div>
@@ -629,19 +650,28 @@ const DailyFinance = () => {
                     </div>
 
                     {/* Navigation Buttons */}
-                    <div className="flex justify-center gap-5 items-center w-full mt-4">
+                    <div className="flex justify-around px-5 items-center w-full mt-4">
                         <button
-                            className="w-[20%] py-2 bg-black text-zinc-300 rounded-full text-center"
+                            className="w-[15%] flex justify-center items-center py-2 bg-black text-zinc-300 rounded-full text-center *:hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]"
                             onClick={handleBack}
                             variant="contained"
                         >
-                            Back
+                            <FaArrowLeft size={14}/>
                         </button>
+                        <button className='2xl:py-2.5 2xl:px-10 text-xs md:text-lg px-[1.5rem] md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold
+                      hover:text-black hover:bg-white
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]'>Browse Properties</button>
                         <button
-                            className="w-[20%] py-2 bg-black text-zinc-300 rounded-full text-center"
+                            className="w-[15%] flex justify-center items-center text-right py-2 bg-black text-zinc-300 rounded-full 
+                            hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]"
                             onClick={handleNext}
                         >
-                            Next
+                            <FaArrowRight size={14}/>
                         </button>
                     </div>
                 </div>

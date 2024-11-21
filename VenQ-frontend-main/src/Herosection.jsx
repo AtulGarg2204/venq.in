@@ -16,7 +16,7 @@ import FAQ from './Herosection/FAQ'
 
 const Herosection = () => {
   return (
-    <div className=''>
+    <div className='overflow-hidden'>
       <Body/>
       <DailyFinance/>
       <Cards />
