@@ -46,7 +46,7 @@ const Testimonials = () => {
                                         <RiTwitterXLine size={30} />
                                     </div>
                                 </div>
-                                <div className="w-full font-medium p-5 h-full">
+                                <div className="w-full 2xl:text-xl md:text-base font-medium p-5 h-full">
                                     <p>{testimonial.text}</p>
                                 </div>
                             </div>

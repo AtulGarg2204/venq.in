@@ -111,7 +111,7 @@ const WorkTimeline = () => {
           {['Blockchain', 'Fractional Investment Group', 'TimeShare.', 'List, Tokenize, Profit', 'BrokerConnect'].map((text, index) => (
             <h1
               key={index}
-              className={`mt-4 cursor-pointer ${activeSection === index ? 'text-black font-bold' : 'text-zinc-400'}`}
+              className={`mt-4 md:text-[15px] 2xl:text-xl cursor-pointer ${activeSection === index ? 'text-black font-bold' : 'text-zinc-400'}`}
               onClick={() => handleSectionClick(index)}
             >
               {text}
@@ -130,7 +130,7 @@ const WorkTimeline = () => {
             >
               <div className="flex justify-start gap-5 items-center">
                 <div className="w-10 h-10 rounded-full bg-[#D8DAE3]"></div>
-                <h1 className="text-[30px] font-bold">{title}</h1>
+                <h1 className="2xl:text-[30px] md:text-[25px] font-bold">{title}</h1>
               </div>
               <div className="w-full relative h-[450px] flex justify-center items-center bg-white rounded-3xl mt-6">
                 <img
@@ -149,7 +149,7 @@ const WorkTimeline = () => {
                   className="w-full h-full object-cover rounded-3xl"
                 />
               </div>
-              <h1 className="mt-[1.5rem] text-[20px] font-medium text-black">
+              <h1 className="mt-[1.5rem] md:text-[16px] 2xl:text-[20px] font-medium text-black">
                 {index === 0 && 'Blockchain-backed equity tokens unlock access to premium properties.'}
                 {index === 1 && 'Add your assets and investors, we’ll manage everything.'}
                 {index === 2 && 'Enjoy a villa getaway or earn rental income.'}

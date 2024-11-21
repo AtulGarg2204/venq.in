@@ -22,7 +22,7 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef }) => {
       <div className="flex w-full h-full">
         <div className="flex font-latoBold py-[3px] px-5 md:px-[7rem] justify-between w-full h-full">
           {/* Left-side links for large screens */}
-          <div className="hidden md:flex overflow-hidden h-[4rem] gap-10 justify-center items-center">
+          <div className="hidden md:flex overflow-hidden h-[4rem] lg:gap-6 xl:gap-10 justify-center items-center">
             <div className="relative group">
               <a className="flex 2xl:text-[18px] md:text-[16px] gap-[10px] justify-center items-center" href="#" ref={(el) => (navbarLinksRef.current[0] = el)}>
                 Personal <SlArrowDown size={13} className="text-black" />
@@ -49,11 +49,19 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef }) => {
           </div>
 
           {/* Right-side Links for large screens */}
-          <div className="hidden md:flex gap-10 overflow-hidden text-lg justify-center items-center">
-            <a className='2xl:text-[18px] md:text-[16px]' href="#" ref={(el) => (navbarLinksRef.current[3] = el)}>Help</a>
-            <a className='2xl:text-[18px] md:text-[16px]' href="#" ref={(el) => (navbarLinksRef.current[4] = el)}>Blog</a>
-            <a className='2xl:text-[18px] md:text-[16px]' href="#" ref={(el) => (navbarLinksRef.current[6] = el)}>Log In</a>
-            <a className="py-[10px] text-white 2xl:text-[18px] md:text-[16px] px-5 text-lg bg-black rounded-full" href="#" ref={(el) => (navbarLinksRef.current[7] = el)}>Sign up</a>
+          <div className="hidden lg:text-sm md:flex lg:gap-6 xl:gap-10 overflow-hidden md:text-base xl:text-lg justify-center items-center">
+            <a className='2xl:text-[18px] lg:text-[16px] md:text-[14px]' href="#" ref={(el) => (navbarLinksRef.current[3] = el)}>Help</a>
+            <a className='2xl:text-[18px] lg:text-[16px] md:text-[14px]' href="#" ref={(el) => (navbarLinksRef.current[4] = el)}>Blog</a>
+            <a className='2xl:text-[18px] lg:text-[16px] md:text-[14px]' href="#" ref={(el) => (navbarLinksRef.current[6] = el)}>Log In</a>
+            <a
+              className="py-[10px] text-white 2xl:text-[18px] md:text-[16px] text-lg px-5 bg-black rounded-full 
+               hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]"
+              href="#"
+              ref={(el) => (navbarLinksRef.current[7] = el)}>
+              Sign up
+            </a>
           </div>
 
           {/* Hamburger Menu for Mobile */}

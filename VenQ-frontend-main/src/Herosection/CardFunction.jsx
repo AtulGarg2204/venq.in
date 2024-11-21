@@ -7,8 +7,8 @@ import { FaApple } from "react-icons/fa";
 const CardFunction = () => {
     return (
         <>
-            <div className='w-full h-full md:h-screen flex md:p-0 p-[5vw] justify-center items-center'>
-                <div className="md:w-[90%] h-auto md:h-auto p-[5vw] md:p-[4vw] bg-black rounded-3xl">
+            <div className='w-full h-full md:h-full 2xl:h-screen flex md:p-0 2xl:p-[5vw] justify-center items-center'>
+                <div className="md:w-[90%] h-auto md:h-auto 2xl:p-[5vw] md:p-[4vw] bg-black rounded-3xl">
                     <div className="flex font-raleway h-full w-full text-white items-center flex-col">
                         <h1 className='px-4 py-2 mt-[2vw] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'
                             style={{
@@ -43,7 +43,10 @@ const CardFunction = () => {
                                 <p className="text-left font-medium text-zinc-400 mt-5 text-[15px]">
                                 Earn passive income as your property generates consistent rental returns.
                                 </p>
-                                <button className="group flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-1 text-white hover:text-red-300">
+                                <button className="group flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
+                                hover:text-black hover:bg-zinc-200
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]">
                                     Learn More
                                     <span className="w-5 h-5 flex justify-center items-center bg-white rounded-full group-hover:bg-zinc-400">
                                         <GoArrowRight className="text-black group-hover:text-zinc-900" />
@@ -73,10 +76,13 @@ const CardFunction = () => {
                                 <p className="text-left font-medium text-zinc-400 mt-5 text-[15px]">
                                 Sell your tokens on our platform anytime, unlocking liquidity with ease.
                                 </p>
-                                <button className="flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-1 text-white">
+                                <button className="group flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
+                                hover:text-black hover:bg-zinc-200
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]">
                                     Learn More
-                                    <span className="w-5 h-5 flex justify-center items-center bg-white rounded-full">
-                                        <GoArrowRight className="text-black" />
+                                    <span className="w-5 h-5 flex justify-center items-center bg-white rounded-full group-hover:bg-zinc-400">
+                                        <GoArrowRight className="text-black group-hover:text-zinc-900" />
                                     </span>
                                 </button>
                             </div>
@@ -102,10 +108,13 @@ const CardFunction = () => {
                                 <p className="text-left font-medium text-zinc-400 mt-5 text-[15px]">
                                 Benefit from the long-term value growth of your real estate assets.
                                 </p>
-                                <button className="flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-1 text-white">
+                                <button className="group flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
+                                hover:text-black hover:bg-zinc-200
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]">
                                     Learn More
-                                    <span className="w-5 h-5 flex justify-center items-center bg-white rounded-full">
-                                        <GoArrowRight className="text-black" />
+                                    <span className="w-5 h-5 flex justify-center items-center bg-white rounded-full group-hover:bg-zinc-400">
+                                        <GoArrowRight className="text-black group-hover:text-zinc-900" />
                                     </span>
                                 </button>
                             </div>

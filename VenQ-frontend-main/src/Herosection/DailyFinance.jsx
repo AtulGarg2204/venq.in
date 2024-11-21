@@ -142,7 +142,7 @@ const DailyFinance = () => {
                 to={isLoggedIn ? `/dashboard/properties/view/${listing._id}` : ""}
                 style={{ textDecoration: "none" }}
             >
-                <Card sx={{ width: { xs: "100%", sm: "300px", md: "320px" } }}>
+                <Card sx={{ width: { xs: "100%", sm: "300px", md: "280px", xl: "320px" } }}>
                     <CardActionArea>
                         <CardMedia>
                             <Carousel showThumbs={false} statusFormatter={() => ""}>
@@ -393,7 +393,7 @@ const DailyFinance = () => {
                                                         marginTop: "4px",
                                                     }}
                                                 >
-                                                    {listing.potentialGain  || "N/A"}
+                                                    {listing.potentialGain || "N/A"}
                                                 </Box>
                                             </Box>
                                         </Box>
@@ -575,12 +575,12 @@ const DailyFinance = () => {
                             </div>
 
                             {/* Next Card */}
-                            <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-end items-center opacity-40 absolute h-[60%] right-[2vw] rounded-3xl">
+                            <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-end items-center opacity-40  md:scale-65 2xl:scale-100 absolute h-[60%] right-[2vw] rounded-3xl">
                                 {listings.length > 0 && renderPropertyCard(listings[getNextIndex(currentIndex)])}
                             </div>
 
                             {/* Main Content */}
-                            <div className="w-[65%] mt-[2vw] p-[2.5vw] flex justify-center bg- items-center absolute h-[70%] z-10 rounded-3xl overflow-hidden scale-110 transition-transform duration-300 ease-in-out">
+                            <div className="w-[65%] mt-[2vw] p-[2.5vw] flex justify-center bg- items-center absolute h-[70%] z-10 md:rounded-lg 2xl:rounded-3xl overflow-hidden md:scale-85 2xl:scale-110 transition-transform duration-300 ease-in-out">
                                 <div className="w-[100%] flex justify-center items-center h-[80%]">
                                     {listings.length > 0 && renderPropertyCard(listings[currentIndex])}
                                 </div>
@@ -588,10 +588,18 @@ const DailyFinance = () => {
 
                             {/* Navigation Buttons */}
                             <div className="flex absolute justify-between items-center bottom-9 px-[4vw] w-full">
-                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full" onClick={handleBack} variant="contained">
+                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full
+                                hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]
+                                " onClick={handleBack} variant="contained">
                                     Back
                                 </button>
-                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full" onClick={handleNext}>
+                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full
+                                hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]
+                                " onClick={handleNext}>
                                     Next
                                 </button>
                             </div>
