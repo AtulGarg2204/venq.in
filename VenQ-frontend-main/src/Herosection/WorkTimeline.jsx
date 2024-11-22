@@ -19,9 +19,12 @@ const WorkTimeline = () => {
   const handleSectionClick = (index) => {
     setActiveSection(index);
 
-    // Update the radial gradient line position based on the index
-    const positions = ['6.4rem', '8.9rem', '11.4rem', '13.9rem', '16.3rem'];
-    setLinePosition(positions[index]);
+    // Update the radial gradient line position based on index and screen size
+    const positionsMd = ['6.2rem', '8.4rem', '11rem', '13rem', '15.5rem']; // For md
+    const positions2xl = ['6.4rem', '8.9rem', '11.4rem', '13.9rem', '16.3rem']; // For 2xl
+
+    const is2xl = window.matchMedia('(min-width: 1536px)').matches; // Tailwind 2xl breakpoint
+    setLinePosition(is2xl ? positions2xl[index] : positionsMd[index]);
 
     // Scroll to the selected section with smooth scrolling
     sectionsRef.current[index].scrollIntoView({
@@ -95,13 +98,13 @@ const WorkTimeline = () => {
         </h1>
       </div>
 
-      <div className="flex flex-col md:flex-row mt-[1vw] md:px-[8vw] 2xl:px-[15vw] w-full bg-white font-raleway">
+      <div className="flex flex-col md:flex-row mt-[1vw] md:px-[5vw] 2xl:px-[15vw] w-full bg-white font-raleway">
         {/* Left Navigation - Desktop View */}
         <div
           ref={leftNavRef}
           className="left hidden md:block border-l relative p-10 w-1/4 h-full">
           <div
-            className="w-[2px] h-[30px] 2xl:-left-[1.4px] rounded-full absolute"
+            className="w-[2px] h-[30px] md:-left-[2px] 2xl:-left-[1.4px] rounded-full absolute"
             style={{
               top: linePosition,
               background: "radial-gradient(circle, black, rgba(0, 0, 0, 0.5), transparent)"
@@ -111,7 +114,7 @@ const WorkTimeline = () => {
           {['Blockchain', 'Fractional Investment Group', 'TimeShare.', 'List, Tokenize, Profit', 'BrokerConnect'].map((text, index) => (
             <h1
               key={index}
-              className={`mt-4 md:text-[15px] 2xl:text-xl cursor-pointer ${activeSection === index ? 'text-black font-bold' : 'text-zinc-400'}`}
+              className={`mt-4 md:text-[14px] 2xl:text-[16px] cursor-pointer ${activeSection === index ? 'text-black font-bold' : 'text-zinc-400'}`}
               onClick={() => handleSectionClick(index)}
             >
               {text}
@@ -196,24 +199,16 @@ const WorkTimeline = () => {
                                 : img5
                       }
                       alt={`Section ${index + 1}`}
-                      className="w-full h-full object-contain scale-[] rounded-3xl"
+                      className="w-full h-full object-cover rounded-3xl"
                     />
                   </div>
-                  <h1 className="mt-4 text-[16px] font-medium text-black">
-                    {index === 0 && 'Blockchain-backed equity tokens unlock access to premium properties.'}
-                    {index === 1 && 'Add your assets and investors, we’ll manage everything.'}
-                    {index === 2 && 'Enjoy a villa getaway or earn rental income.'}
-                    {index === 3 && 'Sell or trade your tokenized property units.'}
-                    {index === 4 && 'Reach a broader market through our broker network.'}
-                  </h1>
+                  <h1 className="mt-3 text-center">{`Content for ${title} goes here`}</h1>
                 </div>
               )}
             </div>
           ))}
         </div>
-
       </div>
-
     </>
   );
 };

@@ -90,7 +90,7 @@ const FAQ = () => {
                 <div className="w-full md:hidden h-full md:h-screen flex justify-center items-center">
                     <div className="w-[90%] md:w-[80%] 2xl:w-[70%] md:h-auto bg-black rounded-3xl">
                         <div className="flex font-raleway h-full w-full text-white items-center flex-col">
-                            <h1
+                            {/* <h1
                                 className="px-4 py-2 mt-[8vw] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl"
                                 style={{
                                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -101,8 +101,8 @@ const FAQ = () => {
                             >
                                 <span className='text-[#2ab589]'><FaCalendarAlt /></span>
                                 <span className='text-[#2ab589]'>Have a question?</span>
-                            </h1>
-                            <h1 className="md:text-[40px] 2xl:text-[50px] text-[30px] leading-[50px] text-center font-raleway mt-5">
+                            </h1> */}
+                            <h1 className="md:text-[40px] 2xl:text-[50px] text-[24px] leading-[50px] text-center font-raleway mt-5">
                                 We have answers ?
                             </h1>
                             <div className="w-full font-raleway h-auto mt-[2vw] flex flex-col items-center gap-[1.5vw] p-6">
@@ -116,7 +116,7 @@ const FAQ = () => {
                                             onClick={() => toggleAnswer(index)}
                                             className="flex justify-between w-full cursor-pointer"
                                         >
-                                            <h1 className="2xl:text-base md:text-sm text-[14px] font-medium text-white">
+                                            <h1 className="2xl:text-base md:text-sm text-[12px] font-medium text-white">
                                                 {item.question}
                                             </h1>
                                             <span className="text-white text-xl">
@@ -126,7 +126,7 @@ const FAQ = () => {
 
                                         {/* FAQ Answer (Visible when the question is clicked) */}
                                         {openIndex === index && (
-                                            <p className="text-left font-medium text-zinc-400 mt-5 text-[14px]">
+                                            <p className="text-left font-medium text-zinc-400 mt-5 text-[12px]">
                                                 {item.answer}
                                             </p>
                                         )}

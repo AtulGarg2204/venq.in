@@ -13,11 +13,11 @@ const Investment = () => {
         <div className='w-full h-full'>
             <div className="w-full font-raleway p-[2vw] h-full bg-white">
                 <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
-                    <h1 className='px-4 md:mt-[0vw] mt-[15vw] 2xl:text-[16px] md:text-[14px] py-2 bg-zinc-100 font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'>
+                    <h1 className='px-4 hidden md:mt-[0vw] mt-[15vw] 2xl:text-[16px] md:text-[14px] py-2 bg-zinc-100 font-semibold justify-center items-center gap-3 md:flex text-[#2ab589] rounded-xl'>
                         <span><FaCalendarAlt /></span> <span >Investments</span>
                     </h1>
-                    <h1 className='2xl:text-[60px] text-[30px] md:text-[45px] tracking-tight leading-[35px] md:leading-[45px] 2xl:leading-[70px] font-medium text-center font-raleway mt-5'>Spend, Save and manage your <br /> money, all in one place</h1>
-                    <h1 className='md:mt-5 mt-5 text-zinc-400 font-medium'>Open full bank account from phone, for free</h1>
+                    <h1 className='2xl:text-[60px] text-[24px] md:text-[45px] tracking-tight leading-[28px] md:leading-[45px] 2xl:leading-[70px] font-semibold md:font-medium text-center font-raleway mt-5'>Spend, Save and manage your <br /> money, all in one place</h1>
+                    <h1 className='md:mt-5 mt-2 text-zinc-400 md:text-lg text-xs font-medium'>Open full bank account from phone, for free</h1>
                 </div>
                 <div className="hidden md:flex w-full h-[35vw] gap-[1vw] mt-6 md:mt-[5vw] justify-center items-center">
                     <div className="md:w-[450px] 2xl:w-[600px] h-full bg-zinc-100 rounded-3xl p-[2vw]">
@@ -73,15 +73,15 @@ const Investment = () => {
                 </div>
                 <div className="md:hidden mt-5 flex flex-col items-center justify-center gap-4 p-4">
                     <div className="w-full bg-zinc-100 rounded-3xl p-4">
-                        <h1 className='text-[20px] font-medium tracking-tight'>Security that never sleeps.</h1>
-                        <p className='mt-2 font-medium text-[14px] text-zinc-400'>Rest easy knowing your investments are protected with blockchain security and our 24/7 monitoring systems.</p>
+                        <h1 className='text-[18px] font-medium tracking-tight'>Security that never sleeps.</h1>
+                        <p className='mt-2 font-medium text-[11px] text-zinc-400'>Rest easy knowing your investments are protected with blockchain security and our 24/7 monitoring systems.</p>
                         <button className='px-4 py-2 text-[14px] bg-black rounded-xl mt-3 text-zinc-100'>Security Layer 1</button>
                         <img className='w-full h-[200px] object-contain mt-4' src={img1} alt="" />
                     </div>
 
                     <div className="w-full bg-zinc-100 rounded-3xl p-4 mt-6">
-                        <h1 className='text-[20px] font-medium tracking-tight'>Built on trust, secured by regulations.</h1>
-                        <p className='mt-2 font-medium text-[14px] text-zinc-400'>
+                        <h1 className='text-[18px] font-medium tracking-tight'>Built on trust, secured by regulations.</h1>
+                        <p className='mt-2 font-medium text-[11px] text-zinc-400'>
                             Regulated by multiple trusted authorities worldwide, ensuring every investment is secure, transparent, and fully compliant.
                         </p>
                         <button className='px-4 py-2 text-[14px] bg-black rounded-xl mt-3 text-zinc-100'>Security Layer 2</button>
@@ -89,8 +89,8 @@ const Investment = () => {
                     </div>
 
                     <div className="w-full bg-zinc-100 rounded-3xl p-4 mt-6">
-                        <h1 className='text-[20px] font-medium tracking-tight'>You call the shots</h1>
-                        <p className='mt-2 font-medium text-[14px] text-zinc-400'>
+                        <h1 className='text-[18px] font-medium tracking-tight'>You call the shots</h1>
+                        <p className='mt-2 font-medium text-[11px] text-zinc-400'>
                             Top-tier security empowers you to invest in real estate that fits your needs—your choices, fully protected.
                         </p>
                         <button className='px-4 py-2 text-[14px] bg-black rounded-xl mt-3 text-zinc-100'>Security Layer 3</button>
