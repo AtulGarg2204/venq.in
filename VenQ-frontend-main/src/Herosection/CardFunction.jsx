@@ -22,8 +22,8 @@ const CardFunction = () => {
                         <h1 className='md:text-[40px] text-[26px] 2xl:text-[50px] leading-[30px] md:leading-[60px] text-center font-raleway mt-5'>How will you make money?</h1>
                         <h1 className='md:mt-5 mt-2 md:text-[16px] text-[12px] text-center md:px-0 px-5 2xl:text-[18px] text-zinc-400 font-medium '>Discover multiple avenues to grow your wealth with <span className='text-[#2ab589]'>VENQ’s</span> fractional investments.</h1>
                         <div className='w-full font-raleway md:px-0 px-4 h-auto mt-[4.5vw] md:flex justify-center items-center md:gap-[1.5vw]'>
-                            <div className="2xl:w-[20vw] mb-5 md:mb-0 md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden md:transition-all duration-300 ease-in-out 
-               transform md:hover:scale-105 md:hover:translate-y-[-30px] md:hover:shadow-2xl md:hover:shadow-green-300">
+                            <div className="2xl:w-[20vw] md:scale-[.92] 2xl:scale-[.95] mb-5 md:mb-0 md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden md:transition-all duration-300 ease-in-out 
+               transform md:hover:scale-[1] md:hover:translate-y-[-30px] md:hover:shadow-2xl md:hover:shadow-green-300">
                                 {/* Glowing Faded Border Effect */}
                                 <div className="absolute top-0 left-0 w-full h-full rounded-[20px] pointer-events-none"
                                     style={{
@@ -47,7 +47,7 @@ const CardFunction = () => {
                                 <button className="group text-sm md:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
                                 hover:text-black hover:bg-zinc-200
                transition-all duration-300 ease-in-out 
-               transform hover:scale-105 hover:translate-y-[-3px]">
+               transform hover:scale-[1] hover:translate-y-[-3px]">
                                     Learn More
                                     <span className="w-5 h-5 flex justify-center items-center bg-white rounded-full group-hover:bg-zinc-400">
                                         <GoArrowRight className="text-black group-hover:text-zinc-900" />
@@ -55,8 +55,8 @@ const CardFunction = () => {
                                 </button>
 
                             </div>
-                            <div className="2xl:w-[20vw] mb-5 md:mb-0 md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden transition-all duration-300 ease-in-out 
-               transform md:hover:scale-105 md:hover:translate-y-[-30px] md:hover:shadow-2xl md:hover:shadow-green-300">
+                            <div className="2xl:w-[20vw] md:scale-[.92] 2xl:scale-[.95] mb-5 md:mb-0 md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden transition-all duration-300 ease-in-out 
+               transform md:hover:scale-[1] md:hover:translate-y-[-30px] md:hover:shadow-2xl md:hover:shadow-green-300">
                                 {/* Glowing Faded Border Effect */}
                                 <div className="absolute top-0 left-0 w-full h-full rounded-[20px] pointer-events-none"
                                     style={{
@@ -88,8 +88,8 @@ const CardFunction = () => {
                                     </span>
                                 </button>
                             </div>
-                            <div className="2xl:w-[20vw] md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden transition-all duration-300 ease-in-out 
-               transform md:hover:scale-105 md:hover:translate-y-[-30px] md:hover:shadow-2xl md:hover:shadow-green-300">
+                            <div className="2xl:w-[20vw] md:scale-[.92] 2xl:scale-[.95] md:w-[24vw] p-6 2xl:h-[16vw] md:h-[20vw] rounded-2xl flex flex-col justify-center items-start bg-[#2d2b2b] relative shadow-lg overflow-hidden transition-all duration-300 ease-in-out 
+               transform md:hover:scale-[1] md:hover:translate-y-[-30px] md:hover:shadow-2xl md:hover:shadow-green-300">
                                 {/* Glowing Faded Border Effect */}
                                 <div className="absolute top-0 left-0 w-full h-full rounded-[20px] pointer-events-none"
                                     style={{

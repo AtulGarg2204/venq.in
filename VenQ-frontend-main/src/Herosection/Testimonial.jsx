@@ -19,7 +19,7 @@ const Testimonials = () => {
 
     return (
         <div>
-            <div className='w-full min-h-[165vw] md:min-h-full px-[8vw]'>
+            <div className='w-full md:min-h-[165vw] md:min-h-full px-[8vw]'>
                 <div className="w-full font-raleway p-[2vw] mt-[1vw] h-[full] bg-white">
                     <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
                         <h1 className='px-4 py-2 bg-zinc-100 font-semibold justify-center items-center gap-3 hidden md:flex text-[#2ab589] rounded-xl'>
@@ -59,7 +59,7 @@ const Testimonials = () => {
                                 key={index}
                                 className="w-full sm:w-1/2 md:w-1/4 h-full rounded-2xl bg-zinc-100 p-5 mb-4 sm:mb-0">
                                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
-                                    <div className="flex w-[10rem] bg-red-200 h-full justify-between items-center mb-3 sm:mb-0">
+                                    <div className="flex w-[10rem] h-full justify-between items-center mb-3 sm:mb-0">
                                         <div className="flex gap-4 justify-center items-center">
                                             <div className="w-[6vw] h-[6vw] sm:w-[3vw] sm:h-[3vw] bg-zinc-500 rounded-full">
                                                 {/* Placeholder for profile image */}

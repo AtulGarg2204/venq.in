@@ -52,7 +52,7 @@ const Investment = () => {
                         hover:text-black hover:bg-zinc-200 
                transition-all duration-300 ease-in-out 
                transform hover:scale-105 hover:translate-y-[-3px] '>Security Layer 3</button>
-                        <div className="w-full z-0 absolute top-0 left-[17rem] h-[20vw] object-cover flex justify-end items-start p-2">
+                        <div className="w-full z-0 absolute top-0 md:left-[14.5rem] 2xl:left-[17rem] h-[20vw] object-cover flex justify-end items-start p-2">
                             <div className="relative overflow-hidden w-full h-full">
                                 {/* Image */}
                                 <img

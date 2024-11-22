@@ -177,6 +177,9 @@ const PropertyInterests = () => {
             <TableCell sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Property Name
             </TableCell>
+            <TableCell sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
+              Appreciation
+            </TableCell>
             <TableCell align="left" sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>
               Ticker Code
             </TableCell>
@@ -199,6 +202,9 @@ const PropertyInterests = () => {
             <TableRow key={index}>
               <TableCell component="th" scope="row" sx={{ fontFamily: "Work Sans" }}>
                 {listing.properyheading}
+              </TableCell>
+              <TableCell component="th" scope="row" sx={{ fontFamily: "Work Sans" }}>
+                {listing.appreciation || "NA"}
               </TableCell>
               <TableCell align="left" sx={{ fontFamily: "Work Sans" }}>
                 <p>hello</p>

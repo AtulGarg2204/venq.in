@@ -154,7 +154,9 @@ const DropdownMenu = ({ options, onComingSoonClick }) => (
       <a
         key={index}
         href={option.link}
-        className="block px-2 w-full text-nowrap py-2 md:text-xs 2xl:text-base text-zinc-900 hover:bg-gray-100"
+        className={`block px-2 w-full text-nowrap py-2 md:text-xs 2xl:text-base text-zinc-900 hover:bg-gray-100 ${
+          option.name === "Properties" ? "font-bold 2xl:text-lg mb-4 md:text-sm border-b border-zinc-400" : ""
+        }`}
         onClick={option.comingSoon ? onComingSoonClick : undefined}
       >
         {option.name}

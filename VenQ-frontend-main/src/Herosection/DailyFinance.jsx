@@ -541,25 +541,25 @@ const DailyFinance = () => {
             <div className="w-full font-raleway mt-[5vw] text-black h-full">
                 <div className="flex flex-col h-full justify-center items-center">
                     <h1 className='2xl:text-xl md:text-[16px] font-medium text-zinc-400'>We've been featured in</h1>
-                    <div className="2xl:w-[40vw] w-full md:w-[40vw]  md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
+                    <div className="2xl:w-[40vw] w-full md:w-[50vw] md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
                         <AsSeenIn />
                     </div>
                     <div className="flex gap-[1vw] mt-[13vw] md:mt-[2vw] 2xl:mt-[1vw] text-[13px] font-lato justify-center items-center w-full h-full">
                         <h1>4.7 Excellent</h1>
-                        <div className='flex gap-[2px]'>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                        <div className='flex md:gap-[8px] 2xl:gap-[2px]'>
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
                         </div>

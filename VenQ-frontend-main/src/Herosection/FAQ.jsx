@@ -87,7 +87,7 @@ const FAQ = () => {
                 </div>
             </div>
             <div>
-                <div className="w-full md:hidden h-full md:h-screen flex justify-center items-center">
+                <div className="w-full md:hidden mt-[1.8rem] h-full md:h-screen flex justify-center items-center">
                     <div className="w-[90%] md:w-[80%] 2xl:w-[70%] md:h-auto bg-black rounded-3xl">
                         <div className="flex font-raleway h-full w-full text-white items-center flex-col">
                             {/* <h1
