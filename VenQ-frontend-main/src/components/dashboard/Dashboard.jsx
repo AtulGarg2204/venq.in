@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Properties from "./property/Properties";
 import Portfolio from "./contents/Portfolio";
 import Avatar from "@mui/material/Avatar";
+import Navbar from '../../Navbar';
 import "./Dashboard.css";
 import Profile from "./account/Profile";
 import image from "./user.png";
@@ -23,6 +24,7 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PropertyInterests from "./UserInterests/PropertyInterests";
+import { FiMenu } from "react-icons/fi";
 import {
   Box,
   Divider,
@@ -83,17 +85,18 @@ const Options = styled(Link)`
   padding: 10px;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 10px;
   margin-bottom: 10px;
   text-decoration: none;
   background-color: ${({ selected }) =>
-    selected ? "#cbe5ffb9" : "transparent"};
-  color: ${({ selected }) => (selected ? "black" : "rgb(112,111,111)")};
+    selected ? "#fff" : "transparent"};
+  color: ${({ selected }) => (selected ? "black" : "#eeeeee")};
   &:hover {
     background-color: ${({ selected }) =>
-      selected ? "#cbe5ffb9" : "#cbe5ffb9"};
+    selected ? "#fff" : "#fff"};
     color: black;
+    
   }
 `;
 const UpperItems = styled(Box)`
@@ -153,7 +156,7 @@ const LogoutIcon = styled(LogoutOutlinedIcon)`
 const Heading = styled(Typography)`
   text-decoration: none;
   font-family: Inter;
-  font-size: 16px;
+  font-size: 15px;
 `;
 const SubHeading = styled(Typography)`
   font-family: Inter;
@@ -163,11 +166,11 @@ const NestedListContainer = styled(Box)`
   position: absolute;
   left: ${drawerWidth}px;
   top: 75%;
-  background-color: white;
+  background-color: #f5f5f5;
   border-radius: 10px;
   padding: 10px;
   width: 250px;
-  box-shadow: 0 1px 2px 1px black;
+    box-shadow: 0 1px 2px 1px black;
   z-index: 9;
   overflow: hidden;
 
@@ -330,41 +333,57 @@ const Dashboard = () => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            background: "#15242F",
+            alignItems: "center",
+            padding: "10px",
+            backgroundColor: "transparent", // Semi-transparent background
+            backdropFilter: "blur(10px)", // Apply blur effect
+            WebkitBackdropFilter: "blur(10px)", // For Safari support
+            borderRadius: "8px", // Optional: add rounded corners
           }}
         >
           <Link to="/">
             <img
-              src="/images/VENQ_BOLD_PNG.png"
+              src="/images/VENQ_BOLD_Big.png"
               alt="logo"
               style={{
-                paddingTop: "20px",
                 paddingRight: "15px",
                 paddingLeft: "15px",
                 cursor: "pointer",
-                width: "65px",
+                width: "120px",
                 height: "auto",
               }}
             />
           </Link>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", justifyItems: "center", alignItems: "center" }}>
             {name && (
-              <Avatar
-                sx={{
-                  width: 32,
-                  height: 32,
-                  backgroundColor: "#5ECE8F",
-                  marginTop: "15px",
-                  marginRight: "10px",
-                }}
-              >
-                <img
-                  style={{ width: 17 }}
-                  src={image}
-                  onClick={handleAccountClick}
-                  onMouseDown={handleClose}
-                />
-              </Avatar>
+              // <Avatar
+              //   sx={{
+              //     width: 32,
+              //     height: 32,
+              //     backgroundColor: "#5ECE8F",
+              //     marginRight: "20px",
+              //   }}
+              // >
+              //   <img
+              //     style={{ width: 17 }}
+              //     src={image}
+              //     onClick={handleAccountClick}
+              //     onMouseDown={handleClose}
+              //   />
+              // </Avatar>
+              <Options style={{ marginBottom: "0px", marginRight:"10px"}} onMouseDown={handleClose}>
+                <HelpIcon onClick={() => {
+                  window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
+                }} style={{ color: "#080808", width:"22px",marginTop:"3px" }} />
+                {/* <Heading
+                  style={{ color: "black" }}
+                  onClick={() => {
+                    window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
+                  }}
+                >
+                  Help and Support{" "}
+                </Heading> */}
+              </Options>
               // <Options onClick={handleAccountClick}>
               //   <img style={{
               //           height:'30px',
@@ -380,19 +399,77 @@ const Dashboard = () => {
               edge="start"
               style={{ marginTop: "0px" }}
             >
-              <img
-                src="/images/menu.png"
-                alt="logo"
-                style={{
-                  padding: "10px",
-                  cursor: "pointer",
-                  width: "30px",
-                  height: "30px",
-                }}
-              />
+              <FiMenu />
             </IconButton>
           </div>
         </div>
+        // <div
+        //   style={{
+        //     display: "flex",
+        //     justifyContent: "space-between",
+        //     background: "#15242F",
+        //   }}
+        // >
+        //   <Link to="/">
+        //     <img
+        //       src="/images/VENQ_BOLD_PNG.png"
+        //       alt="logo"
+        //       style={{
+        //         paddingTop: "20px",
+        //         paddingRight: "15px",
+        //         paddingLeft: "15px",
+        //         cursor: "pointer",
+        //         width: "65px",
+        //         height: "auto",
+        //       }}
+        //     />
+        //   </Link>
+        //   <div style={{ display: "flex" }}>
+        //     {name && (
+        //       <Avatar
+        //         sx={{
+        //           width: 32,
+        //           height: 32,
+        //           backgroundColor: "#5ECE8F",
+        //           marginTop: "15px",
+        //           marginRight: "10px",
+        //         }}
+        //       >
+        //         <img
+        //           style={{ width: 17 }}
+        //           src={image}
+        //           onClick={handleAccountClick}
+        //           onMouseDown={handleClose}
+        //         />
+        //       </Avatar>
+        //       // <Options onClick={handleAccountClick}>
+        //       //   <img style={{
+        //       //           height:'30px',
+        //       //           borderRadius:'40%',
+        //       //           cursor:'pointer',
+        //       //         }} src={image} alt="fsdf"/>
+        //       // </Options>
+        //     )}
+        //     <IconButton
+        //       color="inherit"
+        //       aria-label="open drawer"
+        //       onClick={handleMenuClick}
+        //       edge="start"
+        //       style={{ marginTop: "0px" }}
+        //     >
+        //       <img
+        //         src="/images/menu.png"
+        //         alt="logo"
+        //         style={{
+        //           padding: "10px",
+        //           cursor: "pointer",
+        //           width: "30px",
+        //           height: "30px",
+        //         }}
+        //       />
+        //     </IconButton>
+        //   </div>
+        // </div>
       )}
 
       <Popover
@@ -409,15 +486,16 @@ const Dashboard = () => {
         }}
       >
         <List component="nav">
-          <UpperItems>
+          <UpperItems
+          >
             <Options
               to="/dashboard/properties"
               selected={step === 1}
               onClick={() => handleStepChange(1)}
               onMouseDown={handleClose} // Close the popover on mouse down
             >
-              <PropertyIcon selected={step === 1} />
-              <Heading selected={step === 1}>Properties </Heading>
+              <PropertyIcon style={{ color: "#0170DC" }} selected={step === 1} />
+              <Heading style={{ color: "black" }} selected={step === 1}>Properties </Heading>
             </Options>
 
             <Options
@@ -426,8 +504,8 @@ const Dashboard = () => {
               onClick={() => handleStepChange(2)}
               onMouseDown={handleClose}
             >
-              <WalletIcon selected={step === 2} />
-              <Heading selected={step === 2}> Wallet</Heading>
+              <WalletIcon style={{ color: "#0170DC" }} selected={step === 2} />
+              <Heading style={{ color: "black" }} selected={step === 2}> Wallet</Heading>
             </Options>
 
             <Options
@@ -436,8 +514,8 @@ const Dashboard = () => {
               onClick={() => handleStepChange(3)}
               onMouseDown={handleClose}
             >
-              <PortfolioIcon selected={step === 3} />
-              <Heading selected={step === 3}>Portfolio</Heading>
+              <PortfolioIcon style={{ color: "#0170DC" }} selected={step === 3} />
+              <Heading style={{ color: "black" }} selected={step === 3}>Portfolio</Heading>
             </Options>
 
             <Options
@@ -446,8 +524,8 @@ const Dashboard = () => {
               onClick={() => handleStepChange(4)}
               onMouseDown={handleClose}
             >
-              <RewardIcon selected={step === 4} />
-              <Heading selected={step === 4}>Rewards</Heading>
+              <RewardIcon style={{ color: "#0170DC" }} selected={step === 4} />
+              <Heading style={{ color: "black" }} selected={step === 4}>Rewards</Heading>
             </Options>
 
             <Options
@@ -456,8 +534,8 @@ const Dashboard = () => {
               onClick={() => handleStepChange(5)}
               onMouseDown={handleClose}
             >
-              <CartIcon selected={step === 5} />
-              <Heading selected={step === 5}>Cart</Heading>
+              <CartIcon style={{ color: "#0170DC" }} selected={step === 5} />
+              <Heading style={{ color: "black" }} selected={step === 5}>Cart</Heading>
             </Options>
 
             {isAdmin && (
@@ -468,8 +546,8 @@ const Dashboard = () => {
                   onClick={() => handleStepChange(6)}
                   onMouseDown={handleClose}
                 >
-                  <CartIcon selected={step === 6} />
-                  <Heading selected={step === 6}>Users</Heading>
+                  <CartIcon style={{ color: "#0170DC" }} selected={step === 6} />
+                  <Heading style={{ color: "black" }} selected={step === 6}>Users</Heading>
                 </Options>
                 <Options
                   to="/listings/add"
@@ -477,8 +555,8 @@ const Dashboard = () => {
                   onClick={() => handleStepChange(7)}
                   onMouseDown={handleClose}
                 >
-                  <CartIcon selected={step === 7} />
-                  <Heading selected={step === 7}>Listing</Heading>
+                  <CartIcon style={{ color: "#0170DC" }} selected={step === 7} />
+                  <Heading style={{ color: "black" }} selected={step === 7}>Listing</Heading>
                 </Options>
               </div>
             )}
@@ -486,16 +564,56 @@ const Dashboard = () => {
           <Divider sx={{ my: 1 }} />
 
           <LowerItems>
-            <Options style={{ marginBottom: "0px" }} onMouseDown={handleClose}>
-              <HelpIcon />
+            {/* <Options style={{ marginBottom: "0px" }} onMouseDown={handleClose}>
+              <Avatar
+                sx={{
+                  width: 32,
+                  height: 32,
+                  backgroundColor: "#5ECE8F",
+                  marginRight: "20px",
+                }}
+              >
+                <img
+                  style={{ width: 17 }}
+                  src={image}
+                  onClick={handleAccountClick}
+                  onMouseDown={handleClose}
+                />
+              </Avatar>
               <Heading
+                style={{ color: "black" }}
+                onClick={handleAccountClick}
+                onMouseDown={handleClose}
+              >
+                Profile{" "}
+              </Heading>
+            </Options> */}
+            <Options
+              to="/dashboard/profile"
+              selected={step === 8}
+              onClick={() => handleStepChange(8)}
+            >
+              <UserIcon style={{ color: "#0170DC" }} selected={step === 7} />
+              <Heading style={{ color: "black" }} selected={step === 7}>My Profile</Heading>
+            </Options>
+            <Options
+              to="/" onClick={handleLogOut}
+            >
+              <LogoutIcon style={{ color: "red" }} selected={step === 7} />
+              <Heading style={{ color: "red" }} selected={step === 7}>Logout</Heading>
+            </Options>
+
+            {/* <Options style={{ marginBottom: "0px" }} onMouseDown={handleClose}>
+              <HelpIcon style={{ color: "#0170DC" }} />
+              <Heading
+                style={{ color: "black" }}
                 onClick={() => {
                   window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
                 }}
               >
                 Help and Support{" "}
               </Heading>
-            </Options>
+            </Options> */}
           </LowerItems>
         </List>
       </Popover>
@@ -504,173 +622,243 @@ const Dashboard = () => {
         variant={isMobile ? "temporary" : "permanent"}
         open={drawerOpen}
         onClose={isMobile ? handleDrawerToggle : undefined}
+        sx={{
+          // padding: "10px",
+        }}
       >
-        <Toolbar
+        <div style={{
+          padding: "10px",
+          height: "100%",
+          backgroundColor: "#F5F5F5"
+
+        }} className="">
+          {/* <Toolbar
           sx={{
+            width:"100%",
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             px: [1],
+            backgroundColor:"#14212B",
+            borderRadius:"10px",
+            marginBottom:"10px",
+            paddingLeft:"10px",
           }}
         >
-          <Link to="/">
-            <img
-              src="/images/VENQ_BOLD_small.png"
-              alt="logo"
-              style={{ padding: "10px", cursor: "pointer", marginTop: "10px" }}
-            />
-          </Link>
-        </Toolbar>
+          
+        </Toolbar> */}
 
-        <Divider />
+          {/* <Divider /> */}
 
-        <List
-          component="nav"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            // alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <UpperItems>
-            <Options
-              to="/dashboard/properties"
-              style={{ marginBottom: "5px", marginTop: "5px" }}
-              selected={step === 1}
-              onClick={() => handleStepChange(1)}
-            >
-              <PropertyIcon selected={step === 1} />
-              <Heading selected={step === 1}>Properties</Heading>
-            </Options>
-
-            <Options
-              to="/dashboard/wallet"
-              style={{ marginBottom: "5px", marginTop: "5px" }}
-              selected={step === 2}
-              onClick={() => handleStepChange(2)}
-            >
-              <WalletIcon selected={step === 2} />
-              <Heading selected={step === 2}> Wallet</Heading>
-            </Options>
-
-            <Options
-              to="/dashboard/portfolio"
-              style={{ marginBottom: "5px", marginTop: "5px" }}
-              selected={step === 3}
-              onClick={() => handleStepChange(3)}
-            >
-              <PortfolioIcon selected={step === 3} />
-              <Heading selected={step === 3}>Portfolio</Heading>
-            </Options>
-
-            <Options
-              to="/dashboard/rewards"
-              style={{ marginBottom: "5px", marginTop: "5px" }}
-              selected={step === 4}
-              onClick={() => handleStepChange(4)}
-            >
-              <RewardIcon selected={step === 4} />
-              <Heading selected={step === 4}>Rewards</Heading>
-            </Options>
-
-            <Options
-              to="/dashboard/cart"
-              style={{ marginBottom: "5px", marginTop: "5px" }}
-              selected={step === 5}
-              onClick={() => handleStepChange(5)}
-            >
-              <CartIcon selected={step === 5} />
-              <Heading selected={step === 5}>Cart</Heading>
-            </Options>
-            {isAdmin && (
-              <div>
-                <Options
-                  to="/dashboard/allinvestors"
-                  style={{ marginBottom: "0px", marginTop: "0px" }}
-                  selected={step === 6}
-                  onClick={() => handleStepChange(6)}
-                  onMouseDown={handleClose}
-                >
-                  <CartIcon selected={step === 6} />
-                  <Heading selected={step === 6}>Users</Heading>
-                </Options>
-                <Options
-                  to="/dashboard/addlisting"
-                  style={{ marginBottom: "0px" }}
-                  selected={step === 7}
-                  onClick={() => handleStepChange(7)}
-                  onMouseDown={handleClose}
-                >
-                  <CartIcon selected={step === 7} />
-                  <Heading selected={step === 7}>Listing</Heading>
-                </Options>
-                <Options
-                  to="/dashboard/allpropertyinterests"
-                  style={{ marginBottom: "0px" }}
-                  selected={step === 8}
-                  onClick={() => handleStepChange(8)}
-                  onMouseDown={handleClose}
-                >
-                  <CartIcon selected={step === 8} />
-                  <Heading selected={step === 8}>Management</Heading>
-                </Options>
-
-                <Options
-                  to="/dashboard/allinvestorslist"
-                  style={{ marginBottom: "0px" }}
-                  selected={step === 9}
-                  onClick={() => handleStepChange(9)}
-                  onMouseDown={handleClose}
-                >
-                  <CartIcon selected={step === 9} />
-                  <Heading selected={step === 9}>All Investors</Heading>
-                </Options>
+          <List
+            component="nav"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              // alignItems: "center",
+              justifyContent: "space-between",
+              backgroundColor: "#14212b",
+              padding: "5px",
+              borderRadius: "10px",
+            }}
+          >
+            <UpperItems>
+              <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }} className="">
+                <Link to="/">
+                  <img
+                    src="/images/VENQ_BOLD_PNG.png"
+                    alt="logo"
+                    style={{ padding: "10px", cursor: "pointer", width: "80%", height: "auto", }}
+                  />
+                </Link>
               </div>
-            )}
-          </UpperItems>
-
-          <LowerItems>
-            <Options style={{}}>
-              <HelpIcon />
-              <Heading
-                onClick={() => {
-                  window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
-                }}
+              <Options
+                to="/dashboard/properties"
+                style={{ marginBottom: "5px", marginTop: "5px" }}
+                selected={step === 1}
+                onClick={() => handleStepChange(1)}
               >
-                Help and Support{" "}
-              </Heading>
-            </Options>
-            <Divider sx={{ my: 1 }} />
+                <PropertyIcon selected={step === 1} />
+                <Heading selected={step === 1}>Properties</Heading>
+              </Options>
 
-            <Options
-              onClick={handleAccountClick}
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <div className="account-container">
-                <Avatar
-                  sx={{
-                    marginRight: "10px",
-                    width: 32,
-                    height: 32,
-                    backgroundColor: "#5ECE8F",
+              <Options
+                to="/dashboard/wallet"
+                style={{ marginBottom: "5px", marginTop: "5px" }}
+                selected={step === 2}
+                onClick={() => handleStepChange(2)}
+              >
+                <WalletIcon selected={step === 2} />
+                <Heading selected={step === 2}> Wallet</Heading>
+              </Options>
+
+              <Options
+                to="/dashboard/portfolio"
+                style={{ marginBottom: "5px", marginTop: "5px" }}
+                selected={step === 3}
+                onClick={() => handleStepChange(3)}
+              >
+                <PortfolioIcon selected={step === 3} />
+                <Heading selected={step === 3}>Portfolio</Heading>
+              </Options>
+
+              <Options
+                to="/dashboard/rewards"
+                style={{ marginBottom: "5px", marginTop: "5px" }}
+                selected={step === 4}
+                onClick={() => handleStepChange(4)}
+              >
+                <RewardIcon selected={step === 4} />
+                <Heading selected={step === 4}>Rewards</Heading>
+              </Options>
+
+              <Options
+                to="/dashboard/cart"
+                style={{ marginBottom: "5px", marginTop: "5px" }}
+                selected={step === 5}
+                onClick={() => handleStepChange(5)}
+              >
+                <CartIcon selected={step === 5} />
+                <Heading selected={step === 5}>Cart</Heading>
+              </Options>
+              {isAdmin && (
+                <div>
+                  <Options
+                    to="/dashboard/allinvestors"
+                    style={{ marginBottom: "0px", marginTop: "0px" }}
+                    selected={step === 6}
+                    onClick={() => handleStepChange(6)}
+                    onMouseDown={handleClose}
+                  >
+                    <CartIcon selected={step === 6} />
+                    <Heading selected={step === 6}>Users</Heading>
+                  </Options>
+                  <Options
+                    to="/dashboard/addlisting"
+                    style={{ marginBottom: "0px" }}
+                    selected={step === 7}
+                    onClick={() => handleStepChange(7)}
+                    onMouseDown={handleClose}
+                  >
+                    <CartIcon selected={step === 7} />
+                    <Heading selected={step === 7}>Listing</Heading>
+                  </Options>
+                  <Options
+                    to="/dashboard/allpropertyinterests"
+                    style={{ marginBottom: "0px" }}
+                    selected={step === 8}
+                    onClick={() => handleStepChange(8)}
+                    onMouseDown={handleClose}
+                  >
+                    <CartIcon selected={step === 8} />
+                    <Heading selected={step === 8}>Management</Heading>
+                  </Options>
+
+                  <Options
+                    to="/dashboard/allinvestorslist"
+                    style={{ marginBottom: "0px" }}
+                    selected={step === 9}
+                    onClick={() => handleStepChange(9)}
+                    onMouseDown={handleClose}
+                  >
+                    <CartIcon selected={step === 9} />
+                    <Heading selected={step === 9}>All Investors</Heading>
+                  </Options>
+                </div>
+              )}
+            </UpperItems>
+
+            <LowerItems>
+              <Options style={{}}>
+                <HelpIcon />
+                <Heading
+                  onClick={() => {
+                    window.location.href = `https://api.whatsapp.com/send?phone=919205553696&text=Invest`;
                   }}
                 >
-                  <img style={{ width: 17 }} src={image} />
-                </Avatar>
-                <Heading style={{ fontSize: "16px" }}>
-                  {name.split(" ")[0]}
+                  Help and Support{" "}
                 </Heading>
-              </div>
-              <ChevronRightIcon />
-            </Options>
-          </LowerItems>
-        </List>
+              </Options>
+              <Divider sx={{ my: 1 }} />
+
+              <Options
+                onClick={handleAccountClick}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  backgroundColor: "white",
+                  color: "black",
+                  transition: "all 0.3s ease", // Smooth transition for the hover effect
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#e5e5e5";
+                  e.currentTarget.style.color = "e5e5e5";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "white";
+                  e.currentTarget.style.color = "black";
+                }}
+              >
+                <div className="account-container">
+                  <Avatar
+                    sx={{
+                      marginRight: "10px",
+                      width: 32,
+                      height: 32,
+                      backgroundColor: "#5ECE8F",
+                    }}
+                  >
+                    <img style={{ width: 17 }} src={image} />
+                  </Avatar>
+                  <Heading style={{ fontSize: "16px" }}>
+                    {name.split(" ")[0]}
+                  </Heading>
+                </div>
+                <ChevronRightIcon />
+              </Options>
+
+              {/* <NestedList style={{
+                backgroundColor: "#F5F5F5"
+              }} className="nested-list">
+                <NestedLink
+                  to="/dashboard/profile"
+                  selected={step === 8}
+                  onClick={() => handleStepChange(8)}
+                >
+                  <UserIcon selected={step === 8} />
+                  <SubHeading selected={step === 8}>My Profile </SubHeading>
+                </NestedLink>
+
+                <NestedLink
+                  to="/dashboard/bookmarks"
+                  selected={step === 9}
+                  onClick={() => handleStepChange(9)}
+                >
+                  <BookmarkIcon selected={step === 9} />
+                  <SubHeading selected={step === 9}>Bookmarks</SubHeading>
+                </NestedLink>
+
+                <Divider sx={{ my: 1 }} style={{ height: "2px", width: "100%" }} />
+
+                <Logout to="/" onClick={handleLogOut}>
+                  <LogoutIcon />
+                  <SubHeading>Logout</SubHeading>
+                </Logout>
+              </NestedList> */}
+            </LowerItems>
+          </List>
+        </div>
       </Drawer>
       {nestedListVisible && (
         <NestedListContainer>
-          <NestedList className="nested-list">
+          <NestedList style={{
+            backgroundColor: "#F5F5F5"
+          }} className="nested-list">
             <NestedLink
               to="/dashboard/profile"
               selected={step === 8}

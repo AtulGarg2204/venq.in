@@ -20,7 +20,7 @@ const CryptoAssets = () => {
             <div className='w-full h-full'>
                 <div className="w-full font-raleway p-[5vw] md:p-[2vw] mt-[5vw] h-full bg-white">
                     <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
-                        <h1 className='px-4 py-2 hidden md:flex bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 text-[#2ab589] rounded-xl'>
+                        <h1 className='px-4 py-2 flex text-[12px] bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 text-[#2ab589] rounded-xl'>
                             <span><FaCalendarAlt /></span> <span >Where can you invest</span>
                         </h1>
                         <h1 className='md:text-[45px] text-[26px] 2xl:text-[60px]  tracking-tight leading-[30px] md:leading-[50px] 2xl:leading-[70px] font-semibold md:font-medium text-center font-raleway mt-5'>Unlock opportunities in properties you never <br /> knew you could own.</h1>
@@ -28,31 +28,31 @@ const CryptoAssets = () => {
 
                         <div className="flex flex-wrap text-center justify-center items-center md:gap-[4vw] leading-[5px] gap-[6vw] px-4 md:mt-[3vw] mt-[12vw] text-[14px] md:text-[18px] 2xl:text-[20px] font-semibold">
                             <h1
-                                className={`cursor-pointer ${activeSection === 'Residential' ? 'border-b-2  leading-[15px] border-black' : 'text-zinc-400'}`}
+                                className={`cursor-pointer ${activeSection === 'Residential' ? 'border-b-2 pb-2 leading-[15px] border-black' : 'text-zinc-400'}`}
                                 onClick={() => handleSectionClick('Residential')}
                             >
                                 Residential
                             </h1>
                             <h1
-                                className={`cursor-pointer ${activeSection === 'Plots' ? 'border-b-2 leading-[15px] border-black' : 'text-zinc-400'}`}
+                                className={`cursor-pointer ${activeSection === 'Plots' ? 'border-b-2 pb-2 leading-[15px] border-black' : 'text-zinc-400'}`}
                                 onClick={() => handleSectionClick('Plots')}
                             >
                                 Plots
                             </h1>
                             <h1
-                                className={`cursor-pointer ${activeSection === 'AirBnBs' ? 'border-b-2 leading-[15px] border-black' : 'text-zinc-400'}`}
+                                className={`cursor-pointer ${activeSection === 'AirBnBs' ? 'border-b-2 pb-2 leading-[15px] border-black' : 'text-zinc-400'}`}
                                 onClick={() => handleSectionClick('AirBnBs')}
                             >
                                 AirBnBs
                             </h1>
                             <h1
-                                className={`cursor-pointer ${activeSection === 'Commercial' ? 'border-b-2 leading-[15px] border-black' : 'text-zinc-400'}`}
+                                className={`cursor-pointer ${activeSection === 'Commercial' ? 'border-b-2 pb-2 leading-[15px] border-black' : 'text-zinc-400'}`}
                                 onClick={() => handleSectionClick('Commercial')}
                             >
                                 Commercial
                             </h1>
                             <h1
-                                className={`cursor-pointer ${activeSection === 'Hotels' ? 'border-b-2 leading-[15px] border-black' : 'text-zinc-400'}`}
+                                className={`cursor-pointer ${activeSection === 'Hotels' ? 'border-b-2 pb-2 leading-[15px] border-black' : 'text-zinc-400'}`}
                                 onClick={() => handleSectionClick('Hotels')}
                             >
                                 Hotels & Resort

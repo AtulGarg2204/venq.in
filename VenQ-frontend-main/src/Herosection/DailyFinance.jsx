@@ -583,7 +583,7 @@ const DailyFinance = () => {
                             Real Estate Meets the <br /> Digital Age
                         </h1>
                         <h1 className="mt-4 text-zinc-400 font-regular">
-                            Blockchain-backed <span className="font-medium text-[#2ab589]">Equity-Tokens</span> unlock access to premium properties.
+                            Blockchain-backed <span className="font-medium text-[#2ab589]">Tokens + Equity</span> unlock access to premium properties.
                         </h1>
                     </div>
 

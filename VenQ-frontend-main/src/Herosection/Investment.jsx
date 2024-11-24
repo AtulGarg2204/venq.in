@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import { FaCalendarAlt } from "react-icons/fa";
-import './investment.css'
-import img1 from '../../src/assets/images/new look/shield.png'
-import img2 from '../../src/assets/images/new look/regulations.png'
-import img3 from '../../src/assets/images/new look/paperwork.png'
-import img4 from '../../src/assets/images/new look/Frame 21.png'
+import img4 from '../../src/assets/images/new look/Frame 21.png';
+import img3 from '../../src/assets/images/new look/paperwork.png';
+import img2 from '../../src/assets/images/new look/regulations.png';
+import img1 from '../../src/assets/images/new look/shield.png';
+import './investment.css';
 
 
 
@@ -13,11 +13,11 @@ const Investment = () => {
         <div className='w-full h-full'>
             <div className="w-full font-raleway p-[2vw] h-full bg-white">
                 <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
-                    <h1 className='px-4 hidden md:mt-[0vw] mt-[15vw] 2xl:text-[16px] md:text-[14px] py-2 bg-zinc-100 font-semibold justify-center items-center gap-3 md:flex text-[#2ab589] rounded-xl'>
-                        <span><FaCalendarAlt /></span> <span >Investments</span>
+                    <h1 className='px-4 md:mt-[0vw] mt-[15vw] 2xl:text-[16px] py-2 bg-zinc-100 font-semibold justify-center items-center gap-3  text-[12px] md:text-[16px] flex text-[#2ab589] rounded-xl'>
+                        <span><FaCalendarAlt /></span> <span >Security</span>
                     </h1>
-                    <h1 className='2xl:text-[60px] text-[24px] md:text-[45px] tracking-tight leading-[28px] md:leading-[45px] 2xl:leading-[70px] font-semibold md:font-medium text-center font-raleway mt-5'>Spend, Save and manage your <br /> money, all in one place</h1>
-                    <h1 className='md:mt-5 mt-2 text-zinc-400 md:text-lg text-xs font-medium'>Open full bank account from phone, for free</h1>
+                    <h1 className='2xl:text-[60px] text-[24px] md:text-[45px] tracking-tight leading-[28px] md:leading-[45px] 2xl:leading-[70px] font-semibold md:font-medium text-center font-raleway mt-5'>Secure and Regulated Investments <br /> You Can Trust</h1>
+                    <h1 className='md:mt-5 text-center mt-5 text-zinc-400 md:text-lg text-xs font-medium'>Your assets are safe with VENQ, backed by top-tier security and strict regulatory compliance.</h1>
                 </div>
                 <div className="hidden md:flex w-full h-[35vw] gap-[1vw] mt-6 md:mt-[5vw] justify-center items-center">
                     <div className="md:w-[450px] 2xl:w-[600px] h-full bg-zinc-100 rounded-3xl p-[2vw]">
@@ -88,12 +88,13 @@ const Investment = () => {
                         <img className='w-full h-[200px] object-contain mt-4' src={img2} alt="" />
                     </div>
 
-                    <div className="w-full bg-zinc-100 rounded-3xl p-4 mt-6">
+                    <div className="w-full relative bg-zinc-100 rounded-3xl p-4 mt-6">
                         <h1 className='text-[18px] font-medium tracking-tight'>You call the shots</h1>
                         <p className='mt-2 font-medium text-[11px] text-zinc-400'>
                             Top-tier security empowers you to invest in real estate that fits your needs—your choices, fully protected.
                         </p>
                         <button className='px-4 py-2 text-[14px] bg-black rounded-xl mt-3 text-zinc-100'>Security Layer 3</button>
+                        <img className='w-full h-full scale-[.8] left-0 top-[30%] absolute object-contain ' src={img4} alt="" srcset="" />
                         <img className='w-full h-[200px] object-contain mt-4' src={img3} alt="" />
                     </div>
                 </div>

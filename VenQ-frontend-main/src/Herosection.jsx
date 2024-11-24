@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Body from './Herosection/Body';
 import DailyFinance from './Herosection/DailyFinance';
 import Cards from './Herosection/Cards';
@@ -16,6 +16,16 @@ import FAQ from './Herosection/FAQ';
 
 const Herosection = () => {
   const workTimelineRef = useRef(null); // Ref for WorkTimeline
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const token = JSON.parse(localStorage.getItem("userinfo"));
+
+  useEffect(() => {
+    if (token) {
+      setLoggedIn(true);
+    }
+
+    // Only add the widget if not on a small screen
+  }, [token]);
 
   return (
     <div className="overflow-hidden">

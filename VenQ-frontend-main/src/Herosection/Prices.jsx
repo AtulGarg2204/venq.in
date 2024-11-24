@@ -23,14 +23,14 @@ const Prices = () => {
             <div className='w-full h-full md:h-screen flex justify-center items-center'>
                 <div className="w-[90%] overflow-hidden  h-auto p-3 md:p-0 md:h-[86%] bg-black rounded-3xl">
                     <div className="flex font-raleway h-full w-full text-white items-center flex-col">
-                        <h1 className='px-4 hidden md:flex sticky py-2 mt-[5vw] font-semibold justify-center items-center gap-3 text-[#2ab589] rounded-xl'
+                        <h1 className='px-4 flex  text-[12px] md:text-[16px] sticky py-2 mt-[5vw] font-semibold justify-center items-center gap-3 text-[#2ab589] rounded-xl'
                             style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.8 )', // Semi-transparent black for a glossy effect
                                 boxShadow: '0 4px 20px rgba(255, 255, 255, 0.2)', // Soft white shadow
                                 backdropFilter: 'blur(5px)', // Optional: adds a glass-like blur effect
                                 color: 'green'
                             }}>
-                            <span className='text-[#2ab589]'><FaCalendarAlt /></span> <span className='text-[#2ab589]'>Prices</span>
+                            <span className='text-[#2ab589]'><FaCalendarAlt /></span> <span className='text-[#2ab589]'>Process</span>
                         </h1>
                         <div className="font-raleway h-full w-full text-white items-center hidden md:flex flex-col">
                             <h1 className='2xl:text-[50px] md:text-[50px] text-[35px] sticky leading-[40PX] md:leading-[60px] font- text-center font-raleway mt-5'>Property Tokenization Process                  </h1>
@@ -51,8 +51,8 @@ const Prices = () => {
                                         </div>
                                     </div>
                                     <div className="absolute top-[32vw]">
-                                        <h1 className='text-right text-[16px] text-zinc-400 font-medium'>Token Distribution</h1>
-                                        <h1 className='text-right mt-2 text-zinc-400'>Property tokens are made available to investors through our platform, with automated compliance and KYC verification.</h1>
+                                        <h1 className='text-right text-[16px] text-zinc-400 font-medium'>Token & Equity Distribution</h1>
+                                        <h1 className='text-right mt-2 text-zinc-400'>Property<span className='font-bold'> tokens + equity</span> are made available to investors through our platform, with automated compliance and KYC verification.</h1>
                                     </div>
                                     <div className="border absolute top-[45vw]  gap-[1vw] border-zinc-700 flex justify-center  flex-col items-start pl-[2vw] bg-[#0C0C0C] w-full h-[12vw] py-1 rounded-3xl">
                                         <div className='flex justify-center items-center gap-[1vw]'>
@@ -98,17 +98,17 @@ const Prices = () => {
                                         <h1 className='flex gap-2 justify-centers items-center'><span><TiTickOutline className='text-blue-500' /></span> Financial Assessment</h1>
                                     </div>
                                     <div className="absolute top-[18vw]">
-                                        <h1 className='text-left text-zinc-400 text-[16px] font-medium'>Smart Contract Creation</h1>
-                                        <h1 className='text-left mt-2 text-zinc-400'>Property ownership is encoded into smart contracts on the blockchain, defining token economics and governance rules.</h1>
+                                        <h1 className='text-left text-zinc-400 text-[16px] font-medium'>Smart Contract and SPV creation</h1>
+                                        <h1 className='text-left mt-2 text-zinc-400'>Property is held in an <span className='font-bold'>SPV</span>  which is encoded into smart contracts on the blockchain for more security.</h1>
                                     </div>
                                     <div className="border absolute top-[31vw] text-zinc-300 gap-1 border-zinc-700 flex justify-center p-[2vw] flex-col items-start bg-[#0C0C0C] w-full h-[8vw] rounded-3xl">
                                         <div className="flex w-full justify-between items-center">
                                             <h1 className='text-zinc-400'>Total Tokens</h1>
-                                            <h1 className='text-blue-500'>1,000,000</h1>
+                                            <h1 className='text-blue-500'>1,000</h1>
                                         </div>
                                         <div className="flex w-full justify-between items-center">
                                             <h1 className='text-zinc-400'>Token Price</h1>
-                                            <h1 className='text-blue-500'>$100</h1>
+                                            <h1 className='text-blue-500'>₹5,000</h1>
                                         </div>
                                         <div className="flex w-full justify-between items-center">
                                             <h1 className='text-zinc-400'>Min Investment</h1>

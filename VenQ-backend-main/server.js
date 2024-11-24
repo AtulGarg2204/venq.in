@@ -122,16 +122,16 @@ app.post("/api/single", upload.single("file"), (req, res) => {
   });
 });
 
-app.post("/api/upload", photosMiddleware, (req, res) => {
-  console.log("upload image started");
-  const uploadedFiles = [];
-  for (let index = 0; index < req.files.length; index++) {
-    uploadedFiles.push(req.files[index].path);
-  }
-  console.log("beforeuploading");
-  console.log(uploadedFiles);
-  res.json(uploadedFiles);
-});
+// app.post("/api/upload", photosMiddleware, (req, res) => {
+//   console.log("upload image started");
+//   const uploadedFiles = [];
+//   for (let index = 0; index < req.files.length; index++) {
+//     uploadedFiles.push(req.files[index].path);
+//   }
+//   console.log("beforeuploading");
+//   console.log(uploadedFiles);
+//   res.json(uploadedFiles);
+// });
 
 // file download routes
 app.get("/download/:url", (req, res) => {

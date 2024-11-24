@@ -3,6 +3,10 @@ import { gsap } from 'gsap';
 import Navbar from './Navbar';
 import './Body.css';
 import bg from '../../src/assets/images/new look/Frame 38.png';
+import v from '../../src/assets/images/v.png'
+import e from '../../src/assets/images/e.png'
+import n from '../../src/assets/images/n.png'
+import q from '../../src/assets/images/q.png'
 
 const Body = ({ workTimelineRef }) => {
   const textRef = useRef([]);
@@ -12,67 +16,67 @@ const Body = ({ workTimelineRef }) => {
   const Bodytext = useRef(null);
   const bodytextsmall = useRef(null);
 
-  // useEffect(() => {
-  //   const tl = gsap.timeline();
+  useEffect(() => {
+    const tl = gsap.timeline();
 
-  //   tl.set(navbarLogoRef.current, { y: 200, opacity: 0 });
-  //   tl.set(navbarLinksRef.current, { y: -200, opacity: 0 });
-  //   tl.set(textRef.current, { y: 200, opacity: 0 });
-  //   tl.set(blackBgRef.current, { y: 900 });
-  //   tl.set(Bodytext.current, { y: 200, opacity: 0 });
-  //   tl.set(bodytextsmall.current, { y: 100, opacity: 0 });
+    tl.set(navbarLogoRef.current, { y: 200, opacity: 0 });
+    tl.set(navbarLinksRef.current, { y: -200, opacity: 0 });
+    tl.set(textRef.current, { y: 200, opacity: 0 });
+    tl.set(blackBgRef.current, { y: 900 });
+    tl.set(Bodytext.current, { y: 200, opacity: 0 });
+    tl.set(bodytextsmall.current, { y: 100, opacity: 0 });
 
-  //   tl.to(textRef.current, {
-  //     y: 0,
-  //     opacity: 1,
-  //     duration: 0.6,
-  //     stagger: 0.2,
-  //     ease: 'power2.out',
-  //   });
+    tl.to(textRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: 'power2.out',
+    });
 
-  //   tl.to(navbarLinksRef.current, {
-  //     y: 0,
-  //     opacity: 1,
-  //     duration: 1,
-  //     stagger: 0.1,
-  //     ease: 'power2.out',
-  //   });
+    tl.to(navbarLinksRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      stagger: 0.1,
+      ease: 'power2.out',
+    });
 
-  //   tl.to(navbarLogoRef.current, {
-  //     y: 0,
-  //     opacity: 1,
-  //     duration: 0.8,
-  //     ease: 'power2.out',
-  //     delay: -0.5,
-  //   });
+    tl.to(navbarLogoRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power2.out',
+      delay: -0.5,
+    });
 
-  //   tl.to(blackBgRef.current, {
-  //     y: 0,
-  //     duration: 2,
-  //     ease: 'power2.out',
-  //     delay: -2.5,
-  //   });
+    tl.to(blackBgRef.current, {
+      y: 0,
+      duration: 2,
+      ease: 'power2.out',
+      delay: -2.5,
+    });
 
-  //   tl.to(Bodytext.current, {
-  //     y: 0,
-  //     opacity: 1,
-  //     duration: 2,
-  //     ease: 'power4.inOut',
-  //     delay: -2.5,
-  //     stagger: {
-  //       from: 'center',
-  //       amount: 1.5,
-  //     },
-  //   });
+    tl.to(Bodytext.current, {
+      y: 0,
+      opacity: 1,
+      duration: 2,
+      ease: 'power4.inOut',
+      delay: -2.5,
+      stagger: {
+        from: 'center',
+        amount: 1.5,
+      },
+    });
 
-  //   tl.to(bodytextsmall.current, {
-  //     y: 0,
-  //     opacity: 1,
-  //     duration: 2,
-  //     ease: 'power2.out',
-  //     delay: -1.5,
-  //   });
-  // }, []);
+    tl.to(bodytextsmall.current, {
+      y: 0,
+      opacity: 1,
+      duration: 2,
+      ease: 'power2.out',
+      delay: -1.5,
+    });
+  }, []);
 
   return (
     <>
@@ -84,18 +88,19 @@ const Body = ({ workTimelineRef }) => {
         />
         <div className="venq-container">
           <div className="text-overflow">
-            <h1 className="venq-text">
-              {Array.from('VENQ').map((letter, index) => (
-                <span
+            <h1 className="venq-text mt-[8vw] flex justify-center items-center -gap-[5vw]">
+              {[v, e, n, q].map((image, index) => (
+                <img
                   key={index}
                   ref={(el) => (textRef.current[index] = el)}
-                  className="venq-letter"
-                >
-                  {letter}
-                </span>
+                  src={image}
+                  alt={`Letter ${index}`}
+                  className="venq-letter md:w-[10vw] md:h-[10vw] w-[15vw] h-[15vw] object-contain"
+                />
               ))}
             </h1>
           </div>
+
           <div ref={blackBgRef} className="black-bg md:mt-[1px] mt-[15vw] 2xl:mt-[1px]]">
             <div className="black-bg-inner overflow-hidden">
               <img

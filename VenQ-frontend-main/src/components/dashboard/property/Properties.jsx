@@ -83,15 +83,15 @@ const OptionName = styled(Button)`
   width: 150%;
   border-radius: 10px;
   background-color: ${(props) =>
-    props.active ? "#0170dc !important" : "white"};
+    props.active ? "#0170DC !important" : "white"};
   color: ${(props) => (props.active ? "white !important" : "black")};
   &:hover {
-    background-color: #0170dc;
+    background-color: #0170DC;
     color: white;
     border: none;
   }
   &:focus {
-    background-color: #0170dc;
+    background-color: #0170DC;
     color: white;
   }
 `;
@@ -201,7 +201,8 @@ const Properties = () => {
     navigate("/form");
   };
   return (
-    <div>
+    <div style={{
+    }}>
       {/* <p>fkdsjkflj</p> */}
       <Box style={{ padding: "30px" }}>
         <Typography
@@ -213,6 +214,7 @@ const Properties = () => {
             justifyContent: "space-between",
             display: "flex",
             alignItems: "center",
+            backgroundColor:""
           }}
         >
           Properties

@@ -172,7 +172,7 @@ const Header = styled(Typography)`
 `;
 
 const SubText = styled(Typography)`
-  font-size: 18px;
+  font-size: 50px;
   font-weight: 500;
   line-height: 24px;
   font-family: "Bebes Neue";

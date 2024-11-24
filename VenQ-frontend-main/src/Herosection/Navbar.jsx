@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import logo from '../assets/images/clogo.png';
 import { SlArrowDown } from "react-icons/sl";
+import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
+import { CiUser } from "react-icons/ci";
 
 const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
+  const token = JSON.parse(localStorage.getItem("userinfo")); // Check user token
+
   const options = {
     personal: [
-      { name: "Properties", link: "#properties" },
+      { name: "Properties", link: "/properties" },
       { name: "F.I.G.", link: "#work-timeline", comingSoon: true },
       { name: "TimeShare.", link: "#work-timeline", comingSoon: true },
       { name: "BrokerConnect+", link: "#work-timeline", comingSoon: true },
     ],
     company: [
-      { name: "Contact us", link: "#contact" },
+      { name: "Contact us", link: "/contactUs" },
       { name: "WhatsApp", link: "#whatsapp" },
-      { name: "Terms", link: "#footer" },
+      { name: "Terms", link: "/terms" },
+      { name: "Learn", link: "/learn" },
     ],
   };
 
@@ -93,20 +98,46 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
             >
               Blog
             </a>
-            <a
-              className="2xl:text-[16px] lg:text-[14px] md:text-[14px]"
-              href="#login"
-              ref={(el) => (navbarLinksRef.current[6] = el)}
-            >
-              Log In
-            </a>
-            <a
-              className="py-[10px] text-white 2xl:text-[18px] md:text-[16px] text-lg px-5 bg-black rounded-full hover:text-black hover:bg-zinc-200 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]"
-              href="#signup"
-              ref={(el) => (navbarLinksRef.current[7] = el)}
-            >
-              Sign up
-            </a>
+
+            {/* Conditionally render login/signup or dashboard/profile */}
+            {!token ? (
+              <>
+                <a
+                  className="2xl:text-[16px] lg:text-[14px] md:text-[14px]"
+                  href="#login"
+                  ref={(el) => (navbarLinksRef.current[6] = el)}
+                >
+                  Log In
+                </a>
+                <a
+                  className="py-[10px] text-white 2xl:text-[18px] md:text-[16px] text-lg px-5 bg-black rounded-full hover:text-black hover:bg-zinc-200 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]"
+                  href="#signup"
+                  ref={(el) => (navbarLinksRef.current[7] = el)}
+                >
+                  Sign up
+                </a>
+              </>
+            ) : (
+              <>
+                <Link
+                  className="2xl:text-[16px] lg:text-[14px] md:text-[14px]"
+                  to="/dashboard/properties"
+                  ref={(el) => (navbarLinksRef.current[5] = el)}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  className="2xl:text-[16px] font-bold text-[#2AB589] justify-center items-center flex gap-2 lg:text-[14px] md:text-[14px]"
+                  to="/dashboard/profile"
+                  ref={(el) => (navbarLinksRef.current[6] = el)}
+                >
+                  {/* <div className="text-white p-2 bg-green-600 rounded-full">
+                    <CiUser size={24}/>
+                  </div> */}
+                  Profile
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Hamburger Menu */}
@@ -118,56 +149,127 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg">
-          <div className="flex flex-col items-center p-4">
-            <a href="#personal" className="py-2 text-lg text-gray-700">
-              Personal
+        <div className="md:hidden h-screen absolute left-0 w-full bg-white shadow-lg">
+          <div className="flex flex-col px-10 justify-start items-start p-4">
+            {/* Mobile Menu Sections */}
+            <h1 className="py-2 mt-10 text-base text-gray-700">Invest</h1>
+            {options.personal.map((item, index) => (
+              <a
+                key={index}
+                href={item.link}
+                className="py-1 font-bold text-lg text-gray-700"
+                onClick={(e) => {
+                  if (item.comingSoon) {
+                    e.preventDefault();
+                    handleComingSoonClick(e);
+                    setIsMobileMenuOpen(false); // Close the mobile menu
+                  } else {
+                    setIsMobileMenuOpen(false); // Close the mobile menu
+                  }
+                }}
+              >
+                {item.name}
+                {item.comingSoon && (
+                  <span className="ml-2 px-2 py-1 text-[10px] bg-green-300 text-black rounded">
+                    Coming Soon
+                  </span>
+                )}
+              </a>
+            ))}
+
+            <h1 className="py-2 mt-5 text-base text-gray-700">Property</h1>
+            <a
+              href="#business"
+              className="py-1 font-bold text-lg text-gray-700"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              List Property
             </a>
-            <a href="#business" className="py-2 text-lg text-gray-700">
-              Business
+
+            <h1 className="py-2 mt-5 text-base text-gray-700">Company</h1>
+            {options.company.map((item, index) => (
+              <Link
+                key={index}
+                to={item.link}
+                className="py-1 font-bold text-lg text-gray-700"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+
+            <h1 className="py-2 mt-5 text-base text-gray-700">Help</h1>
+            <a
+              href="#whatsapp"
+              className="py-1 font-bold text-lg text-gray-700"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              WhatsApp
             </a>
-            <a href="#company" className="py-2 text-lg text-gray-700">
-              Company
-            </a>
-            <a href="#help" className="py-2 text-lg text-gray-700">
-              Help
-            </a>
-            <a href="#blog" className="py-2 text-lg text-gray-700">
-              Blog
-            </a>
-            <a href="#login" className="py-2 text-lg text-gray-700">
-              Log In
-            </a>
-            <a href="#signup" className="py-3 px-6 text-lg bg-black text-white rounded-full">
-              Sign Up
-            </a>
+
+            {/* Conditional rendering of Sign Up, Log In, Profile, Logout */}
+            <div className="w-full mt-8 justify-center items-center flex gap-5">
+              {!token ? (
+                <>
+                  <a
+                    className="py-[10px] text-black font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 border border-black rounded-2xl hover:bg-black hover:text-white duration-300 active:scale-95 active:bg-black"
+                    href="/signup"
+                  >
+                    Sign Up
+                  </a>
+                  <a
+                    className="py-[10px] text-white font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 bg-black rounded-2xl hover:bg-white hover:text-black duration-300 active:scale-95 active:bg-black"
+                    href="/login"
+                  >
+                    Log In
+                  </a>
+                </>
+              ) : (
+                <>
+                  <a
+                    className="py-[10px] text-black font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 border border-black rounded-2xl hover:bg-black hover:text-white duration-300 active:scale-95 active:bg-black"
+                    href="/dashboard/profile"
+                  >
+                    Profile
+                  </a>
+                  <a
+                    className="py-[10px] text-white font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 bg-black rounded-2xl hover:bg-white hover:text-black duration-300 active:scale-95 active:bg-black"
+                    href="/dashboard/properties"
+                  >
+                    Dashboard
+                  </a>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
+
     </div>
   );
 };
 
-const DropdownMenu = ({ options, onComingSoonClick }) => (
-  <div className="absolute top-full px-[2vw] py-[2vw] left-0 mt-2 w-auto bg-zinc-50 font-medium font-raleway shadow-lg rounded-lg z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-    {options.map((option, index) => (
-      <a
-        key={index}
-        href={option.link}
-        className={`block px-2 w-full text-nowrap py-2 md:text-xs 2xl:text-base text-zinc-900 hover:bg-gray-100 ${
-          option.name === "Properties" ? "font-bold 2xl:text-lg mb-4 md:text-sm border-b border-zinc-400" : ""
-        }`}
-        onClick={option.comingSoon ? onComingSoonClick : undefined}
-      >
-        {option.name}
-        {option.comingSoon && (
-          <span className="ml-2 px-2 py-1 text-[10px] bg-green-300 text-black rounded">
-            Coming Soon
-          </span>
-        )}
-      </a>
-    ))}
-  </div>
-);
+// Dropdown menu for personal/company links
+const DropdownMenu = ({ options, onComingSoonClick }) => {
+  return (
+    <div className="absolute top-[100%] left-0 hidden group-hover:block bg-white shadow-lg w-48 py-2">
+      {options.map((option, index) => (
+        <a
+          key={index}
+          href={option.link}
+          className="block px-4 py-2 text-sm text-gray-700"
+          onClick={option.comingSoon ? onComingSoonClick : null}
+        >
+          {option.name}
+          {option.comingSoon && (
+            <span className="ml-2 px-2 py-1 text-[10px] bg-green-300 text-black rounded">
+              Coming Soon
+            </span>
+          )}
+        </a>
+      ))}
+    </div>
+  );
+};
 
 export default Navbar;
