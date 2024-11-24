@@ -541,7 +541,7 @@ const DailyFinance = () => {
             <div className="w-full font-raleway mt-[5vw] text-black h-full">
                 <div className="flex flex-col h-full justify-center items-center">
                     <h1 className='2xl:text-xl md:text-[16px] font-medium text-zinc-400'>We've been featured in</h1>
-                    <div className="2xl:w-[40vw] w-full md:w-[50vw] md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
+                    <div className="2xl:w-[40vw] overflow-hidden w-full md:w-[50vw] md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
                         <AsSeenIn />
                     </div>
                     <div className="flex gap-[1vw] mt-[13vw] md:mt-[2vw] 2xl:mt-[1vw] text-[13px] font-lato justify-center items-center w-full h-full">

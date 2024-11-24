@@ -250,15 +250,18 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
 };
 
 // Dropdown menu for personal/company links
-const DropdownMenu = ({ options, onComingSoonClick }) => {
-  return (
-    <div className="absolute top-[100%] left-0 hidden group-hover:block bg-white shadow-lg w-48 py-2">
-      {options.map((option, index) => (
+const DropdownMenu = ({ options, onComingSoonClick }) => (
+  <div className="absolute top-full px-[2vw] py-[2vw] left-0 mt-2 w-auto bg-zinc-50 font-medium font-raleway shadow-lg rounded-lg z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+    {options.map((option, index) => {
+      const isExternal = option.link.startsWith("#");
+
+      return isExternal ? (
         <a
           key={index}
           href={option.link}
-          className="block px-4 py-2 text-sm text-gray-700"
-          onClick={option.comingSoon ? onComingSoonClick : null}
+          className={`block px-2 w-full text-nowrap py-2 md:text-xs 2xl:text-base text-zinc-900 hover:bg-gray-100 ${option.name === "Properties" ? "font-bold 2xl:text-lg mb-4 md:text-sm border-b border-zinc-400" : ""
+            }`}
+          onClick={option.comingSoon ? onComingSoonClick : undefined}
         >
           {option.name}
           {option.comingSoon && (
@@ -267,9 +270,18 @@ const DropdownMenu = ({ options, onComingSoonClick }) => {
             </span>
           )}
         </a>
-      ))}
-    </div>
-  );
-};
+      ) : (
+        <Link
+          key={index}
+          to={option.link}
+          className={`block px-2 w-full text-nowrap py-2 md:text-xs 2xl:text-base text-zinc-900 hover:bg-gray-100 ${option.name === "Properties" ? "font-bold 2xl:text-lg mb-4 md:text-sm border-b border-zinc-400" : ""
+            }`}
+        >
+          {option.name}
+        </Link>
+      );
+    })}
+  </div>
+);
 
 export default Navbar;
