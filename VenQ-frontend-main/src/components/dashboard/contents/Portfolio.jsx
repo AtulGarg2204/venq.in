@@ -178,10 +178,10 @@ const TransactionTable = styled(Table)`
 `;
 const Head = styled(TableCell)`
   color: black;
-  font-size: 18px;
+  font-size: 14px;
   padding-top: 20px;
   padding-bottom: 10px;
-  padding-left: 30px;
+  padding-left: 10px;
   font-family: "Inter";
 `;
 
@@ -312,171 +312,170 @@ const Portfolio = ({ handleBuyProperties }) => {
               Portfolio
             </Typography>
 
-            <Container>
-              <Box style={{ padding: "10px 0" }}>
-                <ThemeProvider theme={theme}>
-                  <Typography
-                    style={{
-                      fontSize: "16px",
-                      fontFamily: "Inter",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    Portfolio value
-                    <Tooltip title={info} placement="bottom">
-                      <Typography
-                        style={{
-                          border: "1px solid rgb(112,111,111)",
-                          color: "rgb(112,111,111)",
-                          display: "inline",
-                          cursor: "pointer",
-                          padding: "0px 6px",
-                          marginLeft: "5px",
-                          borderRadius: "50%",
-                          fontSize: "10px",
-                        }}
-                      >
-                        i
-                      </Typography>
-                    </Tooltip>
-                  </Typography>
-                </ThemeProvider>
-
+            <Box style={{ padding: "10px 0" }}>
+              <ThemeProvider theme={theme}>
                 <Typography
                   style={{
-                    fontWeight: 700,
-                    fontSize: "34px",
+                    fontSize: "16px",
                     fontFamily: "Inter",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap", // For better wrapping in small screens
                   }}
                 >
-                  INR {investmentAmount}
-                </Typography>
-              </Box>
-
-              {/* <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              height: "100%",
-            }}
-          >
-            <Typography style={{ fontFamily: "Inter" }}>
-              Invest in properties
-            </Typography>
-            <Typography style={{ fontFamily: "Inter" }}>
-              to start building your
-            </Typography>
-            <Typography style={{ fontFamily: "Inter" }}>wealth</Typography>
-            <Link
-              to="/dashboard/properties"
-              onClick={handleBuyProperties}
-              style={{
-                fontFamily: "Inter",
-                margin: "20px",
-                border: "2px solid #0170dc",
-                padding: "10px 20px",
-                color: "white",
-                backgroundColor: "#0170dc",
-                borderRadius: "10px",
-                textDecoration: "none",
-              }}
-            >
-              Buy Properties
-            </Link>
-          </Box> */}
-
-              {/* Protfolio value */}
-
-              <Box
-                style={{
-                  margin: "20px 0",
-                  border: "1px solid #ccc",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                }}
-              >
-                <TransactionTable size="small">
-                  {!isMobile && (
-                    <TableHead
+                  Portfolio value
+                  <Tooltip title={info} placement="bottom">
+                    <Typography
                       style={{
-                        backgroundColor: "#d9ecff",
-                        color: "#000",
-                        textAlign: "center",
+                        border: "1px solid rgb(112,111,111)",
+                        color: "rgb(112,111,111)",
+                        display: "inline",
+                        cursor: "pointer",
+                        padding: "0px 6px",
+                        marginLeft: "5px",
+                        borderRadius: "50%",
+                        fontSize: "10px",
                       }}
                     >
-                      <TableRow>
-                        <Head style={{ textAlign: "center" }}>S. No.</Head>
-                        <Head style={{ textAlign: "center" }}>
-                          Property Name
-                        </Head>
-                        <Head style={{ textAlign: "center" }}>Ticker Code</Head>
-                        <Head style={{ textAlign: "center" }}>
-                          Investment amount
-                        </Head>
-                        <Head style={{ textAlign: "center" }}>
-                          No. of Units
-                        </Head>
-                        <Head style={{ textAlign: "center" }}>Progress</Head>
-                      </TableRow>
-                    </TableHead>
-                  )}
-                  {propertyArray.length === 0 ? (
-                    <TableBody class="portfolio-container">
-                      <TableRow>
-                        <TableCell colSpan={5}>
-                          <Box
+                      i
+                    </Typography>
+                  </Tooltip>
+                </Typography>
+              </ThemeProvider>
+
+              <Typography
+                style={{
+                  fontWeight: 700,
+                  fontSize: "28px", // Smaller font size for mobile
+                  fontFamily: "Inter",
+                }}
+              >
+                INR {investmentAmount}
+              </Typography>
+            </Box>
+
+            
+
+            <Box
+              style={{
+                margin: "20px 0",
+                border: "1px solid #ccc",
+                borderRadius: "20px",
+                overflowX: "auto", // Enable horizontal scrolling for smaller screens
+              }}
+            >
+              <TransactionTable size="small">
+                <TableHead
+                  style={{
+                    backgroundColor: "#d9ecff",
+                    color: "#000",
+                    textAlign: "center",
+                    display: isMobile ? "none" : "table-header-group", // Hide for mobile view
+                  }}
+                >
+                  <TableRow>
+                    <Head style={{ textAlign: "center" }}>S. No.</Head>
+                    <Head style={{ textAlign: "center" }}>Property Name</Head>
+                    <Head style={{ textAlign: "center" }}>Ticker Code</Head>
+                    <Head style={{ textAlign: "center" }}>Investment Amount</Head>
+                    <Head style={{ textAlign: "center" }}>No. of Units</Head>
+                    <Head style={{ textAlign: "center" }}>Progress</Head>
+                  </TableRow>
+                </TableHead>
+
+                {propertyArray.length === 0 ? (
+                  <TableBody>
+                    <TableRow>
+                      <TableCell colSpan={5}>
+                        <Box
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            height: "100%",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <AccessTimeIcon style={{ fontSize: "40px" }} />
+                          <Typography
                             style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              height: "100%",
-                              flexDirection: "column",
+                              fontFamily: "Inter",
+                              fontSize: "18px",
+                              margin: "10px",
+                              textAlign: "center", // Center alignment for better readability
                             }}
                           >
-                            <AccessTimeIcon style={{ fontSize: "40px" }} />
-                            <Typography
-                              style={{
-                                fontFamily: "Inter",
-                                fontSize: "18px",
-                                margin: "10px",
-                              }}
-                            >
-                              No investments found
-                            </Typography>
-                          </Box>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                  ) : (
-                    propertyArray.map((row, index) => (
-                      <TableBody class="portfolio-container">
+                            No investments found
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                ) : (
+                  propertyArray.map((row, index) => (
+                    <TableBody>
+                      {isMobile ? (
+                        // For mobile view: Show data as individual rows with headings
+                        <Box
+                          key={row._id}
+                          style={{
+                            padding: "20px",
+                            marginBottom: "15px",
+                            border: "1px solid #ccc",
+                            borderRadius: "10px",
+                            backgroundColor: "#f9f9f9",
+                          }}
+                        >
+                          <Typography style={{
+                             marginBottom: "10px",
+                          }}>
+                            <strong>S. No.:</strong> {index + 1}
+                          </Typography>
+                          <Typography style={{
+                             marginBottom: "10px",
+                          }}>
+                            <strong>Property Name:</strong> {row.propertyName}
+                          </Typography>
+                          <Typography style={{
+                             marginBottom: "10px",
+                          }}>
+                            <strong>Ticker Code:</strong> {row.tickercode}
+                          </Typography>
+                          <Typography style={{
+                             marginBottom: "10px",
+                          }}>
+                            <strong>Investment Amount:</strong> {row.amount}
+                          </Typography>
+                          <Typography style={{
+                             marginBottom: "10px",
+                          }}>
+                            <strong>No. of Units:</strong> {row.quantity}
+                          </Typography>
+                          <Typography style={{
+                             marginBottom: "10px",
+                             display:"flex"
+                          }}>
+                            <strong>Progress:</strong>
+                            <div style={{marginLeft:"15px"}} class="progress-tag">{row.progress}</div>
+                          </Typography>
+                        </Box>
+                      ) : (
+                        // For desktop view
                         <TableRow key={row._id}>
-                          <TableCell
-                            style={{ textAlign: "center", padding: "1rem 0" }}
-                          >
+                          <TableCell style={{ textAlign: "center", padding: "1rem 0" }}>
                             {index + 1}
                           </TableCell>
-                          <TableCell
-                            style={{ textAlign: "center", padding: "1rem 0" }}
-                          >
+                          <TableCell style={{ textAlign: "center", padding: "1rem 0" }}>
                             {row.propertyName}
                           </TableCell>
-                          <TableCell
-                            style={{ textAlign: "center", padding: "1rem 0" }}
-                          >
+                          <TableCell style={{ textAlign: "center", padding: "1rem 0" }}>
                             {row.tickercode}
                           </TableCell>
-                          <TableCell
-                            style={{ textAlign: "center", padding: "1rem 0" }}
-                          >
+                          <TableCell style={{ textAlign: "center", padding: "1rem 0" }}>
                             {row.amount}
                           </TableCell>
-                          <TableCell
-                            style={{ textAlign: "center", padding: "1rem 0" }}
-                          >
+                          <TableCell style={{ textAlign: "center", padding: "1rem 0" }}>
                             {row.quantity}
                           </TableCell>
                           <TableCell
@@ -491,12 +490,14 @@ const Portfolio = ({ handleBuyProperties }) => {
                             <div class="progress-tag">{row.progress}</div>
                           </TableCell>
                         </TableRow>
-                      </TableBody>
-                    ))
-                  )}
-                </TransactionTable>
-              </Box>
-            </Container>
+                      )}
+                    </TableBody>
+                  ))
+                )}
+              </TransactionTable>
+            </Box>
+
+
 
             <Box style={{ margin: "20px 0" }}>
               <Header>Key financials</Header>

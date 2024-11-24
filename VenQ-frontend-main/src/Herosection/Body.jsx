@@ -101,7 +101,7 @@ const Body = ({ workTimelineRef }) => {
             </h1>
           </div>
 
-          <div ref={blackBgRef} className="black-bg md:mt-[1px] mt-[15vw] 2xl:mt-[1px]]">
+          <div ref={blackBgRef} className="black-bg overflow-hidden md:mt-[1px] mt-[15vw] 2xl:mt-[1px]]">
             <div className="black-bg-inner overflow-hidden">
               <img
                 className="z-0 relative flex justify-center items-center"
