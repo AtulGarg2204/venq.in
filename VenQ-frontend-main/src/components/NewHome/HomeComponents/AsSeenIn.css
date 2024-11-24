@@ -64,9 +64,14 @@
   margin-bottom: 10%;
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
   border-radius: 2%;
+  width: 100%;
+  overflow: hidden;
 }
 .slick-track {
   height: 60px;
+  display: flex;
+  width: 100%;
+  align-items: center;
 }
 
 .slick-slide {
@@ -90,6 +95,13 @@
   background-size: cover;
   background-position: center;
 }
+.slider-container img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block; /* Ensure proper rendering */
+}
+
 
 /* Responsive styling for smaller screens */
 @media (max-width: 768px) {

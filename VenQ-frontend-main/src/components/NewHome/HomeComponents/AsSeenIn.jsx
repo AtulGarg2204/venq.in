@@ -42,28 +42,40 @@ const AsSeenIn = ({
     },
   ];
   const settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 3000,
-    autoplaySpeed: 800,
-    cssEase: "linear",
-    pauseOnHover: true,
+    dots: false, // Disable navigation dots
+    infinite: true, // Enable infinite loop
+    slidesToShow: 3, // Number of slides visible on desktop
+    slidesToScroll: 1, // Scroll one slide at a time
+    autoplay: true, // Enable autoplay
+    speed: 3000, // Transition speed
+    autoplaySpeed: 0, // Continuous autoplay
+    cssEase: "linear", // Linear transition for smooth effect
+    pauseOnHover: false, // Prevent pausing on hover
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 768, // For small screens (mobile)
         settings: {
-          slidesToShow: 2,
-          slidesPerRow: 1,
-          rows: 1,
+          slidesToShow: 4, // Show one item at a time
+          slidesToScroll: 1, // Scroll one at a time
+          autoplay: true,
+          speed: 2000,
+        },
+      },
+      {
+        breakpoint: 1024, // For tablets
+        settings: {
+          slidesToShow: 2, // Show two items at a time
+          slidesToScroll: 1, // Scroll one at a time
+          autoplay: true,
           speed: 1000,
-          dots: false,
         },
       },
     ],
   };
+  
+  
+  
+  
   return (
     <div className="partnerMain">
       <div className={`slider-container  ${sliderContainerClassName}`}>
