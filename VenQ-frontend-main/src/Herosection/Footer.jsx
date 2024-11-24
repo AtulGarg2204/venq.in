@@ -7,7 +7,7 @@ const Footer = () => {
     return (
         <div>
             {/* Desktop Footer */}
-            <div className="w-full md:h-[28vw] 2xl:h-[25vw] flex justify-center items-center hidden md:flex">
+            <div className="w-full md:h-[28vw] 2xl:h-[36vw] justify-center items-center hidden md:flex">
                 <div className="w-[90%] h-[80%] p-[2vw] bg-zinc-100 rounded-3xl">
                     <div className="w-full md:text-[14px] 2xl:text-[17px] font-raleway font-medium gap-[5vw] flex justify-center items-center">
                         <div className="flex gap-4 flex-col">
@@ -30,7 +30,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="w-full mt-[5vw] px-[2vw] text-[18px] font-raleway font-medium gap-[5vw] flex justify-between items-center">
-                        <img src={logo} alt="Logo" />
+                        <img src={logo} className='scale-[1.2] ml-[1rem]' alt="Logo" />
                         <div className="flex gap-[1vw]">
                             <div className="w-[3vw] flex justify-center items-center h-[3vw] bg-white rounded-2xl">
                                 <BsTwitterX />
@@ -45,6 +45,10 @@ const Footer = () => {
                                 <FaInstagram />
                             </div>
                         </div>
+                    </div>
+                    <div className="px-[2.2vw] mt-4 text-[16px] font-raleway font-medium gap-[5vw]">
+                        <h1 className='font-bold text-lg text-left'>Disclaimer:</h1>
+                        <p className='mt-4 text-left'>All trademarks and logos or registered trademarks and logos found on this site or mentioned herein belong to their respective owners and are solely being used for informational purposes. Information provided herein has been gathered from public sources. VENQ Technologies Pvt Ltd disclaims any and all responsibility in connection with veracity of this data. Information presented on this website is for educational purposes only and should not be treated as legal, financial , or any other form of advice. VENQ Technologies Pvt Ltd is not liable for financial or any other form of loss incurred by the user or any affiliated party on the basis of information provided herein. VENQ Technologies Pvt Ltd is neither a stock exchange nor does it intend to get recognized as a stock exchange under the Securities Contracts Regulation Act, 1956. VENQ Technologies Pvt Ltd has not been authorized by the capital markets regulator to solicit investments.</p>
                     </div>
                 </div>
             </div>

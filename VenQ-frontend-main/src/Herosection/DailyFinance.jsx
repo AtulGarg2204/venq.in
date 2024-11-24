@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaCalendarAlt } from "react-icons/fa";
 import { Grid, Button, Typography, Box, Card, styled, CardActionArea, CardContent, CardMedia } from '@mui/material';
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 import { Carousel } from 'react-responsive-carousel'; // Assuming you're using react-responsive-carousel
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +13,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // Carousel styl
 import axios from "axios"; // Make sure axios is imported
 import AsSeenIn from '../components/NewHome/HomeComponents/AsSeenIn';
 const URL = config.URL;
+
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -99,26 +103,43 @@ const DailyFinance = () => {
     const [currentIndex, setCurrentIndex] = useState(0); // Track the current listing index
     const marqueeRef = useRef(null);
     const animationRef = useRef(null);
+    const textRef = useRef(null);
 
     useEffect(() => {
         const marqueeElement = marqueeRef.current;
+        gsap.set(textRef.current, { y: 200, opacity: 0 });
 
-        gsap.fromTo(
-            marqueeElement,
-            { x: '100%' },
-            {
-                x: '-100%',
-                scrollTrigger: {
-                    trigger: marqueeElement,
-                    start: 'top 80%',
-                    end: 'bottom 20%',
-                    scrub: true,
-                    toggleActions: "play reverse play reverse",
-                },
-                ease: 'none',
-            }
-        );
+        // gsap.fromTo(
+        //     marqueeElement,
+        //     { x: '100%' },
+        //     {
+        //         x: '-100%',
+        //         scrollTrigger: {
+        //             trigger: marqueeElement,
+        //             start: 'top 80%',
+        //             end: 'bottom 20%',
+        //             scrub: true,
+        //             toggleActions: "play reverse play reverse",
+        //         },
+        //         ease: 'none',
+        //     }
+        // );
 
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: textRef.current,
+                start: 'top 90%',
+                toggleActions: "play none none none",
+                // markers: true,
+            },
+        });
+
+        tl.to(textRef.current, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.inOut', // Ensure a smooth easing curve
+        });
         // ---------------------for live div home----------------
         if (JSON.parse(localStorage.getItem("userinfo"))) {
             setLoggedIn(true);
@@ -142,12 +163,12 @@ const DailyFinance = () => {
                 to={isLoggedIn ? `/dashboard/properties/view/${listing._id}` : ""}
                 style={{ textDecoration: "none" }}
             >
-                <Card sx={{ width: { xs: "100%", sm: "300px", md: "320px" } }}>
+                <Card sx={{ width: { xs: "100%", sm: "300px", md: "320px", xl: "320px" } }} className='md:scale-[.8] xl:scale-[1]'>
                     <CardActionArea>
-                        <CardMedia>
+                        <CardMedia className=''>
                             <Carousel showThumbs={false} statusFormatter={() => ""}>
                                 {listing.images.map((image, index) => (
-                                    <div key={index} style={{ height: "180px", position: "relative" }}>
+                                    <div key={index} className="relative md:h-[140px] xl:h-[180px]">
                                         <img
                                             style={{
                                                 width: "100%",
@@ -268,7 +289,7 @@ const DailyFinance = () => {
                                     </Box>
                                     <ReturnsBox style={{ marginTop: "1rem" }}>
                                         <Box
-                                            style={{
+                                            sx={{
                                                 display: "flex",
                                                 flexWrap: "wrap",
                                                 justifyContent: "space-between",
@@ -276,18 +297,18 @@ const DailyFinance = () => {
                                             }}
                                         >
                                             {/* Tokens */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         fontFamily: "Inter",
-                                                        fontSize: "11px",
+                                                        fontSize: "10px",
                                                         color: "#44475B",
                                                     }}
                                                 >
                                                     Tokens
                                                 </Box>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         color: "#00B386",
                                                         fontWeight: "bold",
                                                         fontSize: { xs: "14px", sm: "16px" },
@@ -300,7 +321,7 @@ const DailyFinance = () => {
 
                                             {/* Vertical Divider */}
                                             <Box
-                                                style={{
+                                                sx={{
                                                     width: "1px",
                                                     backgroundColor: "black",
                                                     height: "auto",
@@ -309,18 +330,18 @@ const DailyFinance = () => {
                                             />
 
                                             {/* Est. Yields */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         fontFamily: "Inter",
-                                                        fontSize: "11px",
+                                                        fontSize: "10px",
                                                         color: "#44475B",
                                                     }}
                                                 >
                                                     Est. Yields
                                                 </Box>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         color: "#00B386",
                                                         fontWeight: "bold",
                                                         fontSize: { xs: "14px", sm: "16px" },
@@ -333,7 +354,7 @@ const DailyFinance = () => {
 
                                             {/* Vertical Divider */}
                                             <Box
-                                                style={{
+                                                sx={{
                                                     width: "1px",
                                                     backgroundColor: "black",
                                                     height: "auto",
@@ -341,19 +362,19 @@ const DailyFinance = () => {
                                                 }}
                                             />
 
-                                            {/* Target APR */}
-                                            <Box style={{ flex: 1, textAlign: "center" }}>
+                                            {/* Target ARR */}
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         fontFamily: "Inter",
-                                                        fontSize: "11px",
+                                                        fontSize: "10px",
                                                         color: "#44475B",
                                                     }}
                                                 >
                                                     Target ARR
                                                 </Box>
                                                 <Box
-                                                    style={{
+                                                    sx={{
                                                         color: "#00B386",
                                                         fontWeight: "bold",
                                                         fontSize: { xs: "14px", sm: "16px" },
@@ -363,8 +384,42 @@ const DailyFinance = () => {
                                                     {listing.targetAPR || "N/A"}
                                                 </Box>
                                             </Box>
+
+                                            {/* Vertical Divider */}
+                                            <Box
+                                                sx={{
+                                                    width: "1px",
+                                                    backgroundColor: "black",
+                                                    height: "auto",
+                                                    margin: "0 5px",
+                                                }}
+                                            />
+
+                                            {/* New Box - Example Data */}
+                                            <Box sx={{ flex: 1, textAlign: "center" }}>
+                                                <Box
+                                                    sx={{
+                                                        fontFamily: "Inter",
+                                                        fontSize: "10px",
+                                                        color: "#44475B",
+                                                    }}
+                                                >
+                                                    Est. Gain
+                                                </Box>
+                                                <Box
+                                                    sx={{
+                                                        color: "#00B386",
+                                                        fontWeight: "bold",
+                                                        fontSize: { xs: "14px", sm: "16px" },
+                                                        marginTop: "4px",
+                                                    }}
+                                                >
+                                                    {listing.potentialGain || "N/A"}
+                                                </Box>
+                                            </Box>
                                         </Box>
                                     </ReturnsBox>
+
                                 </>
                             ) : (
                                 <Box
@@ -486,25 +541,25 @@ const DailyFinance = () => {
             <div className="w-full font-raleway mt-[5vw] text-black h-full">
                 <div className="flex flex-col h-full justify-center items-center">
                     <h1 className='2xl:text-xl md:text-[16px] font-medium text-zinc-400'>We've been featured in</h1>
-                    <div className="2xl:w-[40vw] w-full md:w-[40vw]  md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
+                    <div className="2xl:w-[40vw] w-full md:w-[50vw] md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
                         <AsSeenIn />
                     </div>
                     <div className="flex gap-[1vw] mt-[13vw] md:mt-[2vw] 2xl:mt-[1vw] text-[13px] font-lato justify-center items-center w-full h-full">
                         <h1>4.7 Excellent</h1>
-                        <div className='flex gap-[2px]'>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                        <div className='flex md:gap-[8px] 2xl:gap-[2px]'>
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
-                            <div className="w-[1.1vw] text-white h-[1.1vw] flex justify-center items-center bg-[#219653]">
+                            <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
                                 <SiTrustpilot />
                             </div>
                         </div>
@@ -524,11 +579,11 @@ const DailyFinance = () => {
                         <h1 className="px-4 py-2 bg-zinc-100 md:text-[16px] font-medium justify-center items-center gap-3 flex text-[#2ab589] rounded-xl">
                             <FaCalendarAlt /> Secure
                         </h1>
-                        <h1 className="2xl:text-[40px] md:text-[32px] font-medium font-raleway mt-5 leading-[2.4vw]">
+                        <h1 ref={textRef} className="2xl:text-[40px] overflow-hidden md:text-[32px] font-medium font-raleway mt-5 leading-[2.4vw]">
                             Real Estate Meets the <br /> Digital Age
                         </h1>
                         <h1 className="mt-4 text-zinc-400 font-regular">
-                            Blockchain-backed <span className="font-medium text-[#2ab589]">Equity-Tokens</span> unlock access to premium properties.
+                            Blockchain-backed <span className="font-medium text-[#2ab589]">Tokens + Equity</span> unlock access to premium properties.
                         </h1>
                     </div>
 
@@ -536,28 +591,36 @@ const DailyFinance = () => {
                     <div className="right hidden w-[40%] h-full md:flex flex-col justify-center items-center">
                         <div className="w-full relative h-full rounded-3xl bg-zinc-100 flex justify-center items-start py-[2vw]">
                             {/* Previous Card */}
-                            <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-start items-center opacity-40 absolute h-[60%] left-[2vw] rounded-3xl">
+                            <div className="2xl:w-[65%] md:w-[70%] md:scale-[.7] mt-[4vw] p-[2.5vw] flex justify-start items-center 2xl:scale-100 opacity-40 absolute h-[60%] md:left-[7vw] 2xl:left-[2vw] rounded-3xl">
                                 {listings.length > 0 && renderPropertyCard(listings[getPreviousIndex(currentIndex)])}
                             </div>
 
                             {/* Next Card */}
-                            <div className="w-[65%] mt-[4vw] p-[2.5vw] flex justify-end items-center opacity-40 absolute h-[60%] right-[2vw] rounded-3xl">
+                            <div className="2xl:w-[65%] md:w-[70%] md:scale-[.7] mt-[4vw] p-[2.5vw] flex justify-end items-center 2xl:scale-100 opacity-40 absolute h-[60%] md:right-[7vw] 2xl:right-[2vw] rounded-3xl">
                                 {listings.length > 0 && renderPropertyCard(listings[getNextIndex(currentIndex)])}
                             </div>
 
                             {/* Main Content */}
-                            <div className="w-[65%] mt-[2vw] p-[2.5vw] flex justify-center bg- items-center absolute h-[70%] z-10 rounded-3xl overflow-hidden scale-110 transition-transform duration-300 ease-in-out">
+                            <div className="2xl:w-[65%] md:w-[77%] md:mt-[0vw] 2xl:mt-[2vw] p-[2.5vw] flex justify-center bg- items-center absolute md:h-[83%] 2xl:h-[70%] z-10 md:rounded-lg 2xl:rounded-3xl overflow-hidden md:scale-[.9] 2xl:scale-110 transition-transform duration-300 ease-in-out">
                                 <div className="w-[100%] flex justify-center items-center h-[80%]">
                                     {listings.length > 0 && renderPropertyCard(listings[currentIndex])}
                                 </div>
                             </div>
 
                             {/* Navigation Buttons */}
-                            <div className="flex absolute justify-between items-center bottom-9 px-[4vw] w-full">
-                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full" onClick={handleBack} variant="contained">
+                            <div className="flex absolute justify-between items-center bottom-5 px-[4vw] w-full">
+                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full
+                                hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]
+                                " onClick={handleBack} variant="contained">
                                     Back
                                 </button>
-                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full" onClick={handleNext}>
+                                <button className="px-[2vw] py-3 bg-black text-zinc-300 rounded-full
+                                hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]
+                                " onClick={handleNext}>
                                     Next
                                 </button>
                             </div>
@@ -568,13 +631,13 @@ const DailyFinance = () => {
             <div className="w-full font-raleway h-auto px-6 mt-10 md:hidden flex flex-col justify-center items-center">
                 {/* Title and Description */}
                 <div className="w-full flex flex-col justify-center items-center mb-6">
-                    <h1 className='px-4 py-2 bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'>
+                    {/* <h1 className='px-4 py-2 bg-zinc-100 md:text-[14px] 2xl:text-[16px] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'>
                         <FaCalendarAlt /> Secure
+                    </h1> */}
+                    <h1 className="text-[26px] text-center font-semibold w-full font-raleway mt-4 leading-[1.1]">
+                        Real Estate Meets the <br /> Digital Age
                     </h1>
-                    <h1 className="text-[24px] text-center w-full font-medium font-raleway mt-4 leading-[1.5]">
-                        Real Estate Meets the Digital Age
-                    </h1>
-                    <h1 className="mt-3 text-center text-zinc-400 text-[14px]">
+                    <h1 className="mt-3 px-[2rem] text-center text-zinc-400 text-[12px]">
                         Blockchain-backed <span className="font-medium text-[#2ab589]">Equity-Tokens</span> unlock access to premium properties.
                     </h1>
                 </div>
@@ -587,19 +650,28 @@ const DailyFinance = () => {
                     </div>
 
                     {/* Navigation Buttons */}
-                    <div className="flex justify-center gap-5 items-center w-full mt-4">
+                    <div className="flex justify-around px-5 items-center w-full mt-4">
                         <button
-                            className="w-[20%] py-2 bg-black text-zinc-300 rounded-full text-center"
+                            className="w-[15%] flex justify-center items-center py-2 bg-black text-zinc-300 rounded-full text-center *:hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]"
                             onClick={handleBack}
                             variant="contained"
                         >
-                            Back
+                            <FaArrowLeft size={14}/>
                         </button>
+                        <button className='2xl:py-2.5 2xl:px-10 text-xs md:text-lg px-[1.5rem] md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold
+                      hover:text-black hover:bg-white
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]'>Browse Properties</button>
                         <button
-                            className="w-[20%] py-2 bg-black text-zinc-300 rounded-full text-center"
+                            className="w-[15%] flex justify-center items-center text-right py-2 bg-black text-zinc-300 rounded-full 
+                            hover:text-black hover:bg-zinc-200 
+               transition-all duration-300 ease-in-out 
+               transform hover:scale-105 hover:translate-y-[-3px]"
                             onClick={handleNext}
                         >
-                            Next
+                            <FaArrowRight size={14}/>
                         </button>
                     </div>
                 </div>

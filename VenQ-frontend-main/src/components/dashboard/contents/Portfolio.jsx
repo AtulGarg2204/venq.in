@@ -21,6 +21,7 @@ import axios from "axios";
 import KycVerification from "../portfolio/KycVerification";
 import "./Portfolio.css";
 import { DataContext } from "../../context/DataContext";
+import { login } from "../../../redux/actions/user";
 const token = JSON.parse(localStorage.getItem("userinfo"));
 const URL = config.URL;
 
@@ -195,7 +196,10 @@ const Portfolio = ({ handleBuyProperties }) => {
   const id = localStorage.getItem("selectedId");
   console.log(id, "selectedId");
   const [ldata, setLdata] = useState([]);
+  const [listings, setListings] = useState([]);
+  const [PurchasedData, setPurchasedData] = useState([]);
   const [propertyArray, setPropertyArray] = useState([]); // Use state for propertyArray
+  const [appreciation, setAppreciation] = useState([]); // Use state for propertyArray
   const [investmentAmount, setInvestmentAmount] = useState(0);
   const [showKycVerification, setShowKycVerification] = useState(false);
   const [onbcomp, setonbcomp] = useState(0);
@@ -210,40 +214,69 @@ const Portfolio = ({ handleBuyProperties }) => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${URL}/auth/user/checkverify/${token.email}`)
-      .then((response) => {
-        setonbcomp(response.data.isVerified);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    const fetchTableData = async () => {
-      const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-      if (!userinfo || !userinfo._id) {
-        console.error("Customer ID not found in localStorage");
-        return;
-      }
-      const customerId = userinfo._id;
+    const fetchData = async () => {
       try {
-        const tableData = await axios.get(
-          `${URL}/purchased/${customerId}/getDetails`
-        );
-        console.log(tableData, "purchased table data");
-        const investedProperty = tableData.data.purchased;
-        setPropertyArray(investedProperty);
-        const totalAmount = investedProperty.reduce(
-          (total, investment) => total + investment.amount,
+        const verifyResponse = await axios.get(`${URL}/auth/user/checkverify/${token.email}`);
+        setonbcomp(verifyResponse.data.isVerified);
+
+        const listingResponse = await axios.get(`${URL}/listing`);
+        const listingData = listingResponse.data;
+        console.log("Listing Data:", listingData);
+
+        const userinfo = JSON.parse(localStorage.getItem("userinfo"));
+        if (!userinfo || !userinfo._id) {
+          console.error("Customer ID not found in localStorage");
+          return;
+        }
+
+        const customerId = userinfo._id;
+
+        const purchasedResponse = await axios.get(`${URL}/purchased/${customerId}/getDetails`);
+        const purchasedData = purchasedResponse.data.purchased;
+        console.log("Purchased Data:", purchasedData);
+        setPurchasedData(purchasedData)
+
+        const updatedPurchasedData = purchasedData.map((purchase) => {
+          const matchedListing = listingData.find(
+            (listing) => listing.tickercode === purchase.tickercode
+          );
+
+          if (matchedListing) {
+            console.log("Matched Listing:", matchedListing);
+            return {
+              ...purchase,
+              appreciation: matchedListing.appreciation,
+            };
+          }
+
+          console.log(`No match found for ${purchase.tickercode}`);
+          return purchase;
+        });
+
+        setPropertyArray(updatedPurchasedData);
+        console.log("Updated Purchased Data:", updatedPurchasedData);
+        updatedPurchasedData.forEach((item, index) => {
+          console.log(`Appreciation for item ${index + 1}:`, item.appreciation);
+          setAppreciation(item.appreciation)
+        });
+        const totalWithAppreciation = updatedPurchasedData.reduce(
+          (total, investment) =>
+            total + investment.amount * (1 + (investment.appreciation || 0) / 100),
           0
         );
-        setInvestmentAmount(totalAmount);
+
+        setInvestmentAmount(totalWithAppreciation);
+
       } catch (error) {
-        console.error("Error fetching investments:", error.message);
-        return [];
+        console.error("Error fetching data:", error.response?.data || error.message);
       }
     };
-    fetchTableData();
-  }, []);
+
+    fetchData();
+  }, [URL, token.email]);
+
+
+  console.log("data", propertyArray);
 
   console.log(propertyArray, "data of the table");
 
@@ -434,7 +467,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           <TableCell
                             style={{ textAlign: "center", padding: "1rem 0" }}
                           >
-                            DEC
+                            {row.tickercode}
                           </TableCell>
                           <TableCell
                             style={{ textAlign: "center", padding: "1rem 0" }}
@@ -455,7 +488,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                               justifyContent: "center",
                             }}
                           >
-                            <div class="progress-tag">applied</div>
+                            <div class="progress-tag">{row.progress}</div>
                           </TableCell>
                         </TableRow>
                       </TableBody>
@@ -597,15 +630,18 @@ const Portfolio = ({ handleBuyProperties }) => {
                           </g>
                         </svg>
                       </Box>
-                      <Typography
-                        style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
-                          fontFamily: "Inter",
-                        }}
-                      >
-                        INR 0
-                      </Typography>
+                      {PurchasedData.map((investment, index) => (
+                        <Typography
+                          key={index}
+                          style={{
+                            fontSize: "24px",
+                            fontWeight: 600,
+                            fontFamily: "Inter",
+                          }}
+                        >
+                          INR {investmentAmount - investment.amount}
+                        </Typography>
+                      ))}
                     </Box>
 
                     <Box
@@ -687,7 +723,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                           fontFamily: "Inter",
                         }}
                       >
-                        INR 0
+                        {appreciation} %
                       </Typography>
                     </Box>
                     <Box
@@ -779,7 +815,7 @@ const Portfolio = ({ handleBuyProperties }) => {
                         >
                           <SubHeader>Number of properties</SubHeader>
                         </Box>
-                        <Insights>0</Insights>
+                        <Insights>{propertyArray.length}</Insights>
                       </Box>
                     </Grid>
 

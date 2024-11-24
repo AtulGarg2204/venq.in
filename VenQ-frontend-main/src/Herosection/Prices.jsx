@@ -23,14 +23,14 @@ const Prices = () => {
             <div className='w-full h-full md:h-screen flex justify-center items-center'>
                 <div className="w-[90%] overflow-hidden  h-auto p-3 md:p-0 md:h-[86%] bg-black rounded-3xl">
                     <div className="flex font-raleway h-full w-full text-white items-center flex-col">
-                        <h1 className='px-4 sticky py-2 mt-[5vw] font-semibold justify-center items-center gap-3 flex text-[#2ab589] rounded-xl'
+                        <h1 className='px-4 flex  text-[12px] md:text-[16px] sticky py-2 mt-[5vw] font-semibold justify-center items-center gap-3 text-[#2ab589] rounded-xl'
                             style={{
                                 backgroundColor: 'rgba(0, 0, 0, 0.8 )', // Semi-transparent black for a glossy effect
                                 boxShadow: '0 4px 20px rgba(255, 255, 255, 0.2)', // Soft white shadow
                                 backdropFilter: 'blur(5px)', // Optional: adds a glass-like blur effect
                                 color: 'green'
                             }}>
-                            <span className='text-[#2ab589]'><FaCalendarAlt /></span> <span className='text-[#2ab589]'>Prices</span>
+                            <span className='text-[#2ab589]'><FaCalendarAlt /></span> <span className='text-[#2ab589]'>Process</span>
                         </h1>
                         <div className="font-raleway h-full w-full text-white items-center hidden md:flex flex-col">
                             <h1 className='2xl:text-[50px] md:text-[50px] text-[35px] sticky leading-[40PX] md:leading-[60px] font- text-center font-raleway mt-5'>Property Tokenization Process                  </h1>
@@ -51,8 +51,8 @@ const Prices = () => {
                                         </div>
                                     </div>
                                     <div className="absolute top-[32vw]">
-                                        <h1 className='text-right text-[16px] text-zinc-400 font-medium'>Token Distribution</h1>
-                                        <h1 className='text-right mt-2 text-zinc-400'>Property tokens are made available to investors through our platform, with automated compliance and KYC verification.</h1>
+                                        <h1 className='text-right text-[16px] text-zinc-400 font-medium'>Token & Equity Distribution</h1>
+                                        <h1 className='text-right mt-2 text-zinc-400'>Property<span className='font-bold'> tokens + equity</span> are made available to investors through our platform, with automated compliance and KYC verification.</h1>
                                     </div>
                                     <div className="border absolute top-[45vw]  gap-[1vw] border-zinc-700 flex justify-center  flex-col items-start pl-[2vw] bg-[#0C0C0C] w-full h-[12vw] py-1 rounded-3xl">
                                         <div className='flex justify-center items-center gap-[1vw]'>
@@ -98,17 +98,17 @@ const Prices = () => {
                                         <h1 className='flex gap-2 justify-centers items-center'><span><TiTickOutline className='text-blue-500' /></span> Financial Assessment</h1>
                                     </div>
                                     <div className="absolute top-[18vw]">
-                                        <h1 className='text-left text-zinc-400 text-[16px] font-medium'>Smart Contract Creation</h1>
-                                        <h1 className='text-left mt-2 text-zinc-400'>Property ownership is encoded into smart contracts on the blockchain, defining token economics and governance rules.</h1>
+                                        <h1 className='text-left text-zinc-400 text-[16px] font-medium'>Smart Contract and SPV creation</h1>
+                                        <h1 className='text-left mt-2 text-zinc-400'>Property is held in an <span className='font-bold'>SPV</span>  which is encoded into smart contracts on the blockchain for more security.</h1>
                                     </div>
                                     <div className="border absolute top-[31vw] text-zinc-300 gap-1 border-zinc-700 flex justify-center p-[2vw] flex-col items-start bg-[#0C0C0C] w-full h-[8vw] rounded-3xl">
                                         <div className="flex w-full justify-between items-center">
                                             <h1 className='text-zinc-400'>Total Tokens</h1>
-                                            <h1 className='text-blue-500'>1,000,000</h1>
+                                            <h1 className='text-blue-500'>1,000</h1>
                                         </div>
                                         <div className="flex w-full justify-between items-center">
                                             <h1 className='text-zinc-400'>Token Price</h1>
-                                            <h1 className='text-blue-500'>$100</h1>
+                                            <h1 className='text-blue-500'>₹5,000</h1>
                                         </div>
                                         <div className="flex w-full justify-between items-center">
                                             <h1 className='text-zinc-400'>Min Investment</h1>
@@ -123,52 +123,49 @@ const Prices = () => {
                             </div>
                         </div>
                         {/* Mobile View */}
-                        <div className="flex flex-col h-full w-full items-center text-center md:hidden">
-                            <h1 className="text-[25px] font-semibold">Tokenization Process</h1>
+                        <div className="flex flex-col py-10 h-full w-full items-center text-center md:hidden">
+                            <h1 className="text-[25px] text-zinc-50 font-semibold">Tokenization Process</h1>
                             <p className="text-zinc-400 mt-2">
                                 Explore the steps to turn real estate into blockchain tokens.
                             </p>
-                            <div className="grid w-full gap-4 mt-4">
+                            <div className="flex relative flex-col justify-center items-centerm- w-full px-1 gap-2 mt-4">
                                 {/* Step 1 */}
-                                <div className="bg-[#0C0C0C] mt-5 p-4 rounded-xl text-left">
-                                    <h2 className="text-blue-500 font-bold">Step 1: Property Evaluation</h2>
-                                    <p className="text-zinc-400 mt-2">
+                                <div className="bg-[#0C0C0C] z-10 mt-5 p-4 rounded-xl text-left">
+                                    <h2 className="text-white text-right font-bold">1. Property Evaluation</h2>
+                                    {/* <p className="text-zinc-400 text-sm mt-2">
                                         Our experts conduct thorough assessments to ensure quality investments.
-                                    </p>
-                                    <div
+                                    </p> */}
+                                    {/* <div
                                         className="flex justify-end mt-2 cursor-pointer text-blue-500"
                                         onClick={() => toggleExpand(1)}
                                     >
                                         {expanded[1] ? "− Collapse" : "+ Expand"}
+                                    </div> */}
+                                    <div className="border mt-4 text-zinc-300 gap-1 border-zinc-700 flex justify-center p-[2vw] flex-col items-start bg-[#0C0C0C] w-full h-auto rounded-3xl">
+                                        <h1 className="flex gap-2 justify-center items-center">
+                                            <span><TiTickOutline className="text-blue-500" /></span> Market Analysis
+                                        </h1>
+                                        <h1 className="flex gap-2 justify-center items-center">
+                                            <span><TiTickOutline className="text-blue-500" /></span> Legal Due Diligence
+                                        </h1>
+                                        <h1 className="flex gap-2 justify-center items-center">
+                                            <span><TiTickOutline className="text-blue-500" /></span> Financial Assessment
+                                        </h1>
                                     </div>
-                                    {expanded[1] && (
-                                        <div className="border mt-4 text-zinc-300 gap-1 border-zinc-700 flex justify-center p-[2vw] flex-col items-start bg-[#0C0C0C] w-full h-auto rounded-3xl">
-                                            <h1 className="flex gap-2 justify-center items-center">
-                                                <span><TiTickOutline className="text-blue-500" /></span> Market Analysis
-                                            </h1>
-                                            <h1 className="flex gap-2 justify-center items-center">
-                                                <span><TiTickOutline className="text-blue-500" /></span> Legal Due Diligence
-                                            </h1>
-                                            <h1 className="flex gap-2 justify-center items-center">
-                                                <span><TiTickOutline className="text-blue-500" /></span> Financial Assessment
-                                            </h1>
-                                        </div>
-                                    )}
                                 </div>
 
                                 {/* Step 2 */}
                                 <div className="bg-[#0C0C0C] mt-5 p-4 rounded-xl text-left">
-                                    <h2 className="text-blue-500 font-bold">Step 2: Token Distribution</h2>
-                                    <p className="text-zinc-400 mt-2">
+                                    <h2 className="text-white text-left font-bold">2. Smart Contract Creation</h2>
+                                    {/* <p className="text-zinc-400 text-sm  mt-2">
                                         Property tokens are available with automated compliance and KYC.
-                                    </p>
-                                    <div
+                                    </p> */}
+                                    {/* <div
                                         className="flex justify-end mt-2 cursor-pointer text-blue-500"
                                         onClick={() => toggleExpand(2)}
                                     >
                                         {expanded[2] ? "− Collapse" : "+ Expand"}
-                                    </div>
-                                    {expanded[2] && (
+                                    </div> */}
                                         <div className="border mt-4 text-zinc-300 gap-1 border-zinc-700 flex justify-center flex-col items-center bg-[#0C0C0C] w-full h-auto py-1 rounded-3xl">
                                             <div className="w-[90%] font-mono flex justify-center flex-col h-auto text-sm text-blue-500 px-[30px] py-3 rounded-3xl bg-[#171717]">
                                                 <h1>contract PropertyToken {"{"}</h1>
@@ -178,24 +175,21 @@ const Prices = () => {
                                                 <h1 className="ml-[px]">{"}"}</h1>
                                             </div>
                                         </div>
-                                    )}
                                 </div>
 
-                                {/* Repeat similar structure for Step 3 and Step 4 */}
                                 {/* Step 3 */}
                                 <div className="bg-[#0C0C0C] mt-5 p-4 rounded-xl text-left">
-                                    <h2 className="text-blue-500 font-bold">Step 3: Smart Contract Creation</h2>
-                                    <p className="text-zinc-400 mt-2">
+                                    <h2 className="text-white text-right font-bold">3. Token Distribution</h2>
+                                    {/* <p className="text-zinc-400 text-sm mt-2">
                                         Ownership and governance rules encoded into blockchain smart contracts.
-                                    </p>
-                                    <div
+                                    </p> */}
+                                    {/* <div
                                         className="flex justify-end mt-2 cursor-pointer text-blue-500"
                                         onClick={() => toggleExpand(3)}
                                     >
                                         {expanded[3] ? "− Collapse" : "+ Expand"}
-                                    </div>
-                                    {expanded[3] && (
-                                        <div className="border mt-4 text-zinc-300 gap-1 border-zinc-700 flex justify-center p-[2vw] flex-col items-start bg-[#0C0C0C] w-full h-auto rounded-3xl">
+                                    </div> */}
+                                        <div className="border mt-4 text-zinc-300 gap-1 border-zinc-700 flex justify-center p-[4vw] flex-col items-start bg-[#0C0C0C] w-full h-auto rounded-3xl">
                                             <div className="flex w-full justify-between items-center">
                                                 <h1 className="text-zinc-400">Total Tokens</h1>
                                                 <h1 className="text-blue-500">1,000,000</h1>
@@ -209,23 +203,21 @@ const Prices = () => {
                                                 <h1 className="text-blue-500">1 Token</h1>
                                             </div>
                                         </div>
-                                    )}
                                 </div>
 
                                 {/* Step 4 */}
                                 <div className="bg-[#0C0C0C] mt-5 p-4 rounded-xl text-left">
-                                    <h2 className="text-blue-500 font-bold">Step 4: Automated Management</h2>
-                                    <p className="text-zinc-400 mt-2">
-                                    Smart contracts handle rental income distribution, property expenses, and secondary market trading automatically.
-                                    </p>
-                                    <div
+                                    <h2 className="text-white text-left font-bold">4. Automated Management</h2>
+                                    {/* <p className="text-zinc-400 text-sm mt-2">
+                                        Smart contracts handle rental income distribution, property expenses, and secondary market trading automatically.
+                                    </p> */}
+                                    {/* <div
                                         className="flex justify-end mt-2 cursor-pointer text-blue-500"
                                         onClick={() => toggleExpand(4)}
                                     >
                                         {expanded[4] ? "− Collapse" : "+ Expand"}
-                                    </div>
-                                    {expanded[4] && (
-                                        <div className="border mt-4 gap-[1vw] border-zinc-700 flex justify-center flex-col items-start pl-[2vw] bg-[#0C0C0C] w-full h-auto py-1 rounded-3xl">
+                                    </div> */}
+                                        <div className="border h-full mt-4 gap-[1vw] border-zinc-700 flex p-[2vw] justify-center flex-col items-start pl-[2vw] bg-[#0C0C0C] w-full py-1 rounded-3xl">
                                             <div className="flex justify-center items-center gap-[3vw]">
                                                 <div className="w-[2.5vw] flex justify-center items-center h-[2.5vw] bg-[#0B181F] rounded-2xl">
                                                     <HiOutlineCurrencyRupee size={40} className="text-blue-500" />
@@ -245,8 +237,8 @@ const Prices = () => {
                                                 <h1 className="text-zinc-400">Real-time Analytics</h1>
                                             </div>
                                         </div>
-                                    )}
                                 </div>
+                                <div className="border-r z-0 absolute w-[20px] border-blue-500"></div>
                             </div>
                         </div>
 
