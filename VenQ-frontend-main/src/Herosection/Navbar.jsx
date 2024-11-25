@@ -119,14 +119,7 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
               </>
             ) : (
               <>
-                <Link
-                  className="2xl:text-[16px] lg:text-[14px] md:text-[14px]"
-                  to="/dashboard/properties"
-                  ref={(el) => (navbarLinksRef.current[5] = el)}
-                >
-                  Dashboard
-                </Link>
-                <Link
+              <Link
                   className="2xl:text-[16px] font-bold text-[#2AB589] justify-center items-center flex gap-2 lg:text-[14px] md:text-[14px]"
                   to="/dashboard/profile"
                   ref={(el) => (navbarLinksRef.current[6] = el)}
@@ -136,6 +129,14 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
                   </div> */}
                   Profile
                 </Link>
+                <Link
+                  className="2xl:text-[16px] bg-black px-5 py-2 rounded-full text-white font-semibold lg:text-[14px] md:text-[14px]"
+                  to="/dashboard/properties"
+                  ref={(el) => (navbarLinksRef.current[5] = el)}
+                >
+                  Dashboard
+                </Link>
+                
               </>
             )}
           </div>
@@ -146,104 +147,105 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
           </div>
         </div>
       </div>
-
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden h-screen absolute left-0 w-full bg-white shadow-lg">
-          <div className="flex flex-col px-10 justify-start items-start p-4">
-            {/* Mobile Menu Sections */}
-            <h1 className="py-2 mt-10 text-base text-gray-700">Invest</h1>
-            {options.personal.map((item, index) => (
-              <a
-                key={index}
-                href={item.link}
-                className="py-1 font-bold text-lg text-gray-700"
-                onClick={(e) => {
-                  if (item.comingSoon) {
-                    e.preventDefault();
-                    handleComingSoonClick(e);
-                    setIsMobileMenuOpen(false); // Close the mobile menu
-                  } else {
-                    setIsMobileMenuOpen(false); // Close the mobile menu
-                  }
-                }}
-              >
-                {item.name}
-                {item.comingSoon && (
-                  <span className="ml-2 px-2 py-1 text-[10px] bg-green-300 text-black rounded">
-                    Coming Soon
-                  </span>
+        <div className="md:hidden absolute w-full bg-white shadow-lg overflow-y-auto max-h-screen">
+          <div className="h-full block left-0">
+            <div className="flex flex-col px-10 justify-start items-start p-4">
+              {/* Mobile Menu Sections */}
+              <div className="w-full mt-4 justify-center items-center flex gap-5">
+                {!token ? (
+                  <>
+                    <a
+                      className="py-[10px] text-black font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 border border-black rounded-2xl hover:bg-black hover:text-white duration-300 active:scale-95 active:bg-black"
+                      href="/signup"
+                    >
+                      Sign Up
+                    </a>
+                    <a
+                      className="py-[10px] text-white font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 bg-black rounded-2xl hover:bg-white hover:text-black duration-300 active:scale-95 active:bg-black"
+                      href="/login"
+                    >
+                      Log In
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <a
+                      className="py-[10px] text-black font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 border border-black rounded-2xl hover:bg-black hover:text-white duration-300 active:scale-95 active:bg-black"
+                      href="/dashboard/profile"
+                    >
+                      Profile
+                    </a>
+                    <a
+                      className="py-[10px] text-white font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 bg-black rounded-2xl hover:bg-white hover:text-black duration-300 active:scale-95 active:bg-black"
+                      href="/dashboard/properties"
+                    >
+                      Dashboard
+                    </a>
+                  </>
                 )}
-              </a>
-            ))}
+              </div>
+              <h1 className="py-2 mt-8 text-base text-gray-700">Invest</h1>
+              {options.personal.map((item, index) => (
+                <a
+                  key={index}
+                  href={item.link}
+                  className="py-1 font-bold text-lg text-gray-700"
+                  onClick={(e) => {
+                    if (item.comingSoon) {
+                      e.preventDefault();
+                      handleComingSoonClick(e);
+                      setIsMobileMenuOpen(false); // Close the mobile menu
+                    } else {
+                      setIsMobileMenuOpen(false); // Close the mobile menu
+                    }
+                  }}
+                >
+                  {item.name}
+                  {item.comingSoon && (
+                    <span className="ml-2 px-2 py-1 text-[10px] bg-green-300 text-black rounded">
+                      Coming Soon
+                    </span>
+                  )}
+                </a>
+              ))}
 
-            <h1 className="py-2 mt-5 text-base text-gray-700">Property</h1>
-            <a
-              href="#business"
-              className="py-1 font-bold text-lg text-gray-700"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              List Property
-            </a>
-
-            <h1 className="py-2 mt-5 text-base text-gray-700">Company</h1>
-            {options.company.map((item, index) => (
-              <Link
-                key={index}
-                to={item.link}
+              <h1 className="py-2 mt-5 text-base text-gray-700">Property</h1>
+              <a
+                href="#business"
                 className="py-1 font-bold text-lg text-gray-700"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item.name}
-              </Link>
-            ))}
+                List Property
+              </a>
 
-            <h1 className="py-2 mt-5 text-base text-gray-700">Help</h1>
-            <a
-              href="#whatsapp"
-              className="py-1 font-bold text-lg text-gray-700"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              WhatsApp
-            </a>
+              <h1 className="py-2 mt-5 text-base text-gray-700">Company</h1>
+              {options.company.map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.link}
+                  className="py-1 font-bold text-lg text-gray-700"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
 
-            {/* Conditional rendering of Sign Up, Log In, Profile, Logout */}
-            <div className="w-full mt-8 justify-center items-center flex gap-5">
-              {!token ? (
-                <>
-                  <a
-                    className="py-[10px] text-black font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 border border-black rounded-2xl hover:bg-black hover:text-white duration-300 active:scale-95 active:bg-black"
-                    href="/signup"
-                  >
-                    Sign Up
-                  </a>
-                  <a
-                    className="py-[10px] text-white font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 bg-black rounded-2xl hover:bg-white hover:text-black duration-300 active:scale-95 active:bg-black"
-                    href="/login"
-                  >
-                    Log In
-                  </a>
-                </>
-              ) : (
-                <>
-                  <a
-                    className="py-[10px] text-black font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 border border-black rounded-2xl hover:bg-black hover:text-white duration-300 active:scale-95 active:bg-black"
-                    href="/dashboard/profile"
-                  >
-                    Profile
-                  </a>
-                  <a
-                    className="py-[10px] text-white font-semibold 2xl:text-[16px] md:text-[16px] text-lg px-12 bg-black rounded-2xl hover:bg-white hover:text-black duration-300 active:scale-95 active:bg-black"
-                    href="/dashboard/properties"
-                  >
-                    Dashboard
-                  </a>
-                </>
-              )}
+              <h1 className="py-2 mt-5 text-base text-gray-700">Help</h1>
+              <a
+                href="#whatsapp"
+                className="py-1 font-bold text-lg text-gray-700"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                WhatsApp
+              </a>
+
             </div>
           </div>
         </div>
       )}
+
 
     </div>
   );

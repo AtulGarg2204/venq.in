@@ -61,24 +61,7 @@
 
 
 /* In your global CSS file */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  margin: 0;
-  overflow-y: scroll;
-  scrollbar-width: 0;
-  scrollbar-color: transparent transparent; /* Hide scrollbar on Firefox */
-  background-color: transparent;
-}
 
 /* For Webkit browsers (Chrome, Safari) */
 body::-webkit-scrollbar {

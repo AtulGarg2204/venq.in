@@ -30,10 +30,10 @@ const UpperPart = styled(Box)(({ theme }) => ({
   width: "100%",
   textAlign: "center",
   position: "absolute",
-
+  
   left: " 0%",
   height: "200px",
-  backgroundColor: "#121c30",
+  backgroundColor: "#080808",
   color: "white",
   display: "flex",
   justifyContent: "center",

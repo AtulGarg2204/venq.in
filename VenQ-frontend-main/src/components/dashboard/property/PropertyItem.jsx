@@ -1402,7 +1402,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   }}
                 >
                   <ReturnsBox style={{ marginTop: "1rem" }}>
-                    <Box style={{ display: "flex", justifyContent: "space-between", padding: "10px 0" }}>
+                    <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                       {/* Tokens */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
                         <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
@@ -1412,7 +1412,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
 
                       {/* Vertical Divider */}
-                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
 
                       {/* Est. Yields */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
@@ -1423,7 +1423,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
 
                       {/* Vertical Divider */}
-                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
 
                       {/* Target APR */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
@@ -1434,7 +1434,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
 
                       {/* Vertical Divider */}
-                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 5px" }} />
+                      <Box style={{ width: "1px", backgroundColor: "black", height: "auto", margin: "0 10px" }} />
 
                       {/* Potential Gain */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
@@ -1742,12 +1742,17 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           display: "flex",
                           alignItems: "center",
-
                           justifyContent: "space-around",
+                          flexDirection: isSmallScreen ? "column" : "row", // Adjust layout based on screen size
+
                         }}
                       >
                         {isSmallScreen && (
-                          <div style={isFullscreen ? fullscreenStyle : null}>
+                          <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}>
                             <img
                               src={
                                 listing.images
@@ -1766,7 +1771,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </div>
                         )}
                         {!isSmallScreen && (
-                          <div style={isFullscreen ? fullscreenStyle : null}>
+                          <div style={isFullscreen ? fullscreenStyle : { display: "flex", gap: "10px" }}
+                          >
                             <img
                               src={
                                 listing.images
@@ -4106,7 +4112,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                         {/* Tokens */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4117,7 +4123,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Est. Yields */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4128,7 +4134,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Target APR */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Target ARR</Box>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4139,7 +4145,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Potential Gain */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Est. Gain</Box>
+                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                           </Box>

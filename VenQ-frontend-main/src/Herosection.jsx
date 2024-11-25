@@ -13,6 +13,7 @@ import Prices from './Herosection/Prices';
 import Footer from './Herosection/Footer';
 import Testimonial from './Herosection/Testimonial';
 import FAQ from './Herosection/FAQ';
+import './herosection.css' 
 
 const Herosection = () => {
   const workTimelineRef = useRef(null); // Ref for WorkTimeline

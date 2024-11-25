@@ -3,6 +3,12 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { GoArrowRight } from "react-icons/go";
 import { FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { LuUsers } from "react-icons/lu";
+import { GrSecure } from "react-icons/gr";
+import { PiFediverseLogoLight } from "react-icons/pi";
+import { VscServerProcess } from "react-icons/vsc";
+
+
 
 
 const Advantage = () => {
@@ -30,8 +36,8 @@ const Advantage = () => {
                         <div className="right w-[45%] flex-col flex gap-[1vw] h-full">
                             <div className=" flex w-full h-1/2 gap-[1vw]">
                                 <div className="w-1/2 h-full flex-col md:p-[20px] 2xl:p-[2vw] rounded-3xl bg-zinc-100 flex justify-center items-start">
-                                    <FaApple size={46} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
-                                    <FaApple size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
+                                    <LuUsers size={40} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
+                                    <LuUsers size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
 
                                     <h1 className="2xl:text-xl md:text-[16px] font-semibold text-black">Accessibility for All</h1>
                                     <p className="text-left font-lato text-zinc-400 md:mt-2 2xl:mt-5 md:text-[14px] 2xl:text-[18px]">
@@ -39,8 +45,8 @@ const Advantage = () => {
 
                                 </div>
                                 <div className="w-1/2 h-full flex-col md:p-[20px] 2xl:p-[2vw] rounded-3xl bg-zinc-100 flex justify-center items-start">
-                                    <FaApple size={46} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
-                                    <FaApple size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
+                                    <GrSecure size={40} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
+                                    <GrSecure size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
 
                                     <h1 className="2xl:text-xl md:text-[16px] font-semibold text-black">Secure & Transparent</h1>
                                     <p className="text-left font-lato text-zinc-400 md:mt-2 2xl:mt-5 md:text-[14px] 2xl:text-[18px]">
@@ -50,8 +56,8 @@ const Advantage = () => {
                             </div>
                             <div className=" flex w-full h-1/2 gap-[1vw]">
                                 <div className="w-1/2 h-full flex-col md:p-[20px] 2xl:p-[2vw] rounded-3xl bg-zinc-100 flex justify-center items-start">
-                                    <FaApple size={46} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
-                                    <FaApple size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
+                                    <PiFediverseLogoLight size={40} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
+                                    <PiFediverseLogoLight size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
 
                                     <h1 className="2xl:text-xl md:text-[16px] font-semibold text-black">Diverse Opportunities</h1>
                                     <p className="text-left font-lato text-zinc-400 md:mt-2 2xl:mt-5 md:text-[14px] 2xl:text-[18px]">
@@ -59,8 +65,8 @@ const Advantage = () => {
 
                                 </div>
                                 <div className="w-1/2 h-full flex-col md:p-[20px] 2xl:p-[2vw] rounded-3xl bg-zinc-100 flex justify-center items-start">
-                                    <FaApple size={46} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
-                                    <FaApple size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
+                                    <VscServerProcess size={40} className='2xl:mb-6 hidden 2xl:block md:mb-2 text-[#2ab589]' />
+                                    <VscServerProcess size={26} className='2xl:mb-6 2xl:hidden md:block md:mb-2 text-[#2ab589]' />
 
                                     <h1 className="2xl:text-xl md:text-[16px] font-semibold text-black">Simplified Process</h1>
                                     <p className="text-left font-lato text-zinc-400 md:mt-2 2xl:mt-5 md:text-[14px] 2xl:text-[18px]">
