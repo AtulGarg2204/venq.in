@@ -2,6 +2,8 @@ import React from 'react'
 import logo from '../assets/images/clogo.png';
 import { BsTwitterX } from "react-icons/bs";
 import { FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 const Footer = () => {
     return (
@@ -11,22 +13,22 @@ const Footer = () => {
                 <div className="w-[90%] h-[80%] p-[2vw] bg-zinc-100 rounded-3xl">
                     <div className="w-full md:text-[14px] 2xl:text-[17px] font-raleway font-medium gap-[5vw] flex justify-center items-center">
                         <div className="flex gap-4 flex-col">
-                            <a className='' href="">Sections</a>
-                            <a className='text-zinc-400' href=" ">Personal</a>
-                            <a className='text-zinc-400' href=" ">Business</a>
-                            <a className='text-zinc-400' href=" ">Company</a>
+                            <a className='' href="">Invest</a>
+                            <a className='text-zinc-400' href=" ">F.I.G.</a>
+                            <a className='text-zinc-400' href=" ">TimeShare.</a>
+                            <a className='text-zinc-400' href=" ">BrokerConnect+</a>
                         </div>
                         <div className="flex gap-4 flex-col">
-                            <a href="">Help</a>
-                            <a className='text-zinc-400' href="">Privacy</a>
-                            <a className='text-zinc-400' href="">Complaints</a>
-                            <a className='text-zinc-400' href="">Cookie Policy</a>
+                            <a href="">List Property</a>
+                            <a className='text-zinc-400' href="">Properties</a>
+                            <a className='text-zinc-400' href="">Help</a>
+                            <a className='text-zinc-400' href="">Learn</a>
                         </div>
                         <div className="flex gap-4  flex-col">
-                            <a href="">Company Policies</a>
-                            <a className='text-zinc-400' href="">Website Terms</a>
-                            <a className='text-zinc-400' href="">Legal Agreements</a>
-                            <a className='text-zinc-400' href="">Modern slavary Policy</a>
+                            <a href="">Company</a>
+                            <a className='text-zinc-400' href="">Contact Us</a>
+                            <a className='text-zinc-400' href="">Whatsapp</a>
+                            <a className='text-zinc-400' href="">Term</a>
                         </div>
                     </div>
                     <div className="w-full mt-[5vw] px-[2vw] text-[18px] font-raleway font-medium gap-[5vw] flex justify-between items-center">
@@ -54,7 +56,7 @@ const Footer = () => {
             </div>
 
             {/* Mobile Footer */}
-            <div className="w-full h-auto flex justify-center items-center md:hidden">
+            <div className="w-full mb-5 h-auto flex justify-center items-center md:hidden">
                 <div className="w-[90%] mt-[10vw] h-auto p-[4vw] bg-zinc-100 rounded-3xl">
                     <div className="w-full text-[14px] font-raleway font-medium gap-[2vw] flex flex-col justify-center items-center">
                         <div className="w-full px-[2vw] text-[16px] font-raleway font-medium gap-[5vw] flex flex-col justify-between items-center">
@@ -74,24 +76,21 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex mt-5 gap-2 flex-col items-center">
-                            <a href="" className='text-zinc-400'>Sections</a>
-                            <a href=" " className='text-zinc-400'>Personal</a>
-                            <a href=" " className='text-zinc-400'>Business</a>
-                            <a href=" " className='text-zinc-400'>Company</a>
+                        <div className="flex mt-5 gap-2 flex-col items-center"> 
+                            <h1 className='text-sm font-bold'>Invest</h1>
+                            <Link to="/properties" className='text-zinc-400'>Properties</Link>
+                            
+                            <h1 className='text-sm mt-3 font-bold'>Company</h1>
+                            <Link to="/contactUs" className='text-zinc-400'>Contact Us</Link>
+                            <Link to="/term" className='text-zinc-400'>Terms</Link>
+                            <Link to="/learn" className='text-zinc-400'>Learn</Link>
+
+                            
+                            <h1 className='text-sm mt-3 font-bold'>Help</h1>
+                            <Link to="/" className='text-zinc-400'>Whatsapp</Link>
+                            <Link to="/blog" className='text-zinc-400'>Blog</Link>
                         </div>
-                        <div className="flex gap-2 flex-col items-center">
-                            <a href="" className='text-zinc-400'>Help</a>
-                            <a href="" className='text-zinc-400'>Privacy</a>
-                            <a href="" className='text-zinc-400'>Complaints</a>
-                            <a href="" className='text-zinc-400'>Cookie Policy</a>
-                        </div>
-                        <div className="flex gap-2 flex-col items-center">
-                            <a href="" className='text-zinc-400'>Company Policies</a>
-                            <a href="" className='text-zinc-400'>Website Terms</a>
-                            <a href="" className='text-zinc-400'>Legal Agreements</a>
-                            <a href="" className='text-zinc-400'>Modern slavery Policy</a>
-                        </div>
+                        
                     </div>
 
                 </div>

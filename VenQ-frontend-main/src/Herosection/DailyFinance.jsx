@@ -664,10 +664,10 @@ const DailyFinance = () => {
                         >
                             <FaArrowLeft size={14} />
                         </button>
-                        <button className='2xl:py-2.5 2xl:px-10 text-xs md:text-lg px-[1.5rem] md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold
+                        <Link to="/properties" className='2xl:py-2.5 2xl:px-10 py-2.5 text-xs md:text-lg px-[1.5rem] md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold
                       hover:text-black hover:bg-white
                transition-all duration-300 ease-in-out 
-               transform hover:scale-105 hover:translate-y-[-3px]'>Browse Properties</button>
+               transform hover:scale-105 hover:translate-y-[-3px]'>Browse Properties</Link>
                         <button
                             className="w-[15%] flex justify-center items-center text-right py-2 bg-black text-zinc-300 rounded-full 
                             hover:text-black hover:bg-zinc-200 
