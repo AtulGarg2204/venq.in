@@ -541,10 +541,14 @@ const DailyFinance = () => {
             <div className="w-full font-raleway mt-[5vw] text-black h-full">
                 <div className="flex flex-col h-full justify-center items-center">
                     <h1 className='2xl:text-xl md:text-[16px] font-medium text-zinc-400'>We've been featured in</h1>
-                    <div className="2xl:w-[40vw] overflow-hidden w-full md:w-[50vw] md:mt-[1vw] 2xl:mt-[2vw] h-[4.5vw]">
-                        <AsSeenIn />
+                    <div className="max-w-screen-sm overflow-hidden h-full">
+                        <div className="w-full max-w-screen-sm md:w-[50vw] 2xl:w-[40vw] md:mt-[1vw] 2xl:mt-[2vw] h-[6vw] md:h-[4.5vw]">
+                            <AsSeenIn />
+                        </div>
                     </div>
-                    <div className="flex gap-[1vw] mt-[13vw] md:mt-[2vw] 2xl:mt-[1vw] text-[13px] font-lato justify-center items-center w-full h-full">
+
+
+                    <div className="flex gap-[1vw] mt-[7vw] md:mt-[2vw] 2xl:mt-[1vw] text-[13px] font-lato justify-center items-center w-full h-full">
                         <h1>4.7 Excellent</h1>
                         <div className='flex md:gap-[8px] 2xl:gap-[2px]'>
                             <div className="2xl:w-[1.1vw] md:w-[1.5vw] 2xl:h-[1.1vw] md:h-[1.5vw] text-white flex justify-center items-center bg-[#219653]">
@@ -658,7 +662,7 @@ const DailyFinance = () => {
                             onClick={handleBack}
                             variant="contained"
                         >
-                            <FaArrowLeft size={14}/>
+                            <FaArrowLeft size={14} />
                         </button>
                         <button className='2xl:py-2.5 2xl:px-10 text-xs md:text-lg px-[1.5rem] md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold
                       hover:text-black hover:bg-white
@@ -671,7 +675,7 @@ const DailyFinance = () => {
                transform hover:scale-105 hover:translate-y-[-3px]"
                             onClick={handleNext}
                         >
-                            <FaArrowRight size={14}/>
+                            <FaArrowRight size={14} />
                         </button>
                     </div>
                 </div>
