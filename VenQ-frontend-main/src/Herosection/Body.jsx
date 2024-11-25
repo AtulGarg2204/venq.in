@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import Navbar from './Navbar';
 import './Body.css';
 import bg from '../../src/assets/images/new look/Frame 38.png';
+import bgphone from '../../src/assets/images/new look/Bg_ver.png';
 import v from '../../src/assets/images/v.png'
 import e from '../../src/assets/images/e.png'
 import n from '../../src/assets/images/n.png'
@@ -86,52 +87,60 @@ const Body = ({ workTimelineRef }) => {
           navbarLogoRef={navbarLogoRef}
           workTimelineRef={workTimelineRef} // Pass the ref to Navbar
         />
-        <div className="venq-container">
-          <div className="text-overflow">
-            <h1 className="venq-text mt-[8vw] flex justify-center items-center -gap-[5vw]">
-              {[v, e, n, q].map((image, index) => (
-                <img
-                  key={index}
-                  ref={(el) => (textRef.current[index] = el)}
-                  src={image}
-                  alt={`Letter ${index}`}
-                  className="venq-letter md:w-[10vw] md:h-[10vw] w-[15vw] h-[15vw] object-contain"
-                />
-              ))}
-            </h1>
-          </div>
+        <div className="body-wrapper">
+          <div className="venq-container ">
+            <div className="text-overflow">
+              <h1 className="venq-text mt-[8vw] flex justify-center items-center -gap-[5vw]">
+                {[v, e, n, q].map((image, index) => (
+                  <img
+                    key={index}
+                    ref={(el) => (textRef.current[index] = el)}
+                    src={image}
+                    alt={`Letter ${index}`}
+                    className="venq-letter md:w-[10vw] md:h-[10vw] w-[15vw] h-[15vw] object-contain"
+                  />
+                ))}
+              </h1>
+            </div>
 
-          <div ref={blackBgRef} className="black-bg md:mt-[1px] mt-[15vw] 2xl:mt-[1px]]">
-            <div className="black-bg-inner overflow-hidden">
-              <img
-                className="z-0 relative flex justify-center items-center"
-                src={bg}
-                alt=""
-                srcSet=""
-              />
-              <div className="w-full h-full z-10 top-0 left-0 absolute">
-                <div className="w-full font-raleway p-[4vw] md:p-[2vw] h-full ">
-                  <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
-                    <h1
-                      ref={Bodytext}
-                      className="2xl:text-[90px] pt-[7vw] mt-[15vw] md:mt-[2vw] text-[30px] leading-[30px] 2xl:mt-[2vw] md:text-[60px] tracking md:leading-[60px] text-zinc-50 2xl:leading-[85px] font-bold text-center font-raleway"
-                    >
-                      Invest in Real Estate <br /> Smarter & Simpler
-                    </h1>
-                    <h1
-                      ref={bodytextsmall}
-                      className="2xl:mt-8 mt-5 md:px-[0rem] px-[2rem] md:mt-4 text-center text-zinc-400 text-sm md:text-sm 2xl:text-xl font-medium"
-                    >
-                      Your Gateway to property ownership-start with just RS
-                      5000
-                    </h1>
-                    <div className="flex mt-6 justify-center items-center gap-5">
-                      <button className="2xl:py-2.5 2xl:px-10 md:py-2.5 text-xs md:text-sm 2xl:text-base md:px-10 px-[1.5rem] rounded-full bg-white text-black font-semibold hover:text-white hover:bg-zinc-800 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
-                        Invest Now
-                      </button>
-                      <button className="2xl:py-2.5 2xl:px-10 text-xs md:text-sm 2xl:text-base  md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold hover:text-black hover:bg-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
-                        Learn More{' '}
-                      </button>
+            <div ref={blackBgRef} className="black-bg md:mt-[1px] mt-[15vw] 2xl:mt-[1px]]">
+              <div className="black-bg-inner overflow-hidden">
+                <img
+                  className="z-0 hidden relative md:flex justify-center items-center"
+                  src={bg}
+                  alt=""
+                  srcSet=""
+                />
+                <img
+                  className="z-0 md:hidden relative flex justify-center items-center"
+                  src={bgphone}
+                  alt=""
+                  srcSet=""
+                />
+                <div className="w-full h-full z-10 top-0 left-0 absolute">
+                  <div className="w-full font-raleway p-[4vw] md:p-[2vw] h-full ">
+                    <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
+                      <h1
+                        ref={Bodytext}
+                        className="2xl:text-[90px] pt-[7vw] mt-[15vw] md:mt-[2vw] text-[30px] leading-[30px] 2xl:mt-[2vw] md:text-[60px] tracking md:leading-[60px] text-zinc-50 2xl:leading-[85px] font-bold text-center font-raleway"
+                      >
+                        Invest in Real Estate <br /> Smarter & Simpler
+                      </h1>
+                      <h1
+                        ref={bodytextsmall}
+                        className="2xl:mt-8 mt-5 md:px-[0rem] px-[2rem] md:mt-4 text-center text-zinc-400 text-sm md:text-sm 2xl:text-xl font-medium"
+                      >
+                        Your Gateway to property ownership-start with just RS
+                        5000
+                      </h1>
+                      <div className="flex mt-6 justify-center items-center gap-5">
+                        <button className="2xl:py-2.5 2xl:px-10 md:py-2.5 text-xs md:text-sm 2xl:text-base md:px-10 px-[1.5rem] rounded-full bg-white text-black font-semibold hover:text-white hover:bg-zinc-800 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
+                          Invest Now
+                        </button>
+                        <button className="2xl:py-2.5 2xl:px-10 text-xs md:text-sm 2xl:text-base  md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold hover:text-black hover:bg-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
+                          Learn More{' '}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -139,6 +148,7 @@ const Body = ({ workTimelineRef }) => {
             </div>
           </div>
         </div>
+
       </div>
     </>
   );

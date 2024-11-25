@@ -59,8 +59,8 @@ const Testimonials = () => {
                                             style={{ backgroundImage: `url(${testimonial.imageUrl})` }}
                                         ></div>
                                         <div className="text-sm h-full">
-                                            <h1 className="font-bold text-14px 2xl:text-[16px] md:text-[14px]">{testimonial.name}</h1>
-                                            <h1 className="text-zinc-400">{testimonial.username}</h1>
+                                            <h1 className="font-bold text-14px 2xl:text-[16px] md:text-[12px]">{testimonial.name}</h1>
+                                            <h1 className=" text-zinc-400">{testimonial.username}</h1>
                                         </div>
                                     </div>
                                     <div className="flex mr-5 items-center">
@@ -78,7 +78,8 @@ const Testimonials = () => {
                         {testimonials.slice(0, showAll ? testimonials.length : 2).map((testimonial, index) => (
                             <div
                                 key={index}
-                                className="w-full sm:w-1/2 md:w-1/4 h-full rounded-2xl bg-zinc-100 p-5 mb-4 sm:mb-0">
+                                className="w-full sm:w-1/2 md:w-1/4 h-full rounded-2xl bg-zinc-100 p-5 mb-4 sm:mb-0 flex flex-col"
+                            >
                                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                                     <div className="flex w-[17rem] h-full justify-between items-center mb-3 sm:mb-0">
                                         <div className="flex gap-4 justify-center items-center">
@@ -100,19 +101,21 @@ const Testimonials = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full text-xs font-medium p-2 h-full">
-                                    <p>{testimonial.text}</p>
+                                <div className="w-full  p-2 h-full flex-grow">
+                                    <p className='text-base md:text-base 2xl:text-lg font-medium'>{testimonial.text}</p>
                                 </div>
                             </div>
                         ))}
                         <div className="w-full flex justify-center mt-1">
                             <button
                                 onClick={handleToggle}
-                                className="px-[4.5vw] text-sm py-3 bg-black rounded-2xl text-zinc-100">
+                                className="px-[4.5vw] text-sm py-3 bg-black rounded-2xl text-zinc-100"
+                            >
                                 {showAll ? "Show Less" : "View All"}
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -70,7 +70,7 @@ function App() {
     <DataProvider>
       <Router>
         <Routes>
-          <Route path="/NewLook" element={<Herosection />} />
+          <Route path="/" element={<Herosection />} />
           <Route path="login" element={<OtplessLogin />} />
           <Route path="signup/">
             <Route path="" element={<OptlessSignup />} />
@@ -152,7 +152,7 @@ function App() {
 
           <Route path="/try" element={<Home />} />
           {/* <Route path="/" element={<NewHome />} /> */}
-          <Route path="/" element={<NewHome />} />
+          {/* <Route path="/" element={<NewHome />} /> */}
           <Route path="contactUs" element={<ContactUs />} />
         </Routes>
       </Router>

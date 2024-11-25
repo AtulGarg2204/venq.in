@@ -42,14 +42,14 @@ const CardFunction = () => {
                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-[#2ab589]/50 via-transparent to-transparent rounded-2xl pointer-events-none"></div>
 
                                 {/* Content */}
-                                <div className="w-[50px]">
+                                <div className="2xl:w-[50px] md:w-[40px] w-[50px]">
                                     <img src={icon1} alt="" />
                                 </div>
-                                <h1 className="md:text-xl mt-5 text-lg font-semibold text-white">Rental Income</h1>
-                                <p className="text-left md:text-lg text-sm font-medium text-zinc-400 mt-5 text-[15px]">
+                                <h1 className="md:text-xl md:mt-2 2xl:mt-5 mt-5 text-lg font-semibold text-white">Rental Income</h1>
+                                <p className="text-left md:text-base mt-5 text-sm font-medium text-zinc-400 md:mt-2 2xl:mt-5 2xl:text-[18px]">
                                     Earn passive income as your property generates consistent rental returns.
                                 </p>
-                                <Link to="/learn" className="group text-sm md:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
+                                <Link to="/learn" className="group text-sm md:text-base 2xl:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
                                 hover:text-black hover:bg-zinc-200
                transition-all duration-300 ease-in-out 
                transform hover:scale-[1] hover:translate-y-[-3px]">
@@ -78,14 +78,14 @@ const CardFunction = () => {
 
                                 {/* Content */}
                                 {/* <FaApple size={46} className='mb-6 text-[#2ab589]' /> */}
-                                <div className="w-[50px]">
+                                <div className="2xl:w-[50px] md:w-[40px] w-[50px]">
                                     <img src={icon2} alt="" />
                                 </div>
-                                <h1 className="md:text-xl mt-5 text-lg font-semibold text-white">Secondary Market</h1>
-                                <p className="text-left md:text-lg text-sm font-medium text-zinc-400 mt-5 text-[15px]">
+                                <h1 className="mmd:text-xl md:mt-2 2xl:mt-5 mt-5 text-lg font-semibold text-white">Secondary Market</h1>
+                                <p className="text-left md:text-base mt-5 text-sm font-medium text-zinc-400 md:mt-2 2xl:mt-5 2xl:text-[18px]">
                                     Sell your tokens on our platform anytime, unlocking liquidity with ease.
                                 </p>
-                                <Link to="/learn" className="group text-sm md:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
+                                <Link to="/learn" className="group text-sm md:text-base 2xl:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
                                 hover:text-black hover:bg-zinc-200
                transition-all duration-300 ease-in-out 
                transform hover:scale-[1] hover:translate-y-[-3px]">
@@ -113,14 +113,14 @@ const CardFunction = () => {
 
                                 {/* Content */}
                                 {/* <FaApple size={46} className='mb-6 text-[#2ab589]' /> */}
-                                <div className="w-[50px]">
+                                <div className="2xl:w-[50px] md:w-[40px] w-[50px]">
                                     <img src={icon3} alt="" />
                                 </div>
-                                <h1 className="md:text-xl mt-5 text-lg font-semibold text-white">Capital Appreciation</h1>
-                                <p className="text-left md:text-lg text-sm font-medium text-zinc-400 mt-5 text-[15px]">
+                                <h1 className="md:text-xl md:mt-2 2xl:mt-5 mt-5 text-lg font-semibold text-white">Capital Appreciation</h1>
+                                <p className="text-left md:text-base mt-5 text-sm font-medium text-zinc-400 md:mt-2 2xl:mt-5 2xl:text-[18px]">
                                     Benefit from the long-term value growth of your real estate assets.
                                 </p>
-                                <Link to="/learn" className="group text-sm md:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
+                                <Link to="/learn" className="group text-sm md:text-base 2xl:text-lg flex items-center gap-4 justify-center mt-5 border rounded-full px-4 py-2 text-white
                                 hover:text-black hover:bg-zinc-200
                transition-all duration-300 ease-in-out 
                transform hover:scale-[1] hover:translate-y-[-3px]">
