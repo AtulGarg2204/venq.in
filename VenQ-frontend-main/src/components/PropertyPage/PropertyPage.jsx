@@ -16,7 +16,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../../config";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../../Navbar";
 import IconImage from "./favicon.png";
 import "./LoginPopup.css";
 const Property = styled(Card)`
@@ -215,7 +215,7 @@ const PropertyPage = () => {
 
   return (
     <>
-      {showPopup && (
+      {/* {showPopup && (
         <div className="popup-background">
           <div className="popup-dialog">
             <button className="close-popup-button" onClick={handleLoginPopup}>
@@ -247,9 +247,9 @@ const PropertyPage = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
       <div>
-        <Navbar isLoggedIn={isLoggedIn} />
+        <Navbar />
         <UpperPart>
           <SubText>
             <h1
@@ -588,7 +588,7 @@ const PropertyPage = () => {
                                                     : `/dholera/${listing._id}`
                                                 }
                                               >
-                                                Login
+                                                Login 
                                               </Link>{" "}
                                               to view the property
                                               {/* //i am working here  */}
