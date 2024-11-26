@@ -45,7 +45,7 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
             <div className="relative group">
               <a
                 className="flex 2xl:text-[16px] md:text-[14px] gap-[10px] justify-center items-center"
-                href="#"
+                href=""
                 ref={(el) => (navbarLinksRef.current[0] = el)}
               >
                 Invest <SlArrowDown size={13} className="text-black" />
@@ -93,7 +93,7 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
             </a>
             <a
               className="2xl:text-[16px] lg:text-[14px] md:text-[14px]"
-              href="#blog"
+              href="/blog"
               ref={(el) => (navbarLinksRef.current[4] = el)}
             >
               Blog
@@ -104,14 +104,14 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
               <>
                 <a
                   className="2xl:text-[16px] lg:text-[14px] md:text-[14px]"
-                  href="#login"
+                  href="/login"
                   ref={(el) => (navbarLinksRef.current[6] = el)}
                 >
                   Log In
                 </a>
                 <a
                   className="py-[10px] text-white 2xl:text-[18px] md:text-[16px] text-lg px-5 bg-black rounded-full hover:text-black hover:bg-zinc-200 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]"
-                  href="#signup"
+                  href="/signup"
                   ref={(el) => (navbarLinksRef.current[7] = el)}
                 >
                   Sign up

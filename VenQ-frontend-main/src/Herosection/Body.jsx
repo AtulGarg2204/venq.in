@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import Navbar from './Navbar';
+import { Link } from "react-router-dom";
 import './Body.css';
 import bg from '../../src/assets/images/new look/Frame 38.png';
 import bgphone from '../../src/assets/images/new look/Bg_ver.png';
@@ -134,12 +135,12 @@ const Body = ({ workTimelineRef }) => {
                         5000
                       </h1>
                       <div className="flex mt-6 justify-center items-center gap-5">
-                        <button className="2xl:py-2.5 2xl:px-10 md:py-2.5 text-xs md:text-sm 2xl:text-base md:px-10 px-[1.5rem] rounded-full bg-white text-black font-semibold hover:text-white hover:bg-zinc-800 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
+                        <Link to="/properties" className="2xl:py-2.5 py-2.5 2xl:px-10 md:py-2.5 text-xs md:text-sm 2xl:text-base md:px-10 px-[1.5rem] rounded-full bg-white text-black font-semibold hover:text-white hover:bg-zinc-800 transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
                           Invest Now
-                        </button>
-                        <button className="2xl:py-2.5 2xl:px-10 text-xs md:text-sm 2xl:text-base  md:py-2.5 md:px-10 rounded-full bg-black text-white font-semibold hover:text-black hover:bg-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
+                        </Link>
+                        <Link to="learn" className="2xl:py-2.5 py-2.5 2xl:px-10 text-xs md:text-sm 2xl:text-base  md:py-2.5 md:px-10 rounded-full text-white font-semibold hover:text-black hover:bg-white transition-all duration-300 ease-in-out transform hover:scale-105 hover:translate-y-[-3px]">
                           Learn More{' '}
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
