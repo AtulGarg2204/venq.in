@@ -4,9 +4,10 @@ import { SlArrowDown } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
   const token = JSON.parse(localStorage.getItem("userinfo")); // Check user token
+  const navigate = useNavigate();
 
   const options = {
     personal: [
@@ -73,8 +74,9 @@ const Navbar = ({ navbarLinksRef, navbarLogoRef, workTimelineRef }) => {
           </div>
 
           {/* Center Logo */}
-          <div className="flex overflow-hidden h-[3rem] md:h-full justify-center 2xl:scale-[.8] md:scale-[.7] 2xl:h-[4rem] 2xl:mr-[1.5vw] mr-0 text-lg gap-10 md:justify-center items-center">
+          <div className="flex cursor-pointer overflow-hidden h-[3rem] md:h-full justify-center 2xl:scale-[.8] md:scale-[.7] 2xl:h-[4rem] 2xl:mr-[1.5vw] mr-0 text-lg gap-10 md:justify-center items-center">
             <img
+              onClick={() => navigate("/")} 
               className="scale-[.8] md:scale-[1]"
               ref={navbarLogoRef}
               src={logo}

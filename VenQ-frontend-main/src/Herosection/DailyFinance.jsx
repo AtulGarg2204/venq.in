@@ -428,12 +428,13 @@ const DailyFinance = () => {
                                         justifyContent: "center",
                                         alignItems: "center",
                                         height: "60px",
+                                        
                                     }}
                                 >
                                     <Link to="/login" style={{ color: "#2ab589", fontWeight: "bold" }}>
-                                        Login
-                                    </Link>{" "}
-                                    to view the property.
+                                        Login {" "}
+                                    </Link>{"  "}
+                                     <h1 className='ml-1'>{" "} to view the property.</h1>
                                 </Box>
                             )}
                         </CardContent>

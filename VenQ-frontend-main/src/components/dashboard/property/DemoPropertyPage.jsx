@@ -61,7 +61,7 @@ import LineChart from "./Linechart";
 import "./LoginPopup.css";
 import ReturnCalculator from "../../NewHome/HomeComponents/ReturnCalculator";
 import Return_cal from "./Return_cal";
-import Navbar from "../../navbar/Navbar";
+import Navbar from "../../../Navbar";
 import MainScreen from "./MainScreen";
 import { Nav } from "react-bootstrap";
 
@@ -1128,12 +1128,12 @@ const DemoPropertyPage = ({ handleCart, clicked, setClicked }) => {
 
       {!isSmallScreen ? (
         <>
-          <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar />
           <MainScreen />
         </>
       ) : (
         <>
-          <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar />
           <div
             style={{
               opacity: openinv ? "0.25" : "1.0",
