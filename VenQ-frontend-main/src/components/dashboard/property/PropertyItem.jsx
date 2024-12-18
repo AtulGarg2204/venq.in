@@ -1761,8 +1761,33 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     display: "flex",
                                   }}
                                 >
-                                  <Logo>
-                                    <img
+                                  <Logo style={{
+                                    display: "flex",
+                                    alignItems: "center", // Vertically center the logo and text
+                                    marginRight: "-5px",
+                                  }}>
+                                  {listing_content.aname === "Enviroment friendly" && (
+                                    <i class="fa-solid fa-seedling" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                  {listing_content.aname === "Luxury Project" && (
+                                    <i class="fa-solid fa-crown" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                  {listing_content.aname === "Gym" && (
+                                    <i class="fa-solid fa-dumbbell" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                  {listing_content.aname === "Parking" && (
+                                    <i class="fa-solid fa-square-parking" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                  {listing_content.aname === "Clubhouse" && (
+                                    <i class="fa-solid fa-champagne-glasses" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                  {listing_content.aname === "24/7 Security" && (
+                                    <i class="fa-solid fa-user-shield" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                  {listing_content.aname === "Swimming Pool" && (
+                                    <i class="fa-solid fa-person-swimming" style={{ fontSize: "20px" }}></i>
+                                  )}
+                                    {/* <img
                                       src={listing_content.alink}
                                       alt=""
                                       style={{
@@ -1770,7 +1795,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         borderRadius: "50%",
                                         backgroundColor: "black",
                                       }}
-                                    />
+                                    /> */}
                                   </Logo>
 
                                   <PropertyHeadingSmall
