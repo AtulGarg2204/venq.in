@@ -45,6 +45,113 @@ import LineChart from "./Linechart";
 import "./propertyitem.css";
 import Return_cal from "./Return_cal";
 
+import { AppBar, Toolbar } from '@mui/material';
+const Navbar = () => {
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    const sections = ['property-overview', 'amenities','documents','rera', 'layout', 'location'];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id); 
+          }
+        });
+      },
+      { threshold: 0.5 } // When 50% of the section is visible, it's considered active
+    );
+
+    sections.forEach((sectionId) => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      sections.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          observer.unobserve(section);
+        }
+      });
+    };
+  }, []);
+
+  const activeStyle = {
+    borderBottom: '3px solid black',
+    paddingBottom: '10px',
+  };
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+  return (
+    <AppBar
+      position="sticky"
+      sx={{
+        backgroundColor: "#f6f7f9",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        width: '100%',
+        overflowX: "auto", // Enables horizontal scrolling
+    whiteSpace: "nowrap",
+      }}
+    >
+      <Toolbar>
+        <Box sx={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
+          <Button
+            color="inherit"
+            sx={activeSection === 'property-overview' ? activeStyle : {}}
+            onClick={() => scrollToSection('property-overview')}
+          >
+            Property Overview
+          </Button>
+          <Button
+            color="inherit"
+            sx={activeSection === 'amenities' ? activeStyle : {}}
+            onClick={() => scrollToSection('amenities')}
+          >
+            Amenities
+          </Button>
+          <Button
+            color="inherit"
+            sx={activeSection === 'documents' ? activeStyle : {}}
+            onClick={() => scrollToSection('documents')}
+          >
+            Documents
+          </Button>
+          <Button
+            color="inherit"
+            sx={activeSection === 'rera' ? activeStyle : {}}
+            onClick={() => scrollToSection('rera')}
+          >
+            Rera
+          </Button>
+          <Button
+            color="inherit"
+            sx={activeSection === 'layout' ? activeStyle : {}}
+            onClick={() => scrollToSection('layout')}
+          >
+            Layout
+          </Button>
+          <Button
+            color="inherit"
+            sx={activeSection === 'location' ? activeStyle : {}}
+            onClick={() => scrollToSection('location')}
+          >
+            Location
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+
 const Options = styled(Link)`
   padding: 10px;
   display: flex;
@@ -139,13 +246,13 @@ const Label = styled(Box)`
   padding: 10px 0px;
 `;
 const LabelName = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-size: 18px;
   color: black;
 `;
 const LabelAmount = styled(Typography)`
   text-align: "center";
-  font-family: "Inter";
+  font-family: "Arial";
   align-items: center;
   font-size: 32px;
   font-weight: 600;
@@ -167,7 +274,7 @@ const HelpIcon = styled(ChatBubbleOutlineRoundedIcon)`
 
 const Heading = styled(Typography)`
   text-decoration: none;
-  font-family: Inter;
+  font-family: Arial;
   font-size: 18px;
 `;
 const arrow = ">";
@@ -197,7 +304,7 @@ const Bookmark = styled(Button)`
   }
 `;
 const Extra = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-size: 16px;
 `;
 const PhotoLink = styled(Link)`
@@ -228,7 +335,7 @@ const Pricing = styled(Box)`
 const CartButton = styled(Button)`
   background-color: #0170dc;
   color: white;
-  font-family: "Inter";
+  font-family: "Arial";
   text-transform: none;
   font-size: 14px;
   padding: 7px;
@@ -245,7 +352,7 @@ const PriceAddButton = styled(Button)`
   width: 32%;
   font-weight: 600;
   border-radius: 10px;
-  font-family: "Inter";
+  font-family: "Arial";
   &:hover {
     background-color: #0170dc;
     color: white;
@@ -257,7 +364,7 @@ const theme = createTheme({
       styleOverrides: {
         tooltip: {
           fontSize: "14px",
-          fontFamily: "Inter",
+          fontFamily: "Arial",
           backgroundColor: "#121c30",
           textAlign: "center",
         },
@@ -304,7 +411,7 @@ const SubTitle = styled(Typography)`
   color: #44475b;
   font-size: 12px;
   border: 0.2px solid #e9e9eb;
-  font-family: "Inter";
+  font-family: "Arial";
   padding: 5px;
   cursor: pointer;
   border-radius: 20px;
@@ -315,12 +422,12 @@ const PropertyDetails = styled(Box)`
   align-items: center;
 `;
 const PropertyHeading = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-weight: 600;
   font-size: 18px;
 `;
 const PropertyHeadingSmall = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-weight: 600;
   font-size: 16px;
   marginTop:-5px
@@ -328,7 +435,7 @@ const PropertyHeadingSmall = styled(Typography)`
   word-wrap: break-word;
 `;
 const PropertySubHeading = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-size: 16px;
   color: grey;
 `;
@@ -339,15 +446,15 @@ const GraphInfo = styled(Box)`
 const GraphHeading = styled(Typography)`
   font-size: 15px;
   color: grey;
-  font-family: "Inter";
+  font-family: "Arial";
 `;
 const GraphSubHeading = styled(Typography)`
   font-size: 15px;
   font-weight: 600;
-  font-family: "Inter";
+  font-family: "Arial";
 `;
 const MoreButton = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   color: #0170dc;
   font-size: 16px;
   text-decoration: none;
@@ -360,24 +467,24 @@ const MoreButton = styled(Typography)`
   }
 `;
 const FinanceHeading = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   color: #44475b;
   font-size: 17px;
   font-weight: 600;
 `;
 const FinanceSubHeading = styled(Typography)`
   color: rgb(112, 111, 111);
-  font-family: "Inter";
+  font-family: "Arial";
   font-size: 16px;
 `;
 const FinanceAmount = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-size: 16px;
   color: #44475b;
   font-weight: 600;
 `;
 const LocationName = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial";
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
@@ -409,7 +516,7 @@ const TitleBox = styled(Box)`
   padding: 15px;
   align-items: center;
   & > p {
-    font-family: "Inter";
+    font-family: "Arial";
     font-size: 15px;
     padding-left: 10px;
   }
@@ -458,7 +565,7 @@ const ReturnsBox = styled(Box)`
   padding: 10px;
   border-radius: 10px;
   background-color: #f6f7f9;
-  font-family: "Inter";
+  font-family: "Arial";
   color: grey;
   > div {
     display: flex;
@@ -475,12 +582,12 @@ const Category = styled(Typography)`
   color: white;
   z-index: 2;
   padding: 5px;
-  font-family: "Inter";
+  font-family: "Arial";
 `;
 const Header = styled(Typography)`
   font-size: 20px;
   font-weight: 600;
-  font-family: "Inter";
+  font-family: "Arial";
   margin: 10px 0;
 `;
 
@@ -617,7 +724,7 @@ const Slider = styled(BaseSlider)(
     }
   
     & .${sliderClasses.markLabel} {
-      font-family: Inter;
+      font-family: Arial;
       font-weight: 600;
       font-size: 12px;
       position: absolute;
@@ -1171,7 +1278,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             <PropertyLink to="/dashboard/properties">
               <Typography
                 style={{
-                  fontFamily: "Inter",
+                  fontFamily: "Arial",
                   fontSize: "15px",
                   fontWeight: "600",
                 }}
@@ -1185,7 +1292,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               style={{
                 color: "#a3abba",
                 marginLeft: "10px",
-                fontFamily: "Inter",
+                fontFamily: "Arial",
                 fontSize: "15px",
               }}
             >
@@ -1204,7 +1311,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 <Typography
                   style={{
                     paddingLeft: "10px",
-                    fontFamily: "Inter",
+                    fontFamily: "Arial",
                     fontSize: "18px",
                   }}
                 >
@@ -1377,7 +1484,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       fontSize: "18px",
                       color: "rgb(112,111,111)",
-                      fontFamily: "Inter",
+                      fontFamily: "Arial",
                     }}
                   >
                     Property price
@@ -1386,7 +1493,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       fontSize: "24px",
                       color: "#44475b",
-                      fontFamily: "Inter",
+                      fontFamily: "Arial",
                     }}
                   >
                     INR{" "}
@@ -1405,7 +1512,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                       {/* Tokens */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1416,7 +1523,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       {/* Est. Yields */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1427,7 +1534,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       {/* Target APR */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1438,7 +1545,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       {/* Potential Gain */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1453,14 +1560,24 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
         <Box style={{ padding: "10px 0", margin: "10px 0" }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={8}>
+          <Grid
+      item
+      xs={12}
+      sm={8}
+      style={{
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
+        padding: "16px",
+        borderRadius: "8px", 
+        backgroundColor: "#fff", 
+      }}
+    >
               {/* this is the new work */}
               <Details>
                 <Box>
                   {" "}
                   <Typography
                     style={{
-                      fontFamily: "Inter",
+                      fontFamily: "Arial",
                       fontWeight: 700,
                       color: "rgb(70, 59, 59)",
                       // color:"white",
@@ -1561,24 +1678,26 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       )}
                     </Box>
                     <Divider />
-                    <Box style={{ paddingBottom: "20px", marginTop: "15px" }}>
+                    <Navbar/>
+                    <Box id="property-overview" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                         }}
                       >
                         Property Overview
                       </Typography>
-
+                      <Divider/>
                       <Typography
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontSize: "14px",
                           color: "rgb(112,111,111)",
+                          marginTop: "20px"
                         }}
                       >
                         {listing &&
@@ -1606,18 +1725,19 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </MoreButton>
                       </Typography>
                     </Box>
-                    <Box style={{ paddingBottom: "40px" }}>
+                    <Box  id="amenities" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           color: "#44475b",
                           paddingBottom: "20px",
                         }}
                       >
                         Amenities
                       </Typography>
+                      <Divider/>
                       <Box style={{ padding: "1px 0" }}>
                         {listing && listing.amenities && (
                           <Box
@@ -1625,6 +1745,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               display: "flex",
                               flexDirection: isSmallScreen ? "column" : "row",
                               flexWrap: "wrap",
+                              marginTop: "20px"
                             }}
                           >
                             {listing.amenities.map((listing_content, index) => (
@@ -1667,18 +1788,19 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
                     </Box>
 
-                    <Box style={{ paddingBottom: "40px" }}>
+                    <Box id="documents"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
-                          padding: "10px 0",
+                          fontFamily: "Arial",
+                          paddingBottom: "20px",
                           color: "#44475b",
                         }}
                       >
                         Documents ({listing.documents?.length})
                       </Typography>
+                      <Divider/>
                       {listing &&
                         listing.documents &&
                         listing.documents.map((document) => (
@@ -1687,6 +1809,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               onClick={() =>
                                 handleDownload(document.dlink, document.dname)
                               }
+                              style={{marginTop: "20px"}}
                             >
                               <TitleBox>
                                 <IconBox>
@@ -1725,26 +1848,55 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </Box>
                         ))}
                     </Box>
-                    <Box style={{ paddingBottom: "20px" }}>
+                    <Box id="rera"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
-                          padding: "20px 0",
+                          fontFamily: "Arial",
+                          paddingBottom: "20px",
+                          color: "#44475b",
+                        }}
+                      >
+                        Rera Details
+                      </Typography>
+                      <Divider/>
+                          <Box style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                          flexDirection: "column", // Adjust layout based on screen size
+                          marginTop: "20px"
+                        }}>
+                            <Box style={{ paddingBottom: "20px", padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", width: "100%" }}>
+                              <p style={{fontWeight:700 }}>GGM/337/69/2019/31</p>
+                              <p style={{fontSize: 14}}>Name</p>
+                            </Box>
+                            <p style={{ marginTop: "10px", fontWeight: 600, width: "100%" }}>
+                              Venq RERA reg. <span style={{ fontWeight: 400 }}>HRERA 660/2017/307</span>
+                            </p>
+                          </Box>
+                    </Box>
+                    <Box id="layout"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                      <Typography
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: 600,
+                          fontFamily: "Arial",
+                          paddingBottom: "20px",
                           color: "#44475b",
                         }}
                       >
                         Layout
                       </Typography>
-
+                        <Divider/>
                       <Box
                         style={{
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "space-around",
                           flexDirection: isSmallScreen ? "column" : "row", // Adjust layout based on screen size
-
+                          marginTop: "20px"
                         }}
                       >
                         {isSmallScreen && (
@@ -1803,31 +1955,32 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         )}
                       </Box>
                     </Box>
-                    <Box style={{ paddingBottom: "20px" }}>
+                    <Box id="location"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
-                          padding: "20px 0",
+                          fontFamily: "Arial",
+                          paddingBottom: "20px",
                           color: "#44475b",
                         }}
                       >
                         Location
                       </Typography>
-
+                        <Divider/>
                       <Box
                         style={{
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "flex-start",
                           padding: "0 0 10px 0",
+                          marginTop: "20px"
                         }}
                       >
                         <PlaceOutlinedIcon style={{ color: "#0170dc" }} />
                         <LocationName
                           style={{
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             fontSize: "18px",
                             fontWeight: 600,
                             color: "rgb(112,111,111)",
@@ -1861,13 +2014,20 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       <Typography
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontSize: "16px",
                           padding: "20px 0",
                           color: "rgb(112,111,111)",
                         }}
                       >
-                        {listing.locationdescription}
+                        {listing.locationdescription.split('.').map((sentence, index) => (
+                        sentence.trim() && (
+                          <span key={index}>
+                            {sentence.trim() + '.'}
+                            <br />
+                          </span>
+                        )
+                      ))}
                       </Typography>
                     </Box>
                     <Box style={{ paddingBottom: "30px" }}>
@@ -1875,7 +2035,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           padding: "20px 0",
                           color: "#44475b",
                         }}
@@ -1892,7 +2052,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontFamily: "Inter", fontSize: "17px" }}
+                            style={{ fontFamily: "Arial", fontSize: "17px" }}
                           >
                             Contact our real estate experts
                           </Typography>
@@ -1921,7 +2081,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                             <Typography
                               style={{
-                                fontFamily: "Inter",
+                                fontFamily: "Arial",
                                 fontSize: "17px",
                                 paddingLeft: "10px",
                               }}
@@ -1947,7 +2107,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 700,
                           color: "#44575B",
                           fontSize: "25px",
@@ -1957,7 +2117,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
@@ -1974,7 +2134,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 600,
                           color: "#50B487",
                           fontSize: "13px",
@@ -1984,7 +2144,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
@@ -2039,7 +2199,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           style={{
                             fontSize: "24px",
                             fontWeight: 600,
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             padding: "5px 0",
                             marginBottom: "5vh",
                             textAlign: "start",
@@ -2064,7 +2224,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Typography
                             style={{
                               fontSize: "14px",
-                              fontFamily: "Inter",
+                              fontFamily: "Arial",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -2097,7 +2257,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           style={{
                             fontSize: "24px",
                             fontWeight: 600,
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             padding: "5px 0",
                           }}
                         >
@@ -2268,7 +2428,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   <Typography
                                     style={{
                                       fontSize: "13px",
-                                      fontFamily: "Inter",
+                                      fontFamily: "Arial",
                                       display: "flex",
                                       alignItems: "center",
                                       justifyContent: "center",
@@ -2305,7 +2465,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           style={{
                             fontSize: "24px",
                             fontWeight: 600,
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             padding: "5px 0",
                           }}
                         >
@@ -2476,7 +2636,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   <Typography
                                     style={{
                                       fontSize: "13px",
-                                      fontFamily: "Inter",
+                                      fontFamily: "Arial",
                                       display: "flex",
                                       alignItems: "center",
                                       justifyContent: "center",
@@ -2514,7 +2674,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           style={{
                             fontSize: "24px",
                             fontWeight: 600,
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             padding: "20px 0",
                           }}
                         >
@@ -2530,7 +2690,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontSize: "12px", fontFamily: "Inter" }}
+                            style={{ fontSize: "12px", fontFamily: "Arial" }}
                           >
                             Each step may occur earlier than the dates below
                           </Typography>
@@ -2553,7 +2713,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 700,
                           color: "#44575B",
                           fontSize: "25px",
@@ -2563,7 +2723,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
@@ -2580,7 +2740,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 600,
                           color: "#50B487",
                           fontSize: "13px",
@@ -2590,7 +2750,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
@@ -2622,7 +2782,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
 
@@ -2663,7 +2823,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             <Typography
                               style={{
                                 fontSize: "14px",
-                                fontFamily: "Inter",
+                                fontFamily: "Arial",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -2697,7 +2857,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -2873,7 +3033,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   <Typography
                                     style={{
                                       fontSize: "13px",
-                                      fontFamily: "Inter",
+                                      fontFamily: "Arial",
                                       display: "flex",
                                       alignItems: "center",
                                       justifyContent: "center",
@@ -2912,7 +3072,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -2932,7 +3092,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontSize: "12px", fontFamily: "Inter" }}
+                            style={{ fontSize: "12px", fontFamily: "Arial" }}
                           >
                             Each step may occur earlier than the dates below
                           </Typography>
@@ -2945,7 +3105,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           padding: "20px 0",
                           color: "#44475b",
                         }}
@@ -2962,7 +3122,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontFamily: "Inter", fontSize: "17px" }}
+                            style={{ fontFamily: "Arial", fontSize: "17px" }}
                           >
                             Contact our real estate experts
                           </Typography>
@@ -2991,7 +3151,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                             <Typography
                               style={{
-                                fontFamily: "Inter",
+                                fontFamily: "Arial",
                                 fontSize: "17px",
                                 paddingLeft: "10px",
                               }}
@@ -3050,7 +3210,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3063,7 +3223,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box>
                         <Typography
                           style={{
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             fontSize: "14px",
                             color: "rgb(112,111,111)",
                           }}
@@ -3082,7 +3242,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3147,7 +3307,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3211,7 +3371,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3254,7 +3414,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3276,7 +3436,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <PlaceOutlinedIcon style={{ color: "#0170dc" }} />
                           <LocationName
                             style={{
-                              fontFamily: "Inter",
+                              fontFamily: "Arial",
                               fontSize: "18px",
                               fontWeight: 600,
                               color: "rgb(112,111,111)",
@@ -3310,7 +3470,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         <Typography
                           style={{
-                            fontFamily: "Inter",
+                            fontFamily: "Arial",
                             fontSize: "16px",
                             padding: "20px 0",
                             color: "rgb(112,111,111)",
@@ -3325,7 +3485,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           padding: "20px 0",
                           color: "#44475b",
                         }}
@@ -3342,7 +3502,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontFamily: "Inter", fontSize: "17px" }}
+                            style={{ fontFamily: "Arial", fontSize: "17px" }}
                           >
                             Contact our real estate experts
                           </Typography>
@@ -3371,7 +3531,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                             <Typography
                               style={{
-                                fontFamily: "Inter",
+                                fontFamily: "Arial",
                                 fontSize: "17px",
                                 paddingLeft: "10px",
                               }}
@@ -3404,7 +3564,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "18px",
                           color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                         }}
                       >
                         Property price
@@ -3413,7 +3573,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           color: "#0170dc",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                         }}
                       >
                         INR{" "}
@@ -3437,7 +3597,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "14px",
                           color: "black",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                           marginLeft: "5px",
                         }}
                       >
@@ -3727,7 +3887,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       color: invtype == 0 ? "#00b386" : "gray",
                                       cursor: "pointer",
                                       fontSize: "16px",
-                                      fontFamily: "Inter",
+                                      fontFamily: "Arial",
                                     }}
                                     onClick={() => {
                                       {
@@ -3750,7 +3910,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       marginRight: "12px",
                                       cursor: "pointer",
                                       fontSize: "16px",
-                                      fontFamily: "Inter",
+                                      fontFamily: "Arial",
                                     }}
                                     onClick={() => {
                                       setinvtype(1);
@@ -4030,7 +4190,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                   <Typography
                     style={{
-                      fontFamily: "Inter",
+                      fontFamily: "Arial",
                       textAlign: "center",
                       fontSize: "14px",
                       marginTop: "16px",
@@ -4052,7 +4212,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <AutoAwesomeOutlinedIcon />
                     <Typography
                       style={{
-                        fontFamily: "Inter",
+                        fontFamily: "Arial",
                         paddingLeft: "10px",
                         fontSize: "14px",
                       }}
@@ -4080,7 +4240,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "18px",
                           color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                         }}
                       >
                         Property price
@@ -4089,7 +4249,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           color: "#0170dc",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                         }}
                       >
                         INR{" "}
@@ -4112,7 +4272,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                         {/* Tokens */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4123,7 +4283,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Est. Yields */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4134,7 +4294,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Target APR */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4145,7 +4305,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Potential Gain */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4328,7 +4488,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           invtype == 0 ? "#00b386" : "gray",
                                         cursor: "pointer",
                                         fontSize: "16px",
-                                        fontFamily: "Inter",
+                                        fontFamily: "Arial",
                                       }}
                                       onClick={() => {
                                         {
@@ -4352,7 +4512,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         marginRight: "12px",
                                         cursor: "pointer",
                                         fontSize: "16px",
-                                        fontFamily: "Inter",
+                                        fontFamily: "Arial",
                                       }}
                                       onClick={() => {
                                         setinvtype(1);
@@ -4632,7 +4792,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                     <Typography
                       style={{
-                        fontFamily: "Inter",
+                        fontFamily: "Arial",
                         textAlign: "center",
                         fontSize: "14px",
                         marginTop: "16px",
@@ -4654,7 +4814,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <AutoAwesomeOutlinedIcon />
                     <Typography
                       style={{
-                        fontFamily: "Inter",
+                        fontFamily: "Arial",
                         paddingLeft: "10px",
                         fontSize: "14px",
                       }}
@@ -4681,7 +4841,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         <Box display="flex" alignItems="center">
                           <Typography
                             style={{
-                              fontFamily: "Inter",
+                              fontFamily: "Arial",
                               fontSize: "22px",
                               fontWeight: 900,
                               marginBottom: "10px", // Adjusted to prevent too much space
@@ -4724,7 +4884,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               >
                                 <Typography
                                   style={{
-                                    fontFamily: "Inter",
+                                    fontFamily: "Arial",
                                     fontSize: "14px",
                                     color: "black",
                                   }}
@@ -4743,7 +4903,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     <Divider style={{ margin: "10px 0" }} />
                                     <Typography
                                       style={{
-                                        fontFamily: "Inter",
+                                        fontFamily: "Arial",
                                         fontSize: "12px",
                                         color: "black",
                                       }}
@@ -4779,7 +4939,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Box display="flex" alignItems="center">
                             <Typography
                               style={{
-                                fontFamily: "Inter",
+                                fontFamily: "Arial",
                                 fontSize: "22px",
                                 fontWeight: 600,
                                 marginBottom: "15px",
@@ -4815,7 +4975,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   paddingLeft: '20px',
                                   color: "#44475B",
                                   lineHeight: "30px",
-                                  fontFamily: "Inter",
+                                  fontFamily: "Arial",
                                   fontSize: "14px",
                                 }}
                               >
@@ -4833,7 +4993,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                                       <Typography
                                         style={{
-                                          fontFamily: "Inter",
+                                          fontFamily: "Arial",
                                           fontSize: "14px",
                                           marginTop: "20px",
                                           color: "black",
@@ -4852,7 +5012,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           alignItems: "center",
                                           width: "100%",
                                           borderRadius: "8px",
-                                          fontFamily: "Inter",
+                                          fontFamily: "Arial",
                                           fontSize: "18px",
                                           fontWeight: 900,
                                           marginBottom: "30px",
@@ -4905,7 +5065,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "18px",
                           color: "rgb(112,111,111)",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                         }}
                       >
                         Property price
@@ -4914,7 +5074,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           color: "#0170dc",
-                          fontFamily: "Inter",
+                          fontFamily: "Arial",
                         }}
                       >
                         INR{" "}
@@ -4937,7 +5097,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                         {/* Tokens */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4948,7 +5108,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Est. Yields */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4959,7 +5119,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Target APR */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4970,7 +5130,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Potential Gain */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Inter", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
+                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -5155,7 +5315,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             invtype == 0 ? "#00b386" : "gray",
                                           cursor: "pointer",
                                           fontSize: "16px",
-                                          fontFamily: "Inter",
+                                          fontFamily: "Arial",
                                         }}
                                         onClick={() => {
                                           {
@@ -5180,7 +5340,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           marginTop: "10px",
                                           cursor: "pointer",
                                           fontSize: "16px",
-                                          fontFamily: "Inter",
+                                          fontFamily: "Arial",
                                         }}
                                         onClick={() => {
                                           setinvtype(1);
@@ -5526,7 +5686,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                     <Typography
                       style={{
-                        fontFamily: "Inter",
+                        fontFamily: "Arial",
                         textAlign: "center",
                         fontSize: "14px",
                         marginTop: "16px",
@@ -5548,7 +5708,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <AutoAwesomeOutlinedIcon />
                     <Typography
                       style={{
-                        fontFamily: "Inter",
+                        fontFamily: "Arial",
                         paddingLeft: "10px",
                         fontSize: "14px",
                       }}
@@ -5575,7 +5735,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             <AutoAwesomeOutlinedIcon />
             <Typography
               style={{
-                fontFamily: "Inter",
+                fontFamily: "Arial",
                 paddingLeft: "10px",
                 fontSize: "14px",
               }}
@@ -5781,7 +5941,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   color: invtype == 0 ? "#00b386" : "gray",
                                   cursor: "pointer",
                                   fontSize: "16px",
-                                  fontFamily: "Inter",
+                                  fontFamily: "Arial",
                                 }}
                                 onClick={() => { }}
                               >
@@ -5796,7 +5956,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   marginRight: "12px",
                                   cursor: "pointer",
                                   fontSize: "16px",
-                                  fontFamily: "Inter",
+                                  fontFamily: "Arial",
                                 }}
                                 onClick={() => {
                                   setinvtype(1);
