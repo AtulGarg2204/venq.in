@@ -21,7 +21,8 @@ import {
   Typography,
   createTheme,
   styled,
-  useMediaQuery
+  useMediaQuery,
+  Collapse
 } from "@mui/material";
 import { alpha, borderRadius, color, fontSize, margin, padding, width } from "@mui/system";
 import axios from "axios";
@@ -53,7 +54,7 @@ const Navbar = () => {
   const sections = [
     'property-financials', 
     'return-calculator',
-    'property-overview',
+    'about-project',
     'amenities', 
     'documents', 
     'rera',
@@ -140,7 +141,7 @@ const Navbar = () => {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {['PROPERTY FINANCIALS', 'RETURN CALCULATOR', 'PROPERTY OVERVIEW', 'AMENITIES', 'DOCUMENTS', 'RERA', 'FINANCIALS', 'LAYOUT', 'FUNDING TIMELINE', 'LOCATION'].map(
+        {['PROPERTY FINANCIALS', 'RETURN CALCULATOR', 'ABOUT PROJECT', 'AMENITIES', 'DOCUMENTS', 'RERA', 'FINANCIALS', 'LAYOUT', 'FUNDING TIMELINE', 'LOCATION'].map(
           (label, index) => {
             const sectionId = label.toLowerCase().replace(/\s/g, '-'); // Maps label to section IDs
             return (
@@ -935,7 +936,29 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [truncatedContent, setTruncatedContent] = useState('');
   const [shouldTruncate, setShouldTruncate] = useState(false);
 
+  const [expandedCategories, setExpandedCategories] = useState({
+    sports: false,
+    convenience: false,
+    safety: false,
+    leisure: false,
+    environment: false,
+  });
 
+  const toggleCategory = (category) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
+  };
+
+  // Categorizing amenities
+  const categorizedAmenities = {
+    sports: ["Gym", "Swimming Pool"],
+    convenience: ["Parking", "Luxury Project"],
+    safety: ["24/7 Security"],
+    leisure: ["Clubhouse"],
+    environment: ["Enviroment friendly"],
+  };
   // console.log(location);
   useEffect(() => {
     const fetchListing = async () => {
@@ -1218,7 +1241,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [activeBoxIndex, setActiveBoxIndex] = useState(null); // Track which box is expanded for the new component
-
+  const [projectoverview, setProjectoverview] = useState("project-overview");
 
   const terms = [
     {
@@ -1937,139 +1960,244 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </ThemeProvider>
                         </Box>
                     </Box>
-                    <Box id="property-overview" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)" }}>
-                      <Typography
-                        style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
-                          color: "#44475b",
-                          fontFamily: "Arial",
-                          paddingBottom: "20px",
-                        }}
-                      >
-                        Property Overview
-                      </Typography>
-                      <Divider/>
-                      <Typography
-                        style={{
-                          fontFamily: "Arial",
-                          fontSize: "14px",
-                          color: "rgb(112,111,111)",
-                          marginTop: "20px"
-                        }}
-                      >
-                        {listing &&
-                          listing.propertyoverview &&
-                          listing.propertyoverview.length > maxWords && (
-                            <div>
-                              {listing.propertyoverview
-                                .split(" ")
-                                .slice(0, maxWords)
-                                .join(" ")}
-                              <div hidden={!showFullContent}>
-                                {listing.propertyoverview
-                                  .split(" ")
-                                  .slice(51, listing.propertyoverview.length)
-                                  .join(" ")}
-                              </div>
-                            </div>
-                          )}
-                        <MoreButton
-                          onClick={() => {
-                            setShowFullContent(!showFullContent);
-                          }}
-                        >
-                          {showFullContent ? "Show less" : "Show more"}
-                        </MoreButton>
-                      </Typography>
-                    </Box>
-                    <Box  id="amenities" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)" }}>
-                      <Typography
-                        style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
-                          fontFamily: "Arial",
-                          color: "#44475b",
-                          paddingBottom: "20px",
-                        }}
-                      >
-                        Amenities
-                      </Typography>
-                      <Divider/>
-                      <Box style={{ padding: "1px 0" }}>
-                        {listing && listing.amenities && (
-                          <Box
-                            style={{
-                              display: "flex",
-                              flexDirection: isSmallScreen ? "column" : "row",
-                              flexWrap: "wrap",
-                              marginTop: "20px"
-                            }}
-                          >
-                            {listing.amenities.map((listing_content, index) => (
-                              <Box
-                                key={index}
-                                style={{
-                                  flex: "0 0 50%",
-                                  boxSizing: "border-box",
-                                }}
-                              >
-                                <PropertyDetails
-                                  style={{
-                                    display: "flex",
-                                  }}
-                                >
-                                  <Logo style={{
-                                    display: "flex",
-                                    alignItems: "center", // Vertically center the logo and text
-                                    marginRight: "-5px",
-                                  }}>
-                                  {listing_content.aname === "Enviroment friendly" && (
-                                    <i class="fa-solid fa-seedling" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                  {listing_content.aname === "Luxury Project" && (
-                                    <i class="fa-solid fa-crown" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                  {listing_content.aname === "Gym" && (
-                                    <i class="fa-solid fa-dumbbell" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                  {listing_content.aname === "Parking" && (
-                                    <i class="fa-solid fa-square-parking" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                  {listing_content.aname === "Clubhouse" && (
-                                    <i class="fa-solid fa-champagne-glasses" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                  {listing_content.aname === "24/7 Security" && (
-                                    <i class="fa-solid fa-user-shield" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                  {listing_content.aname === "Swimming Pool" && (
-                                    <i class="fa-solid fa-person-swimming" style={{ fontSize: "20px" }}></i>
-                                  )}
-                                    {/* <img
-                                      src={listing_content.alink}
-                                      alt=""
-                                      style={{
-                                        height: "35px",
-                                        borderRadius: "50%",
-                                        backgroundColor: "black",
-                                      }}
-                                    /> */}
-                                  </Logo>
+                    <Box
+    id="about-project"
+    style={{
+      paddingBottom: "20px",
+      marginTop: "15px",
+      padding: "20px",
+      backgroundColor: "#fff",
+      borderRadius: "8px",
+      boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+    }}
+  >
+    <Typography
+      style={{
+        fontSize: "24px",
+        fontWeight: 600,
+        color: "#44475b",
+        fontFamily: "Arial",
+        paddingBottom: "20px",
+      }}
+    >
+      About {listing.properyheading}
+    </Typography>
+    <Divider />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        marginTop: "20px",
+        gap: "10px",
+      }}
+    >
+      <Box
+        onClick={() => setProjectoverview("project-overview")}
+        style={{
+          padding: "10px 20px 10px 20px",
+          color: projectoverview === "project-overview" ? "white" : "black",
+          backgroundColor: projectoverview === "project-overview" ? "black" : "white",
+          borderRadius: "8px",
+          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+          cursor: "pointer",
+        }}
+      >
+        Project Overview
+      </Box>
+      <Box
+        onClick={() => setProjectoverview("why-invest")}
+        style={{
+          padding: "10px 20px 10px 20px",
+          color: projectoverview === "why-invest" ? "white" : "black",
+          backgroundColor: projectoverview === "why-invest" ? "black" : "#fff",
+          borderRadius: "8px",
+          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+          cursor: "pointer",
+        }}
+      >
+        Why Invest?
+      </Box>
+    </div>
+    <Typography
+      style={{
+        fontFamily: "Arial",
+        fontSize: "14px",
+        color: "rgb(112,111,111)",
+        marginTop: "20px",
+      }}
+    >
+      {projectoverview === "project-overview" && (
+        <div  style={{fontFamily: "Arial", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
+          {listing.propertyoverview &&
+            listing.propertyoverview.length > maxWords && (
+              <div style={{ marginBottom: "10px" }}>
+                {listing.propertyoverview
+                  .split(" ")
+                  .slice(0, maxWords)
+                  .join(" ")}
+                <div hidden={!showFullContent}>
+                  {listing.propertyoverview
+                    .split(" ")
+                    .slice(maxWords, listing.propertyoverview.length)
+                    .join(" ")}
+                </div>
+              </div>
+            )}
+            <MoreButton
+        onClick={() => {
+          setShowFullContent(!showFullContent);
+        }}
+      >
+        {showFullContent ? "Show less" : "Show more"}
+      </MoreButton>
+        </div>
+      )}
+      {projectoverview === "why-invest" && (
+        <div>
+        <Typography
+          style={{
+            padding: "0px",
+            fontFamily: "Arial",
+             fontSize: "14px", lineHeight: "24px"
+          }}
+        >
+          <ul>
+            {listing.locationdescription
+              .split(".")
+              .map((sentence, index) =>
+                sentence.trim() ? (
+                  <li key={index} style={{ marginBottom: "10px" }}>
+                    {sentence.trim()}.
+                  </li>
+                ) : null
+              )}
+          </ul>
+        </Typography>
+      </div>
+      )}
+    </Typography>
+  </Box>
+  <Box
+  id="amenities"
+  style={{
+    paddingBottom: "20px",
+    marginTop: "15px",
+    padding: "20px",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+  }}
+>
+  <Typography
+    style={{
+      fontSize: "24px",
+      fontWeight: 600,
+      fontFamily: "Arial",
+      color: "#44475b",
+      paddingBottom: "20px",
+    }}
+  >
+    {listing.properyheading} Amenities
+  </Typography>
+  <Divider />
 
-                                  <PropertyHeadingSmall
-                                    style={{
-                                      color: "rgb(112,111,111)",
-                                    }}
-                                  >
-                                    {listing_content.aname}
-                                  </PropertyHeadingSmall>
-                                </PropertyDetails>
-                              </Box>
-                            ))}
-                          </Box>
-                        )}
-                      </Box>
-                    </Box>
+  {Object.entries(categorizedAmenities).map(([category, items]) => (
+    <Box
+      key={category}
+      style={{
+        marginTop: "20px",
+        padding: "10px",
+        backgroundColor: "#fff",
+        borderRadius: "8px",
+        border: "1px solid #e9e9eb",
+      }}
+    >
+      <Button
+        onClick={() => toggleCategory(category)}
+        style={{
+          fontSize: "16px",
+          fontWeight: "bold",
+          textTransform: "none",
+          color: "#44475b",
+          backgroundColor: "white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+        endIcon={
+          expandedCategories[category] ? (
+            <ExpandMoreIcon />
+          ) : (
+            <ExpandMoreIcon style={{ transform: "rotate(180deg)" }} />
+          )
+        }
+      >
+        {category.charAt(0).toUpperCase() + category.slice(1)}
+      </Button>
+      <Collapse in={expandedCategories[category]}>
+        <Box
+          style={{
+            marginTop: "15px",
+            display: "flex",
+            flexDirection: isSmallScreen ? "column" : "row",
+            flexWrap: "wrap",
+            padding: "10px",
+          }}
+        >
+          {items.map((item, index) => (
+            <Box
+              key={index}
+              style={{
+                flex: "0 0 50%",
+                boxSizing: "border-box",
+                padding: "10px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <i
+                className={`fa-solid ${
+                  item === "Enviroment friendly"
+                    ? "fa-seedling"
+                    : item === "Luxury Project"
+                    ? "fa-crown"
+                    : item === "Gym"
+                    ? "fa-dumbbell"
+                    : item === "Parking"
+                    ? "fa-square-parking"
+                    : item === "Clubhouse"
+                    ? "fa-champagne-glasses"
+                    : item === "24/7 Security"
+                    ? "fa-user-shield"
+                    : item === "Swimming Pool"
+                    ? "fa-person-swimming"
+                    : ""
+                }`}
+                style={{
+                  fontSize: "20px",
+                  marginRight: "10px",
+                  color: "#44475b",
+                }}
+              ></i>
+              <Typography
+                style={{
+                  fontFamily: "Arial",
+                  fontSize: "16px",
+                  color: "rgb(112,111,111)",
+                }}
+              >
+                {item}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+      </Collapse>
+    </Box>
+  ))}
+</Box>
+
 
                     <Box id="documents"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
@@ -2487,7 +2615,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           color: "#44475b",
                         }}
                       >
-                        Location
+                        {listing.properyheading} Location Map and Landmarks
                       </Typography>
                         <Divider/>
                       <Box
@@ -2499,7 +2627,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           marginTop: "20px"
                         }}
                       >
-                        <PlaceOutlinedIcon style={{ color: "#0170dc" }} />
+                        {/* <PlaceOutlinedIcon style={{ color: "#0170dc" }} />
                         <LocationName
                           style={{
                             fontFamily: "Arial",
@@ -2510,7 +2638,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           onClick={handleLocation}
                         >
                           The location is displayed below in the map
-                        </LocationName>
+                        </LocationName> */}
                       </Box>
 
                       <Box>
