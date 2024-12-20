@@ -50,13 +50,13 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
-    const sections = ['property-overview', 'amenities','documents','rera', 'layout', 'location'];
+    const sections = ['property-financials', 'return-calculator','property-overview','amenities', 'documents', 'rera','financials' ,'layout', 'funding','location'];
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id); 
+            setActiveSection(entry.target.id);
           }
         });
       },
@@ -84,72 +84,63 @@ const Navbar = () => {
     borderBottom: '3px solid black',
     paddingBottom: '10px',
   };
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
+
   return (
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "white",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        backgroundColor: 'white',
+        borderTop: '1px solid #e9e9eb',
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
         width: '100%',
-        overflowX: "auto", // Enables horizontal scrolling
-    whiteSpace: "nowrap",
+        padding: "10px 40px 0px 40px",
       }}
     >
-      <Toolbar>
-        <Box sx={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
-          <Button
-            color="inherit"
-            sx={activeSection === 'property-overview' ? activeStyle : {}}
-            onClick={() => scrollToSection('property-overview')}
-          >
-            Property Overview
-          </Button>
-          <Button
-            color="inherit"
-            sx={activeSection === 'amenities' ? activeStyle : {}}
-            onClick={() => scrollToSection('amenities')}
-          >
-            Amenities
-          </Button>
-          <Button
-            color="inherit"
-            sx={activeSection === 'documents' ? activeStyle : {}}
-            onClick={() => scrollToSection('documents')}
-          >
-            Documents
-          </Button>
-          <Button
-            color="inherit"
-            sx={activeSection === 'rera' ? activeStyle : {}}
-            onClick={() => scrollToSection('rera')}
-          >
-            Rera
-          </Button>
-          <Button
-            color="inherit"
-            sx={activeSection === 'layout' ? activeStyle : {}}
-            onClick={() => scrollToSection('layout')}
-          >
-            Layout
-          </Button>
-          <Button
-            color="inherit"
-            sx={activeSection === 'location' ? activeStyle : {}}
-            onClick={() => scrollToSection('location')}
-          >
-            Location
-          </Button>
-        </Box>
+      <Toolbar
+        sx={{
+          display: 'inline-block',
+          overflowX: 'auto', // Enables horizontal scrolling
+          scrollBehavior: 'smooth',
+          whiteSpace: 'nowrap',
+          gap: '40px', // Adds constant spacing between items
+          padding: '10px 20px 0px 20px',
+          "&::-webkit-scrollbar": { display: "none" },
+        }}
+      >
+        {['PROPERTY FINANCIALS','RETURN CALCULATOR','PROPERTY OVERVIEW','AMENITIES', 'DOCUMENTS', 'RERA','FINANCIALS', 'LAYOUT','FUNDING TIMELINE', 'LOCATION'].map(
+          (label, index) => {
+            const sectionId = label.toLowerCase().replace(/\s/g, '-'); // Maps label to section IDs
+            return (
+              <Button
+                key={index}
+                color="inherit"
+                sx={{
+                  // fontWeight: 'bold',
+                  textTransform: 'uppercase', // Ensures text is capitalized
+                  position: 'relative',
+                  whiteSpace: 'nowrap',
+                  padding: '0 30px',
+                  ...(activeSection === sectionId && activeStyle),
+                }}
+                onClick={() => scrollToSection(sectionId)}
+              >
+                {label}
+              </Button>
+            );
+          }
+        )}
       </Toolbar>
     </AppBar>
   );
 };
+
 
 
 const Options = styled(Link)`
@@ -1366,6 +1357,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         <SubTitle>No property description available</SubTitle>
       )}
     </Box>
+    <Divider/>
     <Box style={{ padding: "10px 0" }}>
                       {listing && listing.specs && (
                         <Box style={{ display: "flex", flexWrap: "wrap" }}>
@@ -1747,43 +1739,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         // backgroundColor: "#f5f5f5", 
       }}
     >
-              {/* this is the new work */}
-              <Details>
-                <Box>
-                  {" "}
-                  <Typography
-                    style={{
-                      fontFamily: "Arial",
-                      fontWeight: 700,
-                      color: "rgb(70, 59, 59)",
-                      // color:"white",
-                      fontSize: "25px",
-                      width: "100%",
-                      paddingBottom: "10px",
-                    }}
-                  >
-                    {listing.properyheading}
-                  </Typography>
-                </Box>
-                <Box
-                  style={{
-                    display: "flex",
-                    paddingBottom: "30px",
-                  }}
-                >
-                  {listing.propertydescription ? (
-                    listing.propertydescription
-                      .split("|")
-                      .map((part, index) => (
-                        <Box key={index} style={{ margin: "0 10px" }}>
-                          <SubTitle>{part.trim()}</SubTitle>
-                        </Box>
-                      ))
-                  ) : (
-                    <SubTitle>No property description available</SubTitle>
-                  )}
-                </Box>
-                <Box
+              {/* property-overview and property-financial buttons */}
+                {/* <Box
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -1813,47 +1770,144 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     Property Financial
                   </Button>
                 </Box>
-                <Divider />
+                <Divider /> */}
                 {activeTab === "overview" && !isSmallScreen && (
                   <>
-                    <Box style={{ padding: "10px 0" }}>
-                      {listing && listing.specs && (
-                        <Box style={{ display: "flex", flexWrap: "wrap" }}>
-                          {listing.specs.map((listing_content, index) => (
-                            <Box
-                              key={index}
+                    <Box id="property-financials" style={{ paddingBottom: "20px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        justifyContent: "start",
+                        marginTop: "20px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontFamily: "Arial",
+                          fontWeight: 700,
+                          color: "#44575B",
+                          fontSize: "25px",
+                        }}
+                      >
+                        33.16%
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "Arial",
+                          fontWeight: 600,
+                          color: "#a1a3ad",
+                          fontSize: "13px",
+                        }}
+                      >
+                        3Y annualised
+                      </p>
+                    </Box>
+                    <Box
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontFamily: "Arial",
+                          fontWeight: 600,
+                          color: "#50B487",
+                          fontSize: "13px",
+                        }}
+                      >
+                        +0.45%
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "Arial",
+                          fontWeight: 600,
+                          color: "#a1a3ad",
+                          fontSize: "13px",
+                        }}
+                      >
+                        1M
+                      </p>
+                    </Box>
+                    <Box>
+                      <div>
+                        {/* Other components or JSX here */}
+                        {memoizedChartData && <LineChart data={memoizedChartData} />}
+                      </div>
+                    </Box>
+                    </Box>
+                    <Box id="return-calculator" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Typography
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: 600,
+                          color: "#44475b",
+                          fontFamily: "Arial",
+                          paddingBottom: "20px",
+                          paddingTop: "20px",
+
+                        }}
+                      >
+                        Return Calculator
+                      </Typography>
+                      <Box
+                          style={{
+                            // backgroundColor: "red",
+                            // marginTop: "30px",
+                            marginBottom: "30px",
+                            paddingTop: "30px",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "start",
+                            border: "0.2px solid #e9e9eb",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <Return_cal minAmountToInvest={listing.minAmountToInvest} />
+                        </Box>
+
+                        <Box
+                          style={{
+                            backgroundColor: "#f6f7f9",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            margin: "0 30px 40px 30px",
+                          }}
+                        >
+                          <ThemeProvider theme={theme}>
+                            <Typography
                               style={{
-                                flex: "0 0 50%",
-                                boxSizing: "border-box",
-                                padding: "10px",
+                                fontSize: "14px",
+                                fontFamily: "Arial",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
                               }}
                             >
-                              <PropertyDetails>
-                                <Logo>
-                                  <img
-                                    src={listing_content.specsimage}
-                                    alt=""
-                                    style={{
-                                      height: "35px",
-                                      borderRadius: "50%",
-                                    }}
-                                  />
-                                </Logo>
-                                <Box>
-                                  <PropertyHeadingSmall>
-                                    {listing_content.specstitle}
-                                  </PropertyHeadingSmall>
-                                  <PropertySubHeading>
-                                    {listing_content.specssubtitle}
-                                  </PropertySubHeading>
-                                </Box>
-                              </PropertyDetails>
-                            </Box>
-                          ))}
+                              Default values are based on property numbers
+                              <Tooltip title={info1} placement="top">
+                                <Typography
+                                  style={{
+                                    border: "1px solid rgb(112,111,111)",
+                                    color: "rgb(112,111,111)",
+                                    display: "inline",
+                                    cursor: "pointer",
+                                    padding: "0px 6px",
+                                    marginLeft: "5px",
+                                    borderRadius: "50%",
+                                    fontSize: "10px",
+                                  }}
+                                >
+                                  i
+                                </Typography>
+                              </Tooltip>
+                            </Typography>
+                          </ThemeProvider>
                         </Box>
-                      )}
                     </Box>
-                    <Divider />
                     <Box id="property-overview" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
@@ -2077,6 +2131,217 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             </p>
                           </Box>
                     </Box>
+                    <Box id="financials" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Typography
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: 600,
+                          color: "#44475b",
+                          fontFamily: "Arial",
+                          paddingBottom: "20px",
+                          paddingTop: "20px",
+                        }}
+                      >
+                        Financials
+                      </Typography>
+                    <Box style={{ paddingBottom: "20px" }}>
+                        <Grid container spacing={5}>
+                          <Grid item xs={12} md={6}>
+                            <Box style={{ padding: "10px 0" }}>
+                              <FinanceHeading>Property cost</FinanceHeading>
+
+                              <Box>
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "10px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Property price
+                                  </FinanceSubHeading>
+                                  <FinanceAmount>
+                                    INR {listing.propertypricen}
+
+                                  </FinanceAmount>
+                                </Box>
+
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "5px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Transaction costs
+                                  </FinanceSubHeading>
+                                  <FinanceAmount>
+                                    INR {listing.transactioncost}
+                                  </FinanceAmount>
+                                </Box>
+
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "10px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Govt. Fees
+                                  </FinanceSubHeading>
+                                  <FinanceAmount>
+                                    {listing.venqfee}
+                                  </FinanceAmount>
+                                </Box>
+                              </Box>
+
+                              <Divider />
+
+                              <Box>
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "5px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Investment cost
+                                  </FinanceSubHeading>
+                                  <FinanceAmount style={{ color: "#0170dc" }}>
+                                    INR {listing.propertyprice}
+                                  </FinanceAmount>
+                                </Box>
+                              </Box>
+                            </Box>
+                          </Grid>
+
+                          <Grid item xs={12} md={6}>
+                            <Box style={{ padding: "10px 0" }}>
+                              <FinanceHeading>
+                                Rental income (Year 1)
+                              </FinanceHeading>
+
+                              <Box>
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "10px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Projected gross rent
+                                  </FinanceSubHeading>
+                                  <FinanceAmount>
+                                    INR {listing.projectedgrossrent}
+                                  </FinanceAmount>
+                                </Box>
+
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "10px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Service charges
+                                  </FinanceSubHeading>
+                                  <FinanceAmount>
+                                    (INR {listing.servicecharges})
+                                  </FinanceAmount>
+                                </Box>
+
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "10px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Mgmt. and maintenance
+                                  </FinanceSubHeading>
+                                  <FinanceAmount>
+                                    (INR {listing.maintainencefee})
+                                  </FinanceAmount>
+                                </Box>
+                              </Box>
+
+                              <Divider />
+
+                              <Box>
+                                <Box
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "10px 0",
+                                  }}
+                                >
+                                  <FinanceSubHeading>
+                                    Annual net income
+                                  </FinanceSubHeading>
+                                  <FinanceAmount style={{ color: "#0170dc" }}>
+                                    INR {listing.annualnetincome}
+                                  </FinanceAmount>
+                                </Box>
+                              </Box>
+
+                              <Box
+                                style={{
+                                  backgroundColor: "#f6f7f9",
+                                  padding: "10px",
+                                  borderRadius: "10px",
+                                }}
+                              >
+                                <ThemeProvider theme={theme}>
+                                  <Typography
+                                    style={{
+                                      fontSize: "13px",
+                                      fontFamily: "Arial",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    This is an estimate for the 1st year of
+                                    ownership
+                                    <Tooltip title={info1} placement="top">
+                                      <Typography
+                                        style={{
+                                          border: "1px solid rgb(112,111,111)",
+                                          color: "rgb(112,111,111)",
+                                          display: "inline",
+                                          cursor: "pointer",
+                                          padding: "0px 6px",
+                                          marginLeft: "5px",
+                                          borderRadius: "50%",
+                                          fontSize: "10px",
+                                        }}
+                                      >
+                                        i
+                                      </Typography>
+                                    </Tooltip>
+                                  </Typography>
+                                </ThemeProvider>
+                              </Box>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    </Box>
                     <Box id="layout"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
@@ -2154,6 +2419,34 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </div>
                         )}
                       </Box>
+                    </Box>
+                    <Box id="funding" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                        <Typography
+                          style={{
+                            fontSize: "24px",
+                            fontWeight: 600,
+                            fontFamily: "Arial",
+                            padding: "20px 0",
+                          }}
+                        >
+                          Funding timeline
+                        </Typography>
+
+                        <Box
+                          style={{
+                            backgroundColor: "#f6f7f9",
+                            padding: "10px 20px",
+                            borderRadius: "10px",
+                            width: "fit-content",
+                          }}
+                        >
+                          <Typography
+                            style={{ fontSize: "12px", fontFamily: "Arial" }}
+                          >
+                            Each step may occur earlier than the dates below
+                          </Typography>
+                        </Box>
+                        <Period fundt={listing.fundtimeline} />
                     </Box>
                     <Box id="location"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
@@ -2294,612 +2587,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     </Box>
                   </>
                 )}
-                {activeTab === "financial" && !isSmallScreen && (
-                  <>
-                    <Box
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        justifyContent: "start",
-                        marginTop: "20px",
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: "Arial",
-                          fontWeight: 700,
-                          color: "#44575B",
-                          fontSize: "25px",
-                        }}
-                      >
-                        {listing.annualizedreturn}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "Arial",
-                          fontWeight: 600,
-                          color: "#a1a3ad",
-                          fontSize: "13px",
-                        }}
-                      >
-                        3Y annualised
-                      </p>
-                    </Box>
-                    <Box
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: "Arial",
-                          fontWeight: 600,
-                          color: "#50B487",
-                          fontSize: "13px",
-                        }}
-                      >
-                        {listing.monthlyChange}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "Arial",
-                          fontWeight: 600,
-                          color: "#a1a3ad",
-                          fontSize: "13px",
-                        }}
-                      >
-                        1M
-                      </p>
-                    </Box>
-
-                    <Box
-                      style={{
-                        marginTop: "20px",
-                      }}
-                    >
-                      <div>
-                        {/* Other components or JSX here */}
-                        {memoizedChartData && <LineChart data={memoizedChartData} />}
-                      </div>                      <Divider
-                        style={{
-                          margin: "20px 0", // Space above and below the divider
-                          backgroundColor: "#e0e0e0", // Color of the divider
-                          height: "1px", // Thickness of the divider
-                        }}
-                      />
-
-
-                      <SubTitle
-                        style={{
-                          width: "28px",
-                          alignItems: "center",
-                          textAlign: "center",
-                          marginLeft: "46%",
-                          marginTop: "10px",
-                        }}
-                      >
-                        3Y
-                      </SubTitle>
-                      <Box
-                        style={{
-                          marginTop: "30px",
-                          marginBottom: "30px",
-                          paddingTop: "30px",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "start",
-                          border: "0.2px solid #e9e9eb",
-                          borderRadius: "10px",
-                        }}
-                      >
-                        <Typography
-                          style={{
-                            fontSize: "24px",
-                            fontWeight: 600,
-                            fontFamily: "Arial",
-                            padding: "5px 0",
-                            marginBottom: "5vh",
-                            textAlign: "start",
-                            marginLeft: "",
-                          }}
-                        >
-                          {" "}
-                          Return Calculator
-                        </Typography>
-                        <Return_cal minAmountToInvest={listing.minAmountToInvest} />
-                      </Box>
-
-                      <Box
-                        style={{
-                          backgroundColor: "#f6f7f9",
-                          padding: "10px",
-                          borderRadius: "10px",
-                          margin: "0 30px 40px 30px",
-                        }}
-                      >
-                        <ThemeProvider theme={theme}>
-                          <Typography
-                            style={{
-                              fontSize: "14px",
-                              fontFamily: "Arial",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            Default values are based on property numbers
-                            <Tooltip title={info1} placement="top">
-                              <Typography
-                                style={{
-                                  border: "1px solid rgb(112,111,111)",
-                                  color: "rgb(112,111,111)",
-                                  display: "inline",
-                                  cursor: "pointer",
-                                  padding: "0px 6px",
-                                  marginLeft: "5px",
-                                  borderRadius: "50%",
-                                  fontSize: "10px",
-                                }}
-                              >
-                                i
-                              </Typography>
-                            </Tooltip>
-                          </Typography>
-                        </ThemeProvider>
-                      </Box>
-                    </Box>
-                    {isSmallScreen ? (
-                      <Box style={{ paddingBottom: "20px" }}>
-                        <Typography
-                          style={{
-                            fontSize: "24px",
-                            fontWeight: 600,
-                            fontFamily: "Arial",
-                            padding: "5px 0",
-                          }}
-                        >
-                          Financials
-                        </Typography>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={12} md={6}>
-                            <Box style={{ padding: "10px 0" }}>
-                              <FinanceHeading>Property cost</FinanceHeading>
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Property price
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    INR {listing.propertypricen}
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "5px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Transaction costs
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    INR {listing.transactioncost}
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Govt. Fees
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    {listing.venqfee}
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-
-                              <Divider />
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "5px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Investment cost
-                                  </FinanceSubHeading>
-                                  <FinanceAmount style={{ color: "#0170dc" }}>
-                                    INR {listing.propertyprice}
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-                            </Box>
-                          </Grid>
-
-                          <Grid item xs={12} md={6}>
-                            <Box style={{ padding: "10px 0" }}>
-                              <FinanceHeading>
-                                Rental income (Year 1)
-                              </FinanceHeading>
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Projected gross rent
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    INR {listing.projectedgrossrent}
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Service charges
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    (INR {listing.servicecharges})
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Mgmt. and maintenance
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    (INR {listing.maintainencefee})
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-
-                              <Divider />
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Annual net income
-                                  </FinanceSubHeading>
-                                  <FinanceAmount style={{ color: "#0170dc" }}>
-                                    INR {listing.annualnetincome}
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-
-                              <Box
-                                style={{
-                                  backgroundColor: "#f6f7f9",
-                                  padding: "10px",
-                                  borderRadius: "10px",
-                                }}
-                              >
-                                <ThemeProvider theme={theme}>
-                                  <Typography
-                                    style={{
-                                      fontSize: "13px",
-                                      fontFamily: "Arial",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    This is an estimate for the 1st year of
-                                    ownership
-                                    <Tooltip title={info1} placement="top">
-                                      <Typography
-                                        style={{
-                                          border: "1px solid rgb(112,111,111)",
-                                          color: "rgb(112,111,111)",
-                                          display: "inline",
-                                          cursor: "pointer",
-                                          padding: "0px 6px",
-                                          marginLeft: "5px",
-                                          borderRadius: "50%",
-                                          fontSize: "10px",
-                                        }}
-                                      >
-                                        i
-                                      </Typography>
-                                    </Tooltip>
-                                  </Typography>
-                                </ThemeProvider>
-                              </Box>
-                            </Box>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    ) : (
-                      <Box style={{ paddingBottom: "20px" }}>
-                        <Typography
-                          style={{
-                            fontSize: "24px",
-                            fontWeight: 600,
-                            fontFamily: "Arial",
-                            padding: "5px 0",
-                          }}
-                        >
-                          Financials
-                        </Typography>
-
-                        <Grid container spacing={5}>
-                          <Grid item xs={6}>
-                            <Box style={{ padding: "10px 0" }}>
-                              <FinanceHeading>Property cost</FinanceHeading>
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Property price
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    INR {listing.propertypricen}
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Transaction costs
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    INR {listing.transactioncost}
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Govt. Fees
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    {listing.venqfee}
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-
-                              <Divider />
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Investment cost
-                                  </FinanceSubHeading>
-                                  <FinanceAmount style={{ color: "#0170dc" }}>
-                                    INR {listing.propertyprice}
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-                            </Box>
-                          </Grid>
-
-                          <Grid item xs={6}>
-                            <Box style={{ padding: "10px 0" }}>
-                              <FinanceHeading>
-                                Rental income (Year 1)
-                              </FinanceHeading>
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Projected gross rent
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    INR {listing.projectedgrossrent}
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Service charges
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    (INR {listing.servicecharges})
-                                  </FinanceAmount>
-                                </Box>
-
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Mgmt. and maintenance
-                                  </FinanceSubHeading>
-                                  <FinanceAmount>
-                                    (INR {listing.maintainencefee})
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-
-                              <Divider />
-
-                              <Box>
-                                <Box
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    padding: "10px 0",
-                                  }}
-                                >
-                                  <FinanceSubHeading>
-                                    Annual net income
-                                  </FinanceSubHeading>
-                                  <FinanceAmount style={{ color: "#0170dc" }}>
-                                    INR {listing.annualnetincome}
-                                  </FinanceAmount>
-                                </Box>
-                              </Box>
-
-                              <Box
-                                style={{
-                                  backgroundColor: "#f6f7f9",
-                                  padding: "10px",
-                                  borderRadius: "10px",
-                                }}
-                              >
-                                <ThemeProvider theme={theme}>
-                                  <Typography
-                                    style={{
-                                      fontSize: "13px",
-                                      fontFamily: "Arial",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    This is an estimate for the 1st year of
-                                    ownership
-                                    <Tooltip title={info1} placement="top">
-                                      <Typography
-                                        style={{
-                                          border: "1px solid rgb(112,111,111)",
-                                          color: "rgb(112,111,111)",
-                                          display: "inline",
-                                          cursor: "pointer",
-                                          padding: "0px 6px",
-                                          marginLeft: "5px",
-                                          borderRadius: "50%",
-                                          fontSize: "10px",
-                                        }}
-                                      >
-                                        i
-                                      </Typography>
-                                    </Tooltip>
-                                  </Typography>
-                                </ThemeProvider>
-                              </Box>
-                            </Box>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    )}
-                    {listing.fundtimeline && (
-                      <Box style={{ paddingBottom: "20px" }}>
-                        <Typography
-                          style={{
-                            fontSize: "24px",
-                            fontWeight: 600,
-                            fontFamily: "Arial",
-                            padding: "20px 0",
-                          }}
-                        >
-                          Funding timeline
-                        </Typography>
-
-                        <Box
-                          style={{
-                            backgroundColor: "#f6f7f9",
-                            padding: "10px 20px",
-                            borderRadius: "10px",
-                            width: "fit-content",
-                          }}
-                        >
-                          <Typography
-                            style={{ fontSize: "12px", fontFamily: "Arial" }}
-                          >
-                            Each step may occur earlier than the dates below
-                          </Typography>
-                        </Box>
-                        <Period fundt={listing.fundtimeline} />
-                      </Box>
-                    )}
-                  </>
-                )}
+                
                 {activeTab === "financial" && isSmallScreen && (
                   <>
                     <Box
@@ -3744,7 +3432,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     </Box>
                   </>
                 )}
-              </Details>
             </Grid>
 
             {!isSmallScreen && listing?.islive == 3 && (
@@ -4430,9 +4117,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   <Box
                     style={{
                       backgroundColor: "white",
-                      border: "0.2px solid #e9e9eb",
-                      borderRadius: "20px",
+                      borderRadius: "8px",
                       padding: "20px",
+                      paddingBottom: "20px",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", 
+                      border: "1px solid #ddd"
                     }}
                   >
                     <Box style={{ textAlign: "center", paddingBottom: "10px" }}>
@@ -5030,11 +4719,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           margin: "20px 0", // Keep only vertical margins
                           padding: "20px 40px",
-                          backgroundColor: "#ffffff",
-                          borderRadius: "22px",
-                          border: "0.2px solid #e9e9eb",
                           display: "flex",
                           flexDirection: "column",
+                          backgroundColor: "white",
+                          borderRadius: "8px",
+                          // paddingBottom: "20px",
+                          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", 
+                          border: "1px solid #ddd"
                         }}
                         onClick={() => setExpandedIndex(expandedIndex === 0 ? null : 0)} // Toggle expand on click
                       >
