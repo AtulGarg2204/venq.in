@@ -23,7 +23,7 @@ import {
   styled,
   useMediaQuery
 } from "@mui/material";
-import { alpha, color, fontSize, padding, width } from "@mui/system";
+import { alpha, color, fontSize, margin, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useReducer, useState, useMemo } from "react";
@@ -94,7 +94,7 @@ const Navbar = () => {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "#f6f7f9",
+        backgroundColor: "white",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
         width: '100%',
         overflowX: "auto", // Enables horizontal scrolling
@@ -1263,10 +1263,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     <div
       style={{
         opacity: openinv ? "0.25" : "1.0",
-        backgroundColor: "white",
+        backgroundColor: "#f5f5f5",
       }}
     >
-      <Box style={{ padding: "20px" }}>
+      <Box style={{ padding: "20px", backgroundColor: "white" }}>
         <Box
           style={{
             display: "flex",
@@ -1300,7 +1300,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             </Typography>
           </Box>
 
-          <Box>
+          <Box style={{ marginBottom: "20px" }}>
             {!isSmallScreen && (
               <Bookmark onClick={() => setClicked(!clicked)}>
                 {clicked === true ? (
@@ -1321,149 +1321,322 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             )}
           </Box>
         </Box>
-
         <Box
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            alignContent: "center",
-            flexDirection: "column",
-            position: "relative",
-            marginTop: "20px",
-            borderRadius: "20px",
-          }}
-        >
-          {isSmallScreen ? (
-            <Grid item xs={2} sm={4} md={4}>
-              <Property sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                  <CardMedia>
-                    <Carousel showIndicators={false} showThumbs={false}>
-                      {listing.images &&
-                        listing.images
-                          .slice(0, 4)
-                          .map((item, index) => (
-                            <img src={item} alt="image" height={240} />
+  style={{
+    display: "flex",
+    flexDirection: isSmallScreen ? "column" : "row", // Switch layout based on screen size
+    alignItems: "center", // Align items at the start of the container
+    justifyContent: "center",
+    gap: "20px", // Add spacing between the boxes
+    borderRadius: "20px",
+    backgroundColor: "white",
+  }}
+>
+  {/* Heading Section */}
+  <Box style={{ flex: 1,flexBasis: "50%", marginTop: "40px", marginLeft: "20px" }}>
+    <Box>
+      <Typography
+        style={{
+          fontFamily: "Arial",
+          fontWeight: 700,
+          color: "rgb(70, 59, 59)",
+          fontSize: "25px",
+          width: "100%",
+          paddingBottom: "10px",
+        }}
+      >
+        {listing.properyheading}
+      </Typography>
+    </Box>
+    <Box
+      style={{
+        display: "flex",
+        paddingBottom: "30px",
+      }}
+    >
+      {listing.propertydescription ? (
+        listing.propertydescription
+          .split("|")
+          .map((part, index) => (
+            <Box key={index} style={{ margin: "0 10px" }}>
+              <SubTitle>{part.trim()}</SubTitle>
+            </Box>
+          ))
+      ) : (
+        <SubTitle>No property description available</SubTitle>
+      )}
+    </Box>
+    <Box style={{ padding: "10px 0" }}>
+                      {listing && listing.specs && (
+                        <Box style={{ display: "flex", flexWrap: "wrap" }}>
+                          {listing.specs.map((listing_content, index) => (
+                            <Box
+                              key={index}
+                              style={{
+                                flex: "0 0 50%",
+                                boxSizing: "border-box",
+                                padding: "10px",
+                              }}
+                            >
+                              <PropertyDetails>
+                                <Logo>
+                                  <img
+                                    src={listing_content.specsimage}
+                                    alt=""
+                                    style={{
+                                      height: "35px",
+                                      borderRadius: "50%",
+                                    }}
+                                  />
+                                </Logo>
+                                <Box>
+                                  <PropertyHeadingSmall>
+                                    {listing_content.specstitle}
+                                  </PropertyHeadingSmall>
+                                  <PropertySubHeading>
+                                    {listing_content.specssubtitle}
+                                  </PropertySubHeading>
+                                </Box>
+                              </PropertyDetails>
+                            </Box>
                           ))}
-                    </Carousel>
-                  </CardMedia>
-                </CardActionArea>
-              </Property>
-            </Grid>
-          ) : (
-            <ImageList
-              sx={{ width: "100%", height: 500 }}
-              variant="quilted"
-              cols={10}
-            >
-              {listing.images &&
-                listing.images.slice(0, 4).map((item, index) => (
-                  <ImageListItem
-                    key={index}
-                    cols={colarr[index]}
-                    rows={rowarr[index]}
-                    sx={{ overflow: 'hidden' }}
+                        </Box>
+                      )}
+                    </Box>
+                    <Divider/>
+                    <Box style={{ display: "flex" }}>
+              <Box
+                style={{
+                  textAlign: "center",
+                  paddingBottom: "10px",
 
-                  >
-                    <img
-                      // srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                      style={{
-                        borderRadius: "10px",
-                        objectFit: "cover",
-                        height: "100%",
-                        width: "100%",
-                      }}
-                      src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                      alt={"my image"}
-                      loading="lazy"
-                    />
-                  </ImageListItem>
-                ))}
-            </ImageList>
-          )}
-
-          <Box
-            style={{
-              backgroundColor: "white",
-              display: "flex",
-              justifyContent: "center",
-              margin: "10px 0",
-              borderRadius: "50px",
-              position: "absolute",
-              bottom: -25,
-              right: 20,
-              border: "0.2px solid #e9e9eb",
-            }}
-          >
-            <PhotoLink to={ps}>
-              <SmallBoxes style={{ margin: "0 15px" }}>
-                <Box style={{ width: "40px", height: "40px", padding: "7px" }}>
-                  <svg
-                    viewBox="0 0 24 24"
-                    focusable="false"
-                    class="chakra-icon css-pawapt"
-                    aria-label="gallery"
-                  >
-                    <g
-                      fill="none"
-                      fill-rule="nonzero"
-                      stroke="#0170dc"
-                      stroke-width="1.2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M19.9969 21H4.00293C2.89793 21 2.00293 20.105 2.00293 19V5C2.00293 3.895 2.89793 3 4.00293 3H19.9969C21.1019 3 21.9969 3.895 21.9969 5V19C21.9969 20.105 21.1009 21 19.9969 21Z M9.41422 7.58579C10.1953 8.36684 10.1953 9.63317 9.41422 10.4142C8.63317 11.1953 7.36684 11.1953 6.58579 10.4142C5.80474 9.63317 5.80474 8.36684 6.58579 7.58579C7.36684 6.80474 8.63317 6.80474 9.41422 7.58579 M22 15.9999L17.781 12.6249C17.35 12.2799 16.72 12.3499 16.375 12.7809L13.039 16.9509C12.694 17.3819 12.065 17.4519 11.633 17.1069L9.765 15.6119C9.34 15.2719 8.721 15.3339 8.372 15.7529L4 20.9999"></path>
-                    </g>
-                  </svg>
-                </Box>
-
-                <Extra>
-                  {listing.images != undefined ? listing.images.length : 8}{" "}
-                  photos
-                </Extra>
-              </SmallBoxes>
-            </PhotoLink>
-
-            <Divider
-              orientation="vertical"
-              style={{ backgroundColor: "rgb(112,111,111)" }}
-              flexItem
-              variant="middle"
-            />
-
-            <SmallBoxes style={{ margin: "0 15px 0 5px" }}>
-              <Box style={{ width: "40px", height: "40px", padding: "7px" }}>
-                <svg
-                  viewBox="0 0 24 24"
-                  focusable="false"
-                  class="chakra-icon css-pawapt"
-                  aria-label="virtual-tour"
-                >
-                  <g
-                    fill="none"
-                    fill-rule="nonzero"
-                    stroke="#0170dc"
-                    stroke-width="1.2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M21 16.0412V7.95921C21 7.24421 20.619 6.58421 20 6.22721L13 2.18621C12.381 1.82921 11.619 1.82921 11 2.18621L4 6.22621C3.381 6.58421 3 7.24421 3 7.95921V16.0422C3 16.7572 3.381 17.4172 4 17.7742L11 21.8152C11.619 22.1722 12.381 22.1722 13 21.8152L20 17.7742C20.619 17.4162 21 16.7562 21 16.0412Z M12 22.08V12 M12 12L20.73 6.95996 M3.26953 6.95996L11.9995 12"></path>
-                  </g>
-                </svg>
-              </Box>
-
-              <Extra
-                onClick={() => {
-                  window.location.href = listing.tourlink;
+                  marginLeft: "3%",
+                  marginTop: "5%",
+                  marginRight: "3%",
                 }}
               >
-                Virtual tour
-              </Extra>
-            </SmallBoxes>
-          </Box>
-        </Box>
+                <Typography
+                  style={{
+                    fontSize: "18px",
+                    color: "rgb(112,111,111)",
+                    fontFamily: "Inter",
+                  }}
+                >
+                  Property price
+                </Typography>
+                <Typography
+                  style={{
+                    fontSize: "24px",
+                    color: "#0170dc",
+                    fontFamily: "Inter",
+                  }}
+                >
+                  INR{" "}
+                  <b style={{ fontSize: "32px" }}>{listing.propertyprice}</b>
+                </Typography>
+                <button
+                  style={{
+                    marginRight: "auto",
+                    marginTop: "10%",
+                    width: "140px",
+                  }}
+                  onClick={() => setOpen((o) => !o)}
+                >
+                  Invest
+                </button>
+              </Box>
 
+              <div
+                style={{
+                  marginTop: "10%",
+
+                  paddingLeft: "2%",
+                }}
+              >
+                <ProgressBar
+                  completed={95}
+                  isLabelVisible={false}
+                  className="wrapper"
+                  bgColor="#0170dc"
+                  height="0.6rem"
+                  width="112%"
+                  // labelClassName="label"
+                />
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between", // Distribute space between the two items
+                    margin: "1.5rem 0",
+                    width: "112%",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      marginRight: "30px",
+                      fontSize: "16px",
+
+                      fontFamily: "Inter",
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: "#50B487",
+                        fontSize: "18px",
+
+                        fontFamily: "Inter",
+                      }}
+                    >
+                      46
+                    </span>{" "}
+                    investors
+                  </Typography>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <img
+                      src={clock}
+                      style={{ marginRight: "1rem" }}
+                      alt="clock"
+                    />
+                    <span style={{ color: "red" }}>Closed on Sep 7, 2024</span>
+                  </div>
+                </div>
+              </div>
+            </Box>
+  </Box>
+
+  {/* Images Section */}
+  <Box
+    style={{
+      display: "flex",
+      flexBasis: "50%",
+      alignItems: isSmallScreen ? "center" : "flex-end",
+      justifyContent: "center",
+      alignContent: "center",
+      flexDirection: "column",
+      position: "relative",
+      margin: "20px",
+      borderRadius: "20px",
+    }}
+  >
+    {isSmallScreen ? (
+      <Grid item xs={2} sm={4} md={4}>
+        <Property sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardMedia>
+              <Carousel showIndicators={false} showThumbs={false}>
+                {listing.images &&
+                  listing.images.slice(0, 4).map((item, index) => (
+                    <img src={item} alt="" height={240} />
+                  ))}
+              </Carousel>
+            </CardMedia>
+          </CardActionArea>
+        </Property>
+      </Grid>
+    ) : (
+      <ImageList
+        sx={{ width: "100%", height: 500 }}
+        variant="quilted"
+        cols={10}
+      >
+        {listing.images &&
+          listing.images.slice(0, 4).map((item, index) => (
+            <ImageListItem
+              key={index}
+              cols={colarr[index]}
+              rows={rowarr[index]}
+              sx={{ overflow: "hidden" }}
+            >
+              <img
+                style={{
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                  height: "100%",
+                  width: "100%",
+                }}
+                src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                alt={""}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+      </ImageList>
+    )}
+    <Box
+      style={{
+        backgroundColor: "white",
+        display: "flex",
+        justifyContent: "center",
+        margin: "10px 0",
+        borderRadius: "50px",
+        position: "absolute",
+        bottom: -25,
+        right: 20,
+        border: "0.2px solid #e9e9eb",
+      }}
+    >
+      <PhotoLink to={ps}>
+        <SmallBoxes style={{ margin: "0 15px" }}>
+          <Box style={{ width: "40px", height: "40px", padding: "7px" }}>
+            <svg
+              viewBox="0 0 24 24"
+              focusable="false"
+              className="chakra-icon css-pawapt"
+              aria-label="gallery"
+            >
+              <g
+                fill="none"
+                stroke="#0170dc"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M19.9969 21H4.00293C2.89793 21 2.00293 20.105 2.00293 19V5C2.00293 3.895 2.89793 3 4.00293 3H19.9969C21.1019 3 21.9969 3.895 21.9969 5V19C21.9969 20.105 21.1009 21 19.9969 21Z M9.41422 7.58579C10.1953 8.36684 10.1953 9.63317 9.41422 10.4142C8.63317 11.1953 7.36684 11.1953 6.58579 10.4142C5.80474 9.63317 5.80474 8.36684 6.58579 7.58579C7.36684 6.80474 8.63317 6.80474 9.41422 7.58579 M22 15.9999L17.781 12.6249C17.35 12.2799 16.72 12.3499 16.375 12.7809L13.039 16.9509C12.694 17.3819 12.065 17.4519 11.633 17.1069L9.765 15.6119C9.34 15.2719 8.721 15.3339 8.372 15.7529L4 20.9999"></path>
+              </g>
+            </svg>
+          </Box>
+          <Extra>
+            {listing.images ? listing.images.length : 8} photos
+          </Extra>
+        </SmallBoxes>
+      </PhotoLink>
+      <Divider
+        orientation="vertical"
+        style={{ backgroundColor: "rgb(112,111,111)" }}
+        flexItem
+        variant="middle"
+      />
+      <SmallBoxes style={{ margin: "0 15px 0 5px" }}>
+        <Box style={{ width: "40px", height: "40px", padding: "7px" }}>
+          <svg
+            viewBox="0 0 24 24"
+            focusable="false"
+            className="chakra-icon css-pawapt"
+            aria-label="virtual-tour"
+          >
+            <g
+              fill="none"
+              stroke="#0170dc"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 16.0412V7.95921C21 7.24421 20.619 6.58421 20 6.22721L13 2.18621C12.381 1.82921 11.619 1.82921 11 2.18621L4 6.22621C3.381 6.58421 3 7.24421 3 7.95921V16.0422C3 16.7572 3.381 17.4172 4 17.7742L11 21.8152C11.619 22.1722 12.381 22.1722 13 21.8152L20 17.7742C20.619 17.4162 21 16.7562 21 16.0412Z M12 22.08V12 M12 12L20.73 6.95996 M3.26953 6.95996L11.9995 12"></path>
+            </g>
+          </svg>
+        </Box>
+        <Extra
+          onClick={() => {
+            window.location.href = listing.tourlink;
+          }}
+        >
+          Virtual tour
+        </Extra>
+      </SmallBoxes>
+    </Box>
+  </Box>
+</Box>
         {isSmallScreen && (
           <Grid
             item
@@ -1557,18 +1730,21 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             </Pricing>
           </Grid>
         )}
-
-        <Box style={{ padding: "10px 0", margin: "10px 0" }}>
+        </Box>
+        <Navbar/>
+        <Box style={{ padding: "20px" }}>
+          
+        <Box style={{ padding: "10px 0", margin: "10px 0", backgroundColor: "#f5f5f5" }}>
           <Grid container spacing={2}>
           <Grid
       item
       xs={12}
       sm={8}
       style={{
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
+        // boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
         padding: "16px",
         borderRadius: "8px", 
-        backgroundColor: "#fff", 
+        // backgroundColor: "#f5f5f5", 
       }}
     >
               {/* this is the new work */}
@@ -1678,7 +1854,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       )}
                     </Box>
                     <Divider />
-                    <Navbar/>
                     <Box id="property-overview" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                       <Typography
                         style={{
