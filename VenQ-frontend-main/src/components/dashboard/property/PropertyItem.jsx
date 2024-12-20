@@ -1395,7 +1395,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </Box>
                       )}
                     </Box>
-                    <Divider/>
+                    {!isSmallScreen && (
+                      <>
+                      <Divider/>
                     <Box style={{ display: "flex" }}>
               <Box
                 style={{
@@ -1495,6 +1497,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 </div>
               </div>
             </Box>
+            </>)}
   </Box>
 
   {/* Images Section */}
@@ -1771,8 +1774,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   </Button>
                 </Box>
                 <Divider /> */}
-                {activeTab === "overview" && !isSmallScreen && (
-                  <>
                     <Box id="property-financials" style={{ paddingBottom: "20px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
                     <Box
                       style={{
@@ -2585,9 +2586,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </Box>
                       </Box>
                     </Box>
-                  </>
-                )}
-                
                 {activeTab === "financial" && isSmallScreen && (
                   <>
                     <Box
