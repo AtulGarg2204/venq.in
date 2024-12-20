@@ -23,10 +23,10 @@ import {
   styled,
   useMediaQuery
 } from "@mui/material";
-import { alpha, color, fontSize, margin, padding, width } from "@mui/system";
+import { alpha, borderRadius, color, fontSize, margin, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
-import React, { useContext, useEffect, useReducer, useState, useMemo } from "react";
+import React, { useContext, useEffect, useReducer, useState, useMemo, useRef } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -48,10 +48,22 @@ import Return_cal from "./Return_cal";
 import { AppBar, Toolbar } from '@mui/material';
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('');
+  const navbarRef = useRef(null); // Ref to access the navbar's toolbar for scroll manipulation
+
+  const sections = [
+    'property-financials', 
+    'return-calculator',
+    'property-overview',
+    'amenities', 
+    'documents', 
+    'rera',
+    'financials',
+    'layout', 
+    'funding',
+    'location'
+  ];
 
   useEffect(() => {
-    const sections = ['property-financials', 'return-calculator','property-overview','amenities', 'documents', 'rera','financials' ,'layout', 'funding','location'];
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -60,9 +72,10 @@ const Navbar = () => {
           }
         });
       },
-      { threshold: 0.5 } // When 50% of the section is visible, it's considered active
+      { threshold: 0.5 } // 50% of the section needs to be visible
     );
 
+    // Observe all sections
     sections.forEach((sectionId) => {
       const section = document.getElementById(sectionId);
       if (section) {
@@ -85,11 +98,23 @@ const Navbar = () => {
     paddingBottom: '10px',
   };
 
-  const scrollToSection = (sectionId) => {
+  // Scroll to the specific section and adjust the navbar scroll
+  const scrollToSection = (sectionId, index) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+
+    // Adjust horizontal scroll of the navbar
+    const navbarWidth = navbarRef.current.offsetWidth;
+    const sectionWidth = 160; // Width of each navbar button (adjust as needed)
+    const scrollPosition = sectionWidth * index;
+
+    // Scroll the navbar to the correct position
+    navbarRef.current.scrollTo({
+      left: scrollPosition,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -104,9 +129,10 @@ const Navbar = () => {
       }}
     >
       <Toolbar
+        ref={navbarRef}
         sx={{
           display: 'inline-block',
-          overflowX: 'auto', // Enables horizontal scrolling
+          overflow: 'auto', // Enables horizontal scrolling
           scrollBehavior: 'smooth',
           whiteSpace: 'nowrap',
           gap: '40px', // Adds constant spacing between items
@@ -114,7 +140,7 @@ const Navbar = () => {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {['PROPERTY FINANCIALS','RETURN CALCULATOR','PROPERTY OVERVIEW','AMENITIES', 'DOCUMENTS', 'RERA','FINANCIALS', 'LAYOUT','FUNDING TIMELINE', 'LOCATION'].map(
+        {['PROPERTY FINANCIALS', 'RETURN CALCULATOR', 'PROPERTY OVERVIEW', 'AMENITIES', 'DOCUMENTS', 'RERA', 'FINANCIALS', 'LAYOUT', 'FUNDING TIMELINE', 'LOCATION'].map(
           (label, index) => {
             const sectionId = label.toLowerCase().replace(/\s/g, '-'); // Maps label to section IDs
             return (
@@ -122,14 +148,13 @@ const Navbar = () => {
                 key={index}
                 color="inherit"
                 sx={{
-                  // fontWeight: 'bold',
                   textTransform: 'uppercase', // Ensures text is capitalized
                   position: 'relative',
                   whiteSpace: 'nowrap',
                   padding: '0 30px',
                   ...(activeSection === sectionId && activeStyle),
                 }}
-                onClick={() => scrollToSection(sectionId)}
+                onClick={() => scrollToSection(sectionId, index)}
               >
                 {label}
               </Button>
@@ -140,7 +165,6 @@ const Navbar = () => {
     </AppBar>
   );
 };
-
 
 
 const Options = styled(Link)`
@@ -1342,14 +1366,18 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     <Box
       style={{
         display: "flex",
-        paddingBottom: "30px",
+        paddingBottom: "20px",
       }}
     >
       {listing.propertydescription ? (
         listing.propertydescription
           .split("|")
           .map((part, index) => (
-            <Box key={index} style={{ margin: "0 10px" }}>
+            <Box key={index} sx={{
+              margin: "0 10px",
+              borderRadius: "8px",
+              backgroundColor: "grey.200", // Use Material-UI theme palette
+            }}>
               <SubTitle>{part.trim()}</SubTitle>
             </Box>
           ))
@@ -1774,7 +1802,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   </Button>
                 </Box>
                 <Divider /> */}
-                    <Box id="property-financials" style={{ paddingBottom: "20px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="property-financials" style={{ paddingBottom: "20px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Box
                       style={{
                         display: "flex",
@@ -1839,7 +1867,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </div>
                     </Box>
                     </Box>
-                    <Box id="return-calculator" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="return-calculator" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Typography
                         style={{
                           fontSize: "24px",
@@ -1909,7 +1937,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </ThemeProvider>
                         </Box>
                     </Box>
-                    <Box id="property-overview" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="property-overview" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)" }}>
                       <Typography
                         style={{
                           fontSize: "24px",
@@ -1955,7 +1983,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </MoreButton>
                       </Typography>
                     </Box>
-                    <Box  id="amenities" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box  id="amenities" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)" }}>
                       <Typography
                         style={{
                           fontSize: "24px",
@@ -2043,7 +2071,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
                     </Box>
 
-                    <Box id="documents"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="documents"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
@@ -2103,7 +2131,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </Box>
                         ))}
                     </Box>
-                    <Box id="rera"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="rera"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
@@ -2123,7 +2151,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           flexDirection: "column", // Adjust layout based on screen size
                           marginTop: "20px"
                         }}>
-                            <Box style={{ paddingBottom: "20px", padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", width: "100%" }}>
+                            <Box style={{ paddingBottom: "20px", padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", width: "100%" }}>
                               <p style={{fontWeight:700 }}>GGM/337/69/2019/31</p>
                               <p style={{fontSize: 14}}>Name</p>
                             </Box>
@@ -2132,7 +2160,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             </p>
                           </Box>
                     </Box>
-                    <Box id="financials" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="financials" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Typography
                         style={{
                           fontSize: "24px",
@@ -2343,7 +2371,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </Grid>
                       </Box>
                     </Box>
-                    <Box id="layout"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="layout"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
@@ -2421,7 +2449,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         )}
                       </Box>
                     </Box>
-                    <Box id="funding" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="funding" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                         <Typography
                           style={{
                             fontSize: "24px",
@@ -2449,7 +2477,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </Box>
                         <Period fundt={listing.fundtimeline} />
                     </Box>
-                    <Box id="location"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", border: "1px solid #ddd", }}>
+                    <Box id="location"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
                           fontSize: "24px",
@@ -3738,8 +3766,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       borderRadius: "8px",
                       padding: "20px",
                       paddingBottom: "20px",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", 
-                      border: "1px solid #ddd"
+                      boxShadow: "0 5px 8px 0 rgba(224, 224, 224)"
                     }}
                   >
                     <Box style={{ textAlign: "center", paddingBottom: "10px" }}>
@@ -4342,8 +4369,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           backgroundColor: "white",
                           borderRadius: "8px",
                           // paddingBottom: "20px",
-                          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", 
-                          border: "1px solid #ddd"
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)"
                         }}
                         onClick={() => setExpandedIndex(expandedIndex === 0 ? null : 0)} // Toggle expand on click
                       >
