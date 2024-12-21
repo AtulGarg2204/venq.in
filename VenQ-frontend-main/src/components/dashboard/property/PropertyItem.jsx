@@ -24,7 +24,7 @@ import {
   useMediaQuery,
   Collapse
 } from "@mui/material";
-import { alpha, borderRadius, color, fontFamily, fontSize, margin, padding, width } from "@mui/system";
+import { alpha, borderRadius, color, fontFamily, fontSize, fontWeight, margin, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useReducer, useState, useMemo, useRef } from "react";
@@ -50,17 +50,16 @@ import { AppBar, Toolbar } from '@mui/material';
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('');
   const navbarRef = useRef(null); // Ref to access the navbar's toolbar for scroll manipulation
-
   const sections = [
-    'property-financials', 
+    'property-financials',
     'return-calculator',
     'about-project',
-    'amenities', 
-    'documents', 
+    'amenities',
+    'documents',
     'rera',
     'financials',
-    'layout', 
-    'funding',
+    'layout',
+    'funding-timeline',
     'location'
   ];
 
@@ -118,6 +117,23 @@ const Navbar = () => {
     });
   };
 
+  useEffect(() => {
+    if (activeSection) {
+      // Find the index of the active section
+      const sectionIndex = sections.indexOf(activeSection);
+      if (sectionIndex !== -1) {
+        // Scroll the navbar to the active section's button
+        const sectionWidth = 160; // Width of each navbar button (adjust as needed)
+        const scrollPosition = sectionWidth * sectionIndex;
+
+        navbarRef.current.scrollTo({
+          left: scrollPosition,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [activeSection]);
+
   return (
     <AppBar
       position="sticky"
@@ -166,6 +182,8 @@ const Navbar = () => {
     </AppBar>
   );
 };
+
+
 
 
 const Options = styled(Link)`
@@ -262,13 +280,13 @@ const Label = styled(Box)`
   padding: 10px 0px;
 `;
 const LabelName = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   font-size: 18px;
   color: black;
 `;
 const LabelAmount = styled(Typography)`
   text-align: "center";
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   align-items: center;
   font-size: 32px;
   font-weight: 600;
@@ -290,7 +308,7 @@ const HelpIcon = styled(ChatBubbleOutlineRoundedIcon)`
 
 const Heading = styled(Typography)`
   text-decoration: none;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   font-size: 18px;
 `;
 const arrow = ">";
@@ -320,7 +338,7 @@ const Bookmark = styled(Button)`
   }
 `;
 const Extra = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   font-size: 16px;
 `;
 const PhotoLink = styled(Link)`
@@ -351,7 +369,7 @@ const Pricing = styled(Box)`
 const CartButton = styled(Button)`
   background-color: #0170dc;
   color: white;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   text-transform: none;
   font-size: 14px;
   padding: 7px;
@@ -368,7 +386,7 @@ const PriceAddButton = styled(Button)`
   width: 32%;
   font-weight: 600;
   border-radius: 10px;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   &:hover {
     background-color: #0170dc;
     color: white;
@@ -380,7 +398,7 @@ const theme = createTheme({
       styleOverrides: {
         tooltip: {
           fontSize: "14px",
-          fontFamily: "Arial",
+          fontFamily: "Arial, sans-serif",
           backgroundColor: "#121c30",
           textAlign: "center",
         },
@@ -427,32 +445,30 @@ const SubTitle = styled(Typography)`
   color: #44475b;
   font-size: 12px;
   border: 0.2px solid #e9e9eb;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   padding: 5px;
   cursor: pointer;
   border-radius: 20px;
 `;
 const PropertyDetails = styled(Box)`
   display: flex;
-  padding: 15px 0;
   align-items: center;
 `;
 const PropertyHeading = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   font-weight: 600;
   font-size: 18px;
 `;
 const PropertyHeadingSmall = styled(Typography)`
-  font-family: "Arial";
-  font-weight: 600;
-  font-size: 16px;
-  marginTop:-5px
+  font-size: 25px;
+  marginTop:-5px;
+  font-family: "Bebas Neue", sans-serif;
   width: 100%;
   word-wrap: break-word;
 `;
 const PropertySubHeading = styled(Typography)`
-  font-family: "Arial";
   font-size: 16px;
+  font-family: "Bebas Neue", sans-serif;
   color: grey;
 `;
 const GraphInfo = styled(Box)`
@@ -462,15 +478,15 @@ const GraphInfo = styled(Box)`
 const GraphHeading = styled(Typography)`
   font-size: 15px;
   color: grey;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
 `;
 const GraphSubHeading = styled(Typography)`
   font-size: 15px;
   font-weight: 600;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
 `;
 const MoreButton = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   color: #0170dc;
   font-size: 16px;
   text-decoration: none;
@@ -483,24 +499,24 @@ const MoreButton = styled(Typography)`
   }
 `;
 const FinanceHeading = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   color: #44475b;
   font-size: 17px;
   font-weight: 600;
 `;
 const FinanceSubHeading = styled(Typography)`
   color: rgb(112, 111, 111);
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   font-size: 16px;
 `;
 const FinanceAmount = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   font-size: 16px;
   color: #44475b;
   font-weight: 600;
 `;
 const LocationName = styled(Typography)`
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
@@ -532,7 +548,7 @@ const TitleBox = styled(Box)`
   padding: 15px;
   align-items: center;
   & > p {
-    font-family: "Arial";
+    font-family: "Arial, sans-serif";
     font-size: 15px;
     padding-left: 10px;
   }
@@ -581,7 +597,7 @@ const ReturnsBox = styled(Box)`
   padding: 10px;
   border-radius: 10px;
   background-color: #f6f7f9;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   color: grey;
   > div {
     display: flex;
@@ -598,12 +614,12 @@ const Category = styled(Typography)`
   color: white;
   z-index: 2;
   padding: 5px;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
 `;
 const Header = styled(Typography)`
   font-size: 20px;
   font-weight: 600;
-  font-family: "Arial";
+  font-family: "Arial, sans-serif";
   margin: 10px 0;
 `;
 
@@ -740,7 +756,7 @@ const Slider = styled(BaseSlider)(
     }
   
     & .${sliderClasses.markLabel} {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       font-weight: 600;
       font-size: 12px;
       position: absolute;
@@ -1303,7 +1319,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       style={{
         opacity: openinv ? "0.25" : "1.0",
         backgroundColor: "#f5f5f5",
-        fontFamily: "!Arial",
+        fontFamily: "!Arial, sans-serif",
       }}
     >
       <Box style={{ padding: "20px", backgroundColor: "white" }}>
@@ -1318,7 +1334,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             <PropertyLink to="/dashboard/properties">
               <Typography
                 style={{
-                  fontFamily: "Arial",
+                  fontFamily: "Arial, sans-serif",
                   fontSize: "15px",
                   fontWeight: "600",
                 }}
@@ -1332,7 +1348,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               style={{
                 color: "#a3abba",
                 marginLeft: "10px",
-                fontFamily: "Arial",
+                fontFamily: "Arial, sans-serif",
                 fontSize: "15px",
               }}
             >
@@ -1351,7 +1367,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 <Typography
                   style={{
                     paddingLeft: "10px",
-                    fontFamily: "Arial",
+                    fontFamily: "Arial, sans-serif",
                     fontSize: "18px",
                   }}
                 >
@@ -1377,7 +1393,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     <Box>
       <Typography
         style={{
-          fontFamily: "Arial",
+          fontFamily: "Arial, sans-serif",
           fontWeight: 700,
           color: "rgb(70, 59, 59)",
           fontSize: "25px",
@@ -1413,39 +1429,84 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
     <Divider/>
     <Box style={{ padding: "10px 0" }}>
                       {listing && listing.specs && (
-                        <Box style={{ display: "flex", flexWrap: "wrap" }}>
-                          {listing.specs.map((listing_content, index) => (
+                        <Box
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "repeat(2, 1fr)", // 2 equal-width columns
+                          gridTemplateRows: "repeat(2, 1fr)", // Ensures both rows are of equal height
+                          gap: "20px",
+                          width: "100%",
+                          height: "100%",
+                          fontFamily: "Bebas Neue, sans-serif",
+                        }}
+                      >
+                        {listing.specs.map((listing_content, index) => (
+                          <Box
+                            key={index}
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
+                              backgroundColor: index === 0 ? "#254681" : index === 1 ? "#2DA7A3" : index === 2 ? "#C29800" : "#47B877",
+                              fontWeight: "bold",
+                              borderRadius: "18px",
+                              height: "100%", // Ensures the box takes up the full height of the grid cell
+                              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+                            }}
+                          >
                             <Box
-                              key={index}
                               style={{
-                                flex: "0 0 50%",
-                                boxSizing: "border-box",
-                                padding: "10px",
+                                display: "flex",
+                                width: "100%",
+                                height: "100%",
                               }}
                             >
-                              <PropertyDetails>
-                                <Logo>
-                                  <img
-                                    src={listing_content.specsimage}
-                                    alt=""
+                              {/* Text Container (70%) */}
+                              <Box
+                                style={{
+                                  flex: "80%",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  justifyContent: "center",
+                                  padding: "10px 0px 5px 15px",
+                                }}
+                              >
+                                  <PropertyHeadingSmall
                                     style={{
-                                      height: "35px",
-                                      borderRadius: "50%",
+                                      textTransform: "uppercase",
+                                      color: "#EFEFEF", 
+                                      lineHeight: "1.2",
                                     }}
-                                  />
-                                </Logo>
-                                <Box>
-                                  <PropertyHeadingSmall>
+                                  >
                                     {listing_content.specstitle}
                                   </PropertyHeadingSmall>
-                                  <PropertySubHeading>
+                                  <PropertySubHeading
+                                    style={{
+                                      color: "#EFEFEF", 
+                                      fontSize: "14px", 
+                                    }}
+                                  >
                                     {listing_content.specssubtitle}
                                   </PropertySubHeading>
-                                </Box>
-                              </PropertyDetails>
+                              </Box>
+                      
+                              {/* Logo Container (30%) */}
+                              <Box
+                                style={{
+                                  flex: "20%",
+                                  display: "flex",
+                                  justifyContent: "center", // Center the logo
+                                  alignItems: "center", // Center the logo vertically
+                                  paddingRight: "10px", // Optional, adjust spacing
+                                }}
+                              >
+                                <i class="fa-solid fa-shield-halved"></i> {/* Example of an icon */}
+                              </Box>
                             </Box>
-                          ))}
-                        </Box>
+                          </Box>
+                        ))}
+                      </Box>                      
+                      
                       )}
                     </Box>
                     {!isSmallScreen && (
@@ -1466,7 +1527,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   style={{
                     fontSize: "18px",
                     color: "rgb(112,111,111)",
-                    fontFamily: "Inter",
+                    fontFamily: "Arial, sans-serif",
                   }}
                 >
                   Property price
@@ -1475,7 +1536,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   style={{
                     fontSize: "24px",
                     color: "#0170dc",
-                    fontFamily: "Inter",
+                    fontFamily: "Arial, sans-serif",
                   }}
                 >
                   INR{" "}
@@ -1524,7 +1585,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       marginRight: "30px",
                       fontSize: "16px",
 
-                      fontFamily: "Inter",
+                      fontFamily: "Arial, sans-serif",
                     }}
                   >
                     <span
@@ -1532,7 +1593,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         color: "#50B487",
                         fontSize: "18px",
 
-                        fontFamily: "Inter",
+                        fontFamily: "Arial, sans-serif",
                       }}
                     >
                       46
@@ -1705,7 +1766,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       fontSize: "18px",
                       color: "rgb(112,111,111)",
-                      fontFamily: "Arial",
+                      fontFamily: "Arial, sans-serif",
                     }}
                   >
                     Property price
@@ -1714,7 +1775,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     style={{
                       fontSize: "24px",
                       color: "#44475b",
-                      fontFamily: "Arial",
+                      fontFamily: "Arial, sans-serif",
                     }}
                   >
                     INR{" "}
@@ -1733,7 +1794,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                       {/* Tokens */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                        <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1744,7 +1805,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       {/* Est. Yields */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                        <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1755,7 +1816,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       {/* Target APR */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                        <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1766,7 +1827,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                       {/* Potential Gain */}
                       <Box style={{ flex: 1, textAlign: "center" }}>
-                        <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                        <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
                         <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                           {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                         </Box>
@@ -1839,7 +1900,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 700,
                           color: "#44575B",
                           fontSize: "25px",
@@ -1849,13 +1910,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
                         }}
                       >
-                        3Y annualised
+                      5Y annualised
                       </p>
                     </Box>
                     <Box
@@ -1866,23 +1927,23 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 600,
                           color: "#50B487",
                           fontSize: "13px",
                         }}
                       >
-                        +0.45%
+                        ₹750
                       </p>
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
                         }}
                       >
-                        1M
+                     current price/sqft 
                       </p>
                     </Box>
                     <Box>
@@ -1898,7 +1959,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "18px",
                           fontWeight: 700,
                           color: "rgb(51, 51, 52)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -1917,7 +1978,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             justifyContent: "start",
                             border: "0.2px solid #e9e9eb",
                             borderRadius: "10px",
-                            fontFamily: "Arial",
+                            fontFamily: "Arial, sans-serif",
                           }}
                         >
                           <Return_cal minAmountToInvest={listing.minAmountToInvest} />
@@ -1935,7 +1996,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             <Typography
                               style={{
                                 fontSize: "14px",
-                                fontFamily: "Arial",
+                                fontFamily: "Arial, sans-serif",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -1978,7 +2039,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         fontSize: "18px",
         fontWeight: 700,
         color: "rgb(51, 51, 52)",
-        fontFamily: "Arial",
+        fontFamily: "Arial, sans-serif",
         paddingBottom: "20px",
       }}
     >
@@ -2020,17 +2081,78 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       >
         Why Invest?
       </Box>
+      <Box
+        onClick={() => setProjectoverview("about-builder")}
+        style={{
+          padding: "10px 20px 10px 20px",
+          color: projectoverview === "about-builder" ? "white" : "black",
+          backgroundColor: projectoverview === "about-builder" ? "black" : "white",
+          borderRadius: "8px",
+          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+          cursor: "pointer",
+        }}
+      >
+        About Builder
+      </Box>
     </div>
     <Typography
       style={{
-        fontFamily: "Arial",
+        fontFamily: "Arial, sans-serif",
         fontSize: "14px",
         color: "rgb(112,111,111)",
         marginTop: "20px",
       }}
     >
+      
+      {projectoverview === "about-builder" && (
+        <>
+        <Box style={{display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "20px"}}>
+        <Box>
+        <img
+            src="https://static.squareyards.com/resources/images/developerlogo/emaar-401.jpg?aio=w-89;h-89;crop;"
+            alt="builder logo"
+            style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+          />
+        </Box>
+        <Box>
+          <Typography style={{fontSize: "12px", color: "#666"}}>Total Projects</Typography>
+          100
+        </Box>
+        <Box>
+            <Typography style={{fontSize: "12px", color: "#666"}}>Experience</Typography>
+            14 years
+        </Box>
+      </Box>
+      <Box style={{paddingTop: "20px"}}>
+      <div  style={{fontFamily: "Arial, sans-serif", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
+          {listing.propertyoverview &&
+            listing.propertyoverview.length > maxWords && (
+              <div style={{ marginBottom: "10px" }}>
+                {listing.propertyoverview
+                  .split(" ")
+                  .slice(0, maxWords)
+                  .join(" ")}
+                <div hidden={!showFullContent}>
+                  {listing.propertyoverview
+                    .split(" ")
+                    .slice(maxWords, listing.propertyoverview.length)
+                    .join(" ")}
+                </div>
+              </div>
+            )}
+            <MoreButton
+        onClick={() => {
+          setShowFullContent(!showFullContent);
+        }}
+      >
+        {showFullContent ? "Show less" : "Show more"}
+      </MoreButton>
+        </div>
+      </Box>
+      </>
+      )}
       {projectoverview === "project-overview" && (
-        <div  style={{fontFamily: "Arial", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
+        <div  style={{fontFamily: "Arial, sans-serif", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
           {listing.propertyoverview &&
             listing.propertyoverview.length > maxWords && (
               <div style={{ marginBottom: "10px" }}>
@@ -2060,7 +2182,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
         <Typography
           style={{
             padding: "0px",
-            fontFamily: "Arial",
+            fontFamily: "Arial, sans-serif",
              fontSize: "14px", lineHeight: "24px"
           }}
         >
@@ -2096,7 +2218,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       fontSize: "18px",
       fontWeight: 700,
       color: "rgb(51, 51, 52)",
-      fontFamily: "Arial",
+      fontFamily: "Arial, sans-serif",
       paddingBottom: "20px",
     }}
   >
@@ -2185,7 +2307,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               ></i>
               <Typography
                 style={{
-                  fontFamily: "Arial",
+                  fontFamily: "Arial, sans-serif",
                   fontSize: "16px",
                   color: "rgb(112,111,111)",
                 }}
@@ -2207,7 +2329,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "18px",
                           fontWeight: 700,
                           color: "rgb(51, 51, 52)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px"
                         }}
                       >
@@ -2267,7 +2389,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "18px",
                           fontWeight: 700,
                           color: "rgb(51, 51, 52)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                         }}
                       >
@@ -2293,7 +2415,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "18px",
                           fontWeight: 700,
                           color: "rgb(51, 51, 52)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -2466,7 +2588,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   <Typography
                                     style={{
                                       fontSize: "13px",
-                                      fontFamily: "Arial",
+                                      fontFamily: "Arial, sans-serif",
                                       display: "flex",
                                       alignItems: "center",
                                       justifyContent: "center",
@@ -2504,7 +2626,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "18px",
                           fontWeight: 700,
                           color: "rgb(51, 51, 52)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                         }}
                       >
@@ -2576,13 +2698,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         )}
                       </Box>
                     </Box>
-                    <Box id="funding" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
+                    <Box id="funding-timeline" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                         <Typography
                           style={{
                             fontSize: "18px",
                             fontWeight: 700,
                             color: "rgb(51, 51, 52)",
-                            fontFamily: "Arial",
+                            fontFamily: "Arial, sans-serif",
                             padding: "20px 0",
                           }}
                         >
@@ -2598,7 +2720,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontSize: "12px", fontFamily: "Arial" }}
+                            style={{ fontSize: "12px", fontFamily: "Arial, sans-serif" }}
                           >
                             Each step may occur earlier than the dates below
                           </Typography>
@@ -2621,7 +2743,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         fontSize: "18px",
                         fontWeight: 700,
                         color: "rgb(51, 51, 52)",
-                        fontFamily: "Arial",
+                        fontFamily: "Arial, sans-serif",
                         paddingBottom: "20px",
                       }}
                     >
@@ -2719,7 +2841,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         <Box>
                           <Typography
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Arial, sans-serif",
                               fontSize: "16px",
                               paddingBottom: "10px",
                               fontWeight: "600",
@@ -2733,7 +2855,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               <li
                                 key={index}
                                 style={{
-                                  fontFamily: "Arial",
+                                  fontFamily: "Arial, sans-serif",
                                   fontSize: "16px",
                                   color: "rgb(112,111,111)",
                                 }}
@@ -2749,7 +2871,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box>
                         <Typography
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Arial, sans-serif",
                             fontSize: "16px",
                             paddingBottom: "10px",
                             fontWeight: "600",
@@ -2763,7 +2885,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             <li
                               key={index}
                               style={{
-                                fontFamily: "Arial",
+                                fontFamily: "Arial, sans-serif",
                                 fontSize: "16px",
                                 color: "rgb(112,111,111)",
                               }}
@@ -2779,7 +2901,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         <Box>
                         <Typography
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Arial, sans-serif",
                             fontSize: "16px",
                             paddingBottom: "10px",
                             fontWeight: "600",
@@ -2793,7 +2915,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       {locationTab === "additional-info" && (
                         <Typography
                           style={{
-                            fontFamily: "Arial",
+                            fontFamily: "Arial, sans-serif",
                             fontSize: "16px",
                             color: "rgb(112,111,111)",
                           }}
@@ -2817,7 +2939,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           padding: "20px 0",
                           color: "#44475b",
                         }}
@@ -2834,7 +2956,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontFamily: "Arial", fontSize: "17px" }}
+                            style={{ fontFamily: "Arial, sans-serif", fontSize: "17px" }}
                           >
                             Contact our real estate experts
                           </Typography>
@@ -2863,7 +2985,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                             <Typography
                               style={{
-                                fontFamily: "Arial",
+                                fontFamily: "Arial, sans-serif",
                                 fontSize: "17px",
                                 paddingLeft: "10px",
                               }}
@@ -2887,7 +3009,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 700,
                           color: "#44575B",
                           fontSize: "25px",
@@ -2897,7 +3019,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
@@ -2914,7 +3036,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 600,
                           color: "#50B487",
                           fontSize: "13px",
@@ -2924,7 +3046,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </p>
                       <p
                         style={{
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           fontWeight: 600,
                           color: "#a1a3ad",
                           fontSize: "13px",
@@ -2956,7 +3078,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                           paddingTop: "20px",
 
@@ -2997,7 +3119,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             <Typography
                               style={{
                                 fontSize: "14px",
-                                fontFamily: "Arial",
+                                fontFamily: "Arial, sans-serif",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
@@ -3031,7 +3153,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3207,7 +3329,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   <Typography
                                     style={{
                                       fontSize: "13px",
-                                      fontFamily: "Arial",
+                                      fontFamily: "Arial, sans-serif",
                                       display: "flex",
                                       alignItems: "center",
                                       justifyContent: "center",
@@ -3246,7 +3368,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           fontSize: "24px",
                           fontWeight: 600,
                           color: "#44475b",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           paddingBottom: "20px",
                           paddingTop: "20px",
                         }}
@@ -3266,7 +3388,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontSize: "12px", fontFamily: "Arial" }}
+                            style={{ fontSize: "12px", fontFamily: "Arial, sans-serif" }}
                           >
                             Each step may occur earlier than the dates below
                           </Typography>
@@ -3279,7 +3401,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           fontWeight: 600,
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           padding: "20px 0",
                           color: "#44475b",
                         }}
@@ -3296,7 +3418,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           <Typography
-                            style={{ fontFamily: "Arial", fontSize: "17px" }}
+                            style={{ fontFamily: "Arial, sans-serif", fontSize: "17px" }}
                           >
                             Contact our real estate experts
                           </Typography>
@@ -3325,7 +3447,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                             <Typography
                               style={{
-                                fontFamily: "Arial",
+                                fontFamily: "Arial, sans-serif",
                                 fontSize: "17px",
                                 paddingLeft: "10px",
                               }}
@@ -3357,7 +3479,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "18px",
                           color: "rgb(112,111,111)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                         }}
                       >
                         Property price
@@ -3366,7 +3488,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           color: "#0170dc",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                         }}
                       >
                         INR{" "}
@@ -3390,7 +3512,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "14px",
                           color: "black",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                           marginLeft: "5px",
                         }}
                       >
@@ -3680,7 +3802,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       color: invtype == 0 ? "#00b386" : "gray",
                                       cursor: "pointer",
                                       fontSize: "16px",
-                                      fontFamily: "Arial",
+                                      fontFamily: "Arial, sans-serif",
                                     }}
                                     onClick={() => {
                                       {
@@ -3703,7 +3825,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       marginRight: "12px",
                                       cursor: "pointer",
                                       fontSize: "16px",
-                                      fontFamily: "Arial",
+                                      fontFamily: "Arial, sans-serif",
                                     }}
                                     onClick={() => {
                                       setinvtype(1);
@@ -3983,7 +4105,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                   <Typography
                     style={{
-                      fontFamily: "Arial",
+                      fontFamily: "Arial, sans-serif",
                       textAlign: "center",
                       fontSize: "14px",
                       marginTop: "16px",
@@ -4005,7 +4127,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <AutoAwesomeOutlinedIcon />
                     <Typography
                       style={{
-                        fontFamily: "Arial",
+                        fontFamily: "Arial, sans-serif",
                         paddingLeft: "10px",
                         fontSize: "14px",
                       }}
@@ -4034,7 +4156,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "18px",
                           color: "rgb(112,111,111)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                         }}
                       >
                         Property price
@@ -4043,7 +4165,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           color: "#0170dc",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                         }}
                       >
                         INR{" "}
@@ -4066,7 +4188,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                         {/* Tokens */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Tokens</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4077,7 +4199,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Est. Yields */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Est. Yields</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4088,7 +4210,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Target APR */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Target ARR</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4099,7 +4221,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Potential Gain */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "11px", color: "#44475B" }}>Est. Gain</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4282,7 +4404,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           invtype == 0 ? "#00b386" : "gray",
                                         cursor: "pointer",
                                         fontSize: "16px",
-                                        fontFamily: "Arial",
+                                        fontFamily: "Arial, sans-serif",
                                       }}
                                       onClick={() => {
                                         {
@@ -4306,7 +4428,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         marginRight: "12px",
                                         cursor: "pointer",
                                         fontSize: "16px",
-                                        fontFamily: "Arial",
+                                        fontFamily: "Arial, sans-serif",
                                       }}
                                       onClick={() => {
                                         setinvtype(1);
@@ -4586,7 +4708,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                     <Typography
                       style={{
-                        fontFamily: "Arial",
+                        fontFamily: "Arial, sans-serif",
                         textAlign: "center",
                         fontSize: "14px",
                         marginTop: "16px",
@@ -4608,7 +4730,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <AutoAwesomeOutlinedIcon />
                     <Typography
                       style={{
-                        fontFamily: "Arial",
+                        fontFamily: "Arial, sans-serif",
                         paddingLeft: "10px",
                         fontSize: "14px",
                       }}
@@ -4636,7 +4758,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         <Box display="flex" alignItems="center">
                           <Typography
                             style={{
-                              fontFamily: "Arial",
+                              fontFamily: "Arial, sans-serif",
                               fontSize: "22px",
                               fontWeight: 900,
                               marginBottom: "10px", // Adjusted to prevent too much space
@@ -4679,7 +4801,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               >
                                 <Typography
                                   style={{
-                                    fontFamily: "Arial",
+                                    fontFamily: "Arial, sans-serif",
                                     fontSize: "14px",
                                     color: "black",
                                   }}
@@ -4698,7 +4820,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     <Divider style={{ margin: "10px 0" }} />
                                     <Typography
                                       style={{
-                                        fontFamily: "Arial",
+                                        fontFamily: "Arial, sans-serif",
                                         fontSize: "12px",
                                         color: "black",
                                       }}
@@ -4734,7 +4856,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           <Box display="flex" alignItems="center">
                             <Typography
                               style={{
-                                fontFamily: "Arial",
+                                fontFamily: "Arial, sans-serif",
                                 fontSize: "22px",
                                 fontWeight: 600,
                                 marginBottom: "15px",
@@ -4770,7 +4892,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   paddingLeft: '20px',
                                   color: "#44475B",
                                   lineHeight: "30px",
-                                  fontFamily: "Arial",
+                                  fontFamily: "Arial, sans-serif",
                                   fontSize: "14px",
                                 }}
                               >
@@ -4788,7 +4910,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                                       <Typography
                                         style={{
-                                          fontFamily: "Arial",
+                                          fontFamily: "Arial, sans-serif",
                                           fontSize: "14px",
                                           marginTop: "20px",
                                           color: "black",
@@ -4807,7 +4929,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           alignItems: "center",
                                           width: "100%",
                                           borderRadius: "8px",
-                                          fontFamily: "Arial",
+                                          fontFamily: "Arial, sans-serif",
                                           fontSize: "18px",
                                           fontWeight: 900,
                                           marginBottom: "30px",
@@ -4860,7 +4982,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "18px",
                           color: "rgb(112,111,111)",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                         }}
                       >
                         Property price
@@ -4869,7 +4991,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         style={{
                           fontSize: "24px",
                           color: "#0170dc",
-                          fontFamily: "Arial",
+                          fontFamily: "Arial, sans-serif",
                         }}
                       >
                         INR{" "}
@@ -4892,7 +5014,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       <Box style={{ display: "flex", justifyContent: "space-between", padding: "1rem 0" }}>
                         {/* Tokens */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "14px", color: "#44475B" }}>Tokens</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.tokens || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4903,7 +5025,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Est. Yields */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "14px", color: "#44475B" }}>Est. Yields</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.estimatedYields || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4914,7 +5036,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Target APR */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "14px", color: "#44475B" }}>Target APR</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.targetAPR || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -4925,7 +5047,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                         {/* Potential Gain */}
                         <Box style={{ flex: 1, textAlign: "center" }}>
-                          <Box style={{ fontFamily: "Arial", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
+                          <Box style={{ fontFamily: "Arial, sans-serif", fontSize: "14px", color: "#44475B" }}>Potential Gain</Box>
                           <Box style={{ color: "#00B386", fontWeight: "bold", fontSize: "16px", marginTop: "10px" }}>
                             {listing.potentialGain || "N/A"} {/* Fallback if data is missing */}
                           </Box>
@@ -5110,7 +5232,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                             invtype == 0 ? "#00b386" : "gray",
                                           cursor: "pointer",
                                           fontSize: "16px",
-                                          fontFamily: "Arial",
+                                          fontFamily: "Arial, sans-serif",
                                         }}
                                         onClick={() => {
                                           {
@@ -5135,7 +5257,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                           marginTop: "10px",
                                           cursor: "pointer",
                                           fontSize: "16px",
-                                          fontFamily: "Arial",
+                                          fontFamily: "Arial, sans-serif",
                                         }}
                                         onClick={() => {
                                           setinvtype(1);
@@ -5481,7 +5603,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
                     <Typography
                       style={{
-                        fontFamily: "Arial",
+                        fontFamily: "Arial, sans-serif",
                         textAlign: "center",
                         fontSize: "14px",
                         marginTop: "16px",
@@ -5503,7 +5625,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <AutoAwesomeOutlinedIcon />
                     <Typography
                       style={{
-                        fontFamily: "Arial",
+                        fontFamily: "Arial, sans-serif",
                         paddingLeft: "10px",
                         fontSize: "14px",
                       }}
@@ -5530,7 +5652,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
             <AutoAwesomeOutlinedIcon />
             <Typography
               style={{
-                fontFamily: "Arial",
+                fontFamily: "Arial, sans-serif",
                 paddingLeft: "10px",
                 fontSize: "14px",
               }}
@@ -5736,7 +5858,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   color: invtype == 0 ? "#00b386" : "gray",
                                   cursor: "pointer",
                                   fontSize: "16px",
-                                  fontFamily: "Arial",
+                                  fontFamily: "Arial, sans-serif",
                                 }}
                                 onClick={() => { }}
                               >
@@ -5751,7 +5873,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   marginRight: "12px",
                                   cursor: "pointer",
                                   fontSize: "16px",
-                                  fontFamily: "Arial",
+                                  fontFamily: "Arial, sans-serif",
                                 }}
                                 onClick={() => {
                                   setinvtype(1);
