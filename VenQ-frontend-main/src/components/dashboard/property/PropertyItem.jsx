@@ -1242,7 +1242,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [activeBoxIndex, setActiveBoxIndex] = useState(null); // Track which box is expanded for the new component
   const [projectoverview, setProjectoverview] = useState("project-overview");
-  const [locationTab, setLocationTab] = useState("location");
+  const [locationTab, setLocationTab] = useState("school");
 
   const terms = [
     {
