@@ -1242,6 +1242,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [activeBoxIndex, setActiveBoxIndex] = useState(null); // Track which box is expanded for the new component
   const [projectoverview, setProjectoverview] = useState("project-overview");
+  const [locationTab, setLocationTab] = useState("location");
 
   const terms = [
     {
@@ -2605,81 +2606,213 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </Box>
                         <Period fundt={listing.fundtimeline} />
                     </Box>
-                    <Box id="location"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
-                      <Typography
-                        style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
-                          fontFamily: "Arial",
-                          paddingBottom: "20px",
-                          color: "#44475b",
-                        }}
-                      >
-                        {listing.properyheading} Location Map and Landmarks
-                      </Typography>
-                        <Divider/>
+                    <Box
+                    id="location"
+                    style={{
+                      paddingBottom: "20px",
+                      marginTop: "15px",
+                      padding: "20px",
+                      backgroundColor: "#fff",
+                      borderRadius: "8px",
+                      boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                    }}
+                  >
+                    <Typography
+                      style={{
+                        fontSize: "24px",
+                        fontWeight: 600,
+                        fontFamily: "Arial",
+                        paddingBottom: "20px",
+                        color: "#44475b",
+                      }}
+                    >
+                      {listing.properyheading} Location Map and Landmarks
+                    </Typography>
+                    <Divider />
+
+                    {/* Map Section */}
+                    <Box style={{ marginTop: "20px" }}>
+                      {isSmallScreen ? (
+                        <iframe
+                          src={listing.locationlink}
+                          allowFullScreen=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          style={mapstylesmall}
+                        ></iframe>
+                      ) : (
+                        <iframe
+                          src={listing.locationlink}
+                          allowFullScreen=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          style={mapstylebig}
+                        ></iframe>
+                      )}
+                    </Box>
+
+                    {/* Tabs Section */}
+                    <Box
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        marginTop: "20px",
+                        gap:"10px"
+                      }}
+                    >
                       <Box
+                        onClick={() => setLocationTab("school")}
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "flex-start",
-                          padding: "0 0 10px 0",
-                          marginTop: "20px"
+                          padding: "10px 20px 10px 20px",
+                          color: locationTab === "school" ? "white" : "black",
+                          backgroundColor: locationTab === "school" ? "black" : "white",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
                         }}
                       >
-                        {/* <PlaceOutlinedIcon style={{ color: "#0170dc" }} />
-                        <LocationName
+                        <i class="fa-solid fa-school" style={{paddingRight: "5px"}}></i> Schools
+                      </Box>
+                      <Box
+                        onClick={() => setLocationTab("hospital")}
+                        style={{
+                          padding: "10px 20px 10px 20px",
+                          color: locationTab === "hospital" ? "white" : "black",
+                          backgroundColor: locationTab === "hospital" ? "black" : "white",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <i class="fa-solid fa-hospital" style={{paddingRight: "5px"}}></i>Hospitals
+                      </Box>
+                      <Box
+                        onClick={() => setLocationTab("hotel")}
+                        style={{
+                          padding: "10px 20px 10px 20px",
+                          color: locationTab === "hotel" ? "white" : "black",
+                          backgroundColor: locationTab === "hotel" ? "black" : "white",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <i class="fa-solid fa-hotel" style={{paddingRight: "5px"}}></i>Hotels
+                      </Box>
+                      <Box
+                        onClick={() => setLocationTab("additional-info")}
+                        style={{
+                          padding: "10px 20px 10px 20px",
+                          color: locationTab === "additional-info" ? "white" : "black",
+                          backgroundColor: locationTab === "additional-info" ? "black" : "white",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <i class="fa-solid fa-circle-info" style={{paddingRight: "5px"}}></i> Additional Info
+                      </Box>
+                    </Box>
+
+                    {/* Tab Content */}
+                    <Box style={{ marginTop: "20px" }}>
+                      {locationTab === "school" && (
+                        <Box>
+                          <Typography
+                            style={{
+                              fontFamily: "Arial",
+                              fontSize: "16px",
+                              paddingBottom: "10px",
+                              fontWeight: "600",
+                              color: "#44475b",
+                            }}
+                          >
+                            Schools nearby {listing.properyheading}
+                          </Typography>
+                          <ul style={{ paddingLeft: "20px" }}>
+                            {/* {listing.landmarks.map((landmark, index) => (
+                              <li
+                                key={index}
+                                style={{
+                                  fontFamily: "Arial",
+                                  fontSize: "16px",
+                                  color: "rgb(112,111,111)",
+                                }}
+                              >
+                                {landmark}
+                              </li>
+                            ))} */}
+                          </ul>
+                        </Box>
+                      )}
+
+                {locationTab === "hotel" && (
+                      <Box>
+                        <Typography
                           style={{
                             fontFamily: "Arial",
-                            fontSize: "18px",
-                            fontWeight: 600,
+                            fontSize: "16px",
+                            paddingBottom: "10px",
+                            fontWeight: "600",
+                            color: "#44475b",
+                          }}
+                        >
+                          Hotels nearby {listing.properyheading}
+                        </Typography>
+                        <ul style={{ paddingLeft: "20px" }}>
+                          {/* {listing.landmarks.map((landmark, index) => (
+                            <li
+                              key={index}
+                              style={{
+                                fontFamily: "Arial",
+                                fontSize: "16px",
+                                color: "rgb(112,111,111)",
+                              }}
+                            >
+                              {landmark}
+                            </li>
+                          ))} */}
+                        </ul>
+                      </Box>
+                    )}
+
+                      {locationTab === "hospital" && (
+                        <Box>
+                        <Typography
+                          style={{
+                            fontFamily: "Arial",
+                            fontSize: "16px",
+                            paddingBottom: "10px",
+                            fontWeight: "600",
+                            color: "#44475b",
+                          }}
+                        >
+                          Hospitals nearby {listing.properyheading}
+                        </Typography>
+                      </Box>
+                      )}
+                      {locationTab === "additional-info" && (
+                        <Typography
+                          style={{
+                            fontFamily: "Arial",
+                            fontSize: "16px",
                             color: "rgb(112,111,111)",
                           }}
-                          onClick={handleLocation}
                         >
-                          The location is displayed below in the map
-                        </LocationName> */}
-                      </Box>
-
-                      <Box>
-                        {isSmallScreen && (
-                          <iframe
-                            src={listing.locationlink}
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            style={mapstylesmall}
-                          ></iframe>
-                        )}
-                        {!isSmallScreen && (
-                          <iframe
-                            src={listing.locationlink}
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            style={mapstylebig}
-                          ></iframe>
-                        )}
-                      </Box>
-
-                      <Typography
-                        style={{
-                          fontFamily: "Arial",
-                          fontSize: "16px",
-                          padding: "20px 0",
-                          color: "rgb(112,111,111)",
-                        }}
-                      >
-                        {listing.locationdescription.split('.').map((sentence, index) => (
-                        sentence.trim() && (
-                          <span key={index}>
-                            {sentence.trim() + '.'}
-                            <br />
-                          </span>
-                        )
-                      ))}
-                      </Typography>
+                          {listing.locationdescription.split(".").map((sentence, index) =>
+                            sentence.trim() ? (
+                              <span key={index}>
+                                {sentence.trim() + "."}
+                                <br />
+                              </span>
+                            ) : null
+                          )}
+                        </Typography>
+                      )}
                     </Box>
+                  </Box>
+
+
                     <Box style={{ paddingBottom: "30px" }}>
                       <Typography
                         style={{
