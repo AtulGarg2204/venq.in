@@ -1468,14 +1468,14 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   display: "flex",
                                   flexDirection: "column",
                                   justifyContent: "center",
-                                  padding: "10px 0px 5px 15px",
+                                  padding: "15px 0px 10px 20px",
                                 }}
                               >
                                   <PropertyHeadingSmall
                                     style={{
                                       textTransform: "uppercase",
                                       color: "#EFEFEF", 
-                                      lineHeight: "1.2",
+                                      lineHeight: "1.0",
                                     }}
                                   >
                                     {listing_content.specstitle}
@@ -1483,7 +1483,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   <PropertySubHeading
                                     style={{
                                       color: "#EFEFEF", 
-                                      fontSize: "14px", 
+                                      fontSize: "16px", 
                                     }}
                                   >
                                     {listing_content.specssubtitle}
@@ -1500,7 +1500,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   paddingRight: "10px", // Optional, adjust spacing
                                 }}
                               >
-                                <i class="fa-solid fa-shield-halved"></i> {/* Example of an icon */}
+                                <i class="fa-solid fa-location-dot" style={{color: "white", scale: "2.5"}}></i>
                               </Box>
                             </Box>
                           </Box>
