@@ -1389,14 +1389,14 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   }}
 >
   {/* Heading Section */}
-  <Box style={{ flex: 1,flexBasis: "50%", marginTop: "40px", marginLeft: "20px" }}>
+  <Box style={{ flex: 1,flexBasis: "50%", marginLeft: "20px" }}>
     <Box>
       <Typography
         style={{
           fontFamily: "Arial, sans-serif",
           fontWeight: 700,
           color: "rgb(70, 59, 59)",
-          fontSize: "25px",
+          fontSize: "30px",
           width: "100%",
           paddingBottom: "10px",
         }}
@@ -1647,16 +1647,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       <ImageList
         sx={{ width: "100%", height: 500 }}
         variant="quilted"
-        cols={10}
+        cols={1}
       >
-        {listing.images &&
-          listing.images.slice(0, 4).map((item, index) => (
-            <ImageListItem
-              key={index}
-              cols={colarr[index]}
-              rows={rowarr[index]}
-              sx={{ overflow: "hidden" }}
-            >
               <img
                 style={{
                   borderRadius: "10px",
@@ -1664,12 +1656,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   height: "100%",
                   width: "100%",
                 }}
-                src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                src={`${listing.images[0]}?w=164&h=164&fit=crop&auto=format`}
                 alt={""}
                 loading="lazy"
               />
-            </ImageListItem>
-          ))}
       </ImageList>
     )}
     <Box
