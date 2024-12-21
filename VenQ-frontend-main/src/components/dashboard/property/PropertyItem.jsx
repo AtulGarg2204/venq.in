@@ -24,7 +24,7 @@ import {
   useMediaQuery,
   Collapse
 } from "@mui/material";
-import { alpha, borderRadius, color, fontSize, margin, padding, width } from "@mui/system";
+import { alpha, borderRadius, color, fontFamily, fontSize, margin, padding, width } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useReducer, useState, useMemo, useRef } from "react";
@@ -1303,6 +1303,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       style={{
         opacity: openinv ? "0.25" : "1.0",
         backgroundColor: "#f5f5f5",
+        fontFamily: "!Arial",
       }}
     >
       <Box style={{ padding: "20px", backgroundColor: "white" }}>
@@ -1894,13 +1895,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box id="return-calculator" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Typography
                         style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
-                          color: "#44475b",
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "rgb(51, 51, 52)",
                           fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
-
                         }}
                       >
                         Return Calculator
@@ -1909,14 +1909,15 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           style={{
                             // backgroundColor: "red",
                             // marginTop: "30px",
-                            marginBottom: "30px",
-                            paddingTop: "30px",
+                            marginBottom: "10px",
+                            paddingTop: "20px",
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
                             justifyContent: "start",
                             border: "0.2px solid #e9e9eb",
                             borderRadius: "10px",
+                            fontFamily: "Arial",
                           }}
                         >
                           <Return_cal minAmountToInvest={listing.minAmountToInvest} />
@@ -1927,7 +1928,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             backgroundColor: "#f6f7f9",
                             padding: "10px",
                             borderRadius: "10px",
-                            margin: "0 30px 40px 30px",
+                            margin: "0 30px 10px 30px",
                           }}
                         >
                           <ThemeProvider theme={theme}>
@@ -1974,9 +1975,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
   >
     <Typography
       style={{
-        fontSize: "24px",
-        fontWeight: 600,
-        color: "#44475b",
+        fontSize: "18px",
+        fontWeight: 700,
+        color: "rgb(51, 51, 52)",
         fontFamily: "Arial",
         paddingBottom: "20px",
       }}
@@ -2092,10 +2093,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 >
   <Typography
     style={{
-      fontSize: "24px",
-      fontWeight: 600,
+      fontSize: "18px",
+      fontWeight: 700,
+      color: "rgb(51, 51, 52)",
       fontFamily: "Arial",
-      color: "#44475b",
       paddingBottom: "20px",
     }}
   >
@@ -2203,11 +2204,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box id="documents"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "rgb(51, 51, 52)",
                           fontFamily: "Arial",
-                          paddingBottom: "20px",
-                          color: "#44475b",
+                          paddingBottom: "20px"
                         }}
                       >
                         Documents ({listing.documents?.length})
@@ -2263,11 +2264,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box id="rera"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "rgb(51, 51, 52)",
                           fontFamily: "Arial",
                           paddingBottom: "20px",
-                          color: "#44475b",
                         }}
                       >
                         Rera Details
@@ -2284,17 +2285,14 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               <p style={{fontWeight:700 }}>GGM/337/69/2019/31</p>
                               <p style={{fontSize: 14}}>Name</p>
                             </Box>
-                            <p style={{ marginTop: "10px", fontWeight: 600, width: "100%" }}>
-                              Venq RERA reg. <span style={{ fontWeight: 400 }}>HRERA 660/2017/307</span>
-                            </p>
                           </Box>
                     </Box>
                     <Box id="financials" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Typography
                         style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
-                          color: "#44475b",
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "rgb(51, 51, 52)",
                           fontFamily: "Arial",
                           paddingBottom: "20px",
                           paddingTop: "20px",
@@ -2503,11 +2501,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box id="layout"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
-                          fontSize: "24px",
-                          fontWeight: 600,
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "rgb(51, 51, 52)",
                           fontFamily: "Arial",
                           paddingBottom: "20px",
-                          color: "#44475b",
                         }}
                       >
                         Layout
@@ -2581,8 +2579,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     <Box id="funding" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                         <Typography
                           style={{
-                            fontSize: "24px",
-                            fontWeight: 600,
+                            fontSize: "18px",
+                            fontWeight: 700,
+                            color: "rgb(51, 51, 52)",
                             fontFamily: "Arial",
                             padding: "20px 0",
                           }}
@@ -2619,11 +2618,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   >
                     <Typography
                       style={{
-                        fontSize: "24px",
-                        fontWeight: 600,
+                        fontSize: "18px",
+                        fontWeight: 700,
+                        color: "rgb(51, 51, 52)",
                         fontFamily: "Arial",
                         paddingBottom: "20px",
-                        color: "#44475b",
                       }}
                     >
                       {listing.properyheading} Location Map and Landmarks
