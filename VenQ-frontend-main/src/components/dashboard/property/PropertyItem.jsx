@@ -280,13 +280,13 @@ const Label = styled(Box)`
   padding: 10px 0px;
 `;
 const LabelName = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   font-size: 18px;
   color: black;
 `;
 const LabelAmount = styled(Typography)`
   text-align: "center";
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   align-items: center;
   font-size: 32px;
   font-weight: 600;
@@ -308,7 +308,7 @@ const HelpIcon = styled(ChatBubbleOutlineRoundedIcon)`
 
 const Heading = styled(Typography)`
   text-decoration: none;
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 18px;
 `;
 const arrow = ">";
@@ -338,7 +338,7 @@ const Bookmark = styled(Button)`
   }
 `;
 const Extra = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   font-size: 16px;
 `;
 const PhotoLink = styled(Link)`
@@ -369,7 +369,7 @@ const Pricing = styled(Box)`
 const CartButton = styled(Button)`
   background-color: #0170dc;
   color: white;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   text-transform: none;
   font-size: 14px;
   padding: 7px;
@@ -386,7 +386,7 @@ const PriceAddButton = styled(Button)`
   width: 32%;
   font-weight: 600;
   border-radius: 10px;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   &:hover {
     background-color: #0170dc;
     color: white;
@@ -445,7 +445,7 @@ const SubTitle = styled(Typography)`
   color: #44475b;
   font-size: 12px;
   border: 0.2px solid #e9e9eb;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   padding: 5px;
   cursor: pointer;
   border-radius: 20px;
@@ -455,7 +455,7 @@ const PropertyDetails = styled(Box)`
   align-items: center;
 `;
 const PropertyHeading = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   font-weight: 600;
   font-size: 18px;
 `;
@@ -478,15 +478,15 @@ const GraphInfo = styled(Box)`
 const GraphHeading = styled(Typography)`
   font-size: 15px;
   color: grey;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
 `;
 const GraphSubHeading = styled(Typography)`
   font-size: 15px;
   font-weight: 600;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
 `;
 const MoreButton = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   color: #0170dc;
   font-size: 16px;
   text-decoration: none;
@@ -499,24 +499,24 @@ const MoreButton = styled(Typography)`
   }
 `;
 const FinanceHeading = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   color: #44475b;
   font-size: 17px;
   font-weight: 600;
 `;
 const FinanceSubHeading = styled(Typography)`
   color: rgb(112, 111, 111);
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   font-size: 16px;
 `;
 const FinanceAmount = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   font-size: 16px;
   color: #44475b;
   font-weight: 600;
 `;
 const LocationName = styled(Typography)`
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
@@ -548,7 +548,7 @@ const TitleBox = styled(Box)`
   padding: 15px;
   align-items: center;
   & > p {
-    font-family: "Arial, sans-serif";
+    font-family: "Arial", sans-serif;
     font-size: 15px;
     padding-left: 10px;
   }
@@ -597,7 +597,7 @@ const ReturnsBox = styled(Box)`
   padding: 10px;
   border-radius: 10px;
   background-color: #f6f7f9;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   color: grey;
   > div {
     display: flex;
@@ -614,12 +614,12 @@ const Category = styled(Typography)`
   color: white;
   z-index: 2;
   padding: 5px;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
 `;
 const Header = styled(Typography)`
   font-size: 20px;
   font-weight: 600;
-  font-family: "Arial, sans-serif";
+  font-family: "Arial", sans-serif;
   margin: 10px 0;
 `;
 
@@ -756,7 +756,7 @@ const Slider = styled(BaseSlider)(
     }
   
     & .${sliderClasses.markLabel} {
-      font-family: Arial, sans-serif;
+      font-family: "Arial", sans-serif;
       font-weight: 600;
       font-size: 12px;
       position: absolute;
@@ -1319,7 +1319,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
       style={{
         opacity: openinv ? "0.25" : "1.0",
         backgroundColor: "#f5f5f5",
-        fontFamily: "!Arial, sans-serif",
+        fontFamily: "Arial, sans-serif",
       }}
     >
       <Box style={{ padding: "20px", backgroundColor: "white" }}>

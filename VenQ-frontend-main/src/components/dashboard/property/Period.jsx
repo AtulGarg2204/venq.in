@@ -10,16 +10,16 @@ import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 
 const Date = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial", sans-serif;
   font-size: 13px;
 `;
 const Heading = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial", sans-serif;
   font-size: 17px;
   font-weight: 600;
 `;
 const Information = styled(Typography)`
-  font-family: "Inter";
+  font-family: "Arial", sans-serif;
   font-size: 14px;
   color: grey;
 `;
