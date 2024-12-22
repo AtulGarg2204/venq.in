@@ -6,13 +6,13 @@ import {
   Divider,
   Grid,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
-
 const Return_cal = () => {
   const [initialInvestment, setInitialInvestment] = useState(20000);
   const [finalInvestment, setFinalInvestment] = useState(initialInvestment + initialInvestment * 0.3);
   const [year, setYear] = useState(3);
-
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
   // Function to calculate the final investment based on the selected years
   const calculateFinalInvestment = (selectedYear) => {
     let multiplier;
@@ -35,7 +35,7 @@ const Return_cal = () => {
   return (
     <div className="cal-image">
       {/* Flex container to align left and right sections */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '20px 0px 20px 0px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '20px 0px 20px 0px', flexDirection: isSmallScreen ? 'column' : 'row' }}>
         <div>
           <Typography
             style={{

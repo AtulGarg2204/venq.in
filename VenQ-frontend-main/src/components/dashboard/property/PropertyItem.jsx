@@ -2492,7 +2492,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </Grid>
 
                           <Grid item xs={12} md={6}>
-                            <Box style={{ padding: "10px 0" }}>
+                            <Box style={{ padding: "0px 0" }}>
                               <FinanceHeading>
                                 Rental income (Year 1)
                               </FinanceHeading>
@@ -2748,6 +2748,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           src={listing.locationlink}
                           allowFullScreen=""
                           loading="lazy"
+                          title="location"
                           referrerPolicy="no-referrer-when-downgrade"
                           style={mapstylesmall}
                         ></iframe>
@@ -2756,6 +2757,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           src={listing.locationlink}
                           allowFullScreen=""
                           loading="lazy"
+                          title="location"
                           referrerPolicy="no-referrer-when-downgrade"
                           style={mapstylebig}
                         ></iframe>
@@ -2767,6 +2769,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       style={{
                         display: "flex",
                         justifyContent: "flex-start",
+                        flexWrap: "wrap",
                         marginTop: "20px",
                         gap:"10px"
                       }}
@@ -3452,7 +3455,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 )}
             </Grid>
 
-            {!isSmallScreen && listing?.islive == 3 && (
+            {!isSmallScreen && listing?.islive === 3 && (
               <Grid item xs={4} style={{ position: "relative" }}>
                 <Pricing>
                   <Box
@@ -3519,7 +3522,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     >
                       <div></div>
                       <div style={{ display: "flex", alignItems: "center" }}>
-                        <img src={clock} style={{ marginRight: "1rem" }}></img>
+                        <img src={clock} alt="clock" style={{ marginRight: "1rem" }}></img>
                         <span style={{ color: "red" }}>
                           {" "}
                           Closed on Mar 31,2024
@@ -3575,7 +3578,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
                     </Box>
 
-                    {listing.islive == 2 && (
+                    {listing.islive === 2 && (
                       <Box
                         style={{
                           display: "flex",
@@ -3615,7 +3618,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </button>
                       </Box>
                     )}
-                    {listing.islive == 1 && (
+                    {listing.islive === 1 && (
                       <Box
                         style={{
                           display: "flex",
@@ -3656,7 +3659,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </Box>
                     )}
 
-                    {listing.islive == 3 && (
+                    {listing.islive === 3 && (
                       <Button
                         sx={{
                           paddingLeft: "65px",
@@ -3678,7 +3681,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       onClose={closeModal}
                     >
                       <div className="modal">
-                        <a
+                        <div
                           className="close"
                           onClick={closeModal}
                           style={{
@@ -3686,7 +3689,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           &times;
-                        </a>
+                        </div>
 
                         <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
                           <Box
@@ -3740,7 +3743,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           paddingRight: "18px",
                         }}
                       >
-                        <a
+                        <div
                           className="close"
                           onClick={closeModalinv}
                           style={{
@@ -3748,7 +3751,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           }}
                         >
                           &times;
-                        </a>
+                        </div>
 
                         <form
                           style={{
@@ -3785,11 +3788,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     style={{
                                       fontWeight: "bold",
                                       borderBottom:
-                                        invtype == 0
+                                        invtype === 0
                                           ? "2px solid #00b386"
                                           : "none",
                                       marginRight: "12px",
-                                      color: invtype == 0 ? "#00b386" : "gray",
+                                      color: invtype === 0 ? "#00b386" : "gray",
                                       cursor: "pointer",
                                       fontSize: "16px",
                                       fontFamily: "Arial, sans-serif",
@@ -3808,10 +3811,10 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     style={{
                                       fontWeight: "bold",
                                       borderBottom:
-                                        invtype == 1
+                                        invtype === 1
                                           ? "2px solid #00b386"
                                           : "none",
-                                      color: invtype == 1 ? "#00b386" : "gray",
+                                      color: invtype === 1 ? "#00b386" : "gray",
                                       marginRight: "12px",
                                       cursor: "pointer",
                                       fontSize: "16px",
@@ -3843,7 +3846,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   Investment Amount :
                                 </LabelName>
                               </Label>
-                              {invtype == 0 && (
+                              {invtype === 0 && (
                                 <input
                                   type="text"
                                   value={userinvest}
@@ -3858,7 +3861,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   }}
                                 />
                               )}
-                              {invtype == 1 && (
+                              {invtype === 1 && (
                                 <input
                                   type="text"
                                   value={userinvestone}
@@ -3874,7 +3877,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 />
                               )}
                             </div>
-                            {invtype == 0 && (
+                            {invtype === 0 && (
                               <>
                                 <Box
                                   sx={{
@@ -3897,7 +3900,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 </Box>
                               </>
                             )}
-                            {invtype == 1 && (
+                            {invtype === 1 && (
                               <>
                                 <Box
                                   sx={{
@@ -3921,7 +3924,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               </>
                             )}
                           </Box>
-                          {invtype == 0 && (
+                          {invtype === 0 && (
                             <div
                               style={{
                                 display: "flex",
@@ -3957,7 +3960,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               justifyContent: "space-between",
                             }}
                           >
-                            {invtype == 0 && (
+                            {invtype === 0 && (
                               <>
                                 <Label>
                                   <LabelName
@@ -3982,7 +3985,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               </>
                             )}
                           </div>
-                          {invtype == 0 && (
+                          {invtype === 0 && (
                             <Label
                               style={{
                                 textAlign: "center",
@@ -4015,7 +4018,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               display: "flex",
                               justifyContent: "space-between",
                               gap: "30px",
-                              marginTop: invtype == 1 ? "205px" : "0px",
+                              marginTop: invtype === 1 ? "205px" : "0px",
                             }}
                           >
                             <Button
@@ -4039,7 +4042,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             >
                               ADD TO CART
                             </Button>
-                            {invtype == 0 && (
+                            {invtype === 0 && (
                               <Button
                                 type="submit"
                                 variant="contained"
@@ -4059,7 +4062,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 APPLY
                               </Button>
                             )}
-                            {invtype == 1 && (
+                            {invtype === 1 && (
                               <Button
                                 type="submit"
                                 variant="contained"
@@ -4129,7 +4132,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               </Grid>
             )}
 
-            {!isSmallScreen && listing?.islive == 2 && (
+            {!isSmallScreen && listing?.islive === 2 && (
               <Grid item xs={4} style={{ position: "relative" }}>
                 <Pricing>
                   <Box
@@ -4244,7 +4247,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       >
                         Schedule an E-meet
                       </button>
-                      {listing.islive == 2 && (
+                      {listing.islive === 2 && (
                         <button
                           onClick={() => setOpen((o) => !o)}
                           style={{
@@ -4259,7 +4262,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </button>
                       )}
 
-                      {listing.islive == 1 && (
+                      {listing.islive === 1 && (
                         <button
                           onClick={() => setOpenInv((o) => !o)}
                           style={{
@@ -4283,7 +4286,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         onClose={closeModal}
                       >
                         <div className="modal">
-                          <a
+                          <div
                             className="close"
                             onClick={closeModal}
                             style={{
@@ -4291,7 +4294,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             }}
                           >
                             &times;
-                          </a>
+                          </div>
 
                           <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
                             <Box
@@ -4345,7 +4348,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             paddingRight: "18px",
                           }}
                         >
-                          <a
+                          <div
                             className="close"
                             onClick={closeModalinv}
                             style={{
@@ -4353,7 +4356,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             }}
                           >
                             &times;
-                          </a>
+                          </div>
 
                           <form
                             style={{
@@ -4386,12 +4389,12 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       style={{
                                         fontWeight: "bold",
                                         borderBottom:
-                                          invtype == 0
+                                          invtype === 0
                                             ? "2px solid #00b386"
                                             : "none",
                                         marginRight: "12px",
                                         color:
-                                          invtype == 0 ? "#00b386" : "gray",
+                                          invtype === 0 ? "#00b386" : "gray",
                                         cursor: "pointer",
                                         fontSize: "16px",
                                         fontFamily: "Arial, sans-serif",
@@ -4410,11 +4413,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       style={{
                                         fontWeight: "bold",
                                         borderBottom:
-                                          invtype == 1
+                                          invtype === 1
                                             ? "2px solid #00b386"
                                             : "none",
                                         color:
-                                          invtype == 1 ? "#00b386" : "gray",
+                                          invtype === 1 ? "#00b386" : "gray",
                                         marginRight: "12px",
                                         cursor: "pointer",
                                         fontSize: "16px",
@@ -4446,7 +4449,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     Investment Amount :
                                   </LabelName>
                                 </Label>
-                                {invtype == 0 && (
+                                {invtype === 0 && (
                                   <input
                                     type="text"
                                     value={userinvest}
@@ -4461,7 +4464,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     }}
                                   />
                                 )}
-                                {invtype == 1 && (
+                                {invtype === 1 && (
                                   <input
                                     type="text"
                                     value={userinvestone}
@@ -4477,7 +4480,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   />
                                 )}
                               </div>
-                              {invtype == 0 && (
+                              {invtype === 0 && (
                                 <>
                                   <Box
                                     sx={{
@@ -4500,7 +4503,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   </Box>
                                 </>
                               )}
-                              {invtype == 1 && (
+                              {invtype === 1 && (
                                 <>
                                   <Box
                                     sx={{
@@ -4524,7 +4527,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 </>
                               )}
                             </Box>
-                            {invtype == 0 && (
+                            {invtype === 0 && (
                               <div
                                 style={{
                                   display: "flex",
@@ -4560,7 +4563,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 justifyContent: "space-between",
                               }}
                             >
-                              {invtype == 0 && (
+                              {invtype === 0 && (
                                 <>
                                   <Label>
                                     <LabelName
@@ -4585,7 +4588,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 </>
                               )}
                             </div>
-                            {invtype == 0 && (
+                            {invtype === 0 && (
                               <Label
                                 style={{
                                   textAlign: "center",
@@ -4618,7 +4621,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 display: "flex",
                                 justifyContent: "space-between",
                                 gap: "30px",
-                                marginTop: invtype == 1 ? "205px" : "0px",
+                                marginTop: invtype === 1 ? "205px" : "0px",
                               }}
                             >
                               <Button
@@ -4642,7 +4645,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               >
                                 ADD TO CART
                               </Button>
-                              {invtype == 0 && (
+                              {invtype === 0 && (
                                 <Button
                                   type="submit"
                                   variant="contained"
@@ -4662,7 +4665,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   APPLY
                                 </Button>
                               )}
-                              {invtype == 1 && (
+                              {invtype === 1 && (
                                 <Button
                                   type="submit"
                                   variant="contained"
@@ -4956,7 +4959,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
 
               </Grid>
             )}
-            {!isSmallScreen && listing?.islive == 1 && (
+            {!isSmallScreen && listing?.islive === 1 && (
               <Grid item xs={4} style={{ position: "relative" }}>
                 <Pricing>
                   <Box
@@ -5071,7 +5074,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       >
                         Schedule an E-meet
                       </button>
-                      {listing.islive == 2 && (
+                      {listing.islive === 2 && (
                         <button
                           onClick={() => setOpen((o) => !o)}
                           style={{
@@ -5086,7 +5089,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         </button>
                       )}
 
-                      {listing.islive == 1 && (
+                      {listing.islive === 1 && (
                         <button
                           onClick={() => setOpenInv((o) => !o)}
                           style={{
@@ -5110,7 +5113,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                         onClose={closeModal}
                       >
                         <div className="modal">
-                          <a
+                          <div
                             className="close"
                             onClick={closeModal}
                             style={{
@@ -5118,7 +5121,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             }}
                           >
                             &times;
-                          </a>
+                          </div>
 
                           <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
                             <Box>
@@ -5172,7 +5175,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               paddingRight: "18px",
                             }}
                           >
-                            <a
+                            <div
                               className="close"
                               onClick={closeModalinv}
                               style={{
@@ -5180,7 +5183,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               }}
                             >
                               &times;
-                            </a>
+                            </div>
 
                             <form
                               style={{
@@ -5213,13 +5216,13 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         style={{
                                           fontWeight: "bold",
                                           borderBottom:
-                                            invtype == 0
+                                            invtype === 0
                                               ? "2px solid #00b386"
                                               : "none",
                                           marginRight: "12px",
                                           marginTop: "10px",
                                           color:
-                                            invtype == 0 ? "#00b386" : "gray",
+                                            invtype === 0 ? "#00b386" : "gray",
                                           cursor: "pointer",
                                           fontSize: "16px",
                                           fontFamily: "Arial, sans-serif",
@@ -5238,11 +5241,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                         style={{
                                           fontWeight: "bold",
                                           borderBottom:
-                                            invtype == 1
+                                            invtype === 1
                                               ? "2px solid #00b386"
                                               : "none",
                                           color:
-                                            invtype == 1 ? "#00b386" : "gray",
+                                            invtype === 1 ? "#00b386" : "gray",
                                           marginRight: "12px",
                                           marginTop: "10px",
                                           cursor: "pointer",
@@ -5265,7 +5268,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     justifyContent: "space-between",
                                   }}
                                 >
-                                  {invtype == 0 && (
+                                  {invtype === 0 && (
                                     <input
                                       type="text"
                                       value={userinvest}
@@ -5280,7 +5283,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                       }}
                                     />
                                   )}
-                                  {invtype == 1 && (
+                                  {invtype === 1 && (
                                     <>
                                       <div class="invest-main-container">
                                         <div className="top-heading gray s-mb-10">
@@ -5460,7 +5463,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     </>
                                   )}
                                 </div>
-                                {invtype == 0 && (
+                                {invtype === 0 && (
                                   <>
                                     <Box
                                       sx={{
@@ -5484,7 +5487,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   </>
                                 )}
                               </Box>
-                              {invtype == 0 && (
+                              {invtype === 0 && (
                                 <div
                                   style={{
                                     display: "flex",
@@ -5520,7 +5523,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   justifyContent: "space-between",
                                 }}
                               >
-                                {invtype == 0 && (
+                                {invtype === 0 && (
                                   <>
                                     <Label>
                                       <LabelName
@@ -5545,7 +5548,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   </>
                                 )}
                               </div>
-                              {invtype == 0 && (
+                              {invtype === 0 && (
                                 <Label
                                   style={{
                                     textAlign: "center",
@@ -5708,7 +5711,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               >
                 Schedule an E-meet
               </button>
-              {listing.islive == 2 && (
+              {listing.islive === 2 && (
                 <button
                   onClick={() => setOpen((o) => !o)}
                   style={{
@@ -5723,7 +5726,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 </button>
               )}
 
-              {listing.islive == 1 && (
+              {listing.islive === 1 && (
                 <button
                   onClick={() => setOpenInv((o) => !o)}
                   style={{
@@ -5747,9 +5750,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
               >
                 <div className="modal">
                   <div>
-                    <a className="close" onClick={closeModal}>
+                    <div className="close" onClick={closeModal} style={{
+                      cursor: "pointer",
+                    }}>
                       &times;
-                    </a>
+                    </div>
                   </div>
 
                   <form style={{ padding: "10px 20px" }} onSubmit={handleInterest}>
@@ -5801,7 +5806,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     paddingRight: "18px",
                   }}
                 >
-                  <a
+                  <div
                     className="close"
                     onClick={closeModalinv}
                     style={{
@@ -5809,7 +5814,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     }}
                   >
                     &times;
-                  </a>
+                  </div>
 
                   <form
                     style={{
@@ -5843,9 +5848,9 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 style={{
                                   fontWeight: "bold",
                                   borderBottom:
-                                    invtype == 0 ? "2px solid #00b386" : "none",
+                                    invtype === 0 ? "2px solid #00b386" : "none",
                                   marginRight: "12px",
-                                  color: invtype == 0 ? "#00b386" : "gray",
+                                  color: invtype === 0 ? "#00b386" : "gray",
                                   cursor: "pointer",
                                   fontSize: "16px",
                                   fontFamily: "Arial, sans-serif",
@@ -5858,8 +5863,8 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 style={{
                                   fontWeight: "bold",
                                   borderBottom:
-                                    invtype == 1 ? "2px solid #00b386" : "none",
-                                  color: invtype == 1 ? "#00b386" : "gray",
+                                    invtype === 1 ? "2px solid #00b386" : "none",
+                                  color: invtype === 1 ? "#00b386" : "gray",
                                   marginRight: "12px",
                                   cursor: "pointer",
                                   fontSize: "16px",
@@ -5895,7 +5900,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               }}
                             ></LabelName>
                           </Label>
-                          {invtype == 0 && (
+                          {invtype === 0 && (
                             <input
                               type="text"
                               value={userinvest}
@@ -5910,7 +5915,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               }}
                             />
                           )}
-                          {invtype == 1 && (
+                          {invtype === 1 && (
                             <>
                               <div class="invest-main-container">
                                 <div className="top-heading gray s-mb-10">
@@ -6093,7 +6098,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           )}
                         </div>
                       )}
-                      {invtype == 0 && !showInvestComponent && (
+                      {invtype === 0 && !showInvestComponent && (
                         <>
                           <Box
                             sx={{
