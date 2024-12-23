@@ -42,11 +42,26 @@ const Testimonials = () => {
             <div className='w-full md:min-h-full px-[8vw]'>
                 <div className="w-full font-raleway p-[2vw] mt-[1vw] h-[full] bg-white">
                     <div className="flex font-raleway overflow-hidden w-full items-center flex-col">
-                        <h1 className='px-4 py-2 bg-zinc-100 font-semibold justify-center items-center gap-3  text-[12px] md:text-[16px] flex text-[#2ab589] rounded-xl'>
+                    <h1 
+                            className='px-4 py-2 bg-zinc-100 font-semibold justify-center items-center gap-3 text-[12px] md:text-[16px] flex text-[#2ab589] rounded-xl'
+                            data-aos="fade-up"
+                        >
                             <span>Testimonials</span>
                         </h1>
-                        <h1 className='2xl:text-[60px] text-[28px] md:text-[45px] tracking-tight md:leading-[45px] 2xl:leading-[70px] font-semibold md:font-medium text-center font-raleway mt-2'>Public cheers for us </h1>
-                        <h1 className='md:mt-5 text-zinc-400 md:text-lg text-xs font-medium'>Find out how our users are spreading the word!</h1>
+                        <h1 
+                            className='2xl:text-[60px] text-[28px] md:text-[45px] tracking-tight md:leading-[45px] 2xl:leading-[70px] font-semibold md:font-medium text-center font-raleway mt-2'
+                            data-aos="fade-up"
+                            data-aos-delay="200" // Add delay to the subheading
+                        >
+                            Public cheers for us
+                        </h1>
+                        <h1 
+                            className='md:mt-5 text-zinc-400 md:text-lg text-xs font-medium'
+                            data-aos="fade-up"
+                            data-aos-delay="400" // Add delay to the subheading
+                        >
+                            Find out how our users are spreading the word!
+                        </h1>
                     </div>
 
                     <div className="w-full h-full hidden md:flex flex-wrap mt-[2vw] gap-[2vw] justify-center items-start">

@@ -460,7 +460,6 @@ const PropertyHeading = styled(Typography)`
   font-size: 18px;
 `;
 const PropertyHeadingSmall = styled(Typography)`
-  font-size: 30px;
   marginTop:-5px;
   font-family: "Bebas Neue", sans-serif;
   width: 100%;
@@ -1468,14 +1467,15 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   display: "flex",
                                   flexDirection: "column",
                                   justifyContent: "center",
-                                  padding: listing_content.specssubtitle !== "" ? "20px 0px 10px 20px" : "15px 0px 10px 20px" ,
+                                  padding: isSmallScreen ? listing_content.specssubtitle !== "" ? "20px 0px 10px 10px" : "15px 0px 10px 10px" : listing_content.specssubtitle !== "" ? "20px 0px 10px 20px" : "15px 0px 10px 20px",
                                 }}
                               >
                                   <PropertyHeadingSmall
                                     style={{
                                       textTransform: "uppercase",
                                       color: "#EFEFEF", 
-                                      lineHeight: "0.5"
+                                      lineHeight: isSmallScreen ? "1" : "0.5",
+                                      fontSize: isSmallScreen ? "22px" : "30px",
                                     }}
                                   >
                                     {listing_content.specstitle}
@@ -1483,7 +1483,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                   {listing_content.specssubtitle !== "" && (<PropertySubHeading
                                     style={{
                                       color: "#EFEFEF", 
-                                      fontSize: "18px"
+                                      fontSize: isSmallScreen ? "12px" : "18px"
                                     }}
                                   >
                                     {listing_content.specssubtitle}
