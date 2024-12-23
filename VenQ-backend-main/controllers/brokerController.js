@@ -111,7 +111,7 @@ exports.getBrokerStats = async (req, res) => {
         // Generate broker details if they don't exist
         if (!customer.brokerDetails || !customer.brokerDetails.brokerCode) {
             const brokerCode = 'BRK' + Math.random().toString(36).substring(2, 8).toUpperCase();
-            const referralLink = `http://localhost:3000/signup?ref=${brokerCode}`;
+            const referralLink = `https://venq-frontend.vercel.app/signup?ref=${brokerCode}`;
 
             customer.brokerDetails = {
                 brokerCode,
