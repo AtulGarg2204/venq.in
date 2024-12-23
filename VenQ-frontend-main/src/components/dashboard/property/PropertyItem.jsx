@@ -51,9 +51,9 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState('');
   const navbarRef = useRef(null); // Ref to access the navbar's toolbar for scroll manipulation
   const sections = [
-    'property-financials',
-    'return-calculator',
+    'performance',
     'about-project',
+    'return-calculator',
     'amenities',
     'documents',
     'rera',
@@ -157,7 +157,7 @@ const Navbar = () => {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {['PROPERTY FINANCIALS', 'RETURN CALCULATOR', 'ABOUT PROJECT', 'AMENITIES', 'DOCUMENTS', 'RERA', 'FINANCIALS', 'LAYOUT', 'FUNDING TIMELINE', 'LOCATION'].map(
+        {['PERFORMANCE','ABOUT PROJECT', 'RETURN CALCULATOR', 'AMENITIES', 'DOCUMENTS', 'RERA', 'FINANCIALS', 'LAYOUT', 'FUNDING TIMELINE', 'LOCATION'].map(
           (label, index) => {
             const sectionId = label.toLowerCase().replace(/\s/g, '-'); // Maps label to section IDs
             return (
@@ -460,14 +460,14 @@ const PropertyHeading = styled(Typography)`
   font-size: 18px;
 `;
 const PropertyHeadingSmall = styled(Typography)`
-  font-size: 25px;
+  font-size: 30px;
   marginTop:-5px;
   font-family: "Bebas Neue", sans-serif;
   width: 100%;
   word-wrap: break-word;
 `;
 const PropertySubHeading = styled(Typography)`
-  font-size: 16px;
+  font-size: 20px;
   font-family: "Bebas Neue", sans-serif;
   color: grey;
 `;
@@ -1447,7 +1447,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                               display: "flex",
                               flexDirection: "column",
                               justifyContent: "center",
-                              backgroundColor: index === 0 ? "#254681" : index === 1 ? "#2DA7A3" : index === 2 ? "#C29800" : "#47B877",
+                              backgroundColor: index === 0 ? "#244682" : index === 1 ? "#38814E" : index === 2 ? "#4BAC8A" : "#47A8A3",
                               fontWeight: "bold",
                               borderRadius: "18px",
                               height: "100%", // Ensures the box takes up the full height of the grid cell
@@ -1461,33 +1461,33 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                 height: "100%",
                               }}
                             >
-                              {/* Text Container (70%) */}
+                              {/* Text Container (80%) */}
                               <Box
                                 style={{
                                   flex: "80%",
                                   display: "flex",
                                   flexDirection: "column",
                                   justifyContent: "center",
-                                  padding: "15px 0px 10px 20px",
+                                  padding: listing_content.specssubtitle !== "" ? "20px 0px 10px 20px" : "15px 0px 10px 20px" ,
                                 }}
                               >
                                   <PropertyHeadingSmall
                                     style={{
                                       textTransform: "uppercase",
                                       color: "#EFEFEF", 
-                                      lineHeight: "1.0",
+                                      lineHeight: "0.5"
                                     }}
                                   >
                                     {listing_content.specstitle}
                                   </PropertyHeadingSmall>
-                                  <PropertySubHeading
+                                  {listing_content.specssubtitle !== "" && (<PropertySubHeading
                                     style={{
                                       color: "#EFEFEF", 
-                                      fontSize: "16px", 
+                                      fontSize: "18px"
                                     }}
                                   >
                                     {listing_content.specssubtitle}
-                                  </PropertySubHeading>
+                                  </PropertySubHeading>)}
                               </Box>
                       
                               {/* Logo Container (30%) */}
@@ -1512,25 +1512,25 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                     {!isSmallScreen && (
                       <>
                       <Divider/>
-                    <Box style={{ display: "flex" }}>
+                    <Box style={{ display: "flex",  }}>
               <Box
                 style={{
                   textAlign: "center",
-                  paddingBottom: "10px",
+                  paddingBottom: "0px",
 
                   marginLeft: "3%",
                   marginTop: "5%",
-                  marginRight: "3%",
+                  // marginRight: "3%",
                 }}
               >
                 <Typography
                   style={{
-                    fontSize: "18px",
+                    fontSize: "16px",
                     color: "rgb(112,111,111)",
                     fontFamily: "Arial, sans-serif",
                   }}
                 >
-                  Property price
+                  Minimum Investment
                 </Typography>
                 <Typography
                   style={{
@@ -1552,13 +1552,20 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                 >
                   Invest
                 </button>
+                <Typography style={{
+                    fontSize: "16px",
+                    color: "rgb(112,111,111)",
+                    fontFamily: "Arial, sans-serif",
+                    paddingTop: "10px"
+                  }}>
+                 <p>Apply with only ₹{0.05 * parseInt(listing.propertyprice.replace(/,/g, ''))}</p>
+                </Typography>
               </Box>
-
               <div
                 style={{
-                  marginTop: "10%",
+                  marginTop: "14%",
 
-                  paddingLeft: "2%",
+                  paddingLeft: "8%",
                 }}
               >
                 <ProgressBar
@@ -1878,7 +1885,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                   </Button>
                 </Box>
                 <Divider /> */}
-                    <Box id="property-financials" style={{ paddingBottom: "20px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
+                    <Box id="performance" style={{ paddingBottom: "20px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Box
                       style={{
                         display: "flex",
@@ -1943,6 +1950,185 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                       </div>
                     </Box>
                     </Box>
+                    <Box
+                    id="about-project"
+                    style={{
+                      paddingBottom: "20px",
+                      marginTop: "15px",
+                      padding: "20px",
+                      backgroundColor: "#fff",
+                      borderRadius: "8px",
+                      boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                    }}
+                  >
+                    <Typography
+                      style={{
+                        fontSize: "18px",
+                        fontWeight: 700,
+                        color: "rgb(51, 51, 52)",
+                        fontFamily: "Arial, sans-serif",
+                        paddingBottom: "20px",
+                      }}
+                    >
+                      About {listing.properyheading}
+                    </Typography>
+                    <Divider />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        marginTop: "20px",
+                        gap: "10px",
+                      }}
+                    >
+                      <Box
+                        onClick={() => setProjectoverview("project-overview")}
+                        style={{
+                          padding: "10px 20px 10px 20px",
+                          color: projectoverview === "project-overview" ? "white" : "black",
+                          backgroundColor: projectoverview === "project-overview" ? "black" : "white",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Project Overview
+                      </Box>
+                      <Box
+                        onClick={() => setProjectoverview("why-invest")}
+                        style={{
+                          padding: "10px 20px 10px 20px",
+                          color: projectoverview === "why-invest" ? "white" : "black",
+                          backgroundColor: projectoverview === "why-invest" ? "black" : "#fff",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Why Invest?
+                      </Box>
+                      <Box
+                        onClick={() => setProjectoverview("about-builder")}
+                        style={{
+                          padding: "10px 20px 10px 20px",
+                          color: projectoverview === "about-builder" ? "white" : "black",
+                          backgroundColor: projectoverview === "about-builder" ? "black" : "white",
+                          borderRadius: "8px",
+                          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
+                          cursor: "pointer",
+                        }}
+                      >
+                        About Builder
+                      </Box>
+                    </div>
+                    <Typography
+                      style={{
+                        fontFamily: "Arial, sans-serif",
+                        fontSize: "14px",
+                        color: "rgb(112,111,111)",
+                        marginTop: "20px",
+                      }}
+                    >
+                      
+                      {projectoverview === "about-builder" && (
+                        <>
+                        <Box style={{display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "20px"}}>
+                        <Box>
+                        <img
+                            src="https://static.squareyards.com/resources/images/developerlogo/emaar-401.jpg?aio=w-89;h-89;crop;"
+                            alt="builder logo"
+                            style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+                          />
+                        </Box>
+                        <Box>
+                          <Typography style={{fontSize: "12px", color: "#666"}}>Total Projects</Typography>
+                          100
+                        </Box>
+                        <Box>
+                            <Typography style={{fontSize: "12px", color: "#666"}}>Experience</Typography>
+                            14 years
+                        </Box>
+                      </Box>
+                      <Box style={{paddingTop: "20px"}}>
+                      <div  style={{fontFamily: "Arial, sans-serif", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
+                          {listing.propertyoverview &&
+                            listing.propertyoverview.length > maxWords && (
+                              <div style={{ marginBottom: "10px" }}>
+                                {listing.propertyoverview
+                                  .split(" ")
+                                  .slice(0, maxWords)
+                                  .join(" ")}
+                                <div hidden={!showFullContent}>
+                                  {listing.propertyoverview
+                                    .split(" ")
+                                    .slice(maxWords, listing.propertyoverview.length)
+                                    .join(" ")}
+                                </div>
+                              </div>
+                            )}
+                            <MoreButton
+                        onClick={() => {
+                          setShowFullContent(!showFullContent);
+                        }}
+                      >
+                        {showFullContent ? "Show less" : "Show more"}
+                      </MoreButton>
+                        </div>
+                      </Box>
+                      </>
+                      )}
+                      {projectoverview === "project-overview" && (
+                        <div  style={{fontFamily: "Arial, sans-serif", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
+                          {listing.propertyoverview &&
+                            listing.propertyoverview.length > maxWords && (
+                              <div style={{ marginBottom: "10px" }}>
+                                {listing.propertyoverview
+                                  .split(" ")
+                                  .slice(0, maxWords)
+                                  .join(" ")}
+                                <div hidden={!showFullContent}>
+                                  {listing.propertyoverview
+                                    .split(" ")
+                                    .slice(maxWords, listing.propertyoverview.length)
+                                    .join(" ")}
+                                </div>
+                              </div>
+                            )}
+                            <MoreButton
+                        onClick={() => {
+                          setShowFullContent(!showFullContent);
+                        }}
+                      >
+                        {showFullContent ? "Show less" : "Show more"}
+                      </MoreButton>
+                        </div>
+                      )}
+                      {projectoverview === "why-invest" && (
+                        <div>
+                        <Typography
+                          style={{
+                            padding: "0px",
+                            fontFamily: "Arial, sans-serif",
+                            fontSize: "14px", lineHeight: "24px"
+                          }}
+                        >
+                          <ul>
+                            {listing.locationdescription
+                              .split(".")
+                              .map((sentence, index) =>
+                                sentence.trim() ? (
+                                  <li key={index} style={{ marginBottom: "10px" }}>
+                                    {sentence.trim()}.
+                                  </li>
+                                ) : null
+                              )}
+                          </ul>
+                        </Typography>
+                      </div>
+                      )}
+                    </Typography>
+                  </Box>
                     <Box id="return-calculator" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Typography
                         style={{
@@ -2013,185 +2199,6 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </ThemeProvider>
                         </Box>
                     </Box>
-                    <Box
-    id="about-project"
-    style={{
-      paddingBottom: "20px",
-      marginTop: "15px",
-      padding: "20px",
-      backgroundColor: "#fff",
-      borderRadius: "8px",
-      boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
-    }}
-  >
-    <Typography
-      style={{
-        fontSize: "18px",
-        fontWeight: 700,
-        color: "rgb(51, 51, 52)",
-        fontFamily: "Arial, sans-serif",
-        paddingBottom: "20px",
-      }}
-    >
-      About {listing.properyheading}
-    </Typography>
-    <Divider />
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        marginTop: "20px",
-        gap: "10px",
-      }}
-    >
-      <Box
-        onClick={() => setProjectoverview("project-overview")}
-        style={{
-          padding: "10px 20px 10px 20px",
-          color: projectoverview === "project-overview" ? "white" : "black",
-          backgroundColor: projectoverview === "project-overview" ? "black" : "white",
-          borderRadius: "8px",
-          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
-          cursor: "pointer",
-        }}
-      >
-        Project Overview
-      </Box>
-      <Box
-        onClick={() => setProjectoverview("why-invest")}
-        style={{
-          padding: "10px 20px 10px 20px",
-          color: projectoverview === "why-invest" ? "white" : "black",
-          backgroundColor: projectoverview === "why-invest" ? "black" : "#fff",
-          borderRadius: "8px",
-          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
-          cursor: "pointer",
-        }}
-      >
-        Why Invest?
-      </Box>
-      <Box
-        onClick={() => setProjectoverview("about-builder")}
-        style={{
-          padding: "10px 20px 10px 20px",
-          color: projectoverview === "about-builder" ? "white" : "black",
-          backgroundColor: projectoverview === "about-builder" ? "black" : "white",
-          borderRadius: "8px",
-          boxShadow: "0 5px 8px 0 rgba(224, 224, 224)",
-          cursor: "pointer",
-        }}
-      >
-        About Builder
-      </Box>
-    </div>
-    <Typography
-      style={{
-        fontFamily: "Arial, sans-serif",
-        fontSize: "14px",
-        color: "rgb(112,111,111)",
-        marginTop: "20px",
-      }}
-    >
-      
-      {projectoverview === "about-builder" && (
-        <>
-        <Box style={{display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "20px"}}>
-        <Box>
-        <img
-            src="https://static.squareyards.com/resources/images/developerlogo/emaar-401.jpg?aio=w-89;h-89;crop;"
-            alt="builder logo"
-            style={{ width: "100px", height: "100px", borderRadius: "50%" }}
-          />
-        </Box>
-        <Box>
-          <Typography style={{fontSize: "12px", color: "#666"}}>Total Projects</Typography>
-          100
-        </Box>
-        <Box>
-            <Typography style={{fontSize: "12px", color: "#666"}}>Experience</Typography>
-            14 years
-        </Box>
-      </Box>
-      <Box style={{paddingTop: "20px"}}>
-      <div  style={{fontFamily: "Arial, sans-serif", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
-          {listing.propertyoverview &&
-            listing.propertyoverview.length > maxWords && (
-              <div style={{ marginBottom: "10px" }}>
-                {listing.propertyoverview
-                  .split(" ")
-                  .slice(0, maxWords)
-                  .join(" ")}
-                <div hidden={!showFullContent}>
-                  {listing.propertyoverview
-                    .split(" ")
-                    .slice(maxWords, listing.propertyoverview.length)
-                    .join(" ")}
-                </div>
-              </div>
-            )}
-            <MoreButton
-        onClick={() => {
-          setShowFullContent(!showFullContent);
-        }}
-      >
-        {showFullContent ? "Show less" : "Show more"}
-      </MoreButton>
-        </div>
-      </Box>
-      </>
-      )}
-      {projectoverview === "project-overview" && (
-        <div  style={{fontFamily: "Arial, sans-serif", color: "#666", fontSize: "14px", lineHeight: "24px" }}>
-          {listing.propertyoverview &&
-            listing.propertyoverview.length > maxWords && (
-              <div style={{ marginBottom: "10px" }}>
-                {listing.propertyoverview
-                  .split(" ")
-                  .slice(0, maxWords)
-                  .join(" ")}
-                <div hidden={!showFullContent}>
-                  {listing.propertyoverview
-                    .split(" ")
-                    .slice(maxWords, listing.propertyoverview.length)
-                    .join(" ")}
-                </div>
-              </div>
-            )}
-            <MoreButton
-        onClick={() => {
-          setShowFullContent(!showFullContent);
-        }}
-      >
-        {showFullContent ? "Show less" : "Show more"}
-      </MoreButton>
-        </div>
-      )}
-      {projectoverview === "why-invest" && (
-        <div>
-        <Typography
-          style={{
-            padding: "0px",
-            fontFamily: "Arial, sans-serif",
-             fontSize: "14px", lineHeight: "24px"
-          }}
-        >
-          <ul>
-            {listing.locationdescription
-              .split(".")
-              .map((sentence, index) =>
-                sentence.trim() ? (
-                  <li key={index} style={{ marginBottom: "10px" }}>
-                    {sentence.trim()}.
-                  </li>
-                ) : null
-              )}
-          </ul>
-        </Typography>
-      </div>
-      )}
-    </Typography>
-  </Box>
   <Box
   id="amenities"
   style={{
@@ -2373,7 +2380,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           </Box>
                         ))}
                     </Box>
-                    <Box id="rera"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
+                    {listing.rera !== "" && (<Box id="rera"  style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                       <Typography
                         style={{
                           fontSize: "18px",
@@ -2394,11 +2401,11 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                           marginTop: "20px"
                         }}>
                             <Box style={{ paddingBottom: "20px", padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", width: "100%" }}>
-                              <p style={{fontWeight:700 }}>GGM/337/69/2019/31</p>
+                              <p style={{fontWeight:700 }}>{listing.rera}</p>
                               <p style={{fontSize: 14}}>Name</p>
                             </Box>
                           </Box>
-                    </Box>
+                    </Box>)}
                     <Box id="financials" style={{ paddingBottom: "20px",marginTop: "15px",padding: "20px", backgroundColor: "#fff", borderRadius: "8px", boxShadow: "0 5px 8px 0 rgba(224, 224, 224)", }}>
                     <Typography
                         style={{
@@ -2464,7 +2471,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     Govt. Fees
                                   </FinanceSubHeading>
                                   <FinanceAmount>
-                                    {listing.venqfee}
+                                    INR {listing.venqfee}
                                   </FinanceAmount>
                                 </Box>
                               </Box>
@@ -2484,7 +2491,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     Investment cost
                                   </FinanceSubHeading>
                                   <FinanceAmount style={{ color: "#0170dc" }}>
-                                    INR {listing.propertyprice}
+                                  INR {(parseInt(listing.transactioncost.replace(/,/g, '')) +  parseInt(listing.venqfee.replace(/,/g, '')) + parseInt(listing.propertypricen.replace(/,/g, ''))).toLocaleString('en-IN')}
                                   </FinanceAmount>
                                 </Box>
                               </Box>
@@ -2526,7 +2533,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     Service charges
                                   </FinanceSubHeading>
                                   <FinanceAmount>
-                                    (INR {listing.servicecharges})
+                                    INR {listing.servicecharges}
                                   </FinanceAmount>
                                 </Box>
 
@@ -2542,7 +2549,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                                     Mgmt. and maintenance
                                   </FinanceSubHeading>
                                   <FinanceAmount>
-                                    (INR {listing.maintainencefee})
+                                    INR {listing.maintainencefee}
                                   </FinanceAmount>
                                 </Box>
                               </Box>
@@ -4753,7 +4760,7 @@ const PropertyItem = ({ handleCart, clicked, setClicked }) => {
                             style={{
                               fontFamily: "Arial, sans-serif",
                               fontSize: "22px",
-                              fontWeight: 900,
+                              fontWeight: 700,
                               marginBottom: "10px", // Adjusted to prevent too much space
                               color: "#44475B",
                               cursor: "pointer", // Show it's clickable
