@@ -1,0 +1,591 @@
+.compound_calculater_form_main {
+  width: 90%;
+  height: auto;
+  padding: 0px 20px 20px 20px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
+  margin-right: auto;
+  margin-left: auto;
+  /* margin-top: -200px; */
+}
+
+.head {
+  font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder", sans-serif;
+}
+
+.head label {
+  font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder", sans-serif;
+}
+
+.compound_calculater_initInvest {
+  margin-top: 10px;
+}
+
+.compound_calculater_initInvest_container_one > input {
+  width: 150px;
+  height: 15px;
+  border: none;
+  /* border-bottom: 2px solid #ccc;  */
+  outline: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: rgb(43, 43, 43);
+  text-align: right;
+  margin-left: 80px;
+}
+
+.compound_calculater_initInvest_container_one > label {
+  color: #121c30;
+  font-size: 18px;
+  font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder", sans-serif;
+  font-weight: 500;
+  line-height: 43.93px;
+}
+
+.compound_calculater_monthlyInvestment > label {
+  margin-top: 10px;
+}
+
+.compound_calculater_monthlyInvestment_container_one {
+  font-family: "Plus Jakarta Sans", "Plus Jakarta Sans Placeholder",
+    "sans-serif";
+  margin-bottom: 20px;
+  color: #121c30;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 43.93px;
+}
+
+.compound_calculater_monthlyInvestment_container_one > input {
+  width: 130px;
+  height: 15px;
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: rgb(43, 43, 43);
+  text-align: right;
+  margin-left: 55px;
+}
+
+.compound_calculater_totalamount_main {
+  height: 60px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.compound_calculater_totalamount_main > div {
+  text-align: center;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.compound_calculater_graph_main {
+  margin-top: 20px;
+}
+
+.compound_calculater_selectbox_main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.compound_calculater_selectbox_main > div > select {
+  width: 100%;
+  height: 30px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.compound_calculater_totalamount_container_one {
+  background-color: rgb(224, 255, 232);
+}
+
+.compound_calculater_totalamount_container_one > h1 {
+  margin-top: 5px;
+  font-size: 20px;
+}
+
+.compound_calculater_totalamount_container_one > p {
+  font-size: 16px;
+}
+
+.compound_calculater_makemoney_main {
+  width: 78%;
+  height: auto;
+  padding: 20px;
+  border-radius: 8px;
+  padding-left: 10px;
+  /* border: 2px solid black; */
+}
+
+.compound_calculater_makemoney_main > p {
+  color: rgba(82, 191, 131, 1);
+  font-size: 20px;
+  margin-top: 5px;
+  /* margin-left: 5px; */
+}
+
+.compound_calculater_makemoney_main > h3 {
+  font-size: 48px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.compound_calculater_annualrental_one {
+  display: flex;
+  gap: 20px;
+  width: 60%;
+  height: 25px;
+}
+
+.compound_calculater_annualrental_one > p {
+  font-size: 17px;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+.compound_calculater_annualrental_main > p {
+  width: 65%;
+  color: gray;
+}
+
+.compound_calculater_annualrental_two {
+  display: flex;
+  width: 70%;
+  align-items: center;
+}
+
+.compound_calculater_annualrental_two > p {
+  margin-top: -3px;
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(178, 178, 178);
+}
+
+.compound_calculater_annualrental_three {
+  display: flex;
+  gap: 20px;
+  width: 60%;
+  height: 25px;
+  margin-top: 20px;
+}
+
+.compound_calculater_annualrental_three > p {
+  font-size: 17px;
+  margin-top: 2px;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.compound_calculater_makemoney_main > button {
+  background-color: #121c30;
+  width: 200px;
+  height: 50px;
+  margin-top: 40px;
+}
+
+.compound_main {
+  /* background-color: red; */
+  width: 65%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 30px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+}
+
+.bottom-half-circle {
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 100% 200%;
+  border-bottom-right-radius: 100% 200%;
+  transform: translateY(50%);
+}
+
+@media (max-width: 768px) {
+  .head {
+    width: 100%;
+    position: relative;
+  }
+  .compound_main {
+    display: none;
+  }
+  .compound_calculater_form_main {
+    width: 95%;
+    margin-top: -100px;
+    /* padding-bottom: 30px; */
+    /* overflow: hidden; */
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    padding: 5px;
+    margin-top: 50px;
+    /* border: 2px solid black; */
+  }
+
+  .compound_calculater_form_main > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .compound_main {
+    width: 95%;
+    margin: auto;
+    height: auto;
+    /* display: grid; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    overflow-x: hidden;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    /* transform: translateX(10px); */
+  }
+
+  .compound_calculater_totalamount_main {
+    height: 60px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+  }
+
+  .compound_calculater_totalamount_main > div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .compound_calculater_totalamount_main > div > p {
+    font-size: 0.8rem;
+    text-wrap: nowrap;
+  }
+
+  .compound_calculater_totalamount_main > div > h1 {
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+  }
+
+  .compound_calculater_monthlyInvestment_container_one > input {
+    width: 100px;
+  }
+
+  .compound_calculater_initInvest {
+    margin-left: 10px;
+  }
+
+  .compound_calculater_monthlyInvestment {
+    margin-left: 10px;
+  }
+
+  .compound_calculater_initInvest_container_one {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .compound_calculater_initInvest_container_one > label {
+    text-wrap: nowrap;
+    text-align: center;
+  }
+
+  .compound_calculater_initInvest_container_one > input {
+    margin-left: 9px;
+    text-align: center;
+    text-wrap: nowrap;
+    transform: translateX(24px);
+  }
+
+  .compound_calculater_makemoney_main > h3 {
+    font-size: 35px;
+  }
+
+  .compound_calculater_monthlyInvestment_container_one {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .compound_calculater_monthlyInvestment_container_one > label {
+    text-wrap: nowrap;
+  }
+
+  .compound_calculater_monthlyInvestment_container_one > input {
+    margin-left: 21px;
+    text-align: center;
+    text-wrap: nowrap;
+    width: 40%;
+    background-color: rgb(24, 158, 158);
+  }
+
+  .compound_calculater_annualrental_two > p {
+    overflow: hidden;
+    width: 44%;
+  }
+
+  .compound_calculater_annualrental_two > svg {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    transform: translateX(-50%);
+  }
+
+  .compound_calculater_annualrental_two {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    /* gap: 20px; */
+    position: relative;
+    justify-content: space-between;
+  }
+
+  .compound_calculater_totalamount_main > div > h1 {
+    font-size: 18px;
+  }
+
+  .compound_calculater_totalamount_main > div > p {
+    font-size: 14px;
+  }
+
+  .compound_calculater_makemoney_main {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    border-radius: 8px;
+    padding-left: 20px;
+  }
+
+  .compound_calculater_annualrental_one {
+    width: 65%;
+    margin-top: 5px;
+  }
+
+  .compound_calculater_annualrental_main > p {
+    width: 70%;
+    color: gray;
+  }
+
+  .compound_calculater_annualrental_three {
+    display: flex;
+    gap: 20px;
+    width: 65%;
+    height: 25px;
+    margin-top: 15px;
+  }
+
+  .compound_calculater_makemoney_main > button {
+    margin-top: 20px;
+  }
+
+  .how_will_i_make_money {
+    font-size: 1rem;
+    margin-left: 5px;
+    text-align: start;
+  }
+}
+
+.home_live_property_main {
+  width: 50%;
+  margin: auto;
+  height: auto;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  /* margin-top: 50px; */
+  /* background-color: yellow; */
+}
+
+.home_live_property_main > div {
+  height: auto;
+}
+
+.home_live_property_heading {
+  width: 40%;
+  /* background-color: rebeccapurple; */
+  text-align: center;
+  margin: auto;
+  margin-top: -120px;
+}
+
+.home_live_property_heading > h1 {
+  font-size: 38px;
+  margin-bottom: 30px;
+}
+
+.home_circle_content_onresponsive_main {
+  display: none;
+}
+
+/* .compound_chart{
+  width: 97%;
+} */
+
+/* .home_circle_image{
+    width: 70%;
+    margin: auto;
+    
+}
+.home_circle_image>img{
+    margin-left: -20px;
+} */
+
+.home_circle_image {
+  position: relative;
+  width: 70%;
+  margin: auto;
+}
+
+.home_circle_image > img {
+  margin-left: -20px;
+  display: block;
+  width: 100%;
+}
+
+.home_circle_image_heading {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: black;
+  width: 100%;
+  /* Ensure the heading takes full width within the container */
+  box-sizing: border-box;
+  /* Include padding and border in the width calculation */
+}
+
+.home_circle_image_heading h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgba(82, 191, 131, 1);
+}
+
+.home_circle_image_heading h1 {
+  font-size: 38px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.home_live_property_container_two {
+  width: 350px;
+}
+
+.property_card {
+  width: 90%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .home_live_property_heading {
+    width: 95%;
+  }
+  .compound_main {
+    display: none;
+  }
+  .home_live_property_main {
+    width: 95%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home_live_property_container_two {
+    width: 175%;
+    margin-left: 11px;
+    transform: translate(80px, 0);
+  }
+
+  .home_live_property_container_one,
+  .home_live_property_container_three {
+    display: none;
+  }
+
+  .home_live_property_heading {
+    margin-top: 100px;
+  }
+
+  .home_circle_image {
+    display: none;
+  }
+
+  .home_circle_content_onresponsive_main {
+    width: 95%;
+    margin: auto;
+    display: block;
+    margin-top: 50px;
+    margin-bottom: -40px;
+  }
+
+  .home_circle_content_onresponsive_heading > h3 {
+    text-align: center;
+    color: rgba(82, 191, 131, 1);
+  }
+
+  .home_circle_content_onresponsive_heading > h1 {
+    text-align: center;
+    color: black;
+    font-size: 35px;
+    margin-bottom: 40px;
+  }
+
+  .home_circle_content_onresponsive_container_one,
+  .home_circle_content_onresponsive_container_two,
+  .home_circle_content_onresponsive_container_three,
+  .home_circle_content_onresponsive_container_four {
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .home_circle_content_onresponsive_container_one,
+  .home_circle_content_onresponsive_container_three {
+    background-image: url("https://framerusercontent.com/images/LiMHImdJMRuKZUrNnr12dXtDU.png?scale-down-to=1024");
+  }
+
+  .home_circle_content_onresponsive_container_two,
+  .home_circle_content_onresponsive_container_four {
+    background-image: url("https://framerusercontent.com/images/A9K6u1k9NVPu4liv8LSQemLVk.png?scale-down-to=1024");
+  }
+
+  .home_circle_content_onresponsive_container_one > h3,
+  .home_circle_content_onresponsive_container_two > h3,
+  .home_circle_content_onresponsive_container_three > h3,
+  .home_circle_content_onresponsive_container_four > h3 {
+    font-size: 25px;
+  }
+
+  .home_circle_content_onresponsive_container_one > img,
+  .home_circle_content_onresponsive_container_two > img,
+  .home_circle_content_onresponsive_container_three > img,
+  .home_circle_content_onresponsive_container_four > img {
+    height: 60px;
+    margin-top: 15px;
+  }
+}
+
+/* https://framerusercontent.com/images/A9K6u1k9NVPu4liv8LSQemLVk.png?scale-down-to=1024 */

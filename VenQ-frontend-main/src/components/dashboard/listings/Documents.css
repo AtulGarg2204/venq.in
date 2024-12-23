@@ -1,0 +1,23 @@
+.documents_container {
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  width: 400px;
+  margin: auto;
+}
+/* .documents_container>button{
+    width: 120px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    background-color: #000000;
+    color: white;
+    font-size: 18px;
+    font-family: "Inter";
+    margin-top: 20px;
+    padding: 10px;
+} */
+.documents_container input:focus-within {
+  border: 1px solid #0170dc;
+}

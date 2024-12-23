@@ -1,0 +1,11 @@
+.personal-info-container {
+  border: 2px solid black;
+  width: 400px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.personal-info-container input:focus-within {
+  border: 1px solid #0170dc;
+}

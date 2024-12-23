@@ -1,0 +1,258 @@
+.signup-container {
+  display: flex;
+  /* border: 2px solid #8a2be2; */
+  /* height: 100vh; */
+  font-family: "Inter";
+}
+
+.signup-form {
+  /* border: 2px solid red; */
+  flex: 6;
+  padding: 10px;
+}
+
+.signup-form-container {
+  /* border: 2px solid orange; */
+  width: 100%;
+  height: 100%;
+  padding: 0 8% 0 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.signup-form-container > h4 {
+  font-weight: 600;
+  margin: 0;
+}
+
+.signup-form form {
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid violet; */
+  width: 100%;
+  justify-content: space-between;
+  height: 50vh;
+  margin-bottom: 10px;
+}
+
+.signup-form form label {
+  font-size: 20px;
+  color: rgb(112, 111, 111);
+  font-weight: 600;
+  font-family: "Inter";
+  /* padding: 5px 0; */
+}
+
+.signup-form form input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  outline: none;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.signup-form form input:focus-within {
+  border: 2px solid #0170dc;
+}
+
+.signup-form form button {
+  padding: 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  background-color: #0170dc;
+}
+
+.signup-form-container > h6 {
+  color: rgb(112, 111, 111);
+  font-weight: 600;
+  font-family: "Inter";
+}
+.signup-form-container > h6 > a {
+  text-decoration: none;
+  font-family: "Inter";
+  color: #0170dc;
+  font-size: 22px;
+}
+
+.signup-form-container .progressBar,
+.verification-container .progressBar {
+  /* border: 2px solid brown; */
+  text-align: center;
+  width: 100%;
+  font-family: "Inter";
+  margin: 10px 0;
+}
+
+.signup-form-container .progressBar h6,
+.verification-container .progressBar h6 {
+  color: rgb(134, 131, 131);
+}
+
+.signup-form-container .progressBar p,
+.verification-container .progressBar h6 > p {
+  display: inline;
+  color: #0170dc;
+  font-weight: 600;
+}
+
+.signup-image,
+.verify-image {
+  flex: 6;
+  /* border: 2px solid yellow; */
+  background: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)),
+    url("../../../public/images/signup_page.jpg");
+  background-position: center;
+  background-size: cover;
+  color: white;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 0 0 0;
+  justify-content: space-evenly;
+  height: 100vh;
+}
+
+.signup-image img,
+.verify-image img {
+  filter: invert(100%);
+  justify-content: flex-start;
+}
+
+.signup-image h2,
+.verify-image h2 {
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-family: "Inter";
+}
+
+.verification-container {
+  height: 100vh;
+  display: flex;
+  font-family: "Inter";
+  width: 100vw;
+}
+
+.otp-container {
+  flex: 6;
+  padding: 5px;
+}
+
+.items-container {
+  height: 100%;
+  padding: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.verification-container .items-container h4 {
+  font-weight: 600;
+  font-family: "Inter";
+  padding: 20px 0;
+}
+
+.verification-container .items-container p {
+  padding: 10px 0;
+  font-family: "Inter";
+  color: grey;
+  font-size: 20px;
+}
+
+.verification-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 18vh;
+  justify-content: space-between;
+}
+
+.verification-container .formItems {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.verification-container .formItems input {
+  font-size: 20px;
+  padding: 10px;
+  font-family: "inter";
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+.verification-container .formItems input:focus-within {
+  border: 2px solid #0170dc;
+}
+
+.verification-container form .verify-button {
+  padding: 10px;
+  background-color: #0170dc;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-family: "Inter";
+  letter-spacing: 2px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* .signup-box {
+  width: 70%;
+} */
+
+.signup-button {
+  width: 50%;
+  margin-left: 80px;
+}
+/* Add the following media query to make the page responsive */
+@media only screen and (max-width: 768px) {
+  .signup-container {
+    flex-direction: column;
+    height: 90vh;
+    overflow: hidden;
+  }
+
+  .signup-form {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  .signup-form form {
+    width: 85%;
+    justify-content: space-between;
+    height: 40vh;
+    margin-bottom: 10px;
+  }
+  .signup-form-container .progressBar {
+    width: 85%;
+  }
+
+  .signup-image {
+    display: none;
+  }
+
+  .signup-form-container {
+    padding-left: 30px;
+  }
+
+  .signup-box {
+    width: auto;
+  }
+
+  .signup-button {
+    width: 100%;
+    margin-left: 0;
+  }
+}

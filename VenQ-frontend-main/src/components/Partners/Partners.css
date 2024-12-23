@@ -1,0 +1,81 @@
+/* Partners.css */
+.partnerbox{
+  background-color: greenyellow;
+}
+
+.partners-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 60px; /* Increase the padding to adjust the height */
+  overflow: hidden; /* Hide the overflow content for a smooth transition */
+}
+
+.partners-text {
+  flex: 1;
+}
+
+.partners-list {
+  display: flex;
+  transition: transform 0.5s ease; /* Add transition for the transform property */
+}
+
+.partner {
+  flex: 1;
+  max-width: 150px;
+  padding: 20px 40px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+  text-align: center;
+  background-color: #f0eded;
+  text-align: center;
+}
+
+/* Add styling for the heading */
+.partners-heading {
+  font-size: 60px;
+  color: #333;
+  font-family: "Bebas Neue";
+  font-weight: 100; /* Adjust color as needed */
+}
+
+/* Additional styles for left and right buttons */
+button {
+  background-color: #0170dc;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/* Adjust the transform property for the sliding effect */
+.button-left-clicked .partners-list {
+  transform: translateX(-2%); /* Slide to the left */
+}
+
+.button-right-clicked .partners-list {
+  transform: translateX(2%); /* Slide to the original position */
+}
+
+@media (max-width: 600px) {
+  .partners-section {
+    padding: 30px;
+    display: flex;
+    flex-direction: column; /* Adjust padding for smaller screens */
+  }
+
+  .partners-list {
+    flex-wrap: wrap; /* Allow partners to wrap on smaller screens */
+  }
+
+  .partner {
+    max-width: 100%;
+    margin: 10px;
+    padding: 12px;
+    /* Adjust margin for smaller screens */
+  }
+}

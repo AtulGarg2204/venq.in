@@ -1,0 +1,8 @@
+@media (max-width: 800px) {
+  .first-checkbox {
+    background-color: white;
+    width: 75%;
+    height: 10%;
+    margin-left: -30px;
+  }
+}

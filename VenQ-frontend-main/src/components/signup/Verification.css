@@ -1,0 +1,93 @@
+/* Verification.css */
+
+.verification-container {
+  display: flex;
+  font-family: "Inter";
+}
+
+.otp-container {
+  flex: 6;
+  padding: 5px;
+}
+
+.items-container {
+  height: 100%;
+  padding: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.verification-container .items-container h4 {
+  font-weight: 600;
+  font-family: "Inter";
+  padding: 20px 0;
+}
+
+.verification-container .items-container p {
+  padding: 10px 0;
+  font-family: "Inter";
+  color: grey;
+  font-size: 20px;
+}
+
+.verification-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 18vh;
+  justify-content: space-between;
+}
+
+.verification-container .formItems {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.verification-container .formItems input {
+  font-size: 20px;
+  padding: 10px;
+  font-family: "inter";
+  outline: none;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+.verification-container .formItems input:focus-within {
+  border: 2px solid #0170dc;
+}
+
+.verification-container form .verify-button {
+  padding: 10px;
+  background-color: #0170dc;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  font-family: "Inter";
+  letter-spacing: 2px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 768px) {
+  .verification-container {
+    flex-direction: column;
+  }
+
+  .otp-container {
+    flex: 1;
+    padding: 0;
+  }
+
+  .items-container {
+    padding: 0;
+  }
+
+  .verification-container .verify-image {
+    display: none;
+  }
+}

@@ -1,0 +1,602 @@
+.aadhar_details_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* width: 470px; */
+  width: 95%;
+
+  padding: 0px 40px;
+}
+
+.aadhar_details_container > div {
+  width: 100%;
+  /* margin-left: 15px; */
+}
+
+.aadhar_details_container input {
+  /* width: 450px; */
+  width: 95%;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.aadhar_details_container .next_button_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  /* padding: 0 10px; */
+}
+
+.aadhar_details_container .next_button {
+  cursor: pointer;
+  background-color: rgb(98, 107, 234);
+  color: white;
+  width: 100%;
+}
+
+.aadhar_details_container .next_button:hover {
+  background-color: rgb(98, 107, 234);
+}
+.profilepage {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: center;
+  font-family: "Work Sans", sans-serif;
+}
+.aadharbox {
+  border: 1.5px solid #f9c847;
+  background-color: #e1e7ea;
+  height: 8px;
+  width: 20%;
+}
+.upibox {
+  border: 1.5px solid #52bf83;
+  background-color: #e1e7ea;
+  height: 8px;
+  width: 20%;
+}
+
+aside {
+  width: 250px;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-wrapper {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+.icon {
+  width: 100%;
+  height: auto;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.sidebar-item-text {
+  font-size: 14px;
+}
+
+.user-info {
+  border-top: 1px solid #d1d1d1;
+  padding-top: 10px;
+}
+
+.user-info-text,
+.role {
+  margin-bottom: 5px;
+}
+.user-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user-name {
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 36px;
+}
+.new-button {
+  align-self: center;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.tab-navigation ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 20px;
+}
+
+.nav-item {
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  margin-right: 12px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.nav-item1 {
+  font-weight: bold;
+  color: grey;
+  padding-bottom: 5px;
+  border-bottom: 2px solid grey;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.tab-selected {
+  background-color: #007bff;
+  color: white;
+}
+.main-content {
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 5px solid white;
+  flex: 1;
+  padding: 20px;
+}
+
+.sub-heading {
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+
+.form-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-label {
+  
+  display: flex;
+  align-items: center;
+}
+
+.form-data {
+  padding: 10px;
+  border-radius: 5px;
+}
+.edit-btn,
+.verify-btn {
+  background-color: #e9ecef;
+  color: black;
+  font-weight: bold;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0px;
+}
+
+.edit-btn {
+  align-self: flex-start;
+  background-color: #e9ecef;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgrey;
+  padding: 10px;
+  border-radius: 5px;
+  gap: 16%;
+  max-width: 100%;
+  margin: 20px auto;
+}
+
+.info-block {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.label {
+  font-weight: bold;
+  flex: 1;
+  text-align: left;
+}
+
+.value {
+  flex: 2;
+  text-align: left;
+}
+
+@media (min-width: 769px) {
+  .contact-info {
+    flex-direction: row;
+  }
+
+  .info-block {
+    flex-direction: column;
+    flex: 1;
+  }
+}
+.required-documents {
+  border: 1px solid lightgrey;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.required-documents h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.document-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid lightgrey;
+  margin-top: 2%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.doc-label {
+  flex: 1;
+  text-align: left;
+}
+
+.es-sign {
+  font-weight: bold;
+}
+
+.doc-value {
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-value p {
+  margin-right: 10px;
+}
+
+.download-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (min-width: 769px) {
+  .contact-info {
+    flex-direction: row;
+  }
+
+  .info-block {
+    flex-direction: column;
+    flex: 1;
+  }
+}
+
+.rectangle-box {
+  height: 20vh;
+  border: 1px solid #d3d3d3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.left-box {
+  width: 120px;
+  height: 110%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 32px;
+  color: #333;
+  background-color: lightblue;
+  clip-path: polygon(0 0, 80% 0, 100% 100%, 0% 100%);
+  margin-right: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.progress-container {
+  width: 70%;
+  margin-right: 20px;
+  position: relative;
+}
+
+.step-labels {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+  top: -45px; /* Adjust to position labels above the progress bar */
+  margin: 0; /* Ensure there's no additional margin around labels */
+}
+
+.step-label {
+  color: grey;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  transition: color 0.3s ease;
+  text-align: center;
+  width: 33%; /* Ensure labels span equal width for even spacing */
+}
+
+.step-label.active-not-started {
+  color: black;
+}
+
+.step-label.active-pending {
+  color: yellow;
+}
+
+.step-label.active-completed {
+  color: green;
+}
+
+.step-progress-bar {
+  width: 100%;
+  height: 4px; /* Decreased height to make it look like a thinner line */
+  background-color: #d3d3d3;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 4px; /* Rounded corners for the line */
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #3b82f6;
+  border-radius: 4px; /* Rounded corners for the line */
+  position: absolute;
+  transition: width 0.3s ease;
+}
+
+.progress-0 {
+  width: 33%; /* No progress for step 0 */
+}
+
+.progress-1 {
+  width: 66%; /* Half progress for step 1 */
+}
+
+.progress-2 {
+  width: 95%; /* Full progress for step 2 */
+}
+
+.step-circles {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  top: 0; /* Align circles with the progress line */
+  left: 0;
+  z-index: 1;
+}
+
+.circle {
+  width: 15px; /* Decreased size of circles */
+  height: 15px;
+  background-color: grey;
+  border-radius: 50%;
+  position: absolute;
+
+  transform: translateY(-50%); /* Center circles vertically on the line */
+  margin: 0; /* Remove margin to eliminate separation */
+}
+
+.circle:nth-child(1) {
+  left: 0; /* Position first circle at the start */
+}
+
+.circle:nth-child(2) {
+  left: 50%; /* Position second circle at the center */
+  transform: translateX(-50%) translateY(-50%); /* Center circle horizontally */
+}
+
+.circle:nth-child(3) {
+  right: 0; /* Position third circle at the end */
+}
+
+.circle.active {
+  background-color: #3b82f6;
+}
+
+.progress-button {
+  padding: 15px 30px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.progress-button:hover {
+  background-color: #005bb5;
+  transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .rectangle-box {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    margin-bottom: 30px; /* Increase bottom margin for better spacing */
+    height: auto;
+  }
+
+  .left-box {
+    width: 100%;
+    height: 50px;
+    margin-right: 0;
+    margin-bottom: 30px;
+    clip-path: none;
+    border-radius: 5px;
+  }
+
+  .progress-container {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px; /* Increase bottom margin for better spacing */
+  }
+
+  .step-labels {
+    font-size: 16px;
+    /* Adjust position for smaller screens */
+  }
+
+  .step-progress-bar {
+    height: 4px; /* Adjust height for smaller screens */
+  }
+
+  .circle {
+    width: 15px;
+    height: 15px;
+  }
+
+  .progress-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .rectangle-box {
+    margin-bottom: 40px; /* Further increase bottom margin for very small screens */
+  }
+
+  .step-labels {
+    font-size: 14px;
+     /* Further adjust position for very small screens */
+  }
+
+  .step-progress-bar {
+    height: 3px; /* Further adjust height for very small screens */
+  }
+
+  .circle {
+    width: 12px;
+    height: 12px;
+  }
+
+  .progress-button {
+    padding: 8px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .progress-container {
+    margin-bottom: 20px;
+    margin-top: 20px; /* Add space at the top for very small screens */
+  }
+}
+/*
+//css for esign
+*/
+
+.form-container {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Form group layout */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Label styling */
+.label-container label {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-left: 10px;
+}
+
+/* General input styling */
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+/* Styling for button */
+.proceed-btn {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 15px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .form-group input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .proceed-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+

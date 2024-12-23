@@ -1,0 +1,42 @@
+.content {
+  border: 2px solid black;
+}
+.rotatedLine {
+  z-index: -222;
+  /* border: 2px solid black; */
+  height: 25vh;
+  width: 100%;
+  background-color: #f6f7f9;
+  transform: rotate(-6deg);
+  position: absolute;
+  bottom: -9%;
+  left: -2%;
+}
+
+.questions {
+  height: 100%;
+  width: 100%;
+}
+
+.rightRotate {
+  /* border: 2px solid black; */
+  z-index: -222;
+  width: 102%;
+  height: 25vh;
+  transform: rotate(6deg);
+  background-color: #f6f7f9;
+  position: absolute;
+  left: -2.4%;
+  top: -30%;
+}
+.buttons {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.line {
+  height: 2px;
+  background-color: #b3a7a7;
+  overflow-x: hidden;
+}

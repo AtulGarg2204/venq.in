@@ -1,0 +1,53 @@
+.youtube-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 24px;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-top: 24px;
+    border-radius: 160px;
+    border: 1px solid #ccc;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    gap: 10px;
+    cursor: pointer;
+}
+
+
+.youtube-button:hover {
+    box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, .2);
+}
+
+.youtube-button img {
+    width: 14px;
+}
+
+.bodyLarge,
+.bodyLargeHeavy {
+    font-size: var(--font-size-16);
+    line-height: 1.375rem;
+}
+
+.contentPrimary {
+    color: var(--gray900);
+}
+
+.absolute-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.youtube-button span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.youtube-button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

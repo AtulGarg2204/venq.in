@@ -1,0 +1,92 @@
+/* Main container */
+.fundraising-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+/* Heading styling */
+.heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* Light divider line under the heading */
+.divider {
+  width: 60px;
+  height: 3px;
+  background-color: #ddd;
+  border: none;
+  margin: 20px auto;
+}
+
+/* Grid container for 4 boxes */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.instrument-box {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.instrument-box:hover {
+  transform: translateY(-5px);
+}
+
+.type {
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+.box-divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 15px 0;
+}
+
+.description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.learn-more {
+  color: #0073e6;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.learn-more:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+  }
+
+  .heading {
+    font-size: 2rem;
+  }
+}

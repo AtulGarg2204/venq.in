@@ -1,0 +1,30 @@
+.other-info-container {
+  border: 2px solid black;
+  width: 400px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+
+.url_div {
+  border: 2px solid black;
+  width: 400px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.url_div > div {
+  width: 100%;
+  overflow: hidden;
+}
+
+.url_div > div > h3 {
+  overflow: hidden;
+  white-space: normal; 
+  word-wrap: break-word; 
+  hyphens: auto; 
+}

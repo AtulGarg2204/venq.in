@@ -1,0 +1,7 @@
+.progress-tag {
+    background-color: #63e663;
+    border-radius: 1rem;
+    width: max-content;
+    padding: 0 10px;
+    color: #fff;
+}
