@@ -20,7 +20,7 @@ exports.getBrokerCode = async (req, res) => {
     }
   };
 
-  exports.getSignedUsers = async (req, res) => {
+exports.getSignedUsers = async (req, res) => {
     try {
         const { email } = req.params;
 

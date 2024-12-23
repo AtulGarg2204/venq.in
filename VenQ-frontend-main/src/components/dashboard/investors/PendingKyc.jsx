@@ -124,7 +124,7 @@ const PendingKyc = () => {
       console.log(error);
     }
   };
-  const handleBrokerToggle = async (user) => {
+  const handleBrokerToggle = async(user) => {
     try {
       console.log("handleBrokerToggle");
       console.log(user);

@@ -446,7 +446,7 @@ const Navbar = (props) => {
                                 src={blogIcon}
                                 style={{ marginRight: "5px" }}
                               ></img>
-                              Blog
+                              Blog 
                             </MenuItem>
                             <Divider orientation="vertical" flexItem />
                             <MenuItem
