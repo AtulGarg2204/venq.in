@@ -156,30 +156,131 @@ const verifyOtp = async (req, res) => {
   }
 };
 
+// const signup = async (req, res) => {
+//   try {
+//     console.log(req.body);
+//     const duplicate = await customers.findOne({ "email": req.body.email, "phone": req.body.phone }).lean().exec();
+//     console.log(duplicate);
+//     console.log("WHATT THE HELLL");
+//     if (!duplicate) {
+//       // Check if the referral link exists in the request query parameters
+//       console.log("IS IT REALLY CORRECT");
+//       console.log("Request query:", req.query);
+//       console.log("Request URL:", req.url);
+//       const brokerCode1 = req.query.ref;
+//       console.log(brokerCode1);
+//       if (brokerCode1) {
+//         console.log("CHECKKK");
+//         // Search for the broker using the referral link in the customers collection
+//         const broker = await customers.findOne({ "brokerDetails.brokerCode": brokerCode1, "isBroker": true }).lean().exec();
+//         console.log("foudn brokerrrr");
+//         if (broker) {
+//           // If the broker is found, update the brokerDetails object in the customer schema
+//           req.body.brokerDetails = {
+//             brokerCode: broker.brokerDetails.brokerCode,
+//             referralLink: broker.brokerDetails.referralLink,
+//             referralStats: broker.brokerDetails.referralStats
+//           };
+//           console.log("EXACTLYY YEAHH");
+//           // Add the signed-up user's information to the broker's referralStats.signups array
+//           const signupData = {
+//             userId: result._id,
+//             signupDate: new Date(),
+//             status: 'pending'
+//           };
+//           console.log("HIII SIGNUPPP UPDATEE ");
+//           console.log(signupData);
+//           await customers.updateOne(
+//             { _id: broker._id },
+//             { $push: { 'brokerDetails.referralStats.signups': signupData } }
+//           );
+//         }
+//       }
+      
+//       const result = await customers.create(req.body);
+//       console.log("saved data-->", result);
+      
+//       if (result) {
+//         console.log("saved in db");
+//         return res
+//           .status(201)
+//           .json({ message: "All user details saved", userinfo: result, created: true });
+//       }
+//     } else {
+//       return res
+//         .status(201)
+//         .json({ message: "User already exists with this Email and phone number", created: false, userAvailable: true, userinfo: duplicate });
+//     }
+//   } catch (error) {
+//     console.log("Error in making db change", error);
+//     return res.status(500).json({ message: "Internal server error" });
+//   }
+// };
 const signup = async (req, res) => {
   try {
-    console.log(req.body)
-    const duplicate = await customers.findOne({ "email": req.body.email, "phone": req.body.phone }).lean().exec();
-    console.log(duplicate)
+    console.log(req.body);
+    const duplicate = await customers.findOne({ 
+      "email": req.body.email, 
+      "phone": req.body.phone 
+    }).lean().exec();
+    
     if (!duplicate) {
-      const result = await customers.create(req.body);
-      console.log("saved data-->", result)
-      if (result) {
-        console.log("saved in db ");
-        return res
-          .status(201)
-          .json({ message: "all user details saved", userinfo: result, created: true });
+      const brokerCode = req.query.ref;
+      let newUserData = { ...req.body };
+
+      // Only process broker referral if a code was provided
+      if (brokerCode) {
+        const broker = await customers.findOne({ 
+          "brokerDetails.brokerCode": brokerCode, 
+          "isBroker": true 
+        }).lean().exec();
+        
+        if (broker) {
+          newUserData.referredBy = {
+            brokerId: broker._id,
+            brokerCode: brokerCode,
+            referralDate: new Date()
+          };
+        }
       }
+
+      const result = await customers.create(newUserData);
+      
+      // Update broker's stats if referral exists
+      if (result.referredBy) {
+        await customers.updateOne(
+          { _id: result.referredBy.brokerId },
+          { 
+            $push: { 
+              'brokerDetails.referralStats.signups': {
+                userId: result._id,
+                signupDate: new Date(),
+                status: 'pending'
+              }
+            }
+          }
+        );
+      }
+
+      return res.status(201).json({ 
+        message: "All user details saved", 
+        userinfo: result, 
+        created: true 
+      });
+      
     } else {
-      return res
-        .status(201)
-        .json({ message: "User already with this Email and phone number", created: false, userAvailable: true, userinfo: duplicate });
+      return res.status(201).json({ 
+        message: "User already exists with this Email and phone number", 
+        created: false, 
+        userAvailable: true, 
+        userinfo: duplicate 
+      });
     }
   } catch (error) {
-    console.log("error in making db change", error);
+    console.error("Error in making db change", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
-
 const login = async (req, res) => {
   const { token } = req.body;
   console.log(req.body);

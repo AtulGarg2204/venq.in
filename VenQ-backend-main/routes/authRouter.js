@@ -9,6 +9,7 @@ router.post('/user/signout', authController.signOut)
 router.post('/user/login', authController.login)
 router.post('/user/resendOTP', authController.resendOTP)
 router.get('/user/verifyAdmin',authController.verifyAdmin)
+router.get('/user/verifyBroker',authController.verifyBroker)
 router.get('/user/checkLogin',authController.checkLogin)
 router.get('/user/checkverify/:id',authController.checkverified);
 router.post('/user/updateverify/:id',authController.updateverified);

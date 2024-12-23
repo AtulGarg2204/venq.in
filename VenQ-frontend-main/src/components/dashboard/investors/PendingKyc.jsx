@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify";
 import config from "../../../config";
 import Popup from "reactjs-popup";
 import "./progressBar.css";
-
+import BrokerStatsModal from './BrokerDetailsModel';
 const StyledPopup = styled(Popup)`
   &-overlay {
     height: 50%;
@@ -64,7 +64,8 @@ const PendingKyc = () => {
   const [step, setStep] = useState(0);
 
   const [currentStep, setCurrentStep] = useState(1);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedBroker, setSelectedBroker] = useState(null);
   const updateSteps = (step) => {
     setCurrentStep(step);
   };
@@ -72,7 +73,25 @@ const PendingKyc = () => {
   const handleButtonClick = (step) => {
     updateSteps(step);
   };
-
+  const handleCommissionChange = async (user, commission) => {
+    console.log("commission");
+    try {
+      const result = await axios.put(`${URL}/broker/update-commission/${user.email}`, {
+        commission: parseFloat(commission),
+        
+      });
+      console.log("HELLOOOO");
+        console.log(commission);
+      if (result.data.success) {
+        toast.success("Commission updated successfully");
+        const updatedUsers = await axios.get(`${URL}/auth/user/pendingkyc/all`);
+        setUsers(updatedUsers.data.data);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error("Failed to update commission");
+    }
+  };
   const handleOtpverify = async () => {
     console.log("in otp verify  ----------------");
     const fotp = otp.join("");
@@ -103,6 +122,36 @@ const PendingKyc = () => {
     } catch (error) {
       toast.error("failed to verify otp");
       console.log(error);
+    }
+  };
+  const handleBrokerToggle = async (user) => {
+    try {
+      console.log("handleBrokerToggle");
+      console.log(user);
+      const result = await axios.put(`${URL}/broker/toggleBroker/${user.email}`);
+      if (result.data.success) {
+        toast.success("Made broker successfully");
+        const updatedUsers = await axios.get(`${URL}/auth/user/pendingkyc/all`);
+        setUsers(updatedUsers.data.data);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error("Failed to update broker status");
+    }
+  };
+  
+  const handleViewDetails = async (user) => {
+    try {
+      console.log("handleViewDetails");
+      console.log(user);
+      const response = await axios.get(`${URL}/broker/showStats/${user.email}`);
+      console.log(response.data);
+      console.log("helloo");
+      setSelectedBroker(response.data);
+      setModalOpen(true);
+    } catch (error) {
+      console.log("Error:", error);
+      toast.error("Failed to fetch broker details");
     }
   };
   const handleChange = (index, value) => {
@@ -239,6 +288,12 @@ const PendingKyc = () => {
 
   return (
     <>
+      <BrokerStatsModal 
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        brokerStats={selectedBroker?.data}
+        onCommissionUpdate={handleCommissionChange}
+      />
       {visible && (
         <div
           style={{
@@ -970,7 +1025,7 @@ const PendingKyc = () => {
                     Phone
                   </TableCell>
                   <TableCell
-                    align="right"
+                    // align="right"
                     sx={{
                       fontFamily: "Work Sans",
                       fontWeight: "bold",
@@ -978,6 +1033,8 @@ const PendingKyc = () => {
                   >
                     KYC Status
                   </TableCell>
+                  <TableCell sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>Broker Status</TableCell>
+                  <TableCell sx={{ fontFamily: "Work Sans", fontWeight: "bold" }}>Commission Percentage</TableCell>
                   {/* <TableCell align="right">Amount</TableCell>
       <TableCell align="right">View</TableCell> */}
                 </TableRow>
@@ -1049,7 +1106,67 @@ const PendingKyc = () => {
                         </button>
                       )}
                     </TableCell>
-
+                    <TableCell>
+  {!user.isBroker ? (
+    // Simple Make Broker button for non-brokers
+    <button
+      onClick={() => handleBrokerToggle(user)}
+      style={{
+        backgroundColor: "#82E0AA",
+        color: "white",
+        padding: "8px 16px",
+        borderRadius: "4px",
+        border: "none",
+        cursor: "pointer"
+      }}
+    >
+      Make Broker
+    </button>
+  ) : (
+    // For brokers: Show View Details button and commission input
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <button
+        onClick={() => handleViewDetails(user)}
+        style={{
+          backgroundColor: "#f44336",
+          color: "white",
+          padding: "8px 16px",
+          borderRadius: "4px",
+          border: "none",
+          cursor: "pointer"
+        }}
+      >
+        View Details
+      </button>
+    </div>
+  )}
+</TableCell>
+<TableCell>
+{user.isBroker ? (
+    // Simple Make Broker button for non-brokers
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <input
+        type="number"
+        placeholder="Commission %"
+        defaultValue={user.brokerCommissionPercentage || 2}
+        style={{
+          padding: "8px",
+          borderRadius: "4px",
+          border: "1px solid #ddd",
+          '::placeholder': {
+            color: '#333'
+          },
+          width: "80px"
+        }}
+        id={`commission-${user.email}`}
+        min={0}
+        max={100}
+        step={0.1}
+        onChange={(e) => handleCommissionChange(user, e.target.value)}
+      />
+      </div>
+  ):[]}
+</TableCell>
                     {/* <TableCell align="right"><button style={
           {
               backgroundColor:'#BEEDB2',

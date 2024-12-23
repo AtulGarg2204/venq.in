@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  isBroker: {
+    type: Boolean,
+    default: false
   }
 });
 

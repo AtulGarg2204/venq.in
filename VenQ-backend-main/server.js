@@ -17,6 +17,7 @@ const kycRoute = require("./routes/kyc");
 const documentRoute = require("./routes/documentRouter");
 const { OrderModel } = require("./model/Ordermodels");
 const esigndetails = require("./routes/SurepassDetailsRoute");
+const brokerRoute=require('./routes/brokerRoute');
 // image haxdling--------------------------------
 const bodyparser = require("body-parser");
 const Razorpay = require("razorpay");
@@ -27,6 +28,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Purchased = require("./model/Purchased");
+const customerRoutes = require('./routes/customerRoutes');
 require("dotenv").config();
 
 // -------------------------------
@@ -61,6 +63,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
+
+app.use("/broker",brokerRoute);
 app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use("/otpless", otplessRoute);
 app.use("/auth", require("./routes/authRouter"));
@@ -76,6 +80,7 @@ app.use("/savePdf", savePdf);
 app.use("/kyc", kycRoute);
 app.use(express.static("public"));
 app.use("/listing", listingRoute);
+app.use('/api', customerRoutes);
 
 // Upload photo from device
 app.get('/customers/byEmail', async (req, res) => {

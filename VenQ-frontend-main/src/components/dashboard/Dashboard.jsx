@@ -9,6 +9,7 @@ import image from "./user.png";
 import Bookmarks from "./account/Bookmarks";
 import Rewards from "./rewards/Rewards";
 import Addlisting from "./rewards/AdminDashboard";
+import BrokerDashboard from "./BrokerDashboard/BrokerDashboard";
 import Tier from "./rewards/Tier";
 import Referrals from "./rewards/Referrals";
 import Cart from "./cart/Cart";
@@ -133,6 +134,11 @@ const CartIcon = styled(ShoppingCartOutlinedIcon)`
   margin-right: 10px;
   color: ${({ selected }) => (selected ? "#0170dc" : "")};
 `;
+const BrokerIcon = styled(PersonOutlineOutlinedIcon)`
+  font-size: 25px;
+  margin-right: 10px;
+  color: ${({ selected }) => (selected ? "#0170dc" : "")};
+`;
 const HelpIcon = styled(ChatBubbleOutlineRoundedIcon)`
   font-size: 25px;
   margin-right: 10px;
@@ -233,6 +239,7 @@ const Dashboard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [drawerOpen, setDrawerOpen] = useState(!isMobile);
   const [isAdmin, setAdmin] = useState(false);
+  const [isBroker, setBroker] = useState(false);
 
   // var sc = document.getElementById("aisensy-wa-widget");
   useEffect(() => {
@@ -256,6 +263,9 @@ const Dashboard = () => {
     // console.log("widget", widget);
     if (token && token.isAdmin) {
       setAdmin(true);
+    }
+    if (token && token.isBroker) {
+      setBroker(true);
     }
   }, []);
   // window.location.reload();
@@ -319,7 +329,7 @@ const Dashboard = () => {
     setDrawerOpen(!drawerOpen);
   };
   console.log(isAdmin);
-
+  console.log(isBroker);
   return (
     <Box
       sx={{
@@ -560,6 +570,20 @@ const Dashboard = () => {
                 </Options>
               </div>
             )}
+            {isBroker && (
+              <div>
+              <Options
+              to="/dashboard/brokerdashboard"
+              selected={step === 10}
+              onClick={() => handleStepChange(10)}
+              onMouseDown={handleClose}
+            >
+              <BrokerIcon style={{ color: "#0170DC" }} selected={step === 10} />
+              <Heading style={{ color: "black" }} selected={step === 10}>Brokers</Heading>
+            </Options>
+                
+              </div>
+            )}
           </UpperItems>
           <Divider sx={{ my: 1 }} />
 
@@ -771,6 +795,20 @@ const Dashboard = () => {
                   </Options>
                 </div>
               )}
+              {isBroker && (
+                <div>
+                  <Options
+                    to="/dashboard/brokerdashboard"
+                    style={{ marginBottom: "0px" }}
+                    selected={step === 10}
+                    onClick={() => handleStepChange(7)}
+                    onMouseDown={handleClose}
+                  >
+                    <BrokerIcon selected={step === 10} />
+                    <Heading selected={step === 10}>Brokers</Heading>
+                  </Options>
+                </div>
+              )}
             </UpperItems>
 
             <LowerItems>
@@ -931,6 +969,10 @@ const Dashboard = () => {
           <Route
             path="cart"
             element={<Cart handleBuyProperties={handleBuyProperties} />}
+          />
+          <Route
+            path="brokerdashboard"
+            element={<BrokerDashboard />}
           />
           <Route path="addlisting" element={<AdminDashboard />} />
           <Route path="profile" element={<Profile />} />

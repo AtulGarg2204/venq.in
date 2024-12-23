@@ -191,6 +191,8 @@ const PropertyPage = () => {
   };
   const [listings, setListings] = useState([]);
   const [isAdmin, setAdmin] = useState(false);
+  const [isBroker, setBroker] = useState(false);
+  
 
   const URL = config.URL;
 

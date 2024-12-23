@@ -53,6 +53,20 @@ const signUp = async (req, res) => {
       // console.log("unique")
       // Create and store new user
       const user = await users.create(userObject);
+      if (referralCode) {
+        await Customer.findOneAndUpdate(
+          { 'brokerDetails.brokerCode': referralCode },
+          {
+            $push: {
+              'brokerDetails.referralStats.signups': {
+                userId: user._id,
+                signupDate: new Date(),
+                status: 'pending'
+              }
+            }
+          }
+        );
+      }
       const accessToken = jwt.sign(
         {
           UserInfo: {
@@ -202,6 +216,7 @@ const login = async (req, res) => {
         phone: foundUser.phone,
         id: foundUser.id,
         isAdmin: foundUser.isAdmin,
+        isBroker: foundUser.isBroker,
         isLoggedIn: foundUser.isLoggedIn,
       },
     },
@@ -326,6 +341,30 @@ const verifyAdmin = async (req, res) => {
     return res.status(403).json({ isAdmin: false });
   }
 };
+const verifyBroker = async (req, res) => {
+  const authHeader = req.headers.authorization || req.headers.Authorization;
+  // console.log("unique ",authHeader);
+
+  if (!authHeader?.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Unauthorized", isBroker: false });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err)
+      return res.status(403).json({ message: "Forbidden", isBroker: false });
+
+    req.user = decoded.UserInfo.name;
+    req.email = decoded.UserInfo.email;
+    req.isBroker = decoded.UserInfo.isBroker;
+  });
+  if (req.isBroker) {
+    return res.status(200).json({ isBroker: true });
+  } else {
+    return res.status(403).json({ isBroker: false });
+  }
+};
 
 const checkLogin = async (req, res) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
@@ -361,6 +400,7 @@ module.exports = {
   signOut,
   resendOTP,
   verifyAdmin,
+  verifyBroker,
   checkLogin,
   checkverified,
   updateverified,

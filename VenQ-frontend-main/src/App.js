@@ -35,6 +35,7 @@ import Regulations from "./components/home/Regulations";
 import Investing from "./components/home/Investing";
 import AdminPanel from "./components/dashboard/rewards/AdminPanel";
 import AdminDashboard from "./components/dashboard/rewards/AdminDashboard";
+import BrokerDashboard from "./components/dashboard/BrokerDashboard/BrokerDashboard";
 import FormUserDetails from "./components/dashboard/listings/FormUserDetails";
 import FormPersonalDetails from "./components/dashboard/listings/FormPersonalDetails";
 import ThirdPage from "./components/dashboard/listings/ThirdPage";
@@ -127,6 +128,7 @@ function App() {
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="rewards" element={<Rewards />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="brokerdashboard" element={<BrokerDashboard />} />
             <Route path="profile" element={<Profile />} />
             <Route path="bookmarks" element={<Bookmarks />} />
             <Route path="rewards/tier" element={<Tier />} />
