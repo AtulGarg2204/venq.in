@@ -26,17 +26,18 @@ const LineChart = ({ data }) => {
       chartInstance.current = new Chart(ctx, {
         type: "line",
         data: {
-          labels: data.labels,
+          labels: data.labels,  // Labels should represent years
           datasets: [
             {
-              label: "Property Value Over Time",
+              label: "", // Remove the label "Property Value Over Time"
               data: data.data,
-              borderColor: "blue",
-              backgroundColor: "rgba(0, 0, 255, 0.2)",
+              borderColor: "rgb(1, 112, 220)",
               pointRadius: 2,
               pointBackgroundColor: "rgb(255,255,255)",
               tension: 0.2,
-              fill: true,
+              borderWidth: 2,
+              fill: true, // Enable fill below the line
+              backgroundColor: "rgba(0, 123, 255, 0)", // Set the fill color to transparent
             },
           ],
         },
@@ -46,8 +47,8 @@ const LineChart = ({ data }) => {
           scales: {
             x: {
               title: {
-                display: true,
-                text: "Time",
+                display: false,
+                text: "Years", // Change title to "Years"
                 color: "#333",
                 font: {
                   size: 16,
@@ -55,24 +56,11 @@ const LineChart = ({ data }) => {
                 },
               },
               grid: {
-                color: "rgba(0, 0, 0, 0.1)",
-                lineWidth: 1,
+                display: false, // Hide grid lines for x-axis
               },
             },
             y: {
-              title: {
-                display: true,
-                text: "Property Value (INR / SQFT)",
-                color: "#333",
-                font: {
-                  size: 16,
-                  weight: "bold",
-                },
-              },
-              grid: {
-                color: "rgba(0, 0, 0, 0.1)",
-                lineWidth: 1,
-              },
+              display: false, // Remove y-axis completely
               beginAtZero: true,
               min: 0,
               max: Math.max(...data.data) + 100,
@@ -80,22 +68,13 @@ const LineChart = ({ data }) => {
           },
           plugins: {
             legend: {
-              display: true,
-              position: "top",
-              labels: {
-                color: "#333",
-                font: {
-                  size: 14,
-                  weight: "bold",
-                },
-              },
+              display: false, // Remove the legend
             },
             tooltip: {
               backgroundColor: "rgba(0, 0, 0, 0.8)",
               titleColor: "#fff",
               bodyColor: "#fff",
               borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 1,
               callbacks: {
                 label: function (tooltipItem) {
                   return `${tooltipItem.dataset.label}: ₹${tooltipItem.raw.toLocaleString()}`;
@@ -104,11 +83,46 @@ const LineChart = ({ data }) => {
             },
           },
         },
+        plugins: [
+          {
+            id: "gradientFill",
+            beforeDraw: (chart) => {
+              const ctx = chart.ctx;
+              const gradient = ctx.createLinearGradient(0, 0, 0, chart.chartArea.bottom);
+
+              // Set lighter colors for the gradient
+              gradient.addColorStop(0, "rgba(0, 123, 255, 0.2)"); // Lighter start of gradient (light blue)
+              gradient.addColorStop(1, "rgba(0, 123, 255, 0)");   // Transparent end of gradient
+
+              const meta = chart.getDatasetMeta(0);
+
+              // Set the gradient as the fill below the line
+              ctx.save();
+              ctx.fillStyle = gradient;
+              ctx.beginPath();
+              ctx.moveTo(meta.data[0].x, meta.data[0].y);
+
+              // Draw the line
+              meta.data.forEach((point, index) => {
+                if (index === 0) {
+                  ctx.moveTo(point.x, point.y);
+                } else {
+                  ctx.lineTo(point.x, point.y);
+                }
+              });
+
+              ctx.lineTo(meta.data[meta.data.length - 1].x, chart.chartArea.bottom);
+              ctx.lineTo(meta.data[0].x, chart.chartArea.bottom);
+              ctx.closePath();
+              ctx.fill();
+              ctx.restore();
+            },
+          },
+        ],
       });
     } else if (chartInstance.current) {
-      // Update the chart with new data without re-instantiating
       chartInstance.current.data = {
-        labels: data.labels,
+        labels: data.labels, // Update x-axis labels (years)
         datasets: [
           {
             ...chartInstance.current.data.datasets[0],
@@ -128,7 +142,7 @@ const LineChart = ({ data }) => {
   }, [data]);
 
   return (
-    <div style={{ width: "80%", height: "400px", margin: "0 auto", backgroundColor: "#ffffff" }}>
+    <div style={{ width: "100%", height: "400px", margin: "0 auto", backgroundColor: "#ffffff" }}>
       <canvas ref={chartContainer}></canvas>
     </div>
   );

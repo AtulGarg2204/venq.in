@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import '@fortawesome/fontawesome-free/css/all.css';
+
 import Dummy from "./components/dashboard/property/Dummy";
 import AddContentPopup from "./components/AdminForm/Popup";
 import YourMainComponent from "./components/AdminForm/Main";

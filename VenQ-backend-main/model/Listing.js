@@ -176,7 +176,10 @@ const ListingSchema = new mongoose.Schema({
     },
     monthlyChange: {
         type: String, // Field for monthly change percentage
-    }
+    },
+    rera: {
+        type: String, // Field for RERA registration number
+    },
 });
 
 // Export the Listing model
